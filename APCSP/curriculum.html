@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Computer Science A ('25-'26)</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/textbook-style.css">
     <style>
         /* Collapsible styles */
@@ -125,7 +124,7 @@
                     <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
                         <li style="margin: 0.3rem 0; display: flex; align-items: center;">
                             <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD</span>
-                            <span style="margin-left: 0.5rem;"><a href="modularity.html" style="color: inherit; text-decoration: none; color: #007bff; font-weight: bold;">Modularity <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></a></span>
+                            <span style="margin-left: 0.5rem;">Modularity</span>
                         </li>
                         <li style="margin: 0.3rem 0; display: flex; align-items: center;">
                             <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR</span>
@@ -162,7 +161,7 @@
                     <h3>Curriculum Standards</h3>
                     <ul>
                         <li>The unit will take approximately 8 to 10 class periods to complete.</li>
-                        <li>This part of the curriculum contributes to a <code class="code-keyword">2.5%</code> to <code class="code-keyword">5%</code> weight in the AP exam.</li>
+                        <li>This part of the curriculum contributes to a 2.5% to 5% weight in the AP exam.</li>
                     </ul>
                 </div>
             </div>
@@ -319,28 +318,25 @@
             </div>
         </section>
         <section class="unit" id="unit-2">
-            <h2>Unit 2 - Using Objects</h2>
+            <h2>Unit 2 - Selection and Iteration</h2>
             <button type="button" class="collapsible">Show/Hide Unit Content</button>
             <div class="collapsible-content">
             <div class="curriculum-section" style="display: flex; justify-content: space-between;">
                 <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                     <h3>Learning Objectives</h3>
                     <ul>
-                        <li>Understand the concept of objects as instances of classes.</li>
-                        <li>Learn how to create and store objects (instantiation).</li>
-                        <li>Master the process of calling void methods.</li>
-                        <li>Practice calling void methods with parameters.</li>
-                        <li>Learn to call non-void methods.</li>
-                        <li>Explore string objects, including concatenation, literals, and more string methods.</li>
-                        <li>Study wrapper classes for Integer and Double.</li>
-                        <li>Utilize the Math class for various mathematical operations.</li>
+                        <li>Understand the reasons for programming and why Java is chosen as the teaching language.</li>
+                        <li>Learn about variables and data types.</li>
+                        <li>Understand the role of expressions and assignment statements.</li>
+                        <li>Master the use of compound assignment operators.</li>
+                        <li>Understand the ranges and type casting of variables.</li>
                     </ul>
                 </div>
                 <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                     <h3>Curriculum Standards</h3>
                     <ul>
-                        <li>The unit will take approximately 13 to 15 class periods to complete.</li>
-                        <li>This part of the curriculum contributes to a <code class="code-keyword">5%</code> to <code class="code-keyword">7.5%</code> weight in the AP exam.</li>
+                        <li>The unit will take approximately 8 to 10 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a 2.5% to 5% weight in the AP exam.</li>
                     </ul>
                 </div>
             </div>
@@ -348,123 +344,42 @@
                 <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                     <h3>Guiding Questions</h3>
                     <ul>
-                        <li>What is the difference between a class and an object?</li>
-                        <li>Why is it important to store objects in variables?</li>
-                        <li>What is a void method, and why are they useful?</li>
-                        <li>What is the purpose of passing parameters to a void method?</li>
-                        <li>What distinguishes a non-void method from a void method?</li>
-                        <li>Explain the concept of string concatenation and provide an example.</li>
-                        <li>What are wrapper classes, and why are they used?</li>
-                        <li>What methods are commonly found in the Math class in Java?</li>
+                        <li>Why is Java chosen as the primary language for teaching in AP Computer Science A?</li>
+                        <li>What are variables, and how do they store data?</li>
+                        <li>What are the different data types in Java, and when should each be used?</li>
+                        <li>How do assignment statements assign values to variables?</li>
+                        <li>Provide examples of common compound assignment operators.</li>
+                        <li>What is type casting, and why is it necessary?</li>
                     </ul>
                 </div>
                 <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                     <h3>Key Concepts</h3>
                     <ul>
-                        <li><code class="code-keyword">Class</code>: A blueprint or template that defines the properties (fields) and behaviors (methods) of objects.</li>
-                        <li><code class="code-keyword">Object</code>: An instance of a class, which is a specific entity that has its own state and behavior.</li>
-                        <li><code class="code-keyword">Instantiation</code>: The process of creating an object from a class using a constructor.</li>
-                        <li><code class="code-keyword">Variables</code>: Stores references to objects, allowing you to manipulate them.</li>
-                        <li><code class="code-keyword">Parameters</code>: Values passed to a method during its execution.</li>
-                        <li><code class="code-keyword">Constructor</code>:  A special method used to initialize a newly created object when it is instantiated.</li>
-                        <li><code class="code-keyword">Return Value</code>: The result produced by the method, which can be used in further computations.</li>
+                        <li>Reasons for choosing Java: platform independence, robustness, large community support.</li>
+                        <li>Data types in Java: primitive types (<code class="code-keyword">int</code>,
+                            <code class="code-keyword">double</code>,
+                            <code class="code-keyword">boolean</code>, etc.), reference types (objects).</li>
+                        <li>Importance of data types: ensuring correct data handling and preventing errors.</li>
+                        <li>Common operators: arithmetic 
+                            <code class="code-keyword">(+, -, *, /)</code>, relational 
+                            <code class="code-keyword">(<, >, ==, !=)</code>, logical
+                            <code class="code-keyword">(&&, ||, !)</code> .</li>
+                        <li>Type casting: converting one data type to another.</li>
                     </ul>
                 </div>
             </div>
             <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
                 <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                    <h3>Common String Methods</h3>
-                    <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr style="background-color: #0056b3; color: white;">
-                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Method</th>
-                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>length()</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Returns the number of characters in the string</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>charAt(int index)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Returns the character at the specified index</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>substring(int start, int end)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Returns part of the string</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>toUpperCase()</code> / <code>toLowerCase()</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Converts case</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>equals(String other)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Compares two strings for equality</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>indexOf(char c)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Finds the first occurrence of a character</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                    <h3>Common Math Methods</h3>
-                    <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr style="background-color: #0056b3; color: white;">
-                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Method</th>
-                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>Math.sqrt(x)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Square root</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>Math.pow(x, y)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">x raised to the power of y</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>Math.abs(x)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Absolute value</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>Math.max(x, y)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Returns the greater of two values</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #ddd;">
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>Math.min(x, y)</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Returns the smaller of two values</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 8px; border: 1px solid #ddd;"><code>Math.random()</code></td>
-                                    <td style="padding: 8px; border: 1px solid #ddd;">Returns a random double between 0.0 and 1.0</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
-                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-                    <h3>Assessments</h3>
-                    <h4>Formative Assessments</h4>
+                    <h3>Key Vocabulary</h3>
                     <ul>
-                        <li>Quizzes</li>
-                        <li>Homework</li>
-                        <li>Coding Exercises</li>
-                        <li>Group Discussions</li>
-                    </ul>
-                    <h4>Summative Assessments</h4>
-                    <ul>
-                        <li>Unit Test</li>
-                        <li>Project</li>
+                        <li><strong>Variable:</strong> A named storage location that holds a value.</li>
+                        <li><strong>Data Type:</strong> A classification that defines the type of data a variable can hold.</li>
+                        <li><strong>Primitive Data Types:</strong> Basic data types in Java, such as 
+                            <code class="code-keyword">int</code>, 
+                            <code class="code-keyword">double</code>, 
+                            <code class="code-keyword">boolean</code>, etc.</li>
+                        <li><strong>Reference Data Types:</strong> Data types that refer to objects, such as 
+                            <code class="code-keyword">String</code> or custom classes.</li>
                     </ul>
                 </div>
                 <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
@@ -491,6 +406,52 @@
                             <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
                         </li>
                     </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Tools and Platforms</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                <img src="images/AP.jpg" alt="JDK" style="width: 128px; height: 64px;">
+                                <span style="margin-top: 5px;">AP Classroom</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/JDK.png" alt="JDK" style="width: 64px; height: 64px;">
+                            <span style="margin-top: 5px;">JDK</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Eclipse.png" alt="Eclipse" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Eclipse</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/InteliJ.jpg" alt="IntelliJ" style="width: 108px; height: 64px;">
+                            <span style="margin-top: 5px;">IntelliJ</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/VScode.png" alt="VS Code" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">VS Code</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Sublime.png" alt="Sublime Text" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Sublime</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="curriculum-section" style="margin-top: 30px;">
