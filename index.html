@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Cosmic Journey</title>
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/black.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Canvas for the starfield background -->
+    <canvas id="starfield"></canvas>
+    
+    <!-- Main content using Reveal.js -->
+    <div class="reveal">
+        <div class="slides">
+            <section data-background-opacity="0.3">
+                <h1>Welcome to GHA</h1>
+                <h3>Explore our courses</h3>
+                <p class="fragment fade-up">Begin your science adventure</p>
+            </section>
+            
+            <section data-background-opacity="0.3">
+                <h2 class="computer-science-title">Computer Science</h2>
+                <div style="height: 10vh;"></div>
+                <div class="code-container">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-button"></span>
+                            <span class="terminal-button"></span>
+                            <span class="terminal-button"></span>
+                            <span class="terminal-title">root@matrix:~#</span>
+                        </div>
+                        <div class="terminal-content">
+                            <p class="response fragment fade-up"><a href="APCSA/syllabus.html" class="terminal-link">AP Computer Science A</a></p>
+                            <p class="response fragment fade-up"><a href="https://apstudents.collegeboard.org/courses/ap-computer-science-principles" target="_blank" class="terminal-link">AP Computer Science Principles</a></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section data-background-opacity="0.3">
+                <h2>Physics</h2>
+                <ul style="font-size: min(0.7em, 3vw);">
+                    <li class="fragment fade-in"><a href="https://apstudents.collegeboard.org/courses/physical-science" target="_blank" class="physics-link">Physical Science</a></li>
+                    <li class="fragment fade-in"><a href="https://apstudents.collegeboard.org/courses/pre-ap-physics" target="_blank" class="physics-link">Pre AP Physics</a></li>
+                    <li class="fragment fade-in"><a href="https://apstudents.collegeboard.org/courses/ap-physics-1" target="_blank" class="physics-link">AP Physics 1</a></li>
+                    <li class="fragment fade-in"><a href="https://apstudents.collegeboard.org/courses/ap-physics-2" target="_blank" class="physics-link">AP Physics 2</a></li>
+                    <li class="fragment fade-in"><a href="https://apstudents.collegeboard.org/courses/ap-physics-c" target="_blank" class="physics-link">AP Physics C</a></li>
+                </ul>
+            </section>
+            
+            <section data-background-opacity="0.3">
+                <h2>To Continue</h2>
+                <p class="fragment fade-up" style="font-style: italic; opacity: 0.8; font-size: min(1.2em, 3.5vw);">This section will be completed in the future...</p>
+                <div class="planet-container fragment fade-in">
+                    <div class="planet"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="js/starfield.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/matrix-code.js"></script>
+    <script src="js/em-waves.js"></script>
+    <script src="js/mobius-strip.js"></script>
+    <script src="js/klein-bottle.js"></script>
+</body>
+</html>
