@@ -6,6 +6,38 @@
     <title>Computer Science A ('25-'26)</title>
     <link rel="stylesheet" href="css/textbook-style.css">
     <style>
+        /* Collapsible styles */
+        .collapsible {
+            background-color: #0056b3;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1em;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        .active:after {
+            content: '\2212';
+        }
+        .collapsible-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+        }
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -112,6 +144,8 @@
         </section>
         <section class="unit" id="unit-1">
             <h2>Unit 1 - Primitive Types</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
             <div class="curriculum-section" style="display: flex; justify-content: space-between;">
                 <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
                     <h3>Learning Objectives</h3>
@@ -281,26 +315,726 @@
                     </div>
                 </div>
             </div>
+            </div>
         </section>
         <section class="unit" id="unit-2">
             <h2>Unit 2 - Selection and Iteration</h2>
-            <!-- Unit 2 content -->
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the reasons for programming and why Java is chosen as the teaching language.</li>
+                        <li>Learn about variables and data types.</li>
+                        <li>Understand the role of expressions and assignment statements.</li>
+                        <li>Master the use of compound assignment operators.</li>
+                        <li>Understand the ranges and type casting of variables.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 8 to 10 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a 2.5% to 5% weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>Why is Java chosen as the primary language for teaching in AP Computer Science A?</li>
+                        <li>What are variables, and how do they store data?</li>
+                        <li>What are the different data types in Java, and when should each be used?</li>
+                        <li>How do assignment statements assign values to variables?</li>
+                        <li>Provide examples of common compound assignment operators.</li>
+                        <li>What is type casting, and why is it necessary?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li>Reasons for choosing Java: platform independence, robustness, large community support.</li>
+                        <li>Data types in Java: primitive types (<code class="code-keyword">int</code>,
+                            <code class="code-keyword">double</code>,
+                            <code class="code-keyword">boolean</code>, etc.), reference types (objects).</li>
+                        <li>Importance of data types: ensuring correct data handling and preventing errors.</li>
+                        <li>Common operators: arithmetic 
+                            <code class="code-keyword">(+, -, *, /)</code>, relational 
+                            <code class="code-keyword">(<, >, ==, !=)</code>, logical
+                            <code class="code-keyword">(&&, ||, !)</code> .</li>
+                        <li>Type casting: converting one data type to another.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Variable:</strong> A named storage location that holds a value.</li>
+                        <li><strong>Data Type:</strong> A classification that defines the type of data a variable can hold.</li>
+                        <li><strong>Primitive Data Types:</strong> Basic data types in Java, such as 
+                            <code class="code-keyword">int</code>, 
+                            <code class="code-keyword">double</code>, 
+                            <code class="code-keyword">boolean</code>, etc.</li>
+                        <li><strong>Reference Data Types:</strong> Data types that refer to objects, such as 
+                            <code class="code-keyword">String</code> or custom classes.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Why Programming? Why Java?</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR4</span>
+                        </li>
+                        <li><strong>Variables and Data Types</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR 1</span>
+                        </li>
+                        <li><strong>Expressions and Assignment Statements</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                        </li>
+                        <li><strong>Compound Assignment Operators</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                        <li><strong>Casting and Ranges of Variables</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Tools and Platforms</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                <img src="images/AP.jpg" alt="JDK" style="width: 128px; height: 64px;">
+                                <span style="margin-top: 5px;">AP Classroom</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/JDK.png" alt="JDK" style="width: 64px; height: 64px;">
+                            <span style="margin-top: 5px;">JDK</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Eclipse.png" alt="Eclipse" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Eclipse</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/InteliJ.jpg" alt="IntelliJ" style="width: 108px; height: 64px;">
+                            <span style="margin-top: 5px;">IntelliJ</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/VScode.png" alt="VS Code" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">VS Code</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Sublime.png" alt="Sublime Text" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Sublime</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 1 (Sep1 - Sep 7)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 1.1 Introduction, Variables and Data Types</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to Programming and Java</li>
+                                <li style="margin: 0.3rem 0;">Variables and Data Types</li>
+                                <li style="margin: 0.3rem 0;">Expressions and Assignment Statements</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 2 (Sep8 - Sep 14)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 1.2 Expressions, Operators, Casting and Ranges of Variables</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Compound Assignment Operators</li>
+                                <li style="margin: 0.3rem 0;">Casting and Ranges of Variables</li>
+                                <li style="margin: 0.3rem 0;">Review and Practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </section>
         <section class="unit" id="unit-3">
             <h2>Unit 3 - Class Creation</h2>
-            <!-- Unit 3 content -->
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the reasons for programming and why Java is chosen as the teaching language.</li>
+                        <li>Learn about variables and data types.</li>
+                        <li>Understand the role of expressions and assignment statements.</li>
+                        <li>Master the use of compound assignment operators.</li>
+                        <li>Understand the ranges and type casting of variables.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 8 to 10 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a 2.5% to 5% weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>Why is Java chosen as the primary language for teaching in AP Computer Science A?</li>
+                        <li>What are variables, and how do they store data?</li>
+                        <li>What are the different data types in Java, and when should each be used?</li>
+                        <li>How do assignment statements assign values to variables?</li>
+                        <li>Provide examples of common compound assignment operators.</li>
+                        <li>What is type casting, and why is it necessary?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li>Reasons for choosing Java: platform independence, robustness, large community support.</li>
+                        <li>Data types in Java: primitive types (<code class="code-keyword">int</code>,
+                            <code class="code-keyword">double</code>,
+                            <code class="code-keyword">boolean</code>, etc.), reference types (objects).</li>
+                        <li>Importance of data types: ensuring correct data handling and preventing errors.</li>
+                        <li>Common operators: arithmetic 
+                            <code class="code-keyword">(+, -, *, /)</code>, relational 
+                            <code class="code-keyword">(<, >, ==, !=)</code>, logical
+                            <code class="code-keyword">(&&, ||, !)</code> .</li>
+                        <li>Type casting: converting one data type to another.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Variable:</strong> A named storage location that holds a value.</li>
+                        <li><strong>Data Type:</strong> A classification that defines the type of data a variable can hold.</li>
+                        <li><strong>Primitive Data Types:</strong> Basic data types in Java, such as 
+                            <code class="code-keyword">int</code>, 
+                            <code class="code-keyword">double</code>, 
+                            <code class="code-keyword">boolean</code>, etc.</li>
+                        <li><strong>Reference Data Types:</strong> Data types that refer to objects, such as 
+                            <code class="code-keyword">String</code> or custom classes.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Why Programming? Why Java?</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR4</span>
+                        </li>
+                        <li><strong>Variables and Data Types</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR 1</span>
+                        </li>
+                        <li><strong>Expressions and Assignment Statements</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                        </li>
+                        <li><strong>Compound Assignment Operators</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                        <li><strong>Casting and Ranges of Variables</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Tools and Platforms</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                <img src="images/AP.jpg" alt="JDK" style="width: 128px; height: 64px;">
+                                <span style="margin-top: 5px;">AP Classroom</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/JDK.png" alt="JDK" style="width: 64px; height: 64px;">
+                            <span style="margin-top: 5px;">JDK</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Eclipse.png" alt="Eclipse" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Eclipse</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/InteliJ.jpg" alt="IntelliJ" style="width: 108px; height: 64px;">
+                            <span style="margin-top: 5px;">IntelliJ</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/VScode.png" alt="VS Code" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">VS Code</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Sublime.png" alt="Sublime Text" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Sublime</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 1 (Sep1 - Sep 7)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 1.1 Introduction, Variables and Data Types</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to Programming and Java</li>
+                                <li style="margin: 0.3rem 0;">Variables and Data Types</li>
+                                <li style="margin: 0.3rem 0;">Expressions and Assignment Statements</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 2 (Sep8 - Sep 14)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 1.2 Expressions, Operators, Casting and Ranges of Variables</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Compound Assignment Operators</li>
+                                <li style="margin: 0.3rem 0;">Casting and Ranges of Variables</li>
+                                <li style="margin: 0.3rem 0;">Review and Practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </section>
         <section class="unit" id="unit-4">
             <h2>Unit 4 - Data Collections</h2>
-            <!-- Unit 4 content -->
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the reasons for programming and why Java is chosen as the teaching language.</li>
+                        <li>Learn about variables and data types.</li>
+                        <li>Understand the role of expressions and assignment statements.</li>
+                        <li>Master the use of compound assignment operators.</li>
+                        <li>Understand the ranges and type casting of variables.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 8 to 10 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a 2.5% to 5% weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>Why is Java chosen as the primary language for teaching in AP Computer Science A?</li>
+                        <li>What are variables, and how do they store data?</li>
+                        <li>What are the different data types in Java, and when should each be used?</li>
+                        <li>How do assignment statements assign values to variables?</li>
+                        <li>Provide examples of common compound assignment operators.</li>
+                        <li>What is type casting, and why is it necessary?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li>Reasons for choosing Java: platform independence, robustness, large community support.</li>
+                        <li>Data types in Java: primitive types (<code class="code-keyword">int</code>,
+                            <code class="code-keyword">double</code>,
+                            <code class="code-keyword">boolean</code>, etc.), reference types (objects).</li>
+                        <li>Importance of data types: ensuring correct data handling and preventing errors.</li>
+                        <li>Common operators: arithmetic 
+                            <code class="code-keyword">(+, -, *, /)</code>, relational 
+                            <code class="code-keyword">(<, >, ==, !=)</code>, logical
+                            <code class="code-keyword">(&&, ||, !)</code> .</li>
+                        <li>Type casting: converting one data type to another.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Variable:</strong> A named storage location that holds a value.</li>
+                        <li><strong>Data Type:</strong> A classification that defines the type of data a variable can hold.</li>
+                        <li><strong>Primitive Data Types:</strong> Basic data types in Java, such as 
+                            <code class="code-keyword">int</code>, 
+                            <code class="code-keyword">double</code>, 
+                            <code class="code-keyword">boolean</code>, etc.</li>
+                        <li><strong>Reference Data Types:</strong> Data types that refer to objects, such as 
+                            <code class="code-keyword">String</code> or custom classes.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Why Programming? Why Java?</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR4</span>
+                        </li>
+                        <li><strong>Variables and Data Types</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR 1</span>
+                        </li>
+                        <li><strong>Expressions and Assignment Statements</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                        </li>
+                        <li><strong>Compound Assignment Operators</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                        <li><strong>Casting and Ranges of Variables</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Tools and Platforms</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                <img src="images/AP.jpg" alt="JDK" style="width: 128px; height: 64px;">
+                                <span style="margin-top: 5px;">AP Classroom</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/JDK.png" alt="JDK" style="width: 64px; height: 64px;">
+                            <span style="margin-top: 5px;">JDK</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Eclipse.png" alt="Eclipse" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Eclipse</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/InteliJ.jpg" alt="IntelliJ" style="width: 108px; height: 64px;">
+                            <span style="margin-top: 5px;">IntelliJ</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/VScode.png" alt="VS Code" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">VS Code</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Sublime.png" alt="Sublime Text" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Sublime</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 1 (Sep1 - Sep 7)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 1.1 Introduction, Variables and Data Types</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to Programming and Java</li>
+                                <li style="margin: 0.3rem 0;">Variables and Data Types</li>
+                                <li style="margin: 0.3rem 0;">Expressions and Assignment Statements</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 2 (Sep8 - Sep 14)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 1.2 Expressions, Operators, Casting and Ranges of Variables</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Compound Assignment Operators</li>
+                                <li style="margin: 0.3rem 0;">Casting and Ranges of Variables</li>
+                                <li style="margin: 0.3rem 0;">Review and Practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </section>
         <section class="unit" id="unit-5">
             <h2>Unit 5 - AP Exam Review and Practice</h2>
-            <!-- Unit 5 content -->
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the reasons for programming and why Java is chosen as the teaching language.</li>
+                        <li>Learn about variables and data types.</li>
+                        <li>Understand the role of expressions and assignment statements.</li>
+                        <li>Master the use of compound assignment operators.</li>
+                        <li>Understand the ranges and type casting of variables.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 8 to 10 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a 2.5% to 5% weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>Why is Java chosen as the primary language for teaching in AP Computer Science A?</li>
+                        <li>What are variables, and how do they store data?</li>
+                        <li>What are the different data types in Java, and when should each be used?</li>
+                        <li>How do assignment statements assign values to variables?</li>
+                        <li>Provide examples of common compound assignment operators.</li>
+                        <li>What is type casting, and why is it necessary?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li>Reasons for choosing Java: platform independence, robustness, large community support.</li>
+                        <li>Data types in Java: primitive types (<code class="code-keyword">int</code>,
+                            <code class="code-keyword">double</code>,
+                            <code class="code-keyword">boolean</code>, etc.), reference types (objects).</li>
+                        <li>Importance of data types: ensuring correct data handling and preventing errors.</li>
+                        <li>Common operators: arithmetic 
+                            <code class="code-keyword">(+, -, *, /)</code>, relational 
+                            <code class="code-keyword">(<, >, ==, !=)</code>, logical
+                            <code class="code-keyword">(&&, ||, !)</code> .</li>
+                        <li>Type casting: converting one data type to another.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Variable:</strong> A named storage location that holds a value.</li>
+                        <li><strong>Data Type:</strong> A classification that defines the type of data a variable can hold.</li>
+                        <li><strong>Primitive Data Types:</strong> Basic data types in Java, such as 
+                            <code class="code-keyword">int</code>, 
+                            <code class="code-keyword">double</code>, 
+                            <code class="code-keyword">boolean</code>, etc.</li>
+                        <li><strong>Reference Data Types:</strong> Data types that refer to objects, such as 
+                            <code class="code-keyword">String</code> or custom classes.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Why Programming? Why Java?</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR4</span>
+                        </li>
+                        <li><strong>Variables and Data Types</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR 1</span>
+                        </li>
+                        <li><strong>Expressions and Assignment Statements</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                        </li>
+                        <li><strong>Compound Assignment Operators</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                        <li><strong>Casting and Ranges of Variables</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Tools and Platforms</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                <img src="images/AP.jpg" alt="JDK" style="width: 128px; height: 64px;">
+                                <span style="margin-top: 5px;">AP Classroom</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/JDK.png" alt="JDK" style="width: 64px; height: 64px;">
+                            <span style="margin-top: 5px;">JDK</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Eclipse.png" alt="Eclipse" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Eclipse</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/InteliJ.jpg" alt="IntelliJ" style="width: 108px; height: 64px;">
+                            <span style="margin-top: 5px;">IntelliJ</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/VScode.png" alt="VS Code" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">VS Code</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <img src="images/Sublime.png" alt="Sublime Text" style="width: 128px; height: 64px;">
+                            <span style="margin-top: 5px;">Sublime</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 1 (Sep1 - Sep 7)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 1.1 Introduction, Variables and Data Types</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to Programming and Java</li>
+                                <li style="margin: 0.3rem 0;">Variables and Data Types</li>
+                                <li style="margin: 0.3rem 0;">Expressions and Assignment Statements</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 2 (Sep8 - Sep 14)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 1.2 Expressions, Operators, Casting and Ranges of Variables</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Compound Assignment Operators</li>
+                                <li style="margin: 0.3rem 0;">Casting and Ranges of Variables</li>
+                                <li style="margin: 0.3rem 0;">Review and Practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </section>
     </main>
     <footer>
         <!-- Footer content -->
     </footer>
+    <script>
+        // Collapsible functionality
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } 
+            });
+        }
+    </script>
 </body>
 </html>
