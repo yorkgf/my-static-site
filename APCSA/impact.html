@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact of Computing Video</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #video-container {
+            width: 100%;
+            max-width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        iframe {
+            width: 100%;
+            height: 56.25vw; /* 16:9 aspect ratio */
+            max-height: calc(100vh - 40px);
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <iframe src="https://www.youtube.com/embed/52HZEKXm4k8?si=2BpwY_MxyAWveUD1" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen></iframe>
+    </div>
+
+    <script>
+        // Additional dynamic resizing for better responsiveness
+        function resizeVideo() {
+            const iframe = document.querySelector('iframe');
+            const container = document.getElementById('video-container');
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Calculate optimal dimensions while maintaining 16:9 aspect ratio
+            if (windowWidth / windowHeight > 16/9) {
+                // Window is wider than 16:9
+                iframe.style.height = 'calc(100vh - 40px)';
+                iframe.style.width = 'calc((100vh - 40px) * 16/9)';
+            } else {
+                // Window is taller than 16:9
+                iframe.style.width = '100%';
+                iframe.style.height = 'calc(100vw * 9/16)';
+            }
+        }
+
+        // Initial resize
+        resizeVideo();
+        
+        // Resize on window change
+        window.addEventListener('resize', resizeVideo);
+    </script>
+</body>
+</html>
