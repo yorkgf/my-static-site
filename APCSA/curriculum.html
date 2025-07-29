@@ -941,6 +941,1064 @@
             </div>
             </div>
         </section>
+        <section class="unit" id="unit-5">
+            <h2>Unit 5 - Writing Classes</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Design and create classes with appropriate instance variables and methods.</li>
+                        <li>Understand and implement constructors to initialize objects.</li>
+                        <li>Use access modifiers (<code class="code-keyword">public</code>, <code class="code-keyword">private</code>) to control access to class members.</li>
+                        <li>Distinguish between static and instance methods and variables.</li>
+                        <li>Use the <code class="code-keyword">this</code> keyword to reference the current object.</li>
+                        <li>Implement method overloading to provide multiple methods with the same name but different parameters.</li>
+                        <li>Apply encapsulation principles to create well-designed classes.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 12 to 14 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a <code class="code-keyword">5%</code> to <code class="code-keyword">7.5%</code> weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What is a class, and how does it differ from an object?</li>
+                        <li>Why is it important to design classes with appropriate instance variables and methods?</li>
+                        <li>What is the purpose of a constructor, and when is it called?</li>
+                        <li>How do access modifiers control access to class members?</li>
+                        <li>When should you use static versus instance methods and variables?</li>
+                        <li>How does the <code class="code-keyword">this</code> keyword help in class implementation?</li>
+                        <li>What is method overloading, and when is it useful?</li>
+                        <li>How does encapsulation improve class design?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Class Design</code>: 
+                            Creating well-structured classes that encapsulate related data and behavior.</li>
+                        <li><code class="code-keyword">Instance Variables</code>: 
+                            Variables that belong to an instance of a class and hold the object's state.</li>
+                        <li><code class="code-keyword">Instance Methods</code>: 
+                            Methods that operate on an instance of a class and can access instance variables.</li>
+                        <li><code class="code-keyword">Constructors</code>: 
+                            Special methods used to initialize objects when they are created.</li>
+                        <li><code class="code-keyword">Access Modifiers</code>: 
+                            Keywords that control the visibility and accessibility of class members:
+                            <ul>
+                                <li><code class="code-keyword">public</code>: Accessible from anywhere</li>
+                                <li><code class="code-keyword">private</code>: Accessible only within the same class</li>
+                            </ul>
+                        </li>
+                        <li><code class="code-keyword">Static Members</code>: 
+                            Members that belong to the class itself rather than to any specific instance.</li>
+                        <li><code class="code-keyword">this Keyword</code>: 
+                            A reference to the current object instance, used to distinguish between instance variables and parameters.</li>
+                        <li><code class="code-keyword">Method Overloading</code>: 
+                            Having multiple methods with the same name but different parameter lists.</li>
+                        <li><code class="code-keyword">Encapsulation</code>: 
+                            The practice of hiding internal details and providing controlled access through public methods.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Access Modifiers</h3>
+                    <ul>
+                        <li><code class="code-keyword">public</code>: 
+                            Members are accessible from any class.</li>
+                        <li><code class="code-keyword">private</code>: 
+                            Members are accessible only within the same class.</li>
+                        <li><code class="code-keyword">Default (no modifier)</code>: 
+                            Members are accessible within the same package (package-private).</li>
+                    </ul>
+                    <h3>Constructor Types</h3>
+                    <ul>
+                        <li><code class="code-keyword">Default Constructor</code>: 
+                            No-argument constructor automatically provided if no constructors are defined.</li>
+                        <li><code class="code-keyword">Parameterized Constructor</code>: 
+                            Constructor that takes parameters to initialize object state.</li>
+                        <li><code class="code-keyword">Constructor Overloading</code>: 
+                            Multiple constructors with different parameter lists.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Class Design</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD3</span>
+                        </li>
+                        <li><strong>Constructors</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD3</span>
+                        </li>
+                        <li><strong>Accessor and Mutator Methods</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD3</span>
+                        </li>
+                        <li><strong>Static Variables and Methods</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD2</span>
+                        </li>
+                        <li><strong>Scope and Access</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR3</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR5</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Forgetting Access Modifiers</h4>
+                    <ul>
+                        <li>Not making instance variables private, leading to direct access and potential data corruption.</li>
+                        <li>Not providing appropriate access methods (getters/setters).</li>
+                    </ul>
+                    <h4>Constructor Issues</h4>
+                    <ul>
+                        <li>Forgetting to initialize all instance variables in constructors.</li>
+                        <li>Confusing constructor parameters with instance variables (not using <code class="code-keyword">this</code>).</li>
+                    </ul>
+                    <h4>this Keyword Misuse</h4>
+                    <ul>
+                        <li>Incorrectly using or forgetting the <code class="code-keyword">this</code> keyword in constructors and methods.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 13 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 13 (Nov 24 - Nov 30)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 5.1</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to Class Design</li>
+                                <li style="margin: 0.3rem 0;">Instance Variables and Methods</li>
+                                <li style="margin: 0.3rem 0;">Access Modifiers: public and private</li>
+                                <li style="margin: 0.3rem 0;">Constructors and Initialization</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 14 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 14 (Dec 1 - Dec 7)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 5.2</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">  
+                                <li style="margin: 0.3rem 0;">The this Keyword</li>
+                                <li style="margin: 0.3rem 0;">Accessor and Mutator Methods</li>
+                                <li style="margin: 0.3rem 0;">Static Variables and Methods</li>
+                                <li style="margin: 0.3rem 0;">Method Overloading</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="unit" id="unit-6">
+            <h2>Unit 6 - Array</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the concept of arrays as data structures for storing multiple values of the same type.</li>
+                        <li>Create and initialize one-dimensional arrays in Java.</li>
+                        <li>Access and modify array elements using indices.</li>
+                        <li>Traverse arrays using loops to process all elements.</li>
+                        <li>Apply common array algorithms such as finding maximum/minimum values, searching, and sorting.</li>
+                        <li>Understand and handle ArrayIndexOutOfBoundsException errors.</li>
+                        <li>Work with arrays of objects and understand reference vs. primitive arrays.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 10 to 12 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a <code class="code-keyword">10%</code> to <code class="code-keyword">15%</code> weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What is an array, and why are arrays useful in programming?</li>
+                        <li>How do you declare, create, and initialize an array in Java?</li>
+                        <li>How do array indices work, and what is the range of valid indices?</li>
+                        <li>What happens if you try to access an array element outside its bounds?</li>
+                        <li>How can you traverse an array to process all its elements?</li>
+                        <li>What are some common algorithms used with arrays?</li>
+                        <li>How do arrays of objects differ from arrays of primitive types?</li>
+                        <li>What is the difference between array length and the value stored at an index?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Array</code>: 
+                            A data structure that stores a fixed-size sequential collection of elements of the same type.</li>
+                        <li><code class="code-keyword">Index</code>: 
+                            A numerical value used to access specific elements in an array, starting from 0.</li>
+                        <li><code class="code-keyword">Array Declaration</code>: 
+                            Creating a reference variable for an array using syntax like <code class="code-keyword">int[] numbers;</code>.</li>
+                        <li><code class="code-keyword">Array Creation</code>: 
+                            Allocating memory for array elements using <code class="code-keyword">new</code> keyword.</li>
+                        <li><code class="code-keyword">Array Initialization</code>: 
+                            Assigning initial values to array elements either during creation or separately.</li>
+                        <li><code class="code-keyword">Array Traversal</code>: 
+                            Processing all elements in an array using loops, typically for or enhanced for loops.</li>
+                        <li><code class="code-keyword">Array Algorithms</code>: 
+                            Common operations such as searching, sorting, finding maximum/minimum, and summing elements.</li>
+                        <li><code class="code-keyword">Array Bounds</code>: 
+                            Valid indices range from 0 to <code class="code-keyword">length - 1</code>; accessing outside this range causes <code class="code-keyword">ArrayIndexOutOfBoundsException</code>.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Array Operations</h3>
+                    <h4>Declaration and Creation</h4>
+                    <ul>
+                        <li><code class="code-keyword">int[] numbers = new int[10];</code> - Create array of 10 integers</li>
+                        <li><code class="code-keyword">String[] names = new String[5];</code> - Create array of 5 strings</li>
+                        <li><code class="code-keyword">double[] values = {1.5, 2.7, 3.9};</code> - Initialize with values</li>
+                    </ul>
+                    <h4>Accessing Elements</h4>
+                    <ul>
+                        <li><code class="code-keyword">numbers[0] = 42;</code> - Assign value to first element</li>
+                        <li><code class="code-keyword">int first = numbers[0];</code> - Get value of first element</li>
+                        <li><code class="code-keyword">int length = numbers.length;</code> - Get array length</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Array Creation and Initialization</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR3</span>
+                        </li>
+                        <li><strong>Array Traversal and Processing</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                        </li>
+                        <li><strong>Standard Array Algorithms</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON4</span>
+                        </li>
+                        <li><strong>Array Exceptions and Error Handling</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON4</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Array Index Errors</h4>
+                    <ul>
+                        <li>Accessing elements at negative indices or indices >= array length.</li>
+                        <li>Forgetting that array indices start at 0, not 1.</li>
+                        <li>Using <code class="code-keyword">array.length</code> as a valid index (should be <code class="code-keyword">array.length - 1</code>).</li>
+                    </ul>
+                    <h4>Initialization Issues</h4>
+                    <ul>
+                        <li>Forgetting to initialize array elements before using them.</li>
+                        <li>Confusing array length with the values stored in the array.</li>
+                        <li>Not understanding that object arrays store references, not actual objects.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 17 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 17 (Dec 22 - Dec 28)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 6.1</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to Arrays</li>
+                                <li style="margin: 0.3rem 0;">Array Declaration, Creation, and Initialization</li>
+                                <li style="margin: 0.3rem 0;">Accessing Array Elements</li>
+                                <li style="margin: 0.3rem 0;">Array Length and Bounds</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 18 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 18 (Dec 29 - Jan 4)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 6.2</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Array Traversal with Loops</li>
+                                <li style="margin: 0.3rem 0;">Common Array Algorithms</li>
+                                <li style="margin: 0.3rem 0;">Arrays of Objects</li>
+                                <li style="margin: 0.3rem 0;">Review and Practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="unit" id="unit-7">
+            <h2>Unit 7 - ArrayList</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the differences between arrays and ArrayLists in Java.</li>
+                        <li>Create and initialize ArrayList objects with appropriate generic types.</li>
+                        <li>Use common ArrayList methods to add, remove, and access elements.</li>
+                        <li>Traverse ArrayLists using loops and iterators.</li>
+                        <li>Apply ArrayList algorithms for searching, sorting, and manipulating data.</li>
+                        <li>Understand autoboxing and unboxing when working with primitive types in ArrayLists.</li>
+                        <li>Compare and contrast the performance characteristics of arrays and ArrayLists.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 8 to 10 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a <code class="code-keyword">2.5%</code> to <code class="code-keyword">5%</code> weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What are the key differences between arrays and ArrayLists?</li>
+                        <li>How do you declare and initialize an ArrayList with generic types?</li>
+                        <li>What are the most commonly used ArrayList methods, and when should each be used?</li>
+                        <li>How does autoboxing work when storing primitive types in ArrayLists?</li>
+                        <li>What are the advantages and disadvantages of using ArrayLists versus arrays?</li>
+                        <li>How do you traverse an ArrayList efficiently?</li>
+                        <li>When should you use an ArrayList instead of a regular array?</li>
+                        <li>What happens when you add or remove elements from an ArrayList?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">ArrayList</code>: 
+                            A resizable array implementation of the List interface that can grow and shrink dynamically.</li>
+                        <li><code class="code-keyword">Generic Types</code>: 
+                            Type parameters (e.g., <code class="code-keyword">ArrayList<String></code>) that specify the type of objects the ArrayList can hold.</li>
+                        <li><code class="code-keyword">Autoboxing/Unboxing</code>: 
+                            Automatic conversion between primitive types (int, double) and their wrapper classes (Integer, Double) when storing in ArrayLists.</li>
+                        <li><code class="code-keyword">Common ArrayList Methods</code>: 
+                            <code class="code-keyword">add(), remove(), get(), set(), size(), contains(), indexOf()</code> and others for manipulating the list.</li>
+                        <li><code class="code-keyword">Dynamic Resizing</code>: 
+                            ArrayLists automatically resize themselves when elements are added beyond their current capacity.</li>
+                        <li><code class="code-keyword">Enhanced for Loop</code>: 
+                            Simplified syntax for traversing ArrayLists: <code class="code-keyword">for (Type element : arrayList)</code>.</li>
+                        <li><code class="code-keyword">Performance Considerations</code>: 
+                            Understanding when ArrayList operations are efficient (O(1) for access, O(n) for insertion/deletion).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common ArrayList Methods</h3>
+                    <h4>Adding and Removing Elements</h4>
+                    <ul>
+                        <li><code class="code-keyword">add(element)</code> - Add element to end of list</li>
+                        <li><code class="code-keyword">add(index, element)</code> - Insert element at specific index</li>
+                        <li><code class="code-keyword">remove(index)</code> - Remove element at index</li>
+                        <li><code class="code-keyword">remove(object)</code> - Remove first occurrence of object</li>
+                    </ul>
+                    <h4>Accessing and Modifying Elements</h4>
+                    <ul>
+                        <li><code class="code-keyword">get(index)</code> - Get element at index</li>
+                        <li><code class="code-keyword">set(index, element)</code> - Replace element at index</li>
+                        <li><code class="code-keyword">size()</code> - Get number of elements</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>ArrayList Creation and Initialization</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR3</span>
+                        </li>
+                        <li><strong>ArrayList Traversal and Processing</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                        </li>
+                        <li><strong>Standard ArrayList Algorithms</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON4</span>
+                        </li>
+                        <li><strong>ArrayList Methods and Operations</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Index and Bounds Errors</h4>
+                    <ul>
+                        <li>Accessing elements at invalid indices (negative or >= size).</li>
+                        <li>Forgetting that indices start at 0, not 1.</li>
+                        <li>Using <code class="code-keyword">size()</code> incorrectly (not subtracting 1 for last index).</li>
+                    </ul>
+                    <h4>Generic Type Issues</h4>
+                    <ul>
+                        <li>Forgetting to specify generic types, leading to compiler warnings.</li>
+                        <li>Trying to store primitive types directly without understanding autoboxing.</li>
+                        <li>Mixing different object types in the same ArrayList.</li>
+                    </ul>
+                    <h4>Method Usage Errors</h4>
+                    <ul>
+                        <li>Confusing <code class="code-keyword">add()</code> and <code class="code-keyword">set()</code> methods.</li>
+                        <li>Not understanding that <code class="code-keyword">remove()</code> has overloaded versions for index and object.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 19 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 19 (Jan 5 - Jan 11)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 7.1</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to ArrayList</li>
+                                <li style="margin: 0.3rem 0;">ArrayList Declaration and Initialization</li>
+                                <li style="margin: 0.3rem 0;">Common ArrayList Methods</li>
+                                <li style="margin: 0.3rem 0;">Autoboxing and Unboxing</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 20 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 20 (Jan 12 - Jan 18)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 7.2</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">ArrayList Traversal</li>
+                                <li style="margin: 0.3rem 0;">ArrayList Algorithms</li>
+                                <li style="margin: 0.3rem 0;">Comparing Arrays and ArrayLists</li>
+                                <li style="margin: 0.3rem 0;">Review and Practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="unit" id="unit-8">
+            <h2>Unit 8 - 2D Array</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the concept of 2D arrays as arrays of arrays for storing tabular data.</li>
+                        <li>Create and initialize two-dimensional arrays in Java.</li>
+                        <li>Access and modify elements in 2D arrays using row and column indices.</li>
+                        <li>Traverse 2D arrays using nested loops to process all elements.</li>
+                        <li>Apply common 2D array algorithms such as finding maximum/minimum values, searching, and processing rows/columns.</li>
+                        <li>Understand and handle ArrayIndexOutOfBoundsException errors in 2D arrays.</li>
+                        <li>Work with jagged arrays (arrays with different row lengths).</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 8 to 10 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a <code class="code-keyword">7.5%</code> to <code class="code-keyword">10%</code> weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What is a 2D array, and when would you use it instead of a 1D array?</li>
+                        <li>How do you declare, create, and initialize a 2D array in Java?</li>
+                        <li>How do row and column indices work in 2D arrays?</li>
+                        <li>What is the difference between <code class="code-keyword">array.length</code> and <code class="code-keyword">array[0].length</code>?</li>
+                        <li>How do you traverse a 2D array to process all its elements?</li>
+                        <li>What are some common algorithms used with 2D arrays?</li>
+                        <li>What is a jagged array, and when might it be useful?</li>
+                        <li>How do you handle boundary conditions when working with 2D arrays?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">2D Array</code>: 
+                            A data structure that stores elements in a grid or table format with rows and columns.</li>
+                        <li><code class="code-keyword">Row and Column Indices</code>: 
+                            Two-dimensional indexing where the first index represents the row and the second represents the column.</li>
+                        <li><code class="code-keyword">Array Declaration</code>: 
+                            Creating a reference variable for a 2D array using syntax like <code class="code-keyword">int[][] matrix;</code>.</li>
+                        <li><code class="code-keyword">Array Creation</code>: 
+                            Allocating memory for 2D array elements using <code class="code-keyword">new</code> keyword with dimensions.</li>
+                        <li><code class="code-keyword">Array Initialization</code>: 
+                            Assigning initial values to 2D array elements either during creation or separately.</li>
+                        <li><code class="code-keyword">Nested Loops</code>: 
+                            Using nested for loops to traverse rows and columns systematically.</li>
+                        <li><code class="code-keyword">2D Array Algorithms</code>: 
+                            Common operations such as searching, finding maximum/minimum, summing rows/columns, and matrix operations.</li>
+                        <li><code class="code-keyword">Jagged Arrays</code>: 
+                            Arrays where each row can have a different length, creating a "jagged" appearance.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>2D Array Operations</h3>
+                    <h4>Declaration and Creation</h4>
+                    <ul>
+                        <li><code class="code-keyword">int[][] matrix = new int[3][4];</code> - Create 3x4 matrix of integers</li>
+                        <li><code class="code-keyword">String[][] grid = new String[5][5];</code> - Create 5x5 grid of strings</li>
+                        <li><code class="code-keyword">double[][] values = {{1.5, 2.7, 3.9}, {4.2, 5.8, 6.1}};</code> - Initialize with values</li>
+                    </ul>
+                    <h4>Accessing Elements</h4>
+                    <ul>
+                        <li><code class="code-keyword">matrix[0][0] = 42;</code> - Assign value to first element (row 0, column 0)</li>
+                        <li><code class="code-keyword">int first = matrix[0][0];</code> - Get value of first element</li>
+                        <li><code class="code-keyword">int rows = matrix.length;</code> - Get number of rows</li>
+                        <li><code class="code-keyword">int cols = matrix[0].length;</code> - Get number of columns</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>2D Array Creation and Initialization</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">VAR3</span>
+                        </li>
+                        <li><strong>2D Array Traversal and Processing</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                        </li>
+                        <li><strong>Standard 2D Array Algorithms</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON4</span>
+                        </li>
+                        <li><strong>2D Array Exceptions and Error Handling</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON4</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Index Errors</h4>
+                    <ul>
+                        <li>Confusing row and column indices when accessing elements.</li>
+                        <li>Accessing elements outside the bounds of rows or columns.</li>
+                        <li>Forgetting that 2D arrays can have different column lengths in jagged arrays.</li>
+                    </ul>
+                    <h4>Traversal Issues</h4>
+                    <ul>
+                        <li>Using incorrect loop bounds when traversing 2D arrays.</li>
+                        <li>Not understanding the difference between <code class="code-keyword">array.length</code> (rows) and <code class="code-keyword">array[i].length</code> (columns).</li>
+                        <li>Mixing up row-major vs column-major traversal order.</li>
+                    </ul>
+                    <h4>Initialization Problems</h4>
+                    <ul>
+                        <li>Forgetting to initialize all elements in a 2D array.</li>
+                        <li>Incorrectly initializing jagged arrays with uniform row lengths.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 21 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 21 (Mar 2 - Mar 8)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 8.1</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to 2D Arrays</li>
+                                <li style="margin: 0.3rem 0;">2D Array Declaration, Creation, and Initialization</li>
+                                <li style="margin: 0.3rem 0;">Accessing 2D Array Elements</li>
+                                <li style="margin: 0.3rem 0;">Row and Column Indices</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 22 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 22 (Mar 9 - Mar 15)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 8.2</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">2D Array Traversal with Nested Loops</li>
+                                <li style="margin: 0.3rem 0;">Common 2D Array Algorithms</li>
+                                <li style="margin: 0.3rem 0;">Jagged Arrays</li>
+                                <li style="margin: 0.3rem 0;">Review and Practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="unit" id="unit-9">
+            <h2>Unit 9 - Inheritance</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the concept of inheritance and its role in object-oriented programming.</li>
+                        <li>Create subclasses that extend parent classes using the <code class="code-keyword">extends</code> keyword.</li>
+                        <li>Use the <code class="code-keyword">super</code> keyword to access parent class members and constructors.</li>
+                        <li>Override methods in subclasses to provide specialized behavior.</li>
+                        <li>Understand the concept of polymorphism and how it enables flexible code design.</li>
+                        <li>Work with abstract classes and methods to define common interfaces.</li>
+                        <li>Understand the inheritance hierarchy and method resolution order.</li>
+                        <li>Apply the <code class="code-keyword">protected</code> access modifier appropriately.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 12 to 15 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a <code class="code-keyword">5%</code> to <code class="code-keyword">7.5%</code> weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What is inheritance, and why is it useful in object-oriented programming?</li>
+                        <li>How do you create a subclass that extends a parent class?</li>
+                        <li>What is the purpose of the <code class="code-keyword">super</code> keyword?</li>
+                        <li>When should you override methods in a subclass?</li>
+                        <li>What is polymorphism, and how does it make code more flexible?</li>
+                        <li>What are abstract classes and methods, and when should they be used?</li>
+                        <li>How does the inheritance hierarchy affect method resolution?</li>
+                        <li>What is the difference between <code class="code-keyword">protected</code> and <code class="code-keyword">private</code> access?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Inheritance</code>: 
+                            A mechanism that allows one class to acquire the properties and methods of another class, promoting code reuse and establishing hierarchical relationships.</li>
+                        <li><code class="code-keyword">extends Keyword</code>: 
+                            Used to declare that a class is a subclass of another class: <code class="code-keyword">class Subclass extends Superclass</code>.</li>
+                        <li><code class="code-keyword">super Keyword</code>: 
+                            Used to refer to the immediate parent class object, access parent class members, and call parent class constructors.</li>
+                        <li><code class="code-keyword">Method Overriding</code>: 
+                            Providing a specific implementation of a method that is already defined in the parent class, using the same method signature.</li>
+                        <li><code class="code-keyword">Polymorphism</code>: 
+                            The ability of objects of different types to be treated as instances of the same type through a common interface, enabling dynamic method binding.</li>
+                        <li><code class="code-keyword">Abstract Classes</code>: 
+                            Classes that cannot be instantiated and may contain abstract methods (methods without implementation) that must be implemented by subclasses.</li>
+                        <li><code class="code-keyword">protected Access Modifier</code>: 
+                            Members that are accessible within the same package and by subclasses in different packages.</li>
+                        <li><code class="code-keyword">Method Resolution Order</code>: 
+                            The process by which Java determines which method implementation to use when methods are overridden in inheritance hierarchies.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Inheritance Syntax and Keywords</h3>
+                    <h4>Class Declaration</h4>
+                    <ul>
+                        <li><code class="code-keyword">class Subclass extends Superclass</code> - Create a subclass that inherits from a superclass</li>
+                        <li><code class="code-keyword">super()</code> - Call the parent class constructor</li>
+                        <li><code class="code-keyword">super.methodName()</code> - Call a parent class method</li>
+                    </ul>
+                    <h4>Access Modifiers</h4>
+                    <ul>
+                        <li><code class="code-keyword">private</code> - Accessible only within the same class</li>
+                        <li><code class="code-keyword">protected</code> - Accessible within the same package and by subclasses</li>
+                        <li><code class="code-keyword">public</code> - Accessible from anywhere</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Inheritance Implementation</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD3</span>
+                        </li>
+                        <li><strong>Method Overriding</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD3</span>
+                        </li>
+                        <li><strong>Polymorphism and Abstract Classes</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD3</span>
+                        </li>
+                        <li><strong>Superclass and Subclass Relationships</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">MOD3</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Inheritance Issues</h4>
+                    <ul>
+                        <li>Forgetting to call <code class="code-keyword">super()</code> in subclass constructors when the parent class doesn't have a no-argument constructor.</li>
+                        <li>Incorrectly using <code class="code-keyword">super</code> keyword to access parent class members.</li>
+                        <li>Not understanding that private members of the parent class are not inherited.</li>
+                    </ul>
+                    <h4>Method Overriding Errors</h4>
+                    <ul>
+                        <li>Changing the method signature when overriding (not real overriding).</li>
+                        <li>Forgetting the <code class="code-keyword">@Override</code> annotation.</li>
+                        <li>Trying to override static or private methods.</li>
+                    </ul>
+                    <h4>Polymorphism Misunderstandings</h4>
+                    <ul>
+                        <li>Confusing compile-time type vs runtime type of objects.</li>
+                        <li>Not understanding which methods can be called based on the reference type.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 23 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 23 (Mar 16 - Mar 22)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 9.1</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to Inheritance</li>
+                                <li style="margin: 0.3rem 0;">The extends Keyword</li>
+                                <li style="margin: 0.3rem 0;">Inheriting Fields and Methods</li>
+                                <li style="margin: 0.3rem 0;">The super Keyword</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Week 24 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 24 (Mar 23 - Mar 29)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 9.2</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Method Overriding</li>
+                                <li style="margin: 0.3rem 0;">The @Override Annotation</li>
+                                <li style="margin: 0.3rem 0;">Polymorphism</li>
+                                <li style="margin: 0.3rem 0;">Dynamic Method Binding</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="unit" id="unit-10">
+            <h2>Unit 10 - Recursion</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Understand the concept of recursion and how it differs from iteration.</li>
+                        <li>Identify the base case and recursive case in recursive methods.</li>
+                        <li>Write simple recursive methods to solve problems.</li>
+                        <li>Trace the execution of recursive methods to understand the call stack.</li>
+                        <li>Apply recursion to solve problems involving sequences, trees, and nested structures.</li>
+                        <li>Recognize when recursion is an appropriate problem-solving approach.</li>
+                        <li>Understand the memory and performance implications of recursive solutions.</li>
+                        <li>Convert between iterative and recursive solutions where appropriate.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately 12 to 15 class periods to complete.</li>
+                        <li>This part of the curriculum contributes to a <code class="code-keyword">5%</code> to <code class="code-keyword">7.5%</code> weight in the AP exam.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What is recursion, and how does it work in programming?</li>
+                        <li>What are the essential components of a recursive method?</li>
+                        <li>How does the call stack work during recursive method execution?</li>
+                        <li>What is the difference between direct and indirect recursion?</li>
+                        <li>When is recursion more appropriate than iteration?</li>
+                        <li>What happens if a recursive method doesn't have a proper base case?</li>
+                        <li>How can we trace and debug recursive methods?</li>
+                        <li>What are some common problems that are naturally solved with recursion?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Recursion</code>: 
+                            A programming technique where a method calls itself to solve a problem by breaking it down into smaller, similar subproblems.</li>
+                        <li><code class="code-keyword">Base Case</code>: 
+                            A condition that stops the recursion, preventing infinite loops. It represents the simplest form of the problem that can be solved directly.</li>
+                        <li><code class="code-keyword">Recursive Case</code>: 
+                            The part of the method that calls itself with modified parameters, moving toward the base case.</li>
+                        <li><code class="code-keyword">Call Stack</code>: 
+                            The data structure that keeps track of method calls, including recursive calls, using a last-in-first-out (LIFO) approach.</li>
+                        <li><code class="code-keyword">Stack Overflow</code>: 
+                            An error that occurs when too many recursive calls consume all available stack memory, usually due to missing or incorrect base cases.</li>
+                        <li><code class="code-keyword">Direct vs Indirect Recursion</code>: 
+                            Direct recursion occurs when a method calls itself directly; indirect recursion occurs when method A calls method B, which calls method A.</li>
+                        <li><code class="code-keyword">Tail Recursion</code>: 
+                            A special form of recursion where the recursive call is the last operation in the method, potentially allowing for optimization.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Recursive Method Structure</h3>
+                    <h4>Essential Components</h4>
+                    <ul>
+                        <li><strong>Base Case</strong>: Condition that stops the recursion</li>
+                        <li><strong>Recursive Case</strong>: Call to the same method with modified parameters</li>
+                        <li><strong>Progress Toward Base Case</strong>: Each recursive call should move closer to the base case</li>
+                    </ul>
+                    <h4>Example Structure</h4>
+                    <pre style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 0.9em;">
+public int factorial(int n) {
+    // Base case
+    if (n <= 1) {
+        return 1;
+    }
+    // Recursive case
+    return n * factorial(n - 1);
+}</pre>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Recursive Thinking</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON1</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                        </li>
+                        <li><strong>Tracing Recursive Methods</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON2</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON4</span>
+                        </li>
+                        <li><strong>Writing Recursive Methods</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON3</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                        <li><strong>Debugging Recursive Methods</strong>: 
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON4</span>
+                            <span style="background-color: #e3f2fd; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON5</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes</li>
+                        <li>Homework</li>
+                        <li>Coding Exercises</li>
+                        <li>Group Discussions</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li>Unit Test</li>
+                        <li>Project</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Base Case Issues</h4>
+                    <ul>
+                        <li>Missing or incorrect base cases leading to infinite recursion.</li>
+                        <li>Base cases that don't properly handle edge cases (like negative numbers or zero).</li>
+                    </ul>
+                    <h4>Recursive Case Problems</h4>
+                    <ul>
+                        <li>Recursive calls that don't move toward the base case.</li>
+                        <li>Incorrect parameter modifications in recursive calls.</li>
+                    </ul>
+                    <h4>Understanding and Tracing</h4>
+                    <ul>
+                        <li>Difficulty visualizing the call stack and execution flow.</li>
+                        <li>Confusing the order of operations in recursive methods.</li>
+                        <li>Not understanding how return values propagate back up the call stack.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0056b3; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f8f8f8; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 25 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0056b3;">Week 25 (Mar 30 - Apr 5)</h4>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-top: 20px;">
+                                <a href="#" style="margin-bottom: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Slides: AP CSA 10.1</a>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Introduction to Recursion</li>
+                                <li style="margin: 0.3rem 0;">Base Cases and Recursive Cases</li>
+                                <li style="margin: 0.3rem 0;">The Call Stack and Memory Management</li>
+                                <li style="margin: 0.3rem 0;">Recursive Searching and Sorting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
     </main>
     <footer>
         <!-- Footer content -->

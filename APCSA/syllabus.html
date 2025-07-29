@@ -245,6 +245,7 @@
             <button class="tab-button" onclick="openTab(event, 'objectives')">Course Objectives</button>
             <button class="tab-button" onclick="openTab(event, 'textbook')">Textbook</button>
             <button class="tab-button" onclick="openTab(event, 'grading')">Grading Policy</button>
+            <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
             <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam Information</button>
             <button class="tab-button" onclick="openTab(event, 'demo')">Demo</button>
         </div>
@@ -291,8 +292,232 @@
             <div class="typewriter-text"></div>
         </div>
         
-        <div id="expectations" class="tab-content">
-            <div class="typewriter-text"></div>
+        <div id="schedule" class="tab-content">
+            <h2 style="color: #ffb347; text-align: center; margin-bottom: min(1rem, 2vh);">Course Schedule</h2>
+            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: min(0.9rem, 3vw);">
+                    <thead>
+                        <tr style="background-color: rgba(255, 179, 71, 0.3);">
+                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347; white-space: nowrap;">Week</th>
+                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347; white-space: nowrap;">Dates</th>
+                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347;">Topics</th>
+                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347;">Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 1</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 1 - Sep 7</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 1.1 Introduction, Variables and Data Types</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 1: Primitive Types</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 2</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 8 - Sep 14</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 1.2 Expressions, Operators, Casting and Ranges of Variables</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 1: Primitive Types</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 3</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 15 - Sep 21</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 2.1 - Introduction to Objects and Classes</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 2: Using Objects</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 4</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 22 - Sep 28</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 2.2 - Calling methods</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 2: Using Objects</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 5</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 29 - Oct 5</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">National Holiday</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 2: Using Objects</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 6</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Oct 6 - Oct 12</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 2.2 - String methods, Wrapper Classes, Math Class</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 2: Using Objects</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 7</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Oct 13 - Oct 19</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 3.1 - Boolean Expressions, if statements</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 3: Boolean Expressions and if Statements</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 8</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Oct 20 - Oct 26</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 3.2 - De Morgan's Laws, Comparing Objects</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 3: Boolean Expressions and if Statements</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 9</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Oct 27 - Nov 2</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 4.1 - Introduction to Iteration, while loops</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 4: Iteration</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 10</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Nov 3 - Nov 9</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 4.2 - For loops</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 4: Iteration</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 11</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Nov 10 - Nov 16</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Midterm Exam</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 4: Iteration</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 12</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Nov 17 - Nov 23</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 4.3 - Loop Counters, Nested Loops</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 4: Iteration</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 13</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Nov 24 - Nov 30</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 5.1 - Class Design, Constructors</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 5: Writing Classes</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 14</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 1 - Dec 7</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 5.2 - this keyword, Accessor/Mutator methods, Static methods</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 5: Writing Classes</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 15</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 8 - Dec 14</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Winter Break</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 16</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 15 - Dec 21</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Winter Break</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 17</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 22 - Dec 28</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 6.1 - Introduction to Arrays</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 6: Array</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 18</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 29 - Jan 4</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 6.2 - Array Traversal, Algorithms</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 6: Array</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 19</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Jan 5 - Jan 11</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 7.1 - Introduction to ArrayList</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 7: ArrayList</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 20</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Jan 12 - Jan 18</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 7.2 - ArrayList Traversal, Algorithms</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 7: ArrayList</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 21</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 2 - Mar 8</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 8.1 - Introduction to 2D Arrays</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 8: 2D Array</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 22</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 9 - Mar 15</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 8.2 - 2D Array Traversal, Jagged Arrays</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 8: 2D Array</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 23</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 16 - Mar 22</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 9.1 - Introduction to Inheritance, extends keyword</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 9: Inheritance</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 24</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 23 - Mar 29</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 9.2 - Method Overriding, Polymorphism</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 9: Inheritance</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 25</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 30 - Apr 5</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 10.1 - Introduction to Recursion</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 10: Recursion</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 26</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Apr 6 - Apr 12</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 27</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Apr 13 - Apr 19</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 28</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Apr 20 - Apr 26</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 29</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Apr 27 - May 3</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Midterm Exam</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Midterm Exam</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 30</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">May 4 - May 10</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP Exam Preparation and Review</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 31</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">May 11 - May 17</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP Computer Science A Exam</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP Exam</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 32</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">May 18 - May 24</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Development</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 33</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">May 25 - May 31</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Development</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 34</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Jun 1 - Jun 7</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Development</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 35</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Jun 8 - Jun 14</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Presentations</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Presentations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         
         <div id="exam" class="tab-content">
