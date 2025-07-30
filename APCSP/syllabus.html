@@ -246,6 +246,7 @@
             <button class="tab-button" onclick="openTab(event, 'textbook')">Textbook</button>
             <button class="tab-button" onclick="openTab(event, 'grading')">Grading Policy</button>
             <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam Information</button>
+            <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
             <button class="tab-button" onclick="openTab(event, 'demo')">Demo</button>
         </div>
         
@@ -283,7 +284,7 @@
         <div id="textbook" class="tab-content">
             <div class="typewriter-text"></div>
             <div class="textbook-image-container" style="width: 100%; display: flex; justify-content: center; margin-top: min(1rem, 2vh);">
-                <img src="images/textbook.jpg" alt="Invitation to Computer Science textbook cover" class="textbook-image" style="max-width: min(300px, 80%); height: auto;">
+                <img src="images/textbook.jpg" alt="Computer Science: An Overview textbook cover" class="textbook-image" style="max-width: min(300px, 80%); height: auto;">
             </div>
         </div>
         
@@ -297,6 +298,206 @@
         
         <div id="exam" class="tab-content">
             <div class="typewriter-text"></div>
+        </div>
+        
+        <div id="schedule" class="tab-content">
+            <h2 style="color: #4da6ff; text-align: center; margin-bottom: min(1.5rem, 3vh); font-size: min(1.8rem, 6vw); width: 100%;">Course Schedule</h2>
+            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: min(0.9rem, 3vw);">
+                    <thead>
+                        <tr style="background-color: rgba(77, 166, 255, 0.3);">
+                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #4da6ff; border-right: 1px solid rgba(77, 166, 255, 0.2);">Week</th>
+                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #4da6ff; border-right: 1px solid rgba(77, 166, 255, 0.2);">Dates</th>
+                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #4da6ff;">Unit/Topic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 1</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Sep 1 - Sep 7</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 1 - Digital Information (Introduction)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 2</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Sep 8 - Sep 14</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 1 - Digital Information (Data Types and Compression)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 3</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Sep 15 - Sep 21</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 2 - The Internet (Fundamentals)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 4</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Sep 22 - Sep 28</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 2 - The Internet (Impacts)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 5</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Sep 29 - Oct 5</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 3 - Intro to App Design (Basics)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 6</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Oct 6 - Oct 12</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 3 - Intro to App Design (Collaborative Development)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 7</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Oct 13 - Oct 19</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 4 - Variables, Conditionals, and Functions (Basics)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 8</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Oct 20 - Oct 26</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 4 - Variables, Conditionals, and Functions (Functions)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 9</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Oct 27 - Nov 2</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 4 - Variables, Conditionals, and Functions (API Integration)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 10</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Nov 3 - Nov 9</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 5 - Lists, Loops, and Traversals (Lists)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 11</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Nov 10 - Nov 16</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); font-weight: bold; color: #d32f2f;">Mid Term Exam</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 12</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Nov 17 - Nov 23</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 5 - Lists, Loops, and Traversals (Loops)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 13</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Nov 24 - Nov 30</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 5 - Lists, Loops, and Traversals (Data Processing)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 14</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Dec 1 - Dec 7</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 6 - Algorithms (Fundamentals)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 15</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Dec 8 - Dec 14</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 6 - Algorithms (Analysis)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 16</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Dec 15 - Dec 21</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 7 - Parameters, Return, and Libraries (Parameters)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 17</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Dec 22 - Dec 28</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 7 - Parameters, Return, and Libraries (Libraries)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 18</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Dec 29 - Jan 4</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 8 - Create PT Prep (Overview)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 19</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Jan 5 - Jan 11</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 8 - Create PT Prep (Implementation)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 20</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Jan 12 - Jan 18</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 8 - Create PT Prep (Review and Practices)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 21</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Jan 19 - Jan 25</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); font-weight: bold; color: #d32f2f;">Final Exam</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 22</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Mar 2 - Mar 8</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 9 - Data (Exploration)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 23</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Mar 9 - Mar 15</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 9 - Data (Visualization)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 24</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Mar 16 - Mar 22</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 10 - Cybersecurity and Global Impacts (Cybersecurity)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 25</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Mar 23 - Mar 29</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Unit 10 - Cybersecurity and Global Impacts (Global Impacts)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 26</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Mar 30 - Apr 5</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Project Preparation and AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 27</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Apr 6 - Apr 12</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Project Preparation and AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 28</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Apr 13 - Apr 19</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Project Preparation and AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 29</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Apr 20 - Apr 26</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Project Preparation and AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 30</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Apr 27 - May 3</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); font-weight: bold; color: #d32f2f;">Second Semester Midterm Exam</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 31</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">May 4 - May 10</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); font-weight: bold; color: #d32f2f;">AP Exam Week 1</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 32</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">May 11 - May 17</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); font-weight: bold; color: #d32f2f;">AP Exam Week 2</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 33</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">May 18 - May 24</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Final Project Development Week 1</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 34</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">May 25 - May 31</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Final Project Development Week 2</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 35</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Jun 1 - Jun 7</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2);">Final Project Development Week 3</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Week 36</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); border-right: 1px solid rgba(77, 166, 255, 0.2);">Jun 8 - Jun 14</td>
+                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(77, 166, 255, 0.2); font-weight: bold; color: #4da6ff;">Final Project Presentations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; font-size: min(0.9rem, 3vw); color: #4da6ff;">
+                <em>Note: Schedule is subject to change based on class progress and needs.</em>
+            </p>
         </div>
         
         <div id="demo" class="tab-content">
@@ -341,18 +542,22 @@
         
         // Content for each tab
         const tabContent = {
-            overview: `AP Computer Science A is an introductory college-level computer science course that emphasizes object-oriented programming and problem-solving. The course is designed to prepare students for the AP Computer Science A Exam while fostering a deep understanding of programming concepts, algorithms, and data structures. Students will use Java as the primary programming language and will engage in hands-on projects, coding exercises, and algorithmic problem-solving.
+            overview: `AP Computer Science Principles is a college-level course that introduces students to the foundational concepts of computer science and explores the impact of computing innovations on society. This course emphasizes creative problem-solving and the development of computational thinking skills that can be applied across various disciplines.
 
-This course will also incorporate foundational computer science concepts from the textbook "Invitation to Computer Science" by G. Michael Schneider and Judith L. Gersting, providing a broader context for understanding computational thinking and the principles of computer science.`,
+Students will learn to design and implement creative solutions to problems using programming, while also examining how computing innovations and the digital world impact our daily lives, society, and the global community. The course covers a broad range of topics including digital information, the internet, programming, algorithms, data analysis, and cybersecurity.
+
+This course prepares students for the AP Computer Science Principles Exam and the Create Performance Task, fostering both technical skills and critical thinking about the ethical and social implications of computing technologies.`,
             
             objectives: `By the end of the course, students will be able to:
-1. Design, implement, and analyze solutions to problems using object-oriented programming in Java.
-2. Understand and apply fundamental programming constructs, including variables, loops, conditionals, and methods.
-3. Develop and use algorithms to solve computational problems.
-4. Work with data structures such as arrays, ArrayLists, and 2D arrays.
-5. Understand and apply principles of inheritance, polymorphism, and abstraction.
-6. Analyze and debug programs to ensure correctness and efficiency.
-7. Prepare for and succeed on the AP Computer Science A Exam.`,
+1. Understand and apply the Big Ideas of Computer Science Principles including Creative Development, Data, Algorithms and Programming, Computer Systems and Networks, and Impact of Computing.
+2. Design and implement creative solutions to problems using programming and computational thinking skills.
+3. Analyze and create algorithms to solve computational problems efficiently.
+4. Work with digital information including data representation, compression, and processing.
+5. Understand how the Internet works, including protocols, packet switching, and network infrastructure.
+6. Create and analyze data visualizations to identify patterns and trends.
+7. Examine the ethical, social, and global impacts of computing innovations.
+8. Develop and present a Create Performance Task that demonstrates programming skills and understanding of computer science principles.
+9. Prepare for and succeed on the AP Computer Science Principles Exam.`,
             classinfo: `
 <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
   <tbody>
@@ -375,11 +580,12 @@ This course will also incorporate foundational computer science concepts from th
   </tbody>
 </table>`,
             
-            textbook: `Title: Invitation to Computer Science
-Authors: G. Michael Schneider and Judith L. Gersting
+            textbook: `Title: Computer Science: An Overview
+Authors: J. Glenn Brookshear and Dennis Brylow
+Publisher: Pearson
 Edition: Latest Edition (as available)
 
-This textbook provides an introduction to the theoretical and practical foundations of computer science. While the primary focus of the course is Java programming, selected chapters from the textbook will be used to explore topics such as algorithms, computational theory, and the history of computing.`,
+This textbook provides a comprehensive overview of computer science fundamentals. Selected chapters from the textbook will be used to explore topics such as digital information, computer systems, algorithms, data representation, and the impact of computing on society. The textbook complements hands-on programming activities and project-based learning throughout the course.`,
             
             grading: `Grades will be based on the following components:
 <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
@@ -411,14 +617,16 @@ This textbook provides an introduction to the theoretical and practical foundati
 - Late Work Policy: Assignments submitted late will incur a penalty of 10% per day, up to a maximum of 5 days. After 5 days, no credit will be given.
 - Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced coding challenges.`,
             
-            exam: `Exam Date: Refer to the College Board website for the official AP Computer Science A Exam date.
+            exam: `Exam Date: Refer to the College Board website for the official AP Computer Science Principles Exam date.
 Exam Format:
-  - Section I: Multiple Choice (40 questions, 50% of the score)
-  - Section II: Free Response (4 questions, 50% of the score)
-    - Topics include methods and control structures, classes, arrays, and algorithms.
+  - Section I: Multiple Choice (70 questions, 60% of the score)
+  - Section II: Performance Tasks (40% of the score)
+    - Create Performance Task (20%): Students create a computer program and submit videos, written responses, and program code.
+    - Explore Performance Task (20%): Students explore a computing innovation and submit written responses.
 Preparation:
   - Weekly practice exams and coding challenges will simulate the AP Exam format.
-  - Review sessions will be held in the final 9 weeks of the course.`
+  - Create Performance Task preparation will be integrated throughout Units 1-8.
+  - Review sessions will be held in the final 4 weeks of the course.`
         };
         
         // Initialize the first tab and sub-tab
