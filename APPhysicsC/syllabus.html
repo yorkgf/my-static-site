@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AP Computer Science Principles Syllabus</title>
+    <title>AP Physics C: Mechanics and Electricity & Magnetism Syllabus</title>
     <style>
         :root {
-            --primary: #4da6ff;
-            --bg-dark: #0a1a2a;
-            --bg-card: rgba(20, 40, 80, 0.9);
-            --bg-tab: rgba(20, 40, 80, 0.8);
-            --text: #f0f0f0;
-            --border: rgba(77, 166, 255, 0.2);
+            --primary: #2c5aa0;
+            --accent: #e63946;
+            --bg-light: #ffffff;
+            --bg-card: rgba(248, 249, 250, 0.95);
+            --bg-tab: rgba(233, 236, 239, 0.8);
+            --text: #0a1a2a;
+            --border: rgba(44, 90, 160, 0.2);
         }
 
         * {
@@ -21,12 +22,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            background-color: var(--bg-light);
             background-image:
-                radial-gradient(circle at 20% 30%, rgba(77, 166, 255, 0.05) 0%, transparent 25%),
-                radial-gradient(circle at 80% 70%, rgba(77, 166, 255, 0.05) 0%, transparent 25%),
-                url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%234da6ff' stroke-width='0.5' stroke-opacity='0.1'%3E%3Cpath d='M10 10h60v60H10z'/%3E%3Cpath d='M20 10v60M40 10v60M60 10v60M10 20h60M10 40h60M10 60h60'/%3E%3Ccircle cx='40' cy='40' r='5' fill='%234da6ff' fill-opacity='0.1'/%3E%3C/g%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%232c5aa0' stroke-width='0.5' stroke-opacity='0.05'%3E%3Cline x1='200' y1='0' x2='200' y2='400'/%3E%3Cline x1='0' y1='200' x2='400' y2='200'/%3E%3Ccircle cx='200' cy='200' r='50'/%3E%3Ccircle cx='200' cy='200' r='100'/%3E%3Ccircle cx='200' cy='200' r='150'/%3E%3Cpath d='M200 50 L210 70 L190 70 Z' fill='%232c5aa0' fill-opacity='0.05'/%3E%3Cpath d='M350 200 L330 190 L330 210 Z' fill='%232c5aa0' fill-opacity='0.05'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='none' stroke='%23e63946' stroke-width='0.5' stroke-opacity='0.03'%3E%3Cpath d='M50 250 L100 150 L150 200 L200 100 L250 180'/%3E%3Cpath d='M50 50 L250 50 M50 50 L50 250'/%3E%3Ccircle cx='100' cy='150' r='3' fill='%23e63946' fill-opacity='0.05'/%3E%3Ccircle cx='150' cy='200' r='3' fill='%23e63946' fill-opacity='0.05'/%3E%3Ccircle cx='200' cy='100' r='3' fill='%23e63946' fill-opacity='0.05'/%3E%3C/g%3E%3C/svg%3E");
             color: var(--text);
             line-height: 1.6;
             font-size: calc(18px + 0.5vw);
@@ -70,12 +70,6 @@
                 margin-right: min(0.1rem, 0.3vw);
             }
 
-            .sub-tab-button {
-                padding: min(0.4rem, 1vw) min(0.8rem, 1.5vw);
-                font-size: min(0.8rem, 2vw);
-                margin-bottom: 0.2rem;
-            }
-
             h1 {
                 font-size: min(2rem, 6vw);
             }
@@ -96,7 +90,7 @@
         }
 
         @media (max-width: 480px) {
-            .tab-button, .sub-tab-button {
+            .tab-button {
                 flex-basis: calc(50% - 0.5rem);
                 max-width: none;
             }
@@ -121,10 +115,9 @@
             color: var(--primary);
             margin-bottom: min(1rem, 2vh);
             font-size: min(2.5rem, 8vw);
-            text-shadow: 0 0 10px rgba(77, 166, 255, 0.5);
             width: 100%;
             margin-top: min(0.5rem, 1vh);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         /* Tab styling */
@@ -145,7 +138,7 @@
 
         .back-buttons .tab-button {
             background-color: var(--primary);
-            color: var(--bg-dark);
+            color: var(--bg-light);
             font-weight: bold;
             margin-bottom: min(0.5rem, 1vh);
             flex: 0 1 auto;
@@ -154,7 +147,7 @@
         }
 
         .back-buttons .tab-button:hover {
-            background-color: #3d8bdb;
+            background-color: #1e4173;
         }
 
         .tab-button {
@@ -176,16 +169,17 @@
             min-width: 0;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-family: 'Arial', sans-serif;
             font-weight: 500;
         }
 
         .tab-button:hover {
-            background-color: rgba(77, 166, 255, 0.5);
+            background-color: rgba(44, 90, 160, 0.2);
         }
 
         .tab-button.active {
             background-color: var(--primary);
-            color: var(--bg-dark);
+            color: var(--bg-light);
             font-weight: bold;
         }
 
@@ -199,8 +193,9 @@
             max-height: 60vh;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: var(--primary) rgba(30, 30, 60, 0.8);
+            scrollbar-color: var(--primary) rgba(200, 200, 200, 0.8);
             margin-bottom: min(1.5rem, 3vh);
+            border: 1px solid var(--border);
         }
 
         /* Custom scrollbar styling */
@@ -209,24 +204,24 @@
         }
 
         .tab-content::-webkit-scrollbar-track {
-            background: rgba(10, 26, 42, 0.5);
+            background: rgba(240, 240, 240, 0.5);
             border-radius: 4px;
         }
 
         .tab-content::-webkit-scrollbar-thumb {
-            background-color: rgba(77, 166, 255, 0.7);
+            background-color: rgba(44, 90, 160, 0.7);
             border-radius: 4px;
-            border: 1px solid rgba(10, 26, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .tab-content::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(77, 166, 255, 0.9);
+            background-color: rgba(44, 90, 160, 0.9);
         }
 
         /* Firefox scrollbar styling */
         .tab-content {
             scrollbar-width: thin;
-            scrollbar-color: rgba(77, 166, 255, 0.7) rgba(10, 26, 42, 0.5);
+            scrollbar-color: rgba(44, 90, 160, 0.7) rgba(240, 240, 240, 0.5);
         }
 
         .tab-content.active {
@@ -260,26 +255,12 @@
             padding: 0.75rem;
             text-align: left;
             border-bottom: 2px solid var(--primary);
-            background-color: rgba(77, 166, 255, 0.3);
+            background-color: rgba(44, 90, 160, 0.1);
         }
 
         table td {
             padding: 0.75rem;
             border-bottom: 1px solid var(--border);
-        }
-
-        .textbook-image-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-top: min(1rem, 2vh);
-        }
-
-        .textbook-image {
-            max-width: min(300px, 80%);
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(77, 166, 255, 0.3);
         }
 
         ul, ol {
@@ -295,15 +276,23 @@
             margin-bottom: 1rem;
         }
 
-        em {
-            color: var(--primary);
-            font-style: italic;
+        .formula {
+            font-family: 'Courier New', monospace;
+            background-color: rgba(44, 90, 160, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .unit-header {
+            color: var(--accent);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>AP Computer Science Principles Syllabus</h1>
+        <h1>AP Physics C: Mechanics and Electricity & Magnetism Syllabus</h1>
 
         <div class="tabs">
             <button class="tab-button active" onclick="openTab(event, 'overview')">Course Overview</button>
@@ -313,13 +302,12 @@
             <button class="tab-button" onclick="openTab(event, 'grading')">Grading Policy</button>
             <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam Information</button>
             <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
-            <button class="tab-button" onclick="openTab(event, 'demo')">Demo</button>
         </div>
 
         <div id="overview" class="tab-content active">
-            <p>AP Computer Science Principles is a college-level course that introduces students to the foundational concepts of computer science and explores the impact of computing innovations on society. This course emphasizes creative problem-solving and the development of computational thinking skills that can be applied across various disciplines.</p>
-            <p>Students will learn to design and implement creative solutions to problems using programming, while also examining how computing innovations and the digital world impact our daily lives, society, and the global community. The course covers a broad range of topics including digital information, the internet, programming, algorithms, data analysis, and cybersecurity.</p>
-            <p>This course prepares students for the AP Computer Science Principles Exam and the Create Performance Task, fostering both technical skills and critical thinking about the ethical and social implications of computing technologies.</p>
+            <p>AP Physics C is a calculus-based, college-level physics course that covers two separate full-year courses: Mechanics and Electricity & Magnetism. This course is designed for students interested in pursuing careers in physical science, engineering, or mathematics. The course emphasizes problem-solving, laboratory work, and conceptual understanding of fundamental physics principles.</p>
+            <p>The Mechanics portion covers kinematics, Newton's laws of motion, work, energy, power, systems of particles, linear momentum, circular motion, rotation, oscillations, and gravitation. The Electricity & Magnetism portion covers electrostatics, conductors, capacitors, dielectrics, electric circuits, magnetic fields, electromagnetism, and electromagnetic induction.</p>
+            <p>Students will engage in hands-on laboratory experiments, develop computational models, and solve complex problems using calculus. The course prepares students for both AP Physics C exams and provides a strong foundation for future studies in physics and engineering.</p>
         </div>
 
         <div id="classinfo" class="tab-content">
@@ -334,12 +322,16 @@
                         <td>11 & 12</td>
                     </tr>
                     <tr>
+                        <td style="white-space: nowrap;">Prerequisite:</td>
+                        <td>Calculus AB (or concurrent enrollment)</td>
+                    </tr>
+                    <tr>
                         <td style="white-space: nowrap;">Classes per Week:</td>
                         <td>5</td>
                     </tr>
                     <tr>
                         <td style="white-space: nowrap;">Curriculum + Credit:</td>
-                        <td>AP 5</td>
+                        <td>AP 5 (2 courses: Mechanics + E&M)</td>
                     </tr>
                 </tbody>
             </table>
@@ -348,27 +340,29 @@
         <div id="objectives" class="tab-content">
             <p>By the end of the course, students will be able to:</p>
             <ol>
-                <li>Understand and apply the Big Ideas of Computer Science Principles including Creative Development, Data, Algorithms and Programming, Computer Systems and Networks, and Impact of Computing.</li>
-                <li>Design and implement creative solutions to problems using programming and computational thinking skills.</li>
-                <li>Analyze and create algorithms to solve computational problems efficiently.</li>
-                <li>Work with digital information including data representation, compression, and processing.</li>
-                <li>Understand how the Internet works, including protocols, packet switching, and network infrastructure.</li>
-                <li>Create and analyze data visualizations to identify patterns and trends.</li>
-                <li>Examine the ethical, social, and global impacts of computing innovations.</li>
-                <li>Develop and present a Create Performance Task that demonstrates programming skills and understanding of computer science principles.</li>
-                <li>Prepare for and succeed on the AP Computer Science Principles Exam.</li>
+                <li>Apply calculus to solve physics problems involving motion, forces, energy, and fields.</li>
+                <li>Understand and apply fundamental principles of mechanics: <span class="formula">F = ma</span>, conservation of energy, conservation of momentum, rotational dynamics, and gravitation.</li>
+                <li>Understand and apply fundamental principles of electricity and magnetism: Coulomb's law, Gauss's law, Ohm's law, Ampère's law, Faraday's law, and Maxwell's equations.</li>
+                <li>Design, conduct, and analyze laboratory experiments to test physical principles.</li>
+                <li>Develop computational models to simulate physical phenomena.</li>
+                <li>Critically analyze and solve complex, multi-step physics problems.</li>
+                <li>Prepare for and succeed on both AP Physics C exams (Mechanics and Electricity & Magnetism).</li>
             </ol>
         </div>
 
         <div id="textbook" class="tab-content">
-            <p>Title: Computer Science: An Overview<br>
-            Authors: J. Glenn Brookshear and Dennis Brylow<br>
-            Publisher: Pearson<br>
+            <p>Primary Textbook: Physics for Scientists and Engineers with Modern Physics<br>
+            Authors: Raymond A. Serway and John W. Jewett<br>
+            Publisher: Cengage Learning<br>
             Edition: Latest Edition (as available)</p>
-            <p>This textbook provides a comprehensive overview of computer science fundamentals. Selected chapters from the textbook will be used to explore topics such as digital information, computer systems, algorithms, data representation, and the impact of computing on society. The textbook complements hands-on programming activities and project-based learning throughout the course.</p>
-            <div class="textbook-image-container">
-                <img src="images/textbook.jpg" alt="Computer Science: An Overview textbook cover" class="textbook-image">
-            </div>
+            <p>Supplemental Materials:</p>
+            <ul>
+                <li>Lab Manual for Physics C</li>
+                <li>AP Physics C Workbook and practice exams</li>
+                <li>Computational physics resources (Python/VPython)</li>
+                <li>Video lectures and interactive simulations</li>
+            </ul>
+            <p>This textbook provides comprehensive coverage of calculus-based physics, with numerous worked examples, problem sets, and conceptual explanations. The course follows the textbook structure closely, with additional emphasis on AP exam preparation and laboratory work.</p>
         </div>
 
         <div id="grading" class="tab-content">
@@ -400,27 +394,33 @@
               </tbody>
             </table>
             <p>- Late Work Policy: Assignments submitted late will incur a penalty of 10% per day, up to a maximum of 5 days. After 5 days, no credit will be given.<br>
-            - Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced coding challenges.</p>
+            - Lab Policy: Laboratory reports are included in the Homework category. Students must complete all lab work to pass the course. Makeup labs are available for excused absences.<br>
+            - Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced physics problems or extended lab projects.</p>
         </div>
 
         <div id="exam" class="tab-content">
-            <p>Exam Date: Refer to the College Board website for the official AP Computer Science Principles Exam date.<br>
-            Exam Format:</p>
+            <p>AP Physics C consists of two separate exams, each 90 minutes long:</p>
+            <h3 class="unit-header">AP Physics C: Mechanics Exam</h3>
             <ul>
-              <li>Section I: Multiple Choice (70 questions, 60% of the score)</li>
-              <li>Section II: Performance Tasks (40% of the score)
+              <li>Section I: Multiple Choice (35 questions, 50% of score)</li>
+              <li>Section II: Free Response (3 questions, 50% of score)
                 <ul>
-                  <li>Create Performance Task (20%): Students create a computer program and submit videos, written responses, and program code.</li>
-                  <li>Explore Performance Task (20%): Students explore a computing innovation and submit written responses.</li>
+                  <li>One experimental design question</li>
+                  <li>One qualitative/quantitative translation question</li>
+                  <li>One short answer question</li>
                 </ul>
               </li>
             </ul>
-            <p>Preparation:</p>
+            <h3 class="unit-header">AP Physics C: Electricity & Magnetism Exam</h3>
             <ul>
-              <li>Weekly practice exams and coding challenges will simulate the AP Exam format.</li>
-              <li>Create Performance Task preparation will be integrated throughout Units 1-8.</li>
-              <li>Review sessions will be held in the final 4 weeks of the course.</li>
+              <li>Section I: Multiple Choice (35 questions, 50% of score)</li>
+              <li>Section II: Free Response (3 questions, 50% of score)
+                <ul>
+                  <li>Same format as Mechanics exam</li>
+                </ul>
+              </li>
             </ul>
+            <p>Preparation includes weekly practice problems, unit exams, and full-length practice exams in the final 8 weeks of the course.</p>
         </div>
 
         <div id="schedule" class="tab-content">
@@ -431,206 +431,230 @@
                         <tr>
                             <th style="white-space: nowrap;">Week</th>
                             <th style="white-space: nowrap;">Dates</th>
-                            <th>Unit/Topic</th>
+                            <th>Topics</th>
+                            <th>Unit</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td colspan="4" class="unit-header">Semester 1: Mechanics</td>
+                        </tr>
+                        <tr>
                             <td>Week 1</td>
                             <td>Sep 1 - Sep 7</td>
-                            <td>Unit 1 - Digital Information (Introduction)</td>
+                            <td>Kinematics: 1D Motion, Vectors, Velocity & Acceleration</td>
+                            <td>Unit 1: Kinematics</td>
                         </tr>
                         <tr>
                             <td>Week 2</td>
                             <td>Sep 8 - Sep 14</td>
-                            <td>Unit 1 - Digital Information (Data Types and Compression)</td>
+                            <td>Kinematics: 2D Motion, Projectile Motion, Relative Motion</td>
+                            <td>Unit 1: Kinematics</td>
                         </tr>
                         <tr>
                             <td>Week 3</td>
                             <td>Sep 15 - Sep 21</td>
-                            <td>Unit 2 - The Internet (Fundamentals)</td>
+                            <td>Kinematics: Motion Graphs, Free Fall, Kinematic Equations Review</td>
+                            <td>Unit 1: Kinematics</td>
                         </tr>
                         <tr>
                             <td>Week 4</td>
                             <td>Sep 22 - Sep 28</td>
-                            <td>Unit 2 - The Internet (Impacts)</td>
+                            <td>Newton's Laws: Force, Inertia, Newton's First & Second Law</td>
+                            <td>Unit 2: Newton's Laws of Motion</td>
                         </tr>
                         <tr>
                             <td>Week 5</td>
                             <td>Sep 29 - Oct 5</td>
-                            <td>Unit 3 - Intro to App Design (Basics)</td>
+                            <td>Newton's Laws: Newton's Third Law, Friction, Drag Forces</td>
+                            <td>Unit 2: Newton's Laws of Motion</td>
                         </tr>
                         <tr>
                             <td>Week 6</td>
                             <td>Oct 6 - Oct 12</td>
-                            <td>Unit 3 - Intro to App Design (Collaborative Development)</td>
+                            <td>Newton's Laws: Equilibrium, Inclined Planes, Circular Motion</td>
+                            <td>Unit 2: Newton's Laws of Motion</td>
                         </tr>
                         <tr>
                             <td>Week 7</td>
                             <td>Oct 13 - Oct 19</td>
-                            <td>Unit 4 - Variables, Conditionals, and Functions (Basics)</td>
+                            <td>Work & Energy: Work done by constant/variable forces, Kinetic Energy</td>
+                            <td>Unit 3: Work, Energy, Power</td>
                         </tr>
                         <tr>
                             <td>Week 8</td>
                             <td>Oct 20 - Oct 26</td>
-                            <td>Unit 4 - Variables, Conditionals, and Functions (Functions)</td>
+                            <td>Work & Energy: Potential Energy, Conservation of Energy, Power</td>
+                            <td>Unit 3: Work, Energy, Power</td>
                         </tr>
                         <tr>
                             <td>Week 9</td>
                             <td>Oct 27 - Nov 2</td>
-                            <td>Unit 4 - Variables, Conditionals, and Functions (API Integration)</td>
+                            <td>Work & Energy: Energy diagrams, Non-conservative forces, Review</td>
+                            <td>Unit 3: Work, Energy, Power</td>
                         </tr>
                         <tr>
                             <td>Week 10</td>
                             <td>Nov 3 - Nov 9</td>
-                            <td>Unit 5 - Lists, Loops, and Traversals (Lists)</td>
+                            <td>Linear Momentum: Center of Mass, Impulse-Momentum Theorem</td>
+                            <td>Unit 4: Systems of Particles & Linear Momentum</td>
                         </tr>
                         <tr>
                             <td>Week 11</td>
                             <td>Nov 10 - Nov 16</td>
-                            <td><strong style="color: #d32f2f;">Mid Term Exam</strong></td>
+                            <td>Midterm Exam</td>
+                            <td>Midterm Assessment</td>
                         </tr>
                         <tr>
                             <td>Week 12</td>
                             <td>Nov 17 - Nov 23</td>
-                            <td>Unit 5 - Lists, Loops, and Traversals (Loops)</td>
+                            <td>Linear Momentum: Conservation of Momentum, Collisions</td>
+                            <td>Unit 4: Systems of Particles & Linear Momentum</td>
                         </tr>
                         <tr>
                             <td>Week 13</td>
                             <td>Nov 24 - Nov 30</td>
-                            <td>Unit 5 - Lists, Loops, and Traversals (Data Processing)</td>
+                            <td>Rotation: Angular Kinematics, Rotational Energy, Torque</td>
+                            <td>Unit 5: Rotation</td>
                         </tr>
                         <tr>
                             <td>Week 14</td>
                             <td>Dec 1 - Dec 7</td>
-                            <td>Unit 6 - Algorithms (Fundamentals)</td>
+                            <td>Rotation: Moment of Inertia, Rolling Motion, Angular Momentum</td>
+                            <td>Unit 5: Rotation</td>
                         </tr>
                         <tr>
                             <td>Week 15</td>
                             <td>Dec 8 - Dec 14</td>
-                            <td>Unit 6 - Algorithms (Analysis)</td>
+                            <td>Rotation: Conservation of Angular Momentum, Static Equilibrium</td>
+                            <td>Unit 5: Rotation</td>
                         </tr>
                         <tr>
                             <td>Week 16</td>
                             <td>Dec 15 - Dec 21</td>
-                            <td>Unit 7 - Parameters, Return, and Libraries (Parameters)</td>
+                            <td>Oscillations: Simple Harmonic Motion, Springs, Pendulums</td>
+                            <td>Unit 6: Oscillations & Gravitation</td>
                         </tr>
                         <tr>
                             <td>Week 17</td>
                             <td>Dec 22 - Dec 28</td>
-                            <td>Unit 7 - Parameters, Return, and Libraries (Libraries)</td>
+                            <td>Gravitation: Newton's Law of Gravitation, Kepler's Laws, Orbital Mechanics</td>
+                            <td>Unit 6: Oscillations & Gravitation</td>
                         </tr>
                         <tr>
                             <td>Week 18</td>
                             <td>Dec 29 - Jan 4</td>
-                            <td>Unit 8 - Create PT Prep (Overview)</td>
+                            <td>Mechanics Comprehensive Review & Final Exam</td>
+                            <td>Semester 1 Final</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="unit-header">Semester 2: Electricity & Magnetism</td>
                         </tr>
                         <tr>
                             <td>Week 19</td>
-                            <td>Jan 5 - Jan 11</td>
-                            <td>Unit 8 - Create PT Prep (Implementation)</td>
+                            <td>Mar 2 - Mar 8</td>
+                            <td>Electrostatics: Coulomb's Law, Electric Fields, Gauss's Law</td>
+                            <td>Unit 1: Electrostatics</td>
                         </tr>
                         <tr>
                             <td>Week 20</td>
-                            <td>Jan 12 - Jan 18</td>
-                            <td>Unit 8 - Create PT Prep (Review and Practices)</td>
+                            <td>Mar 9 - Mar 15</td>
+                            <td>Electrostatics: Electric Potential, Capacitance, Dielectrics</td>
+                            <td>Unit 1 + 2: Electrostatics & Capacitors</td>
                         </tr>
                         <tr>
                             <td>Week 21</td>
-                            <td>Jan 19 - Jan 25</td>
-                            <td><strong style="color: #d32f2f;">Final Exam</strong></td>
+                            <td>Mar 16 - Mar 22</td>
+                            <td>Electric Circuits: Current, Resistance, Kirchhoff's Laws, DC Circuits</td>
+                            <td>Unit 3: Electric Circuits</td>
                         </tr>
                         <tr>
                             <td>Week 22</td>
-                            <td>Mar 2 - Mar 8</td>
-                            <td>Unit 9 - Data (Exploration)</td>
+                            <td>Mar 23 - Mar 29</td>
+                            <td>Magnetic Fields: Lorentz Force, Biot-Savart Law, Ampère's Law</td>
+                            <td>Unit 4: Magnetic Fields</td>
                         </tr>
                         <tr>
                             <td>Week 23</td>
-                            <td>Mar 9 - Mar 15</td>
-                            <td>Unit 9 - Data (Visualization)</td>
+                            <td>Mar 30 - Apr 5</td>
+                            <td>Electromagnetism: Faraday's Law, Inductance, Maxwell's Equations (ALL CONTENT COMPLETE)</td>
+                            <td>Unit 5: Electromagnetism</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="background-color: rgba(44, 90, 160, 0.1); font-weight: bold;">Review & Exam Period</td>
                         </tr>
                         <tr>
                             <td>Week 24</td>
-                            <td>Mar 16 - Mar 22</td>
-                            <td>Unit 10 - Cybersecurity and Global Impacts (Cybersecurity)</td>
+                            <td>Apr 6 - Apr 12</td>
+                            <td>AP Review: Mechanics (Units 1-6) + Mock Exam 1</td>
+                            <td>AP Exam Review</td>
                         </tr>
                         <tr>
                             <td>Week 25</td>
-                            <td>Mar 23 - Mar 29</td>
-                            <td>Unit 10 - Cybersecurity and Global Impacts (Global Impacts)</td>
+                            <td>Apr 13 - Apr 19</td>
+                            <td>AP Review: E&M (Units 1-5) + Mock Exam 2</td>
+                            <td>AP Exam Review</td>
                         </tr>
                         <tr>
                             <td>Week 26</td>
-                            <td>Mar 30 - Apr 5</td>
-                            <td>Project Preparation and AP Exam Review</td>
+                            <td>Apr 20 - Apr 26</td>
+                            <td>AP Review: Weak area focus + Full-length practice exam</td>
+                            <td>AP Exam Review</td>
                         </tr>
                         <tr>
                             <td>Week 27</td>
-                            <td>Apr 6 - Apr 12</td>
-                            <td>Project Preparation and AP Exam Review</td>
+                            <td>Apr 27 - May 3</td>
+                            <td>Final Review + Last practice exam</td>
+                            <td>AP Exam Review</td>
                         </tr>
                         <tr>
                             <td>Week 28</td>
-                            <td>Apr 13 - Apr 19</td>
-                            <td>Project Preparation and AP Exam Review</td>
+                            <td>May 4 - May 10</td>
+                            <td>Final AP Review & Exam Preparation</td>
+                            <td>AP Exam Review</td>
                         </tr>
                         <tr>
                             <td>Week 29</td>
-                            <td>Apr 20 - Apr 26</td>
-                            <td>Project Preparation and AP Exam Review</td>
+                            <td>May 11 - May 17</td>
+                            <td>AP Physics C Exams (Mechanics + E&M)</td>
+                            <td>AP Exam Week</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="background-color: rgba(230, 57, 70, 0.1); font-weight: bold;">Final Project Period</td>
                         </tr>
                         <tr>
                             <td>Week 30</td>
-                            <td>Apr 27 - May 3</td>
-                            <td><strong style="color: #d32f2f;">Second Semester Midterm Exam</strong></td>
+                            <td>May 18 - May 24</td>
+                            <td>Final Project: Proposal & Planning</td>
+                            <td>Final Project</td>
                         </tr>
                         <tr>
                             <td>Week 31</td>
-                            <td>May 4 - May 10</td>
-                            <td><strong style="color: #d32f2f;">AP Exam Week 1</strong></td>
+                            <td>May 25 - May 31</td>
+                            <td>Final Project: Development & Implementation</td>
+                            <td>Final Project</td>
                         </tr>
                         <tr>
                             <td>Week 32</td>
-                            <td>May 11 - May 17</td>
-                            <td><strong style="color: #d32f2f;">AP Exam Week 2</strong></td>
+                            <td>Jun 1 - Jun 7</td>
+                            <td>Final Project: Testing & Documentation</td>
+                            <td>Final Project</td>
                         </tr>
                         <tr>
                             <td>Week 33</td>
-                            <td>May 18 - May 24</td>
-                            <td>Final Project Development Week 1</td>
-                        </tr>
-                        <tr>
-                            <td>Week 34</td>
-                            <td>May 25 - May 31</td>
-                            <td>Final Project Development Week 2</td>
-                        </tr>
-                        <tr>
-                            <td>Week 35</td>
-                            <td>Jun 1 - Jun 7</td>
-                            <td>Final Project Development Week 3</td>
-                        </tr>
-                        <tr>
-                            <td>Week 36</td>
                             <td>Jun 8 - Jun 14</td>
-                            <td><strong style="color: var(--primary);">Final Project Presentations</strong></td>
+                            <td>Final Project: Presentations & Submission</td>
+                            <td>Final Project</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <p style="text-align: center; margin-top: 1rem; font-size: min(0.9rem, 3vw);">
-                <em>Note: Schedule is subject to change based on class progress and needs.</em>
+                <em>Note: Schedule is subject to adjustment based on class progress and lab scheduling needs.</em>
             </p>
         </div>
 
-        <div id="demo" class="tab-content">
-            <h2>Demo Videos</h2>
-        </div>
-
-        <div id="contact" class="tab-content">
-        </div>
-
-        <div class="back-buttons" style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: min(1rem, 2vh); width: 100%; position: sticky; bottom: 0; background-color: rgba(10, 26, 42, 0.9); padding: min(0.5rem, 1vh); border-radius: 8px; z-index: 10; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);">
+        <div class="back-buttons" style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: min(1rem, 2vh); width: 100%; position: sticky; bottom: 0; background-color: rgba(255, 255, 255, 0.95); padding: min(0.5rem, 1vh); border-radius: 8px; z-index: 10; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);">
             <button class="tab-button" onclick="window.location.href='../index.html'" style="display: flex; align-items: center;">
                 ← Back to Home
             </button>

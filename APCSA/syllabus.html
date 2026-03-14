@@ -4,19 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AP Computer Science A Syllabus</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="css/textbook-style.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1a1510;
-            color: #f0f0f0;
+        :root {
+            --primary: #ffb347;
+            --bg-dark: #1a1510;
+            --bg-card: rgba(50, 40, 30, 0.9);
+            --bg-tab: rgba(60, 40, 20, 0.8);
+            --text: #f0f0f0;
+            --border: rgba(255, 179, 71, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
-            font-size: calc(18px + 0.5vw); /* Responsive base font size */
         }
-        
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(255, 179, 71, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 179, 71, 0.05) 0%, transparent 20%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffb347' stroke-width='0.5' stroke-opacity='0.1'%3E%3Cpath d='M0 30h60M30 0v60'/%3E%3Ccircle cx='30' cy='30' r='15'/%3E%3C/g%3E%3C/svg%3E");
+            color: var(--text);
+            line-height: 1.6;
+            font-size: calc(18px + 0.5vw);
+            min-height: 100vh;
+        }
+
         .container {
             width: 90%;
             max-width: 1200px;
@@ -28,10 +44,9 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            box-sizing: border-box;
             justify-content: space-between;
         }
-        
+
         @media (max-width: 1200px) {
             .container {
                 width: 95%;
@@ -39,7 +54,7 @@
                 padding: 1.5rem;
             }
         }
-        
+
         @media (max-width: 768px) {
             .container {
                 width: 95%;
@@ -47,24 +62,24 @@
                 min-height: 100vh;
                 justify-content: space-between;
             }
-            
+
             .tab-button {
                 padding: min(0.4rem, 1vw) min(0.6rem, 1.5vw);
                 font-size: min(0.7rem, 2vw);
                 margin-bottom: 0.1rem;
                 margin-right: min(0.1rem, 0.3vw);
             }
-            
+
             .sub-tab-button {
                 padding: min(0.4rem, 1vw) min(0.8rem, 1.5vw);
                 font-size: min(0.8rem, 2vw);
                 margin-bottom: 0.2rem;
             }
-            
+
             h1 {
                 font-size: min(2rem, 6vw);
             }
-            
+
             .back-button {
                 display: block;
                 width: 100%;
@@ -73,82 +88,82 @@
                 padding: min(0.4rem, 1vw) min(0.5rem, 1vw);
                 font-size: min(0.6rem, 2vw);
             }
-            
+
             .tab-content {
-                height: min(250px, 35vh); /* Reduced height for small screens */
+                height: min(250px, 35vh);
                 margin-bottom: min(1rem, 2vh);
             }
         }
-        
+
         @media (max-width: 480px) {
             .tab-button, .sub-tab-button {
                 flex-basis: calc(50% - 0.5rem);
                 max-width: none;
             }
-            
+
             .tab-content {
-                height: min(200px, 30vh); /* Further reduced height for very small screens */
+                height: min(200px, 30vh);
             }
-            
+
             .container {
                 padding: min(1rem, 2vw);
                 margin: min(1rem, 2vh) auto;
             }
-            
+
             .back-button {
                 font-size: min(0.4rem, 2vw);
                 padding: min(0.4rem, 0.8vw) min(0.4rem, 0.8vw);
             }
         }
-        
+
         h1 {
             text-align: center;
-            color: #ffb347;
+            color: var(--primary);
             margin-bottom: min(1rem, 2vh);
             font-size: min(2.5rem, 8vw);
             text-shadow: 0 0 10px rgba(255, 179, 71, 0.5);
             width: 100%;
             margin-top: min(0.5rem, 1vh);
+            font-family: 'Consolas', monospace;
         }
-        
+
         /* Tab styling */
         .tabs, .back-buttons {
             display: flex;
             flex-wrap: wrap;
             margin-bottom: min(1rem, 2vh);
-            border-bottom: 2px solid #ffb347;
+            border-bottom: 2px solid var(--primary);
             width: 100%;
             justify-content: center;
         }
-        
+
         .back-buttons {
             border-bottom: none;
             margin-top: min(1rem, 2vh);
             margin-bottom: min(1rem, 2vh);
         }
-        
+
         .back-buttons .tab-button {
-            background-color: #ffb347;
-            color: #1a1510;
+            background-color: var(--primary);
+            color: var(--bg-dark);
             font-weight: bold;
             margin-bottom: min(0.5rem, 1vh);
             flex: 0 1 auto;
             max-width: 25%;
             gap: 0.5rem;
         }
-        
+
         .back-buttons .tab-button:hover {
             background-color: #e6a142;
         }
-        
+
         .tab-button {
-            background-color: rgba(60, 40, 20, 0.8);
+            background-color: var(--bg-tab);
             border: none;
-            color: #f0f0f0;
+            color: var(--text);
             padding: min(0.6rem, 1.5vw) min(1rem, 2vw);
             cursor: pointer;
             font-size: min(0.8rem, 2.5vw);
-            transition: all 0.3s ease;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
             margin-right: min(0.2rem, 0.5vw);
@@ -161,84 +176,156 @@
             min-width: 0;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-family: 'Courier New', monospace;
         }
-        
+
         .tab-button:hover {
             background-color: rgba(255, 179, 71, 0.3);
         }
-        
+
         .tab-button.active {
-            background-color: #ffb347;
-            color: #1a1510;
+            background-color: var(--primary);
+            color: var(--bg-dark);
             font-weight: bold;
         }
-        
+
         /* Tab content styling */
         .tab-content {
             display: none;
             padding: min(1.5rem, 3vw);
-            background-color: rgba(50, 40, 30, 0.9);
+            background-color: var(--bg-card);
             border-radius: 0 0 8px 8px;
-            animation: fadeIn 0.5s ease;
-            height: min(320px, 40vh); /* Reduced from 50vh to 40vh */
-            max-height: 60vh; /* Reduced from 80vh to 60vh */
+            height: min(320px, 40vh);
+            max-height: 60vh;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: #4da6ff rgba(30, 30, 60, 0.8);
-            margin-bottom: min(1.5rem, 3vh); /* Added margin at bottom */
+            scrollbar-color: var(--primary) rgba(30, 30, 60, 0.8);
+            margin-bottom: min(1.5rem, 3vh);
         }
-        
+
         /* Custom scrollbar styling */
         .tab-content::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         .tab-content::-webkit-scrollbar-track {
             background: rgba(26, 21, 16, 0.5);
             border-radius: 4px;
         }
-        
+
         .tab-content::-webkit-scrollbar-thumb {
             background-color: rgba(255, 179, 71, 0.7);
             border-radius: 4px;
             border: 1px solid rgba(26, 21, 16, 0.8);
         }
-        
+
         .tab-content::-webkit-scrollbar-thumb:hover {
             background-color: rgba(255, 179, 71, 0.9);
         }
-        
+
         /* Firefox scrollbar styling */
         .tab-content {
             scrollbar-width: thin;
             scrollbar-color: rgba(255, 179, 71, 0.7) rgba(26, 21, 16, 0.5);
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
-        /* Typewriter cursor */
-        .typewriter-text {
-            display: inline-block;
-            overflow: hidden;
-            white-space: pre-wrap;
-            margin: 0;
-            letter-spacing: 0.05em;
-            position: relative;
-            font-size: min(1.5rem, 5vw);
+
+        h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: min(1.5rem, 3vh);
+            font-size: min(1.8rem, 6vw);
             width: 100%;
+        }
+
+        h3 {
+            color: var(--primary);
+            margin-bottom: min(0.5rem, 1vh);
+            font-size: min(1.2rem, 4vw);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: min(0.9rem, 3vw);
+        }
+
+        table th {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 2px solid var(--primary);
+            background-color: rgba(255, 179, 71, 0.3);
+        }
+
+        table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .textbook-image-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: min(1rem, 2vh);
+        }
+
+        .textbook-image {
+            max-width: min(300px, 80%);
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 179, 71, 0.3);
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: min(20px, 3vw);
+        }
+
+        .video {
+            width: 45%;
+            min-width: min(300px, 90vw);
+            background-color: transparent;
+        }
+
+        .video div {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 179, 71, 0.5);
+            background-color: transparent;
+        }
+
+        .video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
-    <canvas id="starfield"></canvas>
-    <canvas id="cyber-creature" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    
     <div class="container">
         <h1>AP Computer Science A Syllabus</h1>
-        
+
         <div class="tabs">
             <button class="tab-button active" onclick="openTab(event, 'overview')">Course Overview</button>
             <button class="tab-button" onclick="openTab(event, 'classinfo')">Class Info</button>
@@ -249,461 +336,389 @@
             <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam Information</button>
             <button class="tab-button" onclick="openTab(event, 'demo')">Demo</button>
         </div>
-        
-        <div id="overview" class="tab-content">
-            <div class="typewriter-text"></div>
+
+        <div id="overview" class="tab-content active">
+            <p>AP Computer Science A is an introductory college-level computer science course that emphasizes object-oriented programming and problem-solving. The course is designed to prepare students for the AP Computer Science A Exam while fostering a deep understanding of programming concepts, algorithms, and data structures. Students will use Java as the primary programming language and will engage in hands-on projects, coding exercises, and algorithmic problem-solving.</p>
+            <p>This course will also incorporate foundational computer science concepts from the textbook "Invitation to Computer Science" by G. Michael Schneider and Judith L. Gersting, providing a broader context for understanding computational thinking and the principles of computer science.</p>
         </div>
-        
-        <div id="classinfo" class="tab-content active">
-            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+
+        <div id="classinfo" class="tab-content">
+            <table>
                 <tbody>
                     <tr>
-                        <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2); white-space: nowrap; width: 40%;">Teacher:</td>
-                        <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Feng Gao</td>
+                        <td style="white-space: nowrap; width: 40%;">Teacher:</td>
+                        <td>Feng Gao</td>
                     </tr>
                     <tr>
-                        <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2); white-space: nowrap;">Grade:</td>
-                        <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">11 & 12</td>
+                        <td style="white-space: nowrap;">Grade:</td>
+                        <td>11 & 12</td>
                     </tr>
                     <tr>
-                        <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2); white-space: nowrap;">Classes per Week:</td>
-                        <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">5</td>
+                        <td style="white-space: nowrap;">Classes per Week:</td>
+                        <td>5</td>
                     </tr>
                     <tr>
-                        <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2); white-space: nowrap;">Curriculum + Credit:</td>
-                        <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP 5</td>
+                        <td style="white-space: nowrap;">Curriculum + Credit:</td>
+                        <td>AP 5</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
+
         <div id="objectives" class="tab-content">
-            <div class="typewriter-text"></div>
+            <p>By the end of the course, students will be able to:</p>
+            <ol>
+                <li>Design, implement, and analyze solutions to problems using object-oriented programming in Java.</li>
+                <li>Understand and apply fundamental programming constructs, including variables, loops, conditionals, and methods.</li>
+                <li>Develop and use algorithms to solve computational problems.</li>
+                <li>Work with data structures such as arrays, ArrayLists, and 2D arrays.</li>
+                <li>Understand and apply principles of inheritance, polymorphism, and abstraction.</li>
+                <li>Analyze and debug programs to ensure correctness and efficiency.</li>
+                <li>Prepare for and succeed on the AP Computer Science A Exam.</li>
+            </ol>
         </div>
-        
+
         <div id="textbook" class="tab-content">
-            <div class="typewriter-text"></div>
-            <div class="textbook-image-container" style="width: 100%; display: flex; justify-content: center; margin-top: min(1rem, 2vh);">
-                <img src="images/textbook.jpg" alt="Invitation to Computer Science textbook cover" class="textbook-image" style="max-width: min(300px, 80%); height: auto;">
+            <p>Title: Invitation to Computer Science<br>
+            Authors: G. Michael Schneider and Judith L. Gersting<br>
+            Edition: Latest Edition (as available)</p>
+            <p>This textbook provides an introduction to the theoretical and practical foundations of computer science. While the primary focus of the course is Java programming, selected chapters from the textbook will be used to explore topics such as algorithms, computational theory, and the history of computing.</p>
+            <div class="textbook-image-container">
+                <img src="images/textbook.jpg" alt="Invitation to Computer Science textbook cover" class="textbook-image">
             </div>
         </div>
-        
+
         <div id="grading" class="tab-content">
-            <div class="typewriter-text"></div>
+            <p>Grades will be based on the following components:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Attendance</td>
+                  <td>15%</td>
+                </tr>
+                <tr>
+                  <td>Participation</td>
+                  <td>15%</td>
+                </tr>
+                <tr>
+                  <td>Homework</td>
+                  <td>20%</td>
+                </tr>
+                <tr>
+                  <td>Exam</td>
+                  <td>50%</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>- Late Work Policy: Assignments submitted late will incur a penalty of 10% per day, up to a maximum of 5 days. After 5 days, no credit will be given.<br>
+            - Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced coding challenges.</p>
         </div>
-        
+
         <div id="schedule" class="tab-content">
-            <h2 style="color: #ffb347; text-align: center; margin-bottom: min(1rem, 2vh);">Course Schedule</h2>
+            <h2>Course Schedule</h2>
             <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
-                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: min(0.9rem, 3vw);">
+                <table>
                     <thead>
-                        <tr style="background-color: rgba(255, 179, 71, 0.3);">
-                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347; white-space: nowrap;">Week</th>
-                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347; white-space: nowrap;">Dates</th>
-                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347;">Topics</th>
-                            <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347;">Unit</th>
+                        <tr>
+                            <th style="white-space: nowrap;">Week</th>
+                            <th style="white-space: nowrap;">Dates</th>
+                            <th>Topics</th>
+                            <th>Unit</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 1</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 1 - Sep 7</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 1.1 Introduction, Variables and Data Types</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 1: Primitive Types</td>
+                            <td>Week 1</td>
+                            <td>Sep 1 - Sep 7</td>
+                            <td>AP CSA 1.1 Introduction, Variables and Data Types</td>
+                            <td>Unit 1: Primitive Types</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 2</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 8 - Sep 14</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 1.2 Expressions, Operators, Casting and Ranges of Variables</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 1: Primitive Types</td>
+                            <td>Week 2</td>
+                            <td>Sep 8 - Sep 14</td>
+                            <td>AP CSA 1.2 Expressions, Operators, Casting and Ranges of Variables</td>
+                            <td>Unit 1: Primitive Types</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 3</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 15 - Sep 21</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 2.1 - Introduction to Objects and Classes</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 2: Using Objects</td>
+                            <td>Week 3</td>
+                            <td>Sep 15 - Sep 21</td>
+                            <td>AP CSA 2.1 - Introduction to Objects and Classes</td>
+                            <td>Unit 2: Using Objects</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 4</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 22 - Sep 28</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 2.2 - Calling methods</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 2: Using Objects</td>
+                            <td>Week 4</td>
+                            <td>Sep 22 - Sep 28</td>
+                            <td>AP CSA 2.2 - Calling methods</td>
+                            <td>Unit 2: Using Objects</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 5</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Sep 29 - Oct 5</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">National Holiday</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 2: Using Objects</td>
+                            <td>Week 5</td>
+                            <td>Sep 29 - Oct 5</td>
+                            <td>National Holiday</td>
+                            <td>Unit 2: Using Objects</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 6</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Oct 6 - Oct 12</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 2.2 - String methods, Wrapper Classes, Math Class</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 2: Using Objects</td>
+                            <td>Week 6</td>
+                            <td>Oct 6 - Oct 12</td>
+                            <td>AP CSA 2.2 - String methods, Wrapper Classes, Math Class</td>
+                            <td>Unit 2: Using Objects</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 7</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Oct 13 - Oct 19</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 3.1 - Boolean Expressions, if statements</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 3: Boolean Expressions and if Statements</td>
+                            <td>Week 7</td>
+                            <td>Oct 13 - Oct 19</td>
+                            <td>AP CSA 3.1 - Boolean Expressions, if statements</td>
+                            <td>Unit 3: Boolean Expressions and if Statements</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 8</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Oct 20 - Oct 26</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 3.2 - De Morgan's Laws, Comparing Objects</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 3: Boolean Expressions and if Statements</td>
+                            <td>Week 8</td>
+                            <td>Oct 20 - Oct 26</td>
+                            <td>AP CSA 3.2 - De Morgan's Laws, Comparing Objects</td>
+                            <td>Unit 3: Boolean Expressions and if Statements</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 9</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Oct 27 - Nov 2</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 4.1 - Introduction to Iteration, while loops</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 4: Iteration</td>
+                            <td>Week 9</td>
+                            <td>Oct 27 - Nov 2</td>
+                            <td>AP CSA 4.1 - Introduction to Iteration, while loops</td>
+                            <td>Unit 4: Iteration</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 10</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Nov 3 - Nov 9</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 4.2 - For loops</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 4: Iteration</td>
+                            <td>Week 10</td>
+                            <td>Nov 3 - Nov 9</td>
+                            <td>AP CSA 4.2 - For loops</td>
+                            <td>Unit 4: Iteration</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 11</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Nov 10 - Nov 16</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Midterm Exam</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 4: Iteration</td>
+                            <td>Week 11</td>
+                            <td>Nov 10 - Nov 16</td>
+                            <td>Midterm Exam</td>
+                            <td>Unit 4: Iteration</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 12</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Nov 17 - Nov 23</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 4.3 - Loop Counters, Nested Loops</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 4: Iteration</td>
+                            <td>Week 12</td>
+                            <td>Nov 17 - Nov 23</td>
+                            <td>AP CSA 4.3 - Loop Counters, Nested Loops</td>
+                            <td>Unit 4: Iteration</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 13</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Nov 24 - Nov 30</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 5.1 - Class Design, Constructors</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 5: Writing Classes</td>
+                            <td>Week 13</td>
+                            <td>Nov 24 - Nov 30</td>
+                            <td>AP CSA 5.1 - Class Design, Constructors</td>
+                            <td>Unit 5: Writing Classes</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 14</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 1 - Dec 7</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 5.2 - this keyword, Accessor/Mutator methods, Static methods</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 5: Writing Classes</td>
+                            <td>Week 14</td>
+                            <td>Dec 1 - Dec 7</td>
+                            <td>AP CSA 5.2 - this keyword, Accessor/Mutator methods, Static methods</td>
+                            <td>Unit 5: Writing Classes</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 15</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 8 - Dec 14</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Winter Break</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);"></td>
+                            <td>Week 15</td>
+                            <td>Dec 8 - Dec 14</td>
+                            <td>Winter Break</td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 16</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 15 - Dec 21</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Winter Break</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);"></td>
+                            <td>Week 16</td>
+                            <td>Dec 15 - Dec 21</td>
+                            <td>Winter Break</td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 17</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 22 - Dec 28</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 6.1 - Introduction to Arrays</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 6: Array</td>
+                            <td>Week 17</td>
+                            <td>Dec 22 - Dec 28</td>
+                            <td>AP CSA 6.1 - Introduction to Arrays</td>
+                            <td>Unit 6: Array</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 18</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Dec 29 - Jan 4</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 6.2 - Array Traversal, Algorithms</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 6: Array</td>
+                            <td>Week 18</td>
+                            <td>Dec 29 - Jan 4</td>
+                            <td>AP CSA 6.2 - Array Traversal, Algorithms</td>
+                            <td>Unit 6: Array</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 19</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Jan 5 - Jan 11</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 7.1 - Introduction to ArrayList</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 7: ArrayList</td>
+                            <td>Week 19</td>
+                            <td>Jan 5 - Jan 11</td>
+                            <td>AP CSA 7.1 - Introduction to ArrayList</td>
+                            <td>Unit 7: ArrayList</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 20</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Jan 12 - Jan 18</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 7.2 - ArrayList Traversal, Algorithms</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 7: ArrayList</td>
+                            <td>Week 20</td>
+                            <td>Jan 12 - Jan 18</td>
+                            <td>AP CSA 7.2 - ArrayList Traversal, Algorithms</td>
+                            <td>Unit 7: ArrayList</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 21</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 2 - Mar 8</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 8.1 - Introduction to 2D Arrays</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 8: 2D Array</td>
+                            <td>Week 21</td>
+                            <td>Mar 2 - Mar 8</td>
+                            <td>AP CSA 8.1 - Introduction to 2D Arrays</td>
+                            <td>Unit 8: 2D Array</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 22</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 9 - Mar 15</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 8.2 - 2D Array Traversal, Jagged Arrays</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 8: 2D Array</td>
+                            <td>Week 22</td>
+                            <td>Mar 9 - Mar 15</td>
+                            <td>AP CSA 8.2 - 2D Array Traversal, Jagged Arrays</td>
+                            <td>Unit 8: 2D Array</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 23</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 16 - Mar 22</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 9.1 - Introduction to Inheritance, extends keyword</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 9: Inheritance</td>
+                            <td>Week 23</td>
+                            <td>Mar 16 - Mar 22</td>
+                            <td>AP CSA 9.1 - Introduction to Inheritance, extends keyword</td>
+                            <td>Unit 9: Inheritance</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 24</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 23 - Mar 29</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 9.2 - Method Overriding, Polymorphism</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 9: Inheritance</td>
+                            <td>Week 24</td>
+                            <td>Mar 23 - Mar 29</td>
+                            <td>AP CSA 9.2 - Method Overriding, Polymorphism</td>
+                            <td>Unit 9: Inheritance</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 25</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Mar 30 - Apr 5</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP CSA 10.1 - Introduction to Recursion</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Unit 10: Recursion</td>
+                            <td>Week 25</td>
+                            <td>Mar 30 - Apr 5</td>
+                            <td>AP CSA 10.1 - Introduction to Recursion</td>
+                            <td>Unit 10: Recursion</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 26</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Apr 6 - Apr 12</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                            <td>Week 26</td>
+                            <td>Apr 6 - Apr 12</td>
+                            <td>Review and Practice Exam</td>
+                            <td>Review and Practice Exam</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 27</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Apr 13 - Apr 19</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                            <td>Week 27</td>
+                            <td>Apr 13 - Apr 19</td>
+                            <td>Review and Practice Exam</td>
+                            <td>Review and Practice Exam</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 28</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Apr 20 - Apr 26</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Review and Practice Exam</td>
+                            <td>Week 28</td>
+                            <td>Apr 20 - Apr 26</td>
+                            <td>Review and Practice Exam</td>
+                            <td>Review and Practice Exam</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 29</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Apr 27 - May 3</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Midterm Exam</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Midterm Exam</td>
+                            <td>Week 29</td>
+                            <td>Apr 27 - May 3</td>
+                            <td>Midterm Exam</td>
+                            <td>Midterm Exam</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 30</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">May 4 - May 10</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP Exam Preparation and Review</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP Exam Review</td>
+                            <td>Week 30</td>
+                            <td>May 4 - May 10</td>
+                            <td>AP Exam Preparation and Review</td>
+                            <td>AP Exam Review</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 31</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">May 11 - May 17</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP Computer Science A Exam</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP Exam</td>
+                            <td>Week 31</td>
+                            <td>May 11 - May 17</td>
+                            <td>AP Computer Science A Exam</td>
+                            <td>AP Exam</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 32</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">May 18 - May 24</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Development</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project</td>
+                            <td>Week 32</td>
+                            <td>May 18 - May 24</td>
+                            <td>Final Project Development</td>
+                            <td>Final Project</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 33</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">May 25 - May 31</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Development</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project</td>
+                            <td>Week 33</td>
+                            <td>May 25 - May 31</td>
+                            <td>Final Project Development</td>
+                            <td>Final Project</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 34</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Jun 1 - Jun 7</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Development</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project</td>
+                            <td>Week 34</td>
+                            <td>Jun 1 - Jun 7</td>
+                            <td>Final Project Development</td>
+                            <td>Final Project</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Week 35</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Jun 8 - Jun 14</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Presentations</td>
-                            <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Final Project Presentations</td>
+                            <td>Week 35</td>
+                            <td>Jun 8 - Jun 14</td>
+                            <td>Final Project Presentations</td>
+                            <td>Final Project Presentations</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
+
         <div id="exam" class="tab-content">
-            <div class="typewriter-text"></div>
+            <p>Exam Date: Refer to the College Board website for the official AP Computer Science A Exam date.<br>
+            Exam Format:</p>
+            <ul>
+              <li>Section I: Multiple Choice (40 questions, 50% of the score)</li>
+              <li>Section II: Free Response (4 questions, 50% of the score)
+                <ul>
+                  <li>Topics include methods and control structures, classes, arrays, and algorithms.</li>
+                </ul>
+              </li>
+            </ul>
+            <p>Preparation:</p>
+            <ul>
+              <li>Weekly practice exams and coding challenges will simulate the AP Exam format.</li>
+              <li>Review sessions will be held in the final 9 weeks of the course.</li>
+            </ul>
         </div>
-        
+
         <div id="demo" class="tab-content">
-            <h2 style="color: #ffb347; text-align: center; margin-bottom: min(1.5rem, 3vh); font-size: min(1.8rem, 6vw); width: 100%;">Demo Videos</h2>
-            <div class="video-container" style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: min(20px, 3vw);">
-                <div class="video" style="width: 45%; min-width: min(300px, 90vw); background-color: transparent;">
-                    <h3 style="color: #ffb347; margin-bottom: min(0.5rem, 1vh); font-size: min(1.2rem, 4vw);">APCSA Primary Data Type: Binary-Feng Gao</h3>
-                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; box-shadow: 0 0 10px rgba(255, 179, 71, 0.5); background-color: transparent;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/YwTjrEwJl8s" title="APCSA Primary Data Type: Binary-Feng Gao" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <h2>Demo Videos</h2>
+            <div class="video-container">
+                <div class="video">
+                    <h3>APCSA Primary Data Type: Binary-Feng Gao</h3>
+                    <div>
+                        <iframe src="https://www.youtube.com/embed/YwTjrEwJl8s" title="APCSA Primary Data Type: Binary-Feng Gao" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="video" style="width: 45%; min-width: min(300px, 90vw); background-color: transparent;">
-                    <h3 style="color: #ffb347; margin-bottom: min(0.5rem, 1vh); font-size: min(1.2rem, 4vw);">APCSA Final Project Summary-Feng Gao</h3>
-                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; box-shadow: 0 0 10px rgba(255, 179, 71, 0.5); background-color: transparent;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/BUFxJvO60iU" title="APCSA Final Project Summary-Feng Gao" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video">
+                    <h3>APCSA Final Project Summary-Feng Gao</h3>
+                    <div>
+                        <iframe src="https://www.youtube.com/embed/BUFxJvO60iU" title="APCSA Final Project Summary-Feng Gao" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="video">
+                    <h3>Additional Course Demo</h3>
+                    <div>
+                        <iframe src="https://www.youtube.com/embed/sJWqwTygRFM" title="Additional Course Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div id="contact" class="tab-content">
-            <div class="typewriter-text"></div>
         </div>
-        
-            <div class="back-buttons" style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: min(1rem, 2vh); width: 100%; position: sticky; bottom: 0; background-color: rgba(26, 21, 16, 0); padding: min(0.5rem, 1vh); border-radius: 8px; z-index: 10; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);">
-                <button class="tab-button" onclick="window.location.href='../index.html'" style="display: flex; align-items: center;">
-                    ← Back to Home
-                </button>
-                <button class="tab-button" onclick="window.location.href='curriculum.html'" style="display: flex; align-items: center;">
-                    Explore Curriculum →
-                </button>
-            </div>
+
+        <div class="back-buttons" style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: min(1rem, 2vh); width: 100%; position: sticky; bottom: 0; background-color: rgba(26, 21, 16, 0.9); padding: min(0.5rem, 1vh); border-radius: 8px; z-index: 10; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);">
+            <button class="tab-button" onclick="window.location.href='../index.html'" style="display: flex; align-items: center;">
+                ← Back to Home
+            </button>
+            <button class="tab-button" onclick="window.location.href='curriculum.html'" style="display: flex; align-items: center;">
+                Explore Curriculum →
+            </button>
+        </div>
     </div>
-    
-    <script src="../js/starfield.js"></script>
-    <script src="js/cyber-creature.js"></script>
+
     <script>
-        // Tab functionality
+        // Simple tab functionality - no animations
         function openTab(evt, tabName) {
             const tabContents = document.getElementsByClassName("tab-content");
             for (let i = 0; i < tabContents.length; i++) {
                 tabContents[i].classList.remove("active");
             }
-            
+
             const tabButtons = document.getElementsByClassName("tab-button");
             for (let i = 0; i < tabButtons.length; i++) {
                 tabButtons[i].classList.remove("active");
             }
-            
+
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
-            
-            // Restart typewriter effect for the selected tab
-            startTypewriter(tabName);
         }
-        
-        // Content for each tab
-        const tabContent = {
-            overview: `AP Computer Science A is an introductory college-level computer science course that emphasizes object-oriented programming and problem-solving. The course is designed to prepare students for the AP Computer Science A Exam while fostering a deep understanding of programming concepts, algorithms, and data structures. Students will use Java as the primary programming language and will engage in hands-on projects, coding exercises, and algorithmic problem-solving.
-
-This course will also incorporate foundational computer science concepts from the textbook "Invitation to Computer Science" by G. Michael Schneider and Judith L. Gersting, providing a broader context for understanding computational thinking and the principles of computer science.`,
-            
-            objectives: `By the end of the course, students will be able to:
-1. Design, implement, and analyze solutions to problems using object-oriented programming in Java.
-2. Understand and apply fundamental programming constructs, including variables, loops, conditionals, and methods.
-3. Develop and use algorithms to solve computational problems.
-4. Work with data structures such as arrays, ArrayLists, and 2D arrays.
-5. Understand and apply principles of inheritance, polymorphism, and abstraction.
-6. Analyze and debug programs to ensure correctness and efficiency.
-7. Prepare for and succeed on the AP Computer Science A Exam.`,
-            classinfo: `
-<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
-  <tbody>
-    <tr>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2); width: 40%;">Teacher:</td>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Feng Gao</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Grade:</td>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">11 & 12</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Classes per Week:</td>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">5</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Curriculum + Credit:</td>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">AP 5</td>
-    </tr>
-  </tbody>
-</table>`,
-            
-            textbook: `Title: Invitation to Computer Science
-Authors: G. Michael Schneider and Judith L. Gersting
-Edition: Latest Edition (as available)
-
-This textbook provides an introduction to the theoretical and practical foundations of computer science. While the primary focus of the course is Java programming, selected chapters from the textbook will be used to explore topics such as algorithms, computational theory, and the history of computing.`,
-            
-            grading: `Grades will be based on the following components:
-<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
-  <thead>
-    <tr style="background-color: rgba(255, 179, 71, 0.3);">
-      <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347;">Category</th>
-      <th style="padding: 0.75rem; text-align: left; border-bottom: 2px solid #ffb347;">Percentage</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Attendance</td>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">15%</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Participation</td>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">15%</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Homework</td>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">20%</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">Exam</td>
-      <td style="padding: 0.75rem; border-bottom: 1px solid rgba(255, 179, 71, 0.2);">50%</td>
-    </tr>
-  </tbody>
-</table>
-- Late Work Policy: Assignments submitted late will incur a penalty of 10% per day, up to a maximum of 5 days. After 5 days, no credit will be given.
-- Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced coding challenges.`,
-            
-            exam: `Exam Date: Refer to the College Board website for the official AP Computer Science A Exam date.
-Exam Format:
-  - Section I: Multiple Choice (40 questions, 50% of the score)
-  - Section II: Free Response (4 questions, 50% of the score)
-    - Topics include methods and control structures, classes, arrays, and algorithms.
-Preparation:
-  - Weekly practice exams and coding challenges will simulate the AP Exam format.
-  - Review sessions will be held in the final 9 weeks of the course.`
-        };
-        
-        // Initialize the first tab and sub-tab
-        document.addEventListener('DOMContentLoaded', function() {
-            startTypewriter('overview');
-        });
-        
-        // Start typewriter effect for the selected tab
-        function startTypewriter(tabId) {
-            const content = tabContent[tabId];
-            
-            // Adjust font size based on window width
-            const fontSize = Math.max(0.8, Math.min(1, window.innerWidth / 1200));
-            
-            // Special handling for different tabs
-            if (tabId === 'textbook') {
-                // For textbook tab
-                const element = document.querySelector(`#${tabId} .typewriter-text`);
-                element.style.fontSize = `${fontSize}rem`;
-                element.textContent = content;
-            } else if (tabId === 'grading') {
-                // For grading tab
-                const element = document.querySelector(`#${tabId} .typewriter-text`);
-                element.style.fontSize = `${fontSize}rem`;
-                element.innerHTML = content;
-            } else if (tabId !== 'classinfo') {
-                // For other tabs except classinfo
-                const element = document.querySelector(`#${tabId} .typewriter-text`);
-                element.style.fontSize = `${fontSize}rem`;
-                element.textContent = content;
-            }
-            // No action needed for classinfo tab as it contains direct HTML content
-        }
-        
-        // Add window resize event listener to adjust font sizes
-        window.addEventListener('resize', function() {
-            // Update active tab content font size
-            const activeTab = document.querySelector('.tab-content.active');
-            if (activeTab) {
-                const textElement = activeTab.querySelector('.typewriter-text');
-                if (textElement) {
-                    const fontSize = Math.max(0.8, Math.min(1, window.innerWidth / 1200));
-                    textElement.style.fontSize = `${fontSize}rem`;
-                }
-            }
-        });
     </script>
 </body>
 </html>
