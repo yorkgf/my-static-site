@@ -6,65 +6,65 @@
       <description>Last 10 notes on AP Physics C Knowledge Graph</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>Index</title>
-    <link>https:///APPhysicsC/knowledge-graph/Energy/Index</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Energy/Index</guid>
-    <description><![CDATA[ Energy This section covers energy concepts in mechanics, including conservation of energy and its applications. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:44:18 GMT</pubDate>
+    <title>Maxwell&#039;s Equations</title>
+    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Maxwell's-Equations</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Maxwell's-Equations</guid>
+    <description><![CDATA[ Maxwell’s Equations Maxwell’s Equations are a set of four fundamental equations that describe all classical electromagnetic phenomena. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Example 6 - Sliding Rope</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-6---Sliding-Rope</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-6---Sliding-Rope</guid>
-    <description><![CDATA[ Example 6: Sliding Rope on Frictionless Table Problem Statement A uniform rope of length L and mass M is placed on a frictionless table, with one end of the rope hanging slightly over the edge. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>LC Circuits</title>
+    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/LC-Circuits</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/LC-Circuits</guid>
+    <description><![CDATA[ LC Circuits An LC circuit contains an inductor and capacitor connected together, creating an oscillating system. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Example 7 - Ball in Tunnel Through Planet</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-7---Ball-in-Tunnel-Through-Planet</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-7---Ball-in-Tunnel-Through-Planet</guid>
-    <description><![CDATA[ Example 7: Ball in Tunnel Through Planet Problem Statement A spherical, nonrotating planet has a radius R and a uniform density \rho throughout its volume. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>Inductance</title>
+    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Inductance</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Inductance</guid>
+    <description><![CDATA[ Inductance Inductance is the property of an electrical conductor that opposes changes in current. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Example 8 - Power from Position Function</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-8---Power-from-Position-Function</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-8---Power-from-Position-Function</guid>
-    <description><![CDATA[ Example 8: Power and Work from Position Function Problem Statement The position of a 280-g object is given (in meters) by: x = 4.0t^3 - 8.0t^2 - 44t where t is in seconds. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>Faraday&#039;s Law</title>
+    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Faraday's-Law</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Faraday's-Law</guid>
+    <description><![CDATA[ Faraday’s Law Faraday’s Law describes how a changing magnetic flux induces an electromotive force (emf). ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Example 9 - Potential Energy and Turning Points</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-9---Potential-Energy-and-Turning-Points</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-9---Potential-Energy-and-Turning-Points</guid>
-    <description><![CDATA[ Example 9: Potential Energy and Turning Points Problem Statement A particle moves where its potential energy is given by: U(r) = U_0\left[\left(\frac{2}{r^2}\right) - \left(\frac{1}{r}\right)\right] where r is the radial distance and U_0 is a positive constant with units of energy. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>Magnetic Flux</title>
+    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Magnetic-Flux</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Magnetic-Flux</guid>
+    <description><![CDATA[ Magnetic Flux Magnetic flux \Phi_B measures the amount of magnetic field passing through a surface. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Index</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Index</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Index</guid>
-    <description><![CDATA[ Examples - AP Physics C Mechanics This folder contains worked examples from AP Physics C Mechanics free response questions. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>Magnetic Moments</title>
+    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Moments</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Moments</guid>
+    <description><![CDATA[ Magnetic Moments The magnetic moment is a vector quantity that measures the strength and orientation of a magnetic source. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Example 1 - Sphere with Air Resistance</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-1---Sphere-with-Air-Resistance</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-1---Sphere-with-Air-Resistance</guid>
-    <description><![CDATA[ Example 1: Sphere with Velocity-Dependent Air Resistance Problem Statement A small sphere of mass m is launched straight upward from the top of a high cliff, as shown in Figure 1, with an initial speed v_0 at time t = 0. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>Magnetic Force on Current-Carrying Wires</title>
+    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Current-Carrying-Wires</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Current-Carrying-Wires</guid>
+    <description><![CDATA[ Magnetic Force on Current-Carrying Wires A current-carrying wire in a magnetic field experiences a force due to the magnetic forces on the moving charges within the wire. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Example 17 - Springs in Series and Parallel</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-17---Springs-in-Series-and-Parallel</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-17---Springs-in-Series-and-Parallel</guid>
-    <description><![CDATA[ Example 17: Springs in Series and Parallel Problem Statement A mass m is connected to two springs, with spring constants k_1 and k_2, in two different ways as shown in Figure 17. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>Magnetic Force on Moving Charges</title>
+    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Moving-Charges</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Moving-Charges</guid>
+    <description><![CDATA[ Magnetic Force on Moving Charges A charged particle moving in a magnetic field experiences a force perpendicular to both its velocity and the magnetic field. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Example 18 - Torsional Oscillation of Meter Stick</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-18---Torsional-Oscillation-of-Meter-Stick</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-18---Torsional-Oscillation-of-Meter-Stick</guid>
-    <description><![CDATA[ Example 18: Torsional Oscillation of a Meter Stick Problem Statement A meter stick is hung at its center from a thin wire. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>Ampère&#039;s Law</title>
+    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Amp%C3%A8re's-Law</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Amp%C3%A8re's-Law</guid>
+    <description><![CDATA[ Ampère’s Law Ampère’s Law relates the magnetic field around a closed loop to the current passing through the loop. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item><item>
-    <title>Example 19 - Ballistic Measurement with Spring</title>
-    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-19---Ballistic-Measurement-with-Spring</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-19---Ballistic-Measurement-with-Spring</guid>
-    <description><![CDATA[ Example 19: Ballistic Measurement with Spring Problem Statement Agent Arlene devised the following method of measuring the muzzle velocity of a rifle. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 05:33:04 GMT</pubDate>
+    <title>Magnetic Field</title>
+    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Field</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Field</guid>
+    <description><![CDATA[ Magnetic Field The magnetic field \vec{B} is a vector field that describes the magnetic influence on moving charges and magnetic dipoles. ]]></description>
+    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
   </item>
     </channel>
   </rss>
