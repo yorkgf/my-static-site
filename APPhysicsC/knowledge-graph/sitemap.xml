@@ -1,6 +1,84 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Conductors,-Capacitors,-and-Dielectrics/Capacitance</loc>
+    <lastmod>2026-03-18T06:06:27.400Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Conductors,-Capacitors,-and-Dielectrics/Combinations-of-Capacitors</loc>
+    <lastmod>2026-03-18T06:06:27.436Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Conductors,-Capacitors,-and-Dielectrics/Dielectrics</loc>
+    <lastmod>2026-03-18T06:06:27.459Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Conductors,-Capacitors,-and-Dielectrics/Energy-Stored-in-Capacitors</loc>
+    <lastmod>2026-03-18T06:06:27.482Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Conductors,-Capacitors,-and-Dielectrics/Index</loc>
+    <lastmod>2026-03-18T06:04:24.599Z</lastmod>
+  </url><url>
     <loc>https:///APPhysicsC/knowledge-graph/Differential-Equations-in-Mechanics</loc>
     <lastmod>2026-03-18T03:29:13.427Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Charges,-Fields,-and-Gauss's-Law/Conductors-in-Electrostatic-Equilibrium</loc>
+    <lastmod>2026-03-18T06:05:29.361Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Charges,-Fields,-and-Gauss's-Law/Electric-Charge-and-Coulomb's-Law</loc>
+    <lastmod>2026-03-18T06:05:29.249Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Charges,-Fields,-and-Gauss's-Law/Electric-Field</loc>
+    <lastmod>2026-03-18T06:05:29.318Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Charges,-Fields,-and-Gauss's-Law/Gauss's-Law</loc>
+    <lastmod>2026-03-18T06:05:29.339Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Charges,-Fields,-and-Gauss's-Law/Index</loc>
+    <lastmod>2026-03-18T06:04:24.542Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Circuits/Current-and-Resistance</loc>
+    <lastmod>2026-03-18T06:06:27.504Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Circuits/DC-Circuits</loc>
+    <lastmod>2026-03-18T06:06:27.525Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Circuits/Index</loc>
+    <lastmod>2026-03-18T06:04:24.632Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Circuits/Power-in-Electric-Circuits</loc>
+    <lastmod>2026-03-18T06:06:27.575Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Circuits/RC-Circuits</loc>
+    <lastmod>2026-03-18T06:06:27.552Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Potential/Electric-Potential-Energy</loc>
+    <lastmod>2026-03-18T06:05:29.383Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Potential/Electric-Potential-of-Conductors</loc>
+    <lastmod>2026-03-18T06:05:29.460Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Potential/Electric-Potential</loc>
+    <lastmod>2026-03-18T06:05:29.404Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Potential/Index</loc>
+    <lastmod>2026-03-18T06:04:24.574Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electric-Potential/Relationship-Between-E-and-V</loc>
+    <lastmod>2026-03-18T06:05:29.425Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Faraday's-Law</loc>
+    <lastmod>2026-03-18T06:07:29.391Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Index</loc>
+    <lastmod>2026-03-18T06:04:24.673Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Inductance</loc>
+    <lastmod>2026-03-18T06:07:29.414Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/LC-Circuits</loc>
+    <lastmod>2026-03-18T06:07:29.440Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Magnetic-Flux</loc>
+    <lastmod>2026-03-18T06:07:29.367Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Maxwell's-Equations</loc>
+    <lastmod>2026-03-18T06:07:29.442Z</lastmod>
   </url><url>
     <loc>https:///APPhysicsC/knowledge-graph/Energy/Conservation-of-Energy</loc>
     <lastmod>2026-03-18T03:29:13.427Z</lastmod>
@@ -82,6 +160,24 @@
   </url><url>
     <loc>https:///APPhysicsC/knowledge-graph/Force-and-Translational-Dynamics/Universal-Gravitation</loc>
     <lastmod>2026-03-18T05:03:06.517Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Amp%C3%A8re's-Law</loc>
+    <lastmod>2026-03-18T06:07:29.260Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Index</loc>
+    <lastmod>2026-03-18T06:04:24.653Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Field</loc>
+    <lastmod>2026-03-18T06:07:29.211Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Current-Carrying-Wires</loc>
+    <lastmod>2026-03-18T06:07:29.329Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Moving-Charges</loc>
+    <lastmod>2026-03-18T06:07:29.284Z</lastmod>
+  </url><url>
+    <loc>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Moments</loc>
+    <lastmod>2026-03-18T06:07:29.332Z</lastmod>
   </url><url>
     <loc>https:///APPhysicsC/knowledge-graph/Oscillations/Differential-Equation-for-SHM</loc>
     <lastmod>2026-03-18T03:29:13.429Z</lastmod>
