@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Computer Science Principles Syllabus</title>
+    <style>
+        :root {
+            --primary: #4da6ff;
+            --bg-dark: #0a1a2a;
+            --bg-card: rgba(20, 40, 80, 0.9);
+            --bg-tab: rgba(20, 40, 80, 0.8);
+            --text: #f0f0f0;
+            --border: rgba(77, 166, 255, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(77, 166, 255, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(77, 166, 255, 0.05) 0%, transparent 25%),
+                url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%234da6ff' stroke-width='0.5' stroke-opacity='0.1'%3E%3Cpath d='M10 10h60v60H10z'/%3E%3Cpath d='M20 10v60M40 10v60M60 10v60M10 20h60M10 40h60M10 60h60'/%3E%3Ccircle cx='40' cy='40' r='5' fill='%234da6ff' fill-opacity='0.1'/%3E%3C/g%3E%3C/svg%3E");
+            color: var(--text);
+            line-height: 1.6;
+            font-size: calc(18px + 0.5vw);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: min(1rem, 2vh) auto;
+            padding: min(1.5rem, 3vw);
+            background-color: transparent;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+                max-width: 95%;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: min(1.5rem, 3vw);
+                min-height: 100vh;
+                justify-content: space-between;
+            }
+
+            .tab-button {
+                padding: min(0.4rem, 1vw) min(0.6rem, 1.5vw);
+                font-size: min(0.7rem, 2vw);
+                margin-bottom: 0.1rem;
+                margin-right: min(0.1rem, 0.3vw);
+            }
+
+            .sub-tab-button {
+                padding: min(0.4rem, 1vw) min(0.8rem, 1.5vw);
+                font-size: min(0.8rem, 2vw);
+                margin-bottom: 0.2rem;
+            }
+
+            h1 {
+                font-size: min(2rem, 6vw);
+            }
+
+            .back-button {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-top: min(0.5rem, 1vh);
+                padding: min(0.4rem, 1vw) min(0.5rem, 1vw);
+                font-size: min(0.6rem, 2vw);
+            }
+
+            .tab-content {
+                height: min(250px, 35vh);
+                margin-bottom: min(1rem, 2vh);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button, .sub-tab-button {
+                flex-basis: calc(50% - 0.5rem);
+                max-width: none;
+            }
+
+            .tab-content {
+                height: min(200px, 30vh);
+            }
+
+            .container {
+                padding: min(1rem, 2vw);
+                margin: min(1rem, 2vh) auto;
+            }
+
+            .back-button {
+                font-size: min(0.4rem, 2vw);
+                padding: min(0.4rem, 0.8vw) min(0.4rem, 0.8vw);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: min(1rem, 2vh);
+            font-size: min(2.5rem, 8vw);
+            text-shadow: 0 0 10px rgba(77, 166, 255, 0.5);
+            width: 100%;
+            margin-top: min(0.5rem, 1vh);
+            font-weight: 600;
+        }
+
+        /* Tab styling */
+        .tabs, .back-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: min(1rem, 2vh);
+            border-bottom: 2px solid var(--primary);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .back-buttons {
+            border-bottom: none;
+            margin-top: min(1rem, 2vh);
+            margin-bottom: min(1rem, 2vh);
+        }
+
+        .back-buttons .tab-button {
+            background-color: var(--primary);
+            color: var(--bg-dark);
+            font-weight: bold;
+            margin-bottom: min(0.5rem, 1vh);
+            flex: 0 1 auto;
+            max-width: 25%;
+            gap: 0.5rem;
+        }
+
+        .back-buttons .tab-button:hover {
+            background-color: #3d8bdb;
+        }
+
+        .tab-button {
+            background-color: var(--bg-tab);
+            border: none;
+            color: var(--text);
+            padding: min(0.6rem, 1.5vw) min(1rem, 2vw);
+            cursor: pointer;
+            font-size: min(0.8rem, 2.5vw);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-right: min(0.2rem, 0.5vw);
+            margin-bottom: min(0.2rem, 0.5vh);
+            outline: none;
+            flex-grow: 1;
+            text-align: center;
+            max-width: fit-content;
+            white-space: nowrap;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 500;
+        }
+
+        .tab-button:hover {
+            background-color: rgba(77, 166, 255, 0.5);
+        }
+
+        .tab-button.active {
+            background-color: var(--primary);
+            color: var(--bg-dark);
+            font-weight: bold;
+        }
+
+        /* Tab content styling */
+        .tab-content {
+            display: none;
+            padding: min(1.5rem, 3vw);
+            background-color: var(--bg-card);
+            border-radius: 0 0 8px 8px;
+            height: min(320px, 40vh);
+            max-height: 60vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) rgba(30, 30, 60, 0.8);
+            margin-bottom: min(1.5rem, 3vh);
+        }
+
+        /* Custom scrollbar styling */
+        .tab-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tab-content::-webkit-scrollbar-track {
+            background: rgba(10, 26, 42, 0.5);
+            border-radius: 4px;
+        }
+
+        .tab-content::-webkit-scrollbar-thumb {
+            background-color: rgba(77, 166, 255, 0.7);
+            border-radius: 4px;
+            border: 1px solid rgba(10, 26, 42, 0.8);
+        }
+
+        .tab-content::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(77, 166, 255, 0.9);
+        }
+
+        /* Firefox scrollbar styling */
+        .tab-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(77, 166, 255, 0.7) rgba(10, 26, 42, 0.5);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: min(1.5rem, 3vh);
+            font-size: min(1.8rem, 6vw);
+            width: 100%;
+            font-weight: 600;
+        }
+
+        h3 {
+            color: var(--primary);
+            margin-bottom: min(0.5rem, 1vh);
+            font-size: min(1.2rem, 4vw);
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: min(0.9rem, 3vw);
+        }
+
+        table th {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 2px solid var(--primary);
+            background-color: rgba(77, 166, 255, 0.3);
+        }
+
+        table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .textbook-image-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: min(1rem, 2vh);
+        }
+
+        .textbook-image {
+            max-width: min(300px, 80%);
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(77, 166, 255, 0.3);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        em {
+            color: var(--primary);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AP Computer Science Principles Syllabus</h1>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'overview')">Course Overview</button>
+            <button class="tab-button" onclick="openTab(event, 'classinfo')">Class Info</button>
+            <button class="tab-button" onclick="openTab(event, 'objectives')">Course Objectives</button>
+            <button class="tab-button" onclick="openTab(event, 'textbook')">Textbook</button>
+            <button class="tab-button" onclick="openTab(event, 'grading')">Grading Policy</button>
+            <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam Information</button>
+            <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
+            <button class="tab-button" onclick="openTab(event, 'demo')">Demo</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <p>AP Computer Science Principles is a college-level course that introduces students to the foundational concepts of computer science and explores the impact of computing innovations on society. This course emphasizes creative problem-solving and the development of computational thinking skills that can be applied across various disciplines.</p>
+            <p>Students will learn to design and implement creative solutions to problems using programming, while also examining how computing innovations and the digital world impact our daily lives, society, and the global community. The course covers a broad range of topics including digital information, the internet, programming, algorithms, data analysis, and cybersecurity.</p>
+            <p>This course prepares students for the AP Computer Science Principles Exam and the Create Performance Task, fostering both technical skills and critical thinking about the ethical and social implications of computing technologies.</p>
+        </div>
+
+        <div id="classinfo" class="tab-content">
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="white-space: nowrap; width: 40%;">Teacher:</td>
+                        <td>Feng Gao</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Grade:</td>
+                        <td>11 & 12</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Classes per Week:</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Curriculum + Credit:</td>
+                        <td>AP 5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="objectives" class="tab-content">
+            <p>By the end of the course, students will be able to:</p>
+            <ol>
+                <li>Understand and apply the Big Ideas of Computer Science Principles including Creative Development, Data, Algorithms and Programming, Computer Systems and Networks, and Impact of Computing.</li>
+                <li>Design and implement creative solutions to problems using programming and computational thinking skills.</li>
+                <li>Analyze and create algorithms to solve computational problems efficiently.</li>
+                <li>Work with digital information including data representation, compression, and processing.</li>
+                <li>Understand how the Internet works, including protocols, packet switching, and network infrastructure.</li>
+                <li>Create and analyze data visualizations to identify patterns and trends.</li>
+                <li>Examine the ethical, social, and global impacts of computing innovations.</li>
+                <li>Develop and present a Create Performance Task that demonstrates programming skills and understanding of computer science principles.</li>
+                <li>Prepare for and succeed on the AP Computer Science Principles Exam.</li>
+            </ol>
+        </div>
+
+        <div id="textbook" class="tab-content">
+            <p>Title: Computer Science: An Overview<br>
+            Authors: J. Glenn Brookshear and Dennis Brylow<br>
+            Publisher: Pearson<br>
+            Edition: Latest Edition (as available)</p>
+            <p>This textbook provides a comprehensive overview of computer science fundamentals. Selected chapters from the textbook will be used to explore topics such as digital information, computer systems, algorithms, data representation, and the impact of computing on society. The textbook complements hands-on programming activities and project-based learning throughout the course.</p>
+            <div class="textbook-image-container">
+                <img src="images/textbook.jpg" alt="Computer Science: An Overview textbook cover" class="textbook-image">
+            </div>
+        </div>
+
+        <div id="grading" class="tab-content">
+            <p>Grades will be based on the following components:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Attendance</td>
+                  <td>15%</td>
+                </tr>
+                <tr>
+                  <td>Participation</td>
+                  <td>15%</td>
+                </tr>
+                <tr>
+                  <td>Homework</td>
+                  <td>20%</td>
+                </tr>
+                <tr>
+                  <td>Exam</td>
+                  <td>50%</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>- Late Work Policy: Assignments submitted late will incur a penalty of 10% per day, up to a maximum of 5 days. After 5 days, no credit will be given.<br>
+            - Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced coding challenges.</p>
+        </div>
+
+        <div id="exam" class="tab-content">
+            <p>Exam Date: Refer to the College Board website for the official AP Computer Science Principles Exam date.<br>
+            Exam Format:</p>
+            <ul>
+              <li>Section I: Multiple Choice (70 questions, 60% of the score)</li>
+              <li>Section II: Performance Tasks (40% of the score)
+                <ul>
+                  <li>Create Performance Task (20%): Students create a computer program and submit videos, written responses, and program code.</li>
+                  <li>Explore Performance Task (20%): Students explore a computing innovation and submit written responses.</li>
+                </ul>
+              </li>
+            </ul>
+            <p>Preparation:</p>
+            <ul>
+              <li>Weekly practice exams and coding challenges will simulate the AP Exam format.</li>
+              <li>Create Performance Task preparation will be integrated throughout Units 1-8.</li>
+              <li>Review sessions will be held in the final 4 weeks of the course.</li>
+            </ul>
+        </div>
+
+        <div id="schedule" class="tab-content">
+            <h2>Course Schedule</h2>
+            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap;">Week</th>
+                            <th style="white-space: nowrap;">Dates</th>
+                            <th>Unit/Topic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Week 1</td>
+                            <td>Sep 1 - Sep 7</td>
+                            <td>Unit 1 - Digital Information (Introduction)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 2</td>
+                            <td>Sep 8 - Sep 14</td>
+                            <td>Unit 1 - Digital Information (Data Types and Compression)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 3</td>
+                            <td>Sep 15 - Sep 21</td>
+                            <td>Unit 2 - The Internet (Fundamentals)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 4</td>
+                            <td>Sep 22 - Sep 28</td>
+                            <td>Unit 2 - The Internet (Impacts)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 5</td>
+                            <td>Sep 29 - Oct 5</td>
+                            <td>Unit 3 - Intro to App Design (Basics)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 6</td>
+                            <td>Oct 6 - Oct 12</td>
+                            <td>Unit 3 - Intro to App Design (Collaborative Development)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 7</td>
+                            <td>Oct 13 - Oct 19</td>
+                            <td>Unit 4 - Variables, Conditionals, and Functions (Basics)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 8</td>
+                            <td>Oct 20 - Oct 26</td>
+                            <td>Unit 4 - Variables, Conditionals, and Functions (Functions)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 9</td>
+                            <td>Oct 27 - Nov 2</td>
+                            <td>Unit 4 - Variables, Conditionals, and Functions (API Integration)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 10</td>
+                            <td>Nov 3 - Nov 9</td>
+                            <td>Unit 5 - Lists, Loops, and Traversals (Lists)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 11</td>
+                            <td>Nov 10 - Nov 16</td>
+                            <td><strong style="color: #d32f2f;">Mid Term Exam</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Week 12</td>
+                            <td>Nov 17 - Nov 23</td>
+                            <td>Unit 5 - Lists, Loops, and Traversals (Loops)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 13</td>
+                            <td>Nov 24 - Nov 30</td>
+                            <td>Unit 5 - Lists, Loops, and Traversals (Data Processing)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 14</td>
+                            <td>Dec 1 - Dec 7</td>
+                            <td>Unit 6 - Algorithms (Fundamentals)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 15</td>
+                            <td>Dec 8 - Dec 14</td>
+                            <td>Unit 6 - Algorithms (Analysis)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 16</td>
+                            <td>Dec 15 - Dec 21</td>
+                            <td>Unit 7 - Parameters, Return, and Libraries (Parameters)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 17</td>
+                            <td>Dec 22 - Dec 28</td>
+                            <td>Unit 7 - Parameters, Return, and Libraries (Libraries)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 18</td>
+                            <td>Dec 29 - Jan 4</td>
+                            <td>Unit 8 - Create PT Prep (Overview)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 19</td>
+                            <td>Jan 5 - Jan 11</td>
+                            <td>Unit 8 - Create PT Prep (Implementation)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 20</td>
+                            <td>Jan 12 - Jan 18</td>
+                            <td>Unit 8 - Create PT Prep (Review and Practices)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 21</td>
+                            <td>Jan 19 - Jan 25</td>
+                            <td><strong style="color: #d32f2f;">Final Exam</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Week 22</td>
+                            <td>Mar 2 - Mar 8</td>
+                            <td>Unit 9 - Data (Exploration)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 23</td>
+                            <td>Mar 9 - Mar 15</td>
+                            <td>Unit 9 - Data (Visualization)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 24</td>
+                            <td>Mar 16 - Mar 22</td>
+                            <td>Unit 10 - Cybersecurity and Global Impacts (Cybersecurity)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 25</td>
+                            <td>Mar 23 - Mar 29</td>
+                            <td>Unit 10 - Cybersecurity and Global Impacts (Global Impacts)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 26</td>
+                            <td>Mar 30 - Apr 5</td>
+                            <td>Project Preparation and AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td>Week 27</td>
+                            <td>Apr 6 - Apr 12</td>
+                            <td>Project Preparation and AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td>Week 28</td>
+                            <td>Apr 13 - Apr 19</td>
+                            <td>Project Preparation and AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td>Week 29</td>
+                            <td>Apr 20 - Apr 26</td>
+                            <td>Project Preparation and AP Exam Review</td>
+                        </tr>
+                        <tr>
+                            <td>Week 30</td>
+                            <td>Apr 27 - May 3</td>
+                            <td><strong style="color: #d32f2f;">Second Semester Midterm Exam</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Week 31</td>
+                            <td>May 4 - May 10</td>
+                            <td><strong style="color: #d32f2f;">AP Exam Week 1</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Week 32</td>
+                            <td>May 11 - May 17</td>
+                            <td><strong style="color: #d32f2f;">AP Exam Week 2</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Week 33</td>
+                            <td>May 18 - May 24</td>
+                            <td>Final Project Development Week 1</td>
+                        </tr>
+                        <tr>
+                            <td>Week 34</td>
+                            <td>May 25 - May 31</td>
+                            <td>Final Project Development Week 2</td>
+                        </tr>
+                        <tr>
+                            <td>Week 35</td>
+                            <td>Jun 1 - Jun 7</td>
+                            <td>Final Project Development Week 3</td>
+                        </tr>
+                        <tr>
+                            <td>Week 36</td>
+                            <td>Jun 8 - Jun 14</td>
+                            <td><strong style="color: var(--primary);">Final Project Presentations</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; font-size: min(0.9rem, 3vw);">
+                <em>Note: Schedule is subject to change based on class progress and needs.</em>
+            </p>
+        </div>
+
+        <div id="demo" class="tab-content">
+            <h2>Demo Videos</h2>
+        </div>
+
+        <div id="contact" class="tab-content">
+        </div>
+
+        <div class="back-buttons" style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: min(1rem, 2vh); width: 100%; position: sticky; bottom: 0; background-color: rgba(10, 26, 42, 0.9); padding: min(0.5rem, 1vh); border-radius: 8px; z-index: 10; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);">
+            <button class="tab-button" onclick="window.location.href='../index.html'" style="display: flex; align-items: center;">
+                ← Back to Home
+            </button>
+            <button class="tab-button" onclick="window.location.href='curriculum.html'" style="display: flex; align-items: center;">
+                Explore Curriculum →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Simple tab functionality - no animations
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>

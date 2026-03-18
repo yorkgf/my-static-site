@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="650" height="700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .axis { stroke: #333; stroke-width: 1; }
+      .grid { stroke: #ccc; stroke-width: 0.5; stroke-dasharray: 2 2; }
+      .curve-x { stroke: #2c3e50; stroke-width: 3; fill: none; }
+      .curve-v { stroke: #3498db; stroke-width: 3; fill: none; }
+      .curve-a { stroke: #e74c3c; stroke-width: 3; fill: none; }
+      text { font-family: Arial, sans-serif; fill: #2c3e50; font-size: 14px; }
+      .title-text { font-size: 18px; font-weight: bold; }
+    </style>
+  </defs>
+  
+  <rect width="650" height="700" fill="#ffffff"/>
+  <text x="325" y="30" text-anchor="middle" class="title-text">Simple Harmonic Motion: x(t), v(t), a(t)</text>
+  
+  <!-- Displacement x(t) = cos(t) -->
+  <text x="30" y="70">x(t) = A cos(ωt)</text>
+  <g transform="translate(50, 80)">
+    <line class="axis" x1="0" y1="100" x2="550" y2="100"/>
+    <line class="axis" x1="0" y1="0" x2="0" y2="200"/>
+    <line class="grid" x1="137.5" y1="0" x2="137.5" y2="200"/>
+    <line class="grid" x1="275" y1="0" x2="275" y2="200"/>
+    <line class="grid" x1="412.5" y1="0" x2="412.5" y2="200"/>
+    <line class="grid" x1="0" y1="50" x2="550" y2="50"/>
+    <line class="grid" x1="0" y1="150" x2="550" y2="150"/>
+    <text x="-15" y="105" text-anchor="end" alignment-baseline="middle">0</text>
+    <text x="-40" y="55" text-anchor="end" alignment-baseline="middle">+A</text>
+    <text x="-40" y="155" text-anchor="end" alignment-baseline="middle">-A</text>
+    <text x="0" y="195" text-anchor="middle">0</text>
+    <text x="137.5" y="195" text-anchor="middle">T/4</text>
+    <text x="275" y="195" text-anchor="middle">T/2</text>
+    <text x="412.5" y="195" text-anchor="middle">3T/4</text>
+
+    <text x="540" y="195" text-anchor="middle">T</text>
+    <text x="275" y="225" text-anchor="middle">t</text>
+    <!-- Path points: 0, T/4, T/2, 3T/4, T -->
+    <path class="curve-x" d="M 0 50 
+             C 68.75 12.5, 137.5 12.5, 137.5 50 
+             C 206.25 87.5, 275 87.5, 275 100 
+             C 343.75 87.5, 412.5 87.5, 412.5 50 
+             C 481.25 12.5, 550 12.5, 550 50 Z"/>
+  </g>
+  
+  <!-- Velocity v(t) = -sin(t) -->
+  <text x="30" y="290">v(t) = -Aω sin(ωt)</text>
+  <g transform="translate(50, 300)">
+    <line class="axis" x1="0" y1="100" x2="550" y2="100"/>
+    <line class="axis" x1="0" y1="0" x2="0" y2="200"/>
+    <line class="grid" x1="137.5" y1="0" x2="137.5" y2="200"/>
+    <line class="grid" x1="275" y1="0" x2="275" y2="200"/>
+    <line class="grid" x1="412.5" y1="0" x2="412.5" y2="200"/>
+    <line class="grid" x1="0" y1="50" x2="550" y2="50"/>
+    <line class="grid" x1="0" y1="150" x2="550" y2="150"/>
+    <text x="-15" y="105" text-anchor="end" alignment-baseline="middle">0</text>
+    <text x="-55" y="55" text-anchor="end" alignment-baseline="middle">+Aω</text>
+    <text x="-55" y="155" text-anchor="end" alignment-baseline="middle">-Aω</text>
+    <text x="0" y="195" text-anchor="middle">0</text>
+    <text x="137.5" y="195" text-anchor="middle">T/4</text>
+    <text x="275" y="195" text-anchor="middle">T/2</text>
+    <text x="412.5" y="195" text-anchor="middle">3T/4</text>
+    <text x="540" y="195" text-anchor="middle">T</text>
+    <text x="275" y="225" text-anchor="middle">t</text>
+    <!-- v(t) = -sin(t) → y = 100 - 50*(-sin(t)) = 100 + 50 sin(t) -->
+    <path class="curve-v" d="M 0 100 
+             C 68.75 150, 137.5 150, 137.5 100 
+             C 206.25 50, 275 50, 275 100 
+             C 343.75 150, 412.5 150, 412.5 100 
+             C 481.25 50, 550 50, 550 100 Z"/>
+  </g>
+  
+  <!-- Acceleration a(t) = -cos(t) -->
+  <text x="30" y="510">a(t) = -ω²A cos(ωt)</text>
+  <g transform="translate(50, 520)">
+    <line class="axis" x1="0" y1="100" x2="550" y2="100"/>
+    <line class="axis" x1="0" y1="0" x2="0" y2="200"/>
+    <line class="grid" x1="137.5" y1="0" x2="137.5" y2="200"/>
+    <line class="grid" x1="275" y1="0" x2="275" y2="200"/>
+    <line class="grid" x1="412.5" y1="0" x2="412.5" y2="200"/>
+    <line class="grid" x1="0" y1="50" x2="550" y2="50"/>
+    <line class="grid" x1="0" y1="150" x2="550" y2="150"/>
+    <text x="-15" y="105" text-anchor="end" alignment-baseline="middle">0</text>
+    <text x="-55" y="55" text-anchor="end" alignment-baseline="middle">+ω²A</text>
+    <text x="-55" y="155" text-anchor="end" alignment-baseline="middle">-ω²A</text>
+    <text x="0" y="195" text-anchor="middle">0</text>
+    <text x="137.5" y="195" text-anchor="middle">T/4</text>
+    <text x="275" y="195" text-anchor="middle">T/2</text>
+    <text x="412.5" y="195" text-anchor="middle">3T/4</text>
+    <text x="540" y="195" text-anchor="middle">T</text>
+    <text x="275" y="225" text-anchor="middle">t</text>
+    <!-- a(t) = -cos(t) → y = 100 + 50*cos(t) -->
+    <path class="curve-a" d="M 0 150 
+             C 68.75 187.5, 137.5 187.5, 137.5 150 
+             C 206.25 112.5, 275 112.5, 275 100 
+             C 343.75 112.5, 412.5 112.5, 412.5 150 
+             C 481.25 187.5, 550 187.5, 550 150 Z"/>
+  </g>
+  
+</svg>

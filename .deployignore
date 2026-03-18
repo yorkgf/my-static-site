@@ -1,0 +1,11 @@
+# Quartz source and build files
+quartz-gh/
+
+# Obsidian markdown source files (already built in knowledge-graph/)
+APPhysicsC/knowlege graph/
+
+# Development files
+.claude/
+.git/
+.gitignore
+CLAUDE.md
