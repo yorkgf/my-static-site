@@ -2,7 +2,7 @@
 # 准备 EdgeOne Pages 部署文件
 
 OUTPUT_DIR="./deploy"
-SOURCE_DIR="/home/yorkgf/CLI Root/my-static-site"
+SOURCE_DIR="."
 
 echo "清理旧的部署目录..."
 rm -rf "$OUTPUT_DIR"
