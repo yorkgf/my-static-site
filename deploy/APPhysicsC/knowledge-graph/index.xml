@@ -6,65 +6,65 @@
       <description>Last 10 notes on AP Physics C Knowledge Graph</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>Maxwell&#039;s Equations</title>
-    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Maxwell's-Equations</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Maxwell's-Equations</guid>
-    <description><![CDATA[ Maxwell’s Equations Maxwell’s Equations are a set of four fundamental equations that describe all classical electromagnetic phenomena. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 33 - Rod on Rails with EMF Source</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-33---Rod-on-Rails-with-EMF-Source</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-33---Rod-on-Rails-with-EMF-Source</guid>
+    <description><![CDATA[ Example 33: Conducting Rod on Rails Driven by EMF Source Problem Statement Suppose a conducting rod (mass m, resistance R) rests on two frictionless and resistanceless parallel rails a distance \ell apart in a uniform magnetic field \vec{B} (perpendicular to the rails and rod) as in Figure 29–53. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:16:43 GMT</pubDate>
   </item><item>
-    <title>LC Circuits</title>
-    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/LC-Circuits</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/LC-Circuits</guid>
-    <description><![CDATA[ LC Circuits An LC circuit contains an inductor and capacitor connected together, creating an oscillating system. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 32 - Conducting Rod on Rails Motor Braking</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-32---Conducting-Rod-on-Rails-Motor-Braking</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-32---Conducting-Rod-on-Rails-Motor-Braking</guid>
+    <description><![CDATA[ Example 32: Conducting Rod on Rails — Magnetic Braking Problem Statement A conducting rod rests on two long frictionless parallel rails in a magnetic field \vec{B} (perpendicular to the rails and rod) as in Figure 29–53. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:16:41 GMT</pubDate>
   </item><item>
-    <title>Inductance</title>
-    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Inductance</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Inductance</guid>
-    <description><![CDATA[ Inductance Inductance is the property of an electrical conductor that opposes changes in current. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 31 - Square Loop Near Wire Flux and EMF</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-31---Square-Loop-Near-Wire-Flux-and-EMF</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-31---Square-Loop-Near-Wire-Flux-and-EMF</guid>
+    <description><![CDATA[ Example 31: Square Loop Near a Wire — Flux, EMF, and Force Problem Statement (a) Determine the magnetic flux through a square loop of side a if one side is parallel to, and a distance b from, a straight wire that carries a current I. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:16:39 GMT</pubDate>
   </item><item>
-    <title>Faraday&#039;s Law</title>
-    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Faraday's-Law</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Faraday's-Law</guid>
-    <description><![CDATA[ Faraday’s Law Faraday’s Law describes how a changing magnetic flux induces an electromotive force (emf). ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 30 - Power Line Induction Coil</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-30---Power-Line-Induction-Coil</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-30---Power-Line-Induction-Coil</guid>
+    <description><![CDATA[ Example 30: Power Line Induction — Farmer’s Coil Problem Statement A power line carrying a sinusoidally varying current with frequency f = 60 Hz and peak value I_0 = 125 A runs at a height of 7.0 m across a farmer’s land. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:16:37 GMT</pubDate>
   </item><item>
-    <title>Magnetic Flux</title>
-    <link>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Magnetic-Flux</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Electromagnetic-Induction/Magnetic-Flux</guid>
-    <description><![CDATA[ Magnetic Flux Magnetic flux \Phi_B measures the amount of magnetic field passing through a surface. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 29 - Loop Pulled from Magnetic Field</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-29---Loop-Pulled-from-Magnetic-Field</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-29---Loop-Pulled-from-Magnetic-Field</guid>
+    <description><![CDATA[ Example 29: Force to Pull a Loop from a Magnetic Field Problem Statement Part of a single rectangular loop of wire with dimensions shown is situated inside a region of uniform magnetic field of 0.650 T. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:16:35 GMT</pubDate>
   </item><item>
-    <title>Magnetic Moments</title>
-    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Moments</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Moments</guid>
-    <description><![CDATA[ Magnetic Moments The magnetic moment is a vector quantity that measures the strength and orientation of a magnetic source. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 34 - Circular Loop in Diverging Field</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-34---Circular-Loop-in-Diverging-Field</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-34---Circular-Loop-in-Diverging-Field</guid>
+    <description><![CDATA[ Example 34: Force on a Current Loop in a Diverging Magnetic Field Problem Statement A circular loop of wire, of radius r, carries current I. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:15:46 GMT</pubDate>
   </item><item>
-    <title>Magnetic Force on Current-Carrying Wires</title>
-    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Current-Carrying-Wires</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Current-Carrying-Wires</guid>
-    <description><![CDATA[ Magnetic Force on Current-Carrying Wires A current-carrying wire in a magnetic field experiences a force due to the magnetic forces on the moving charges within the wire. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 28 - Current-Carrying Wires Suspended by Strings</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-28---Current-Carrying-Wires-Suspended-by-Strings</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-28---Current-Carrying-Wires-Suspended-by-Strings</guid>
+    <description><![CDATA[ Example 28: Current-Carrying Wires Suspended by Strings Problem Statement Two long straight aluminum wires, each of diameter 0.42 mm, carry the same current but in opposite directions. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:15:45 GMT</pubDate>
   </item><item>
-    <title>Magnetic Force on Moving Charges</title>
-    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Moving-Charges</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Force-on-Moving-Charges</guid>
-    <description><![CDATA[ Magnetic Force on Moving Charges A charged particle moving in a magnetic field experiences a force perpendicular to both its velocity and the magnetic field. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 27 - Helmholtz Coils</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-27---Helmholtz-Coils</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-27---Helmholtz-Coils</guid>
+    <description><![CDATA[ Example 27: Helmholtz Coils Problem Statement Two circular coils, each of radius R and carrying the same current I in the same direction, are separated by a distance equal to R (their radius). ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:15:45 GMT</pubDate>
   </item><item>
-    <title>Ampère&#039;s Law</title>
-    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Amp%C3%A8re's-Law</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Amp%C3%A8re's-Law</guid>
-    <description><![CDATA[ Ampère’s Law Ampère’s Law relates the magnetic field around a closed loop to the current passing through the loop. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 26 - Triangular Loop Near Wire</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-26---Triangular-Loop-Near-Wire</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-26---Triangular-Loop-Near-Wire</guid>
+    <description><![CDATA[ Example 26: Force on Triangular Loop Near a Straight Wire Problem Statement A triangular loop of side length a carries a current I. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:15:45 GMT</pubDate>
   </item><item>
-    <title>Magnetic Field</title>
-    <link>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Field</link>
-    <guid>https:///APPhysicsC/knowledge-graph/Magnetic-Fields-and-Forces/Magnetic-Field</guid>
-    <description><![CDATA[ Magnetic Field The magnetic field \vec{B} is a vector field that describes the magnetic influence on moving charges and magnetic dipoles. ]]></description>
-    <pubDate>Wed, 18 Mar 2026 06:07:29 GMT</pubDate>
+    <title>Example 25 - Force on Rectangular Loop Near Wire</title>
+    <link>https:///APPhysicsC/knowledge-graph/Examples/Example-25---Force-on-Rectangular-Loop-Near-Wire</link>
+    <guid>https:///APPhysicsC/knowledge-graph/Examples/Example-25---Force-on-Rectangular-Loop-Near-Wire</guid>
+    <description><![CDATA[ Example 25: Force on Rectangular Loop Near a Straight Wire Problem Statement A rectangular loop of wire is placed next to a straight wire. ]]></description>
+    <pubDate>Mon, 23 Mar 2026 04:15:45 GMT</pubDate>
   </item>
     </channel>
   </rss>
