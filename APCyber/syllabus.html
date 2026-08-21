@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Cybersecurity Syllabus</title>
+    <style>
+        :root {
+            --primary: #9d4edd;
+            --bg-dark: #140a1f;
+            --bg-card: rgba(40, 20, 60, 0.9);
+            --bg-tab: rgba(30, 15, 40, 0.8);
+            --text: #f0f0f0;
+            --border: rgba(157, 78, 221, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(157, 78, 221, 0.06) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(157, 78, 221, 0.06) 0%, transparent 20%),
+                url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%239d4edd' stroke-width='0.5' stroke-opacity='0.1'%3E%3Cpath d='M0 40h80M40 0v80'/%3E%3Crect x='20' y='20' width='40' height='40'/%3E%3Ccircle cx='40' cy='40' r='18'/%3E%3C/g%3E%3C/svg%3E");
+            color: var(--text);
+            line-height: 1.6;
+            font-size: calc(18px + 0.5vw);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: min(1rem, 2vh) auto;
+            padding: min(1.5rem, 3vw);
+            background-color: transparent;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 1200px) { .container { width: 95%; max-width: 95%; padding: 1.5rem; } }
+
+        @media (max-width: 768px) {
+            .container { width: 95%; padding: min(1.5rem, 3vw); min-height: 100vh; justify-content: space-between; }
+            .tab-button { padding: min(0.4rem, 1vw) min(0.6rem, 1.5vw); font-size: min(0.7rem, 2vw); margin-bottom: 0.1rem; margin-right: min(0.1rem, 0.3vw); }
+            h1 { font-size: min(2rem, 6vw); }
+            .back-button { display: block; width: 100%; text-align: center; margin-top: min(0.5rem, 1vh); padding: min(0.4rem, 1vw) min(0.5rem, 1vw); font-size: min(0.6rem, 2vw); }
+            .tab-content { height: auto; max-height: 70vh; overflow-y: auto; margin-bottom: min(1rem, 2vh); }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button { flex-basis: calc(50% - 0.5rem); max-width: none; }
+            .tab-content { height: auto; max-height: 65vh; overflow-y: auto; }
+            .container { padding: min(1rem, 2vw); margin: min(1rem, 2vh) auto; }
+            .back-button { font-size: min(0.4rem, 2vw); padding: min(0.4rem, 0.8vw) min(0.4rem, 0.8vw); }
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: min(1rem, 2vh);
+            font-size: min(2.5rem, 8vw);
+            text-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
+            width: 100%;
+            margin-top: min(0.5rem, 1vh);
+            font-family: 'Consolas', monospace;
+        }
+
+        .tabs, .back-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: min(1rem, 2vh);
+            border-bottom: 2px solid var(--primary);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .back-buttons { border-bottom: none; margin-top: min(1rem, 2vh); margin-bottom: min(1rem, 2vh); }
+        .back-buttons .tab-button { background-color: var(--primary); color: var(--bg-dark); font-weight: bold; margin-bottom: min(0.5rem, 1vh); flex: 0 1 auto; max-width: 25%; gap: 0.5rem; }
+        .back-buttons .tab-button:hover { background-color: #8a3dc7; }
+
+        .tab-button {
+            background-color: var(--bg-tab);
+            border: none;
+            color: var(--text);
+            padding: min(0.6rem, 1.5vw) min(1rem, 2vw);
+            cursor: pointer;
+            font-size: min(0.8rem, 2.5vw);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-right: min(0.2rem, 0.5vw);
+            margin-bottom: min(0.2rem, 0.5vh);
+            outline: none;
+            flex-grow: 1;
+            text-align: center;
+            max-width: fit-content;
+            white-space: nowrap;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tab-button:hover { background-color: rgba(157, 78, 221, 0.3); }
+        .tab-button.active { background-color: var(--primary); color: var(--bg-dark); font-weight: bold; }
+
+        .tab-content {
+            display: none;
+            padding: min(1.5rem, 3vw);
+            background-color: var(--bg-card);
+            border-radius: 0 0 8px 8px;
+            height: auto;
+            max-height: 78vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) rgba(30, 30, 30, 0.8);
+            margin-bottom: min(1.5rem, 3vh);
+        }
+
+        .tab-content::-webkit-scrollbar { width: 8px; }
+        .tab-content::-webkit-scrollbar-track { background: rgba(20, 10, 31, 0.5); border-radius: 4px; }
+        .tab-content::-webkit-scrollbar-thumb { background-color: rgba(157, 78, 221, 0.7); border-radius: 4px; border: 1px solid rgba(20, 10, 31, 0.8); }
+        .tab-content::-webkit-scrollbar-thumb:hover { background-color: rgba(157, 78, 221, 0.9); }
+        .tab-content.active { display: block; }
+
+        h2 { color: var(--primary); text-align: center; margin-bottom: min(1.5rem, 3vh); font-size: min(1.8rem, 6vw); width: 100%; }
+        h3 { color: var(--primary); margin-bottom: min(0.5rem, 1vh); font-size: min(1.1rem, 4vw); margin-top: 1rem; }
+
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: min(0.85rem, 3vw); }
+        table th { padding: 0.6rem; text-align: left; border-bottom: 2px solid var(--primary); background-color: rgba(157, 78, 221, 0.3); white-space: nowrap; }
+        table td { padding: 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+
+        ul, ol { margin-left: 2rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.4rem; }
+        p { margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AP Cybersecurity Syllabus</h1>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'overview')">Course Overview</button>
+            <button class="tab-button" onclick="openTab(event, 'classinfo')">Class Info</button>
+            <button class="tab-button" onclick="openTab(event, 'objectives')">Objectives</button>
+            <button class="tab-button" onclick="openTab(event, 'materials')">Materials</button>
+            <button class="tab-button" onclick="openTab(event, 'grading')">Grading</button>
+            <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
+            <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <p>AP Cybersecurity is an introductory, college-level cybersecurity course that trains students in defense-in-depth strategies across a variety of domains: physical spaces, computer networks, devices, applications, and data. This course is part of <strong>AP Career Kickstart</strong> — students with qualifying AP Exam scores earn both potential college credit and an <strong>employer-endorsed credential</strong>. Developed with college faculty and industry leaders, the course aligns with the NICE Workforce Framework and emphasizes scenario-based, hands-on learning.</p>
+            <h3>Five Domains</h3>
+            <ol>
+                <li>Introduction to Security</li>
+                <li>Securing Spaces (physical security)</li>
+                <li>Securing Networks</li>
+                <li>Securing Devices</li>
+                <li>Securing Applications and Data</li>
+            </ol>
+            <h3>Scenario-Based Labs</h3>
+            <p>Each unit is anchored to an authentic workplace scenario: Xtensr Labs (physical), Hospital Network (network), Company Devices (devices), and Web Application (applications &amp; data).</p>
+        </div>
+
+        <div id="classinfo" class="tab-content">
+            <table>
+                <tbody>
+                    <tr><td style="white-space: nowrap; width: 40%;">Course:</td><td>AP® Cybersecurity</td></tr>
+                    <tr><td style="white-space: nowrap;">Academic Year:</td><td>2026–2027</td></tr>
+                    <tr><td style="white-space: nowrap;">Instructor:</td><td>赵丁霓</td></tr>
+                    <tr><td style="white-space: nowrap;">Email:</td><td>Dingnizhao@ghedu.com</td></tr>
+                    <tr><td style="white-space: nowrap;">Office:</td><td>文体106</td></tr>
+                    <tr><td style="white-space: nowrap;">Program:</td><td>AP Career Kickstart</td></tr>
+                    <tr><td style="white-space: nowrap;">First Day:</td><td>August 31, 2026</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="objectives" class="tab-content">
+            <p>Upon completion of this course, students will be able to:</p>
+            <ol>
+                <li><strong>Analyze Risk</strong> — Identify vulnerabilities, threats, and attacks; evaluate their likelihood and impact.</li>
+                <li><strong>Mitigate Risk</strong> — Select and implement layered security controls across all domains.</li>
+                <li><strong>Detect Attacks</strong> — Monitor systems, analyze logs, and classify cyberattacks from digital evidence.</li>
+                <li><strong>Collaborate</strong> — Work with teammates and use AI tools responsibly on cybersecurity tasks.</li>
+                <li><strong>Apply Defense-in-Depth</strong> — Design multi-layered protection strategies across all five course domains.</li>
+                <li><strong>Uphold Professional Ethics</strong> — Follow legal requirements and professional norms for cybersecurity practice.</li>
+            </ol>
+        </div>
+
+        <div id="materials" class="tab-content">
+            <h3>Software &amp; Tools (Configured by Instructor)</h3>
+            <ul>
+                <li>Virtual lab environment: VirtualBox or VMware</li>
+                <li>VMs: Windows and Linux for device/application labs</li>
+                <li>Network analysis: Wireshark and provided packet captures</li>
+                <li>Simulated firewall, IDS, and web-application environments</li>
+            </ul>
+            <h3>Course Materials (Provided)</h3>
+            <ul>
+                <li>AP Cybersecurity CED — Effective Fall 2026</li>
+                <li>Unit scenario guides (2A: Xtensr Labs; 3A: Hospital; 4A: Devices; 5A: Web App)</li>
+                <li>Risk assessment templates and security documentation examples</li>
+                <li>Log files, network captures, annotated code samples for labs</li>
+                <li>FRQ practice sets with College Board–style scoring rubrics</li>
+            </ul>
+            <h3>Online Resources</h3>
+            <ul>
+                <li>AP Classroom — Progress Checks, Question Bank</li>
+                <li>NIST Cybersecurity Framework (csf.nist.gov)</li>
+                <li>OWASP Top 10 (owasp.org)</li>
+                <li>NICE Workforce Framework (niccs.cisa.gov)</li>
+            </ul>
+            <h3>Lab Program</h3>
+            <table>
+                <thead><tr><th>Unit</th><th>Lab</th><th>Scenario</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Social Engineering &amp; Authentication Analysis</td><td>1A–1E</td></tr>
+                    <tr><td>2</td><td>Physical Security Assessment</td><td>2A: Xtensr Labs</td></tr>
+                    <tr><td>3</td><td>Network Security Analysis</td><td>3A: Hospital Network</td></tr>
+                    <tr><td>4</td><td>Device Security Configuration</td><td>4A: Company Devices</td></tr>
+                    <tr><td>5</td><td>Application Security Analysis</td><td>5A: Web Application</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="grading" class="tab-content">
+            <p>Each semester is graded independently using the same standard. The midterm assessment accounts for 40% of the semester grade and the final assessment for 60%. Each is composed as follows:</p>
+            <h3>Midterm Assessment — 40% of Semester Grade</h3>
+            <table>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Midterm Exam</td><td>50%</td></tr>
+                </tbody>
+            </table>
+            <h3>Final Assessment — 60% of Semester Grade</h3>
+            <table>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Final Exam</td><td>50%</td></tr>
+                </tbody>
+            </table>
+            <h3>Academic Integrity &amp; Legal Norms</h3>
+            <ul>
+                <li>Cybersecurity tools must only be used in instructor-authorized lab environments for educational purposes.</li>
+                <li>Using course knowledge or tools against any system you do not own or have explicit written permission to test is a legal violation — it will result in course failure and school disciplinary action.</li>
+                <li>Treat all lab findings as confidential; do not share or publish vulnerability information outside class.</li>
+            </ul>
+        </div>
+
+        <div id="schedule" class="tab-content">
+            <h2>Course Schedule</h2>
+            <h3>First Semester (Aug 31, 2026 – Jan 15, 2027)</h3>
+            <table>
+                <thead><tr><th>Week</th><th>Dates</th><th>Unit / Topics</th></tr></thead>
+                <tbody>
+                    <tr><td>1–2</td><td>Aug 31 – Sep 11</td><td>Unit 1: Social Engineering, Authentication, Public Networks, AI Attacks/Defense — <strong>Unit 1 Complete Sep 11</strong></td></tr>
+                    <tr><td>3–7</td><td>Sep 14 – Oct 23</td><td>Unit 2: Cyber Foundations, Physical Vulnerabilities, Controls &amp; Detection — <strong>Unit 2 Complete Oct 23</strong></td></tr>
+                    <tr><td>8–13</td><td>Oct 26 – Dec 11</td><td>Unit 3: Network Vulnerabilities, Protection, Firewalls, Detection — <strong>Unit 3 Complete Dec 11</strong></td></tr>
+                    <tr><td>13–17</td><td>Dec 7 – Jan 8, 2027</td><td>Unit 4: Device Vulnerabilities, Authentication, Hardening, Detection — <strong>Unit 4 Complete Jan 8</strong></td></tr>
+                    <tr><td>18</td><td>Jan 11–15</td><td>Final Exam Week (Units 1–4)</td></tr>
+                </tbody>
+            </table>
+            <p><em>Winter Break: January 16 – February 28, 2027</em></p>
+            <h3>Second Semester (Mar 1 – Jun 11, 2027)</h3>
+            <table>
+                <thead><tr><th>Week</th><th>Dates</th><th>Focus</th></tr></thead>
+                <tbody>
+                    <tr><td>17–20</td><td>Mar 1–31</td><td>Unit 5: App/Data Vulnerabilities, Cryptography, Protection, Detection — <strong>Unit 5 Complete Mar 31</strong></td></tr>
+                    <tr><td>—</td><td>Apr 6–9</td><td>Comprehensive Content Review (Units 1–3)</td></tr>
+                    <tr><td>—</td><td>Apr 12–16</td><td>FRQ Intensive Practice</td></tr>
+                    <tr><td>—</td><td>Apr 19–23</td><td>Timed Mixed Practice (MCQ + FRQ)</td></tr>
+                    <tr><td>—</td><td>Apr 26–30</td><td>Mock AP Exam</td></tr>
+                    <tr><td>—</td><td>May 3–14</td><td><strong>AP Cybersecurity Exam</strong></td></tr>
+                    <tr><td>—</td><td>May 17 – Jun 4</td><td>Post-AP Capstone Project</td></tr>
+                </tbody>
+            </table>
+            <h3>Key Dates</h3>
+            <table>
+                <tbody>
+                    <tr><td>Sep 11</td><td>Unit 1 complete</td></tr>
+                    <tr><td>Oct 23</td><td>Unit 2 complete; Physical Security Lab due</td></tr>
+                    <tr><td>Dec 11</td><td>Unit 3 complete; Network Security Lab due</td></tr>
+                    <tr><td>Jan 8, 2027</td><td>Unit 4 complete; Device Security Lab due</td></tr>
+                    <tr><td>Mar 31</td><td>Unit 5 complete; Application Security Lab due — all content done</td></tr>
+                    <tr><td>Apr 26–30</td><td>Mock AP Exam</td></tr>
+                    <tr><td>May 3–14</td><td>AP Exam</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="exam" class="tab-content">
+            <h3>Exam Window: May 3–14, 2027</h3>
+            <table>
+                <thead><tr><th>Section</th><th>Content</th><th>Time</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Section I: Multiple Choice</td><td>~70 scenario-based questions</td><td>120 min</td><td>60%</td></tr>
+                    <tr><td>Section II: Free Response</td><td>2 extended scenario analysis questions</td><td>90 min</td><td>40%</td></tr>
+                </tbody>
+            </table>
+            <h3>Free-Response Expectations</h3>
+            <p>Both FRQs present an authentic cybersecurity workplace scenario. Students must:</p>
+            <ul>
+                <li>Identify vulnerabilities and classify their risk level</li>
+                <li>Recommend and justify layered security controls</li>
+                <li>Analyze configuration data or logs as evidence of an attack</li>
+                <li>Explain how detection methods work and evaluate their impact</li>
+            </ul>
+            <h3>Cybersecurity Skills Framework</h3>
+            <ol>
+                <li><strong>Analyze Risk</strong> — Identify vulnerabilities/threats; evaluate likelihood &amp; impact; document risks.</li>
+                <li><strong>Mitigate Risk</strong> — Identify and implement layered controls.</li>
+                <li><strong>Detect Attacks</strong> — Monitor systems and analyze digital evidence.</li>
+                <li><strong>Collaborate</strong> — Team objectives, role assignment, responsible AI use.</li>
+            </ol>
+            <p>Foundational preparation for NICE work roles: Cybersecurity Analyst, Vulnerability Assessment Analyst, Incident Responder, and more.</p>
+        </div>
+
+        <div class="back-buttons" style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: min(1rem, 2vh); width: 100%; position: sticky; bottom: 0; background-color: rgba(20, 10, 31, 0.9); padding: min(0.5rem, 1vh); border-radius: 8px; z-index: 10; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);">
+            <button class="tab-button" onclick="window.location.href='../index.html'" style="display: flex; align-items: center;">
+                ← Back to Home
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>

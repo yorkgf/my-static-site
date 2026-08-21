@@ -90,7 +90,8 @@
             }
 
             .tab-content {
-                height: min(250px, 35vh);
+                height: auto;
+                max-height: 70vh;
                 margin-bottom: min(1rem, 2vh);
             }
         }
@@ -102,7 +103,7 @@
             }
 
             .tab-content {
-                height: min(200px, 30vh);
+                height: auto; max-height: 65vh; overflow-y: auto;
             }
 
             .container {
@@ -195,8 +196,8 @@
             padding: min(1.5rem, 3vw);
             background-color: var(--bg-card);
             border-radius: 0 0 8px 8px;
-            height: min(320px, 40vh);
-            max-height: 60vh;
+            height: auto;
+            max-height: 78vh;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: var(--primary) rgba(30, 30, 60, 0.8);
@@ -330,7 +331,7 @@
             <button class="tab-button active" onclick="openTab(event, 'overview')">Course Overview</button>
             <button class="tab-button" onclick="openTab(event, 'classinfo')">Class Info</button>
             <button class="tab-button" onclick="openTab(event, 'objectives')">Course Objectives</button>
-            <button class="tab-button" onclick="openTab(event, 'textbook')">Textbook</button>
+            <button class="tab-button" onclick="openTab(event, 'materials')">Materials</button>
             <button class="tab-button" onclick="openTab(event, 'grading')">Grading Policy</button>
             <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
             <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam Information</button>
@@ -338,91 +339,116 @@
         </div>
 
         <div id="overview" class="tab-content active">
-            <p>AP Computer Science A is an introductory college-level computer science course that emphasizes object-oriented programming and problem-solving. The course is designed to prepare students for the AP Computer Science A Exam while fostering a deep understanding of programming concepts, algorithms, and data structures. Students will use Java as the primary programming language and will engage in hands-on projects, coding exercises, and algorithmic problem-solving.</p>
-            <p>This course will also incorporate foundational computer science concepts from the textbook "Invitation to Computer Science" by G. Michael Schneider and Judith L. Gersting, providing a broader context for understanding computational thinking and the principles of computer science.</p>
+            <p>AP Computer Science A is an introductory, college-level computer science course. Students learn to design, develop, and analyze programs written in the Java programming language to solve problems and accomplish tasks. The course emphasizes object-oriented programming and design, the use of data structures to organize large sets of data, the development and implementation of algorithms to process data, the analysis of potential solutions, and the ethical and social implications of computing systems.</p>
+            <p>This course is designed to be the equivalent of a one-semester, introductory college course in computer science. A minimum of 20 hours of hands-on, structured lab experiences are integrated throughout the year to engage students in individual and group problem-solving.</p>
+            <h3>Programming Labs</h3>
+            <ul>
+                <li><strong>Unit 1:</strong> Receipt Lab — String methods, method calls, object instantiation.</li>
+                <li><strong>Unit 2:</strong> Magpie 2.0 Lab — Selection, iteration, String algorithms.</li>
+                <li><strong>Unit 3:</strong> Virtual Pet Lab — Class design, encapsulation, methods with object references.</li>
+                <li><strong>Unit 4:</strong> 2048 Lab, Data Set Lab, Digit Recognition Lab — 2D arrays, ArrayList, recursion, file I/O.</li>
+            </ul>
         </div>
 
         <div id="classinfo" class="tab-content">
             <table>
                 <tbody>
                     <tr>
-                        <td style="white-space: nowrap; width: 40%;">Teacher:</td>
-                        <td>Feng Gao</td>
+                        <td style="white-space: nowrap; width: 40%;">Course:</td>
+                        <td>AP® Computer Science A</td>
                     </tr>
                     <tr>
-                        <td style="white-space: nowrap;">Grade:</td>
-                        <td>11 & 12</td>
+                        <td style="white-space: nowrap;">Academic Year:</td>
+                        <td>2026–2027</td>
                     </tr>
                     <tr>
-                        <td style="white-space: nowrap;">Classes per Week:</td>
-                        <td>5</td>
+                        <td style="white-space: nowrap;">Instructor:</td>
+                        <td>Jeff Ling</td>
                     </tr>
                     <tr>
-                        <td style="white-space: nowrap;">Curriculum + Credit:</td>
-                        <td>AP 5</td>
+                        <td style="white-space: nowrap;">Email:</td>
+                        <td>jeffling@ghedu.com</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Office:</td>
+                        <td>冬韵103</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Language:</td>
+                        <td>Java (Java 17+ acceptable; 22 recommended)</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div id="objectives" class="tab-content">
-            <p>By the end of the course, students will be able to:</p>
+            <p>Upon completion of this course, students will be able to:</p>
             <ol>
-                <li>Design, implement, and analyze solutions to problems using object-oriented programming in Java.</li>
-                <li>Understand and apply fundamental programming constructs, including variables, loops, conditionals, and methods.</li>
-                <li>Develop and use algorithms to solve computational problems.</li>
-                <li>Work with data structures such as arrays, ArrayLists, and 2D arrays.</li>
-                <li>Understand and apply principles of inheritance, polymorphism, and abstraction.</li>
-                <li>Analyze and debug programs to ensure correctness and efficiency.</li>
-                <li>Prepare for and succeed on the AP Computer Science A Exam.</li>
+                <li><strong>Design code</strong> — Determine an appropriate program design and develop algorithms to solve problems.</li>
+                <li><strong>Develop code</strong> — Write and implement program code involving data abstractions and procedural abstractions in Java.</li>
+                <li><strong>Analyze code</strong> — Determine the output or result of given program code, and explain why code may not compile or work as intended.</li>
+                <li><strong>Document code and computing systems</strong> — Describe the behavior and initial conditions that produce specified results in a program.</li>
+                <li><strong>Use computers responsibly</strong> — Understand the ethical and social implications of computer use, including privacy, bias, and intellectual property.</li>
             </ol>
         </div>
 
-        <div id="textbook" class="tab-content">
-            <p>Title: Invitation to Computer Science<br>
-            Authors: G. Michael Schneider and Judith L. Gersting<br>
-            Edition: Latest Edition (as available)</p>
-            <p>This textbook provides an introduction to the theoretical and practical foundations of computer science. While the primary focus of the course is Java programming, selected chapters from the textbook will be used to explore topics such as algorithms, computational theory, and the history of computing.</p>
+        <div id="materials" class="tab-content">
+            <h3>Textbook</h3>
+            <p>College-level introductory Java programming textbook.</p>
             <div class="textbook-image-container">
-                <img src="images/textbook.jpg" alt="Invitation to Computer Science textbook cover" class="textbook-image">
+                <img src="images/textbook.jpg" alt="Java programming textbook" class="textbook-image">
             </div>
+            <h3>Software &amp; Tools</h3>
+            <ul>
+                <li>Java Development Kit (JDK 17+)</li>
+                <li>IDE — jGRASP or BlueJ recommended</li>
+                <li>AP Classroom (Progress Checks, Question Bank, Topic Questions)</li>
+            </ul>
+            <h3>Course Materials (Provided)</h3>
+            <ul>
+                <li>Course and Exam Description (CED) — Effective Fall 2025</li>
+                <li>Java Quick Reference sheet (CED Appendix)</li>
+                <li>Lab Guides: Receipt Lab, Magpie 2.0 Lab, Virtual Pet Lab, Data Set Lab, 2048 Lab, Digit Recognition Lab</li>
+                <li>Slides for each topic</li>
+                <li>FRQ Practice Sets (all four question types)</li>
+            </ul>
+            <h3>Supplementary Resources</h3>
+            <ul>
+                <li>Released AP CSA Free-Response Questions (prior exam years)</li>
+                <li>CodingBat / coding practice platforms</li>
+            </ul>
         </div>
 
         <div id="grading" class="tab-content">
-            <p>Grades will be based on the following components:</p>
+            <p>Each semester is graded independently using the same standard. The midterm assessment accounts for 40% of the semester grade and the final assessment for 60%. Each is composed as follows:</p>
+            <h3>Midterm Assessment — 40% of Semester Grade</h3>
             <table>
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Percentage</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Attendance</td>
-                  <td>15%</td>
-                </tr>
-                <tr>
-                  <td>Participation</td>
-                  <td>15%</td>
-                </tr>
-                <tr>
-                  <td>Homework</td>
-                  <td>20%</td>
-                </tr>
-                <tr>
-                  <td>Exam</td>
-                  <td>50%</td>
-                </tr>
-              </tbody>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Midterm Exam</td><td>50%</td></tr>
+                </tbody>
             </table>
-            <p>- Late Work Policy: Assignments submitted late will incur a penalty of 10% per day, up to a maximum of 5 days. After 5 days, no credit will be given.<br>
-            - Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced coding challenges.</p>
+            <h3>Final Assessment — 60% of Semester Grade</h3>
+            <table>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Final Exam</td><td>50%</td></tr>
+                </tbody>
+            </table>
+            <p>- Late Work Policy: 10% deduction per day late; maximum 50% after 3 days late. Exceptions made for excused absences and emergencies.<br>
+            - Academic Integrity: AI tools may be used as learning aids outside of assessments, but never on graded work. Unauthorized AI-generated code submission will result in a zero and possible course failure.</p>
         </div>
 
         <div id="schedule" class="tab-content">
             <h2>Course Schedule</h2>
-            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+            <h3>First Semester (Aug 31, 2026 – Jan 15, 2027)</h3>
+            <div style="overflow-x: auto; max-height: 320px; overflow-y: auto;">
                 <table>
                     <thead>
                         <tr>
@@ -433,236 +459,88 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Week 1</td>
-                            <td>Sep 1 - Sep 7</td>
-                            <td>AP CSA 1.1 Introduction, Variables and Data Types</td>
-                            <td>Unit 1: Primitive Types</td>
-                        </tr>
-                        <tr>
-                            <td>Week 2</td>
-                            <td>Sep 8 - Sep 14</td>
-                            <td>AP CSA 1.2 Expressions, Operators, Casting and Ranges of Variables</td>
-                            <td>Unit 1: Primitive Types</td>
-                        </tr>
-                        <tr>
-                            <td>Week 3</td>
-                            <td>Sep 15 - Sep 21</td>
-                            <td>AP CSA 2.1 - Introduction to Objects and Classes</td>
-                            <td>Unit 2: Using Objects</td>
-                        </tr>
-                        <tr>
-                            <td>Week 4</td>
-                            <td>Sep 22 - Sep 28</td>
-                            <td>AP CSA 2.2 - Calling methods</td>
-                            <td>Unit 2: Using Objects</td>
-                        </tr>
-                        <tr>
-                            <td>Week 5</td>
-                            <td>Sep 29 - Oct 5</td>
-                            <td>National Holiday</td>
-                            <td>Unit 2: Using Objects</td>
-                        </tr>
-                        <tr>
-                            <td>Week 6</td>
-                            <td>Oct 6 - Oct 12</td>
-                            <td>AP CSA 2.2 - String methods, Wrapper Classes, Math Class</td>
-                            <td>Unit 2: Using Objects</td>
-                        </tr>
-                        <tr>
-                            <td>Week 7</td>
-                            <td>Oct 13 - Oct 19</td>
-                            <td>AP CSA 3.1 - Boolean Expressions, if statements</td>
-                            <td>Unit 3: Boolean Expressions and if Statements</td>
-                        </tr>
-                        <tr>
-                            <td>Week 8</td>
-                            <td>Oct 20 - Oct 26</td>
-                            <td>AP CSA 3.2 - De Morgan's Laws, Comparing Objects</td>
-                            <td>Unit 3: Boolean Expressions and if Statements</td>
-                        </tr>
-                        <tr>
-                            <td>Week 9</td>
-                            <td>Oct 27 - Nov 2</td>
-                            <td>AP CSA 4.1 - Introduction to Iteration, while loops</td>
-                            <td>Unit 4: Iteration</td>
-                        </tr>
-                        <tr>
-                            <td>Week 10</td>
-                            <td>Nov 3 - Nov 9</td>
-                            <td>AP CSA 4.2 - For loops</td>
-                            <td>Unit 4: Iteration</td>
-                        </tr>
-                        <tr>
-                            <td>Week 11</td>
-                            <td>Nov 10 - Nov 16</td>
-                            <td>Midterm Exam</td>
-                            <td>Unit 4: Iteration</td>
-                        </tr>
-                        <tr>
-                            <td>Week 12</td>
-                            <td>Nov 17 - Nov 23</td>
-                            <td>AP CSA 4.3 - Loop Counters, Nested Loops</td>
-                            <td>Unit 4: Iteration</td>
-                        </tr>
-                        <tr>
-                            <td>Week 13</td>
-                            <td>Nov 24 - Nov 30</td>
-                            <td>AP CSA 5.1 - Class Design, Constructors</td>
-                            <td>Unit 5: Writing Classes</td>
-                        </tr>
-                        <tr>
-                            <td>Week 14</td>
-                            <td>Dec 1 - Dec 7</td>
-                            <td>AP CSA 5.2 - this keyword, Accessor/Mutator methods, Static methods</td>
-                            <td>Unit 5: Writing Classes</td>
-                        </tr>
-                        <tr>
-                            <td>Week 15</td>
-                            <td>Dec 8 - Dec 14</td>
-                            <td>Winter Break</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Week 16</td>
-                            <td>Dec 15 - Dec 21</td>
-                            <td>Winter Break</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Week 17</td>
-                            <td>Dec 22 - Dec 28</td>
-                            <td>AP CSA 6.1 - Introduction to Arrays</td>
-                            <td>Unit 6: Array</td>
-                        </tr>
-                        <tr>
-                            <td>Week 18</td>
-                            <td>Dec 29 - Jan 4</td>
-                            <td>AP CSA 6.2 - Array Traversal, Algorithms</td>
-                            <td>Unit 6: Array</td>
-                        </tr>
-                        <tr>
-                            <td>Week 19</td>
-                            <td>Jan 5 - Jan 11</td>
-                            <td>AP CSA 7.1 - Introduction to ArrayList</td>
-                            <td>Unit 7: ArrayList</td>
-                        </tr>
-                        <tr>
-                            <td>Week 20</td>
-                            <td>Jan 12 - Jan 18</td>
-                            <td>AP CSA 7.2 - ArrayList Traversal, Algorithms</td>
-                            <td>Unit 7: ArrayList</td>
-                        </tr>
-                        <tr>
-                            <td>Week 21</td>
-                            <td>Mar 2 - Mar 8</td>
-                            <td>AP CSA 8.1 - Introduction to 2D Arrays</td>
-                            <td>Unit 8: 2D Array</td>
-                        </tr>
-                        <tr>
-                            <td>Week 22</td>
-                            <td>Mar 9 - Mar 15</td>
-                            <td>AP CSA 8.2 - 2D Array Traversal, Jagged Arrays</td>
-                            <td>Unit 8: 2D Array</td>
-                        </tr>
-                        <tr>
-                            <td>Week 23</td>
-                            <td>Mar 16 - Mar 22</td>
-                            <td>AP CSA 9.1 - Introduction to Inheritance, extends keyword</td>
-                            <td>Unit 9: Inheritance</td>
-                        </tr>
-                        <tr>
-                            <td>Week 24</td>
-                            <td>Mar 23 - Mar 29</td>
-                            <td>AP CSA 9.2 - Method Overriding, Polymorphism</td>
-                            <td>Unit 9: Inheritance</td>
-                        </tr>
-                        <tr>
-                            <td>Week 25</td>
-                            <td>Mar 30 - Apr 5</td>
-                            <td>AP CSA 10.1 - Introduction to Recursion</td>
-                            <td>Unit 10: Recursion</td>
-                        </tr>
-                        <tr>
-                            <td>Week 26</td>
-                            <td>Apr 6 - Apr 12</td>
-                            <td>Review and Practice Exam</td>
-                            <td>Review and Practice Exam</td>
-                        </tr>
-                        <tr>
-                            <td>Week 27</td>
-                            <td>Apr 13 - Apr 19</td>
-                            <td>Review and Practice Exam</td>
-                            <td>Review and Practice Exam</td>
-                        </tr>
-                        <tr>
-                            <td>Week 28</td>
-                            <td>Apr 20 - Apr 26</td>
-                            <td>Review and Practice Exam</td>
-                            <td>Review and Practice Exam</td>
-                        </tr>
-                        <tr>
-                            <td>Week 29</td>
-                            <td>Apr 27 - May 3</td>
-                            <td>Midterm Exam</td>
-                            <td>Midterm Exam</td>
-                        </tr>
-                        <tr>
-                            <td>Week 30</td>
-                            <td>May 4 - May 10</td>
-                            <td>AP Exam Preparation and Review</td>
-                            <td>AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 31</td>
-                            <td>May 11 - May 17</td>
-                            <td>AP Computer Science A Exam</td>
-                            <td>AP Exam</td>
-                        </tr>
-                        <tr>
-                            <td>Week 32</td>
-                            <td>May 18 - May 24</td>
-                            <td>Final Project Development</td>
-                            <td>Final Project</td>
-                        </tr>
-                        <tr>
-                            <td>Week 33</td>
-                            <td>May 25 - May 31</td>
-                            <td>Final Project Development</td>
-                            <td>Final Project</td>
-                        </tr>
-                        <tr>
-                            <td>Week 34</td>
-                            <td>Jun 1 - Jun 7</td>
-                            <td>Final Project Development</td>
-                            <td>Final Project</td>
-                        </tr>
-                        <tr>
-                            <td>Week 35</td>
-                            <td>Jun 8 - Jun 14</td>
-                            <td>Final Project Presentations</td>
-                            <td>Final Project Presentations</td>
-                        </tr>
+                        <tr><td>1</td><td>Aug 31 – Sep 4</td><td>1.1 Algorithms &amp; Programming; 1.2 Variables and Data Types</td><td>Unit 1: Using Objects and Methods</td></tr>
+                        <tr><td>2</td><td>Sep 7–11</td><td>1.3 Expressions and Output</td><td>Unit 1</td></tr>
+                        <tr><td>3</td><td>Sep 14–18</td><td>1.4 Assignment &amp; Input; 1.5 Casting and Ranges</td><td>Unit 1</td></tr>
+                        <tr><td>4</td><td>Sep 21–24</td><td>1.6 Compound Operators; 1.7 API and Libraries</td><td>Unit 1</td></tr>
+                        <tr><td>5</td><td>Sep 28–30</td><td>1.8 Comments; 1.9 Method Signatures; 1.10 Calling Class Methods</td><td>Unit 1</td></tr>
+                        <tr><td>6</td><td>Oct 8–9</td><td>Monthly Exam</td><td>—</td></tr>
+                        <tr><td>6</td><td>Oct 12–16</td><td>1.11 Math Class; 1.12–1.13 Objects and Instances</td><td>Unit 1</td></tr>
+                        <tr><td>7</td><td>Oct 19–23</td><td>1.14 Instance Methods; 1.15 String Manipulation; <strong>Receipt Lab — Unit 1 Complete</strong></td><td>Unit 1</td></tr>
+                        <tr><td>9</td><td>Nov 2–6</td><td>2.1 Selection; 2.2 Boolean Expressions</td><td>Unit 2: Selection and Iteration</td></tr>
+                        <tr><td>10</td><td>Nov 16–20</td><td>2.3 if Statements; 2.4 Nested if</td><td>Unit 2</td></tr>
+                        <tr><td>11</td><td>Nov 23–27</td><td>2.5–2.6 Compound Boolean Expressions</td><td>Unit 2</td></tr>
+                        <tr><td>12</td><td>Nov 30 – Dec 4</td><td>2.7 while Loops; 2.8 for Loops</td><td>Unit 2</td></tr>
+                        <tr><td>13</td><td>Dec 7–11</td><td>2.9 Algorithms; 2.10 String Algorithms; <strong>Magpie 2.0 Lab — Unit 2 Complete</strong></td><td>Unit 2</td></tr>
+                        <tr><td>15</td><td>Dec 14–18</td><td>3.1–3.4 Abstraction, Class Anatomy, Constructors</td><td>Unit 3: Class Creation</td></tr>
+                        <tr><td>16</td><td>Dec 21–25</td><td>3.5–3.9 Methods, Scope, this; <strong>Virtual Pet Lab — Unit 3 Complete</strong></td><td>Unit 3</td></tr>
+                        <tr><td>17</td><td>Dec 28–31</td><td>Unit 4: Arrays, ArrayList, 2D Arrays intro</td><td>Unit 4: Data Collections</td></tr>
+                        <tr><td>18</td><td>Jan 4–8</td><td>4.5–4.17 Array/ArrayList/2D Algorithms, Sorting, Recursion; <strong>2048 Lab — Unit 4 Part 1 Complete</strong></td><td>Unit 4</td></tr>
+                        <tr><td>19</td><td>Jan 11–15</td><td>Final Exam Week (Units 1–4 Part 1)</td><td>Finals</td></tr>
                     </tbody>
                 </table>
             </div>
+            <p><em>Winter Break: January 16 – February 28, 2027</em></p>
+            <h3>Second Semester (Mar 1 – Jun 11, 2027)</h3>
+            <div style="overflow-x: auto; max-height: 280px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap;">Week</th>
+                            <th style="white-space: nowrap;">Dates</th>
+                            <th>Topics</th>
+                            <th>Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>20</td><td>Mar 1–5</td><td>4.6 Text Files; <strong>Data Set Lab</strong></td><td>Unit 4 (Part 2)</td></tr>
+                        <tr><td>21</td><td>Mar 8–12</td><td><strong>Digit Recognition Lab — Unit 4 Complete</strong></td><td>Unit 4</td></tr>
+                        <tr><td>22–24</td><td>Mar 15 – Apr 9</td><td>FRQ Practice &amp; Comprehensive Review</td><td>Review</td></tr>
+                        <tr><td>—</td><td>Apr 26–30</td><td>Mock Exams</td><td>Mock</td></tr>
+                        <tr><td>31</td><td>May 10–14</td><td><strong>AP CSA Exam</strong></td><td>AP Exam</td></tr>
+                        <tr><td>32–34</td><td>May 17 – Jun 4</td><td>Capstone Project (proposal, implementation, showcase)</td><td>Capstone</td></tr>
+                        <tr><td>35</td><td>Jun 7–11</td><td>Final Exam Week</td><td>Finals</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>Key Dates</h3>
+            <table>
+                <tbody>
+                    <tr><td>Oct 23</td><td>Unit 1 complete; Receipt Lab due</td></tr>
+                    <tr><td>Dec 11</td><td>Unit 2 complete; Magpie 2.0 Lab due</td></tr>
+                    <tr><td>Dec 25</td><td>Unit 3 complete; Virtual Pet Lab due</td></tr>
+                    <tr><td>Jan 8, 2027</td><td>Unit 4 Part 1 complete; 2048 Lab due</td></tr>
+                    <tr><td>Mar 12</td><td>Unit 4 complete; Digit Recognition Lab due</td></tr>
+                    <tr><td>Apr 26–30</td><td>Mock Exams</td></tr>
+                    <tr><td>May 10–14</td><td>AP CSA Exam</td></tr>
+                </tbody>
+            </table>
         </div>
 
         <div id="exam" class="tab-content">
-            <p>Exam Date: Refer to the College Board website for the official AP Computer Science A Exam date.<br>
-            Exam Format:</p>
+            <p><strong>Exam Window: May 10–14, 2027</strong> (specific date within the May 3–14 window to be confirmed by College Board). Classes for grades 10–12 are suspended during AP exam weeks.</p>
+            <p>Exam Format:</p>
+            <table>
+              <thead><tr><th>Section</th><th>Questions</th><th>Time</th><th>Weight</th></tr></thead>
+              <tbody>
+                <tr><td>Section I: Multiple Choice</td><td>42</td><td>90 min</td><td>55%</td></tr>
+                <tr><td>Section II: Free Response</td><td>4</td><td>90 min</td><td>45%</td></tr>
+              </tbody>
+            </table>
+            <h3>Free-Response Questions</h3>
+            <table>
+              <thead><tr><th>FRQ</th><th>Topic</th><th>Points</th></tr></thead>
+              <tbody>
+                <tr><td>FRQ 1</td><td>Methods and Control Structures (iteration/conditionals + String methods)</td><td>7</td></tr>
+                <tr><td>FRQ 2</td><td>Class Design (class header, instance variables, constructor, methods)</td><td>7</td></tr>
+                <tr><td>FRQ 3</td><td>Data Analysis with ArrayList (traverse/manipulate an ArrayList of objects)</td><td>5</td></tr>
+                <tr><td>FRQ 4</td><td>2D Array (traverse/manipulate a 2D array)</td><td>6</td></tr>
+              </tbody>
+            </table>
             <ul>
-              <li>Section I: Multiple Choice (40 questions, 50% of the score)</li>
-              <li>Section II: Free Response (4 questions, 50% of the score)
-                <ul>
-                  <li>Topics include methods and control structures, classes, arrays, and algorithms.</li>
-                </ul>
-              </li>
-            </ul>
-            <p>Preparation:</p>
-            <ul>
-              <li>Weekly practice exams and coding challenges will simulate the AP Exam format.</li>
-              <li>Review sessions will be held in the final 9 weeks of the course.</li>
+              <li><strong>Java Quick Reference:</strong> Provided during both sections.</li>
+              <li><strong>No AI assistance:</strong> All AP assessments are conducted without AI tools.</li>
+              <li><strong>Programming Language:</strong> Java (Java 17+ acceptable; Java 22 recommended).</li>
             </ul>
         </div>
 

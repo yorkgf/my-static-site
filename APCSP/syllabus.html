@@ -90,7 +90,8 @@
             }
 
             .tab-content {
-                height: min(250px, 35vh);
+                height: auto;
+                max-height: 70vh;
                 margin-bottom: min(1rem, 2vh);
             }
         }
@@ -102,7 +103,7 @@
             }
 
             .tab-content {
-                height: min(200px, 30vh);
+                height: auto; max-height: 65vh; overflow-y: auto;
             }
 
             .container {
@@ -195,8 +196,8 @@
             padding: min(1.5rem, 3vw);
             background-color: var(--bg-card);
             border-radius: 0 0 8px 8px;
-            height: min(320px, 40vh);
-            max-height: 60vh;
+            height: auto;
+            max-height: 78vh;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: var(--primary) rgba(30, 30, 60, 0.8);
@@ -309,7 +310,7 @@
             <button class="tab-button active" onclick="openTab(event, 'overview')">Course Overview</button>
             <button class="tab-button" onclick="openTab(event, 'classinfo')">Class Info</button>
             <button class="tab-button" onclick="openTab(event, 'objectives')">Course Objectives</button>
-            <button class="tab-button" onclick="openTab(event, 'textbook')">Textbook</button>
+            <button class="tab-button" onclick="openTab(event, 'materials')">Materials</button>
             <button class="tab-button" onclick="openTab(event, 'grading')">Grading Policy</button>
             <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam Information</button>
             <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
@@ -317,307 +318,201 @@
         </div>
 
         <div id="overview" class="tab-content active">
-            <p>AP Computer Science Principles is a college-level course that introduces students to the foundational concepts of computer science and explores the impact of computing innovations on society. This course emphasizes creative problem-solving and the development of computational thinking skills that can be applied across various disciplines.</p>
-            <p>Students will learn to design and implement creative solutions to problems using programming, while also examining how computing innovations and the digital world impact our daily lives, society, and the global community. The course covers a broad range of topics including digital information, the internet, programming, algorithms, data analysis, and cybersecurity.</p>
-            <p>This course prepares students for the AP Computer Science Principles Exam and the Create Performance Task, fostering both technical skills and critical thinking about the ethical and social implications of computing technologies.</p>
+            <p>AP Computer Science Principles introduces students to the breadth of the field of computer science. Students will learn to design and evaluate solutions and to apply computer science to solve problems through the development of algorithms and programs. They will incorporate abstraction into programs and use data to discover new knowledge. Students will also explain how computing innovations and computing systems—including the Internet—work, explore their potential impacts, and contribute to a computing culture that is collaborative and ethical.</p>
+            <p>This course is designed to be the equivalent of an introductory, college-level breadth course in computer science. Students will use <strong>Python</strong> as the primary programming language throughout the course. A minimum of <strong>9 hours</strong> of dedicated class time is reserved for the Create Performance Task (CPT).</p>
+            <h3>The Five Big Ideas</h3>
+            <ul>
+                <li><strong>Big Idea 1:</strong> Creative Development (CRD)</li>
+                <li><strong>Big Idea 2:</strong> Data (DAT)</li>
+                <li><strong>Big Idea 3:</strong> Algorithms and Programming (AAP)</li>
+                <li><strong>Big Idea 4:</strong> Computer Systems and Networks (CSN)</li>
+                <li><strong>Big Idea 5:</strong> Impact of Computing (IOC)</li>
+            </ul>
+            <h3>Projects and Labs</h3>
+            <ul>
+                <li>Personalized Greeting Program (Unit 1)</li>
+                <li>Quiz App Lab (Unit 2)</li>
+                <li>Data Analysis Lab (Unit 3)</li>
+                <li>Create Performance Task (CPT) — ≥ 9 hours dedicated in-class time, submitted to AP Digital Portfolio</li>
+                <li>Post-AP Capstone Project</li>
+            </ul>
         </div>
 
         <div id="classinfo" class="tab-content">
             <table>
                 <tbody>
                     <tr>
-                        <td style="white-space: nowrap; width: 40%;">Teacher:</td>
-                        <td>Feng Gao</td>
+                        <td style="white-space: nowrap; width: 40%;">Course:</td>
+                        <td>AP® Computer Science Principles</td>
                     </tr>
                     <tr>
-                        <td style="white-space: nowrap;">Grade:</td>
-                        <td>11 & 12</td>
+                        <td style="white-space: nowrap;">Academic Year:</td>
+                        <td>2026–2027</td>
                     </tr>
                     <tr>
-                        <td style="white-space: nowrap;">Classes per Week:</td>
-                        <td>5</td>
+                        <td style="white-space: nowrap;">Instructor:</td>
+                        <td>赵丁霓</td>
                     </tr>
                     <tr>
-                        <td style="white-space: nowrap;">Curriculum + Credit:</td>
-                        <td>AP 5</td>
+                        <td style="white-space: nowrap;">Email:</td>
+                        <td>Dingnizhao@ghedu.com</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Office:</td>
+                        <td>文体106</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Language:</td>
+                        <td>Python 3.x (primary)</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div id="objectives" class="tab-content">
-            <p>By the end of the course, students will be able to:</p>
+            <p>Upon completion of this course, students will be able to:</p>
             <ol>
-                <li>Understand and apply the Big Ideas of Computer Science Principles including Creative Development, Data, Algorithms and Programming, Computer Systems and Networks, and Impact of Computing.</li>
-                <li>Design and implement creative solutions to problems using programming and computational thinking skills.</li>
-                <li>Analyze and create algorithms to solve computational problems efficiently.</li>
-                <li>Work with digital information including data representation, compression, and processing.</li>
-                <li>Understand how the Internet works, including protocols, packet switching, and network infrastructure.</li>
-                <li>Create and analyze data visualizations to identify patterns and trends.</li>
-                <li>Examine the ethical, social, and global impacts of computing innovations.</li>
-                <li>Develop and present a Create Performance Task that demonstrates programming skills and understanding of computer science principles.</li>
-                <li>Prepare for and succeed on the AP Computer Science Principles Exam.</li>
+                <li><strong>Design computational solutions</strong> — Investigate a problem, design an approach, and evaluate solution options.</li>
+                <li><strong>Develop algorithms and programs</strong> — Implement algorithms and write programs in Python to solve real-world problems.</li>
+                <li><strong>Apply abstraction</strong> — Develop programs using lists and procedures that manage complexity through abstraction.</li>
+                <li><strong>Analyze and test programs</strong> — Explain code behavior, determine results, and identify and correct errors.</li>
+                <li><strong>Investigate computing innovations</strong> — Explain how computing systems and networks work and evaluate their impacts.</li>
+                <li><strong>Contribute to responsible computing</strong> — Practice safe, ethical, collaborative, and inclusive computing.</li>
             </ol>
         </div>
 
-        <div id="textbook" class="tab-content">
-            <p>Title: Computer Science: An Overview<br>
-            Authors: J. Glenn Brookshear and Dennis Brylow<br>
-            Publisher: Pearson<br>
-            Edition: Latest Edition (as available)</p>
-            <p>This textbook provides a comprehensive overview of computer science fundamentals. Selected chapters from the textbook will be used to explore topics such as digital information, computer systems, algorithms, data representation, and the impact of computing on society. The textbook complements hands-on programming activities and project-based learning throughout the course.</p>
-            <div class="textbook-image-container">
-                <img src="images/textbook.jpg" alt="Computer Science: An Overview textbook cover" class="textbook-image">
-            </div>
+        <div id="materials" class="tab-content">
+            <h3>Textbook</h3>
+            <p>There is no required textbook for this course. Instruction is based on the free College Board AP CSP Course and Exam Description (CED), AP Classroom, and the online resources listed below; a print or digital Python reference may be recommended for extra practice.</p>
+            <h3>Programming Language &amp; Environment</h3>
+            <ul>
+                <li><strong>Primary Language:</strong> Python 3.x</li>
+                <li><strong>IDEs:</strong> Thonny (beginner-friendly) or VS Code with Python extension</li>
+                <li><strong>Alternatives accepted for CPT:</strong> App Lab (JavaScript), Scratch, or any language the student knows well</li>
+            </ul>
+            <h3>Course Materials (Provided)</h3>
+            <ul>
+                <li>Course and Exam Description (CED) — Effective Fall 2023</li>
+                <li>AP CSP Exam Reference Sheet (block-based and text-based pseudocode)</li>
+                <li>Big Idea Guides and Topic Question sets</li>
+                <li>Lab Guides and project specifications</li>
+                <li>FRQ-style Written Response practice sets</li>
+                <li>Real-world datasets for Unit 3 lab work</li>
+            </ul>
+            <h3>Online Resources</h3>
+            <ul>
+                <li>AP Classroom (Progress Checks, Question Bank, CPT submission portal)</li>
+                <li>Code.org CSP curriculum resources</li>
+                <li>Python.org documentation</li>
+            </ul>
         </div>
 
         <div id="grading" class="tab-content">
-            <p>Grades will be based on the following components:</p>
+            <p>Each semester is graded independently using the same standard. The midterm assessment accounts for 40% of the semester grade and the final assessment for 60%. Each is composed as follows:</p>
+            <h3>Midterm Assessment — 40% of Semester Grade</h3>
             <table>
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Percentage</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Attendance</td>
-                  <td>15%</td>
-                </tr>
-                <tr>
-                  <td>Participation</td>
-                  <td>15%</td>
-                </tr>
-                <tr>
-                  <td>Homework</td>
-                  <td>20%</td>
-                </tr>
-                <tr>
-                  <td>Exam</td>
-                  <td>50%</td>
-                </tr>
-              </tbody>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Midterm Exam</td><td>50%</td></tr>
+                </tbody>
             </table>
-            <p>- Late Work Policy: Assignments submitted late will incur a penalty of 10% per day, up to a maximum of 5 days. After 5 days, no credit will be given.<br>
-            - Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced coding challenges.</p>
+            <h3>Final Assessment — 60% of Semester Grade</h3>
+            <table>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Final Exam</td><td>50%</td></tr>
+                </tbody>
+            </table>
+            <p>- Late Work Policy: 10% deduction per day late; maximum 50% after 3 days late. Exceptions made for excused absences and emergencies.<br>
+            - Academic Integrity: AI tools (ChatGPT, GitHub Copilot, etc.) may be used as learning aids outside of assessments, but you must understand and be able to explain all code you submit. CPT code, video, and PPR must be your own independent work.</p>
         </div>
 
         <div id="exam" class="tab-content">
-            <p>Exam Date: Refer to the College Board website for the official AP Computer Science Principles Exam date.<br>
-            Exam Format:</p>
-            <ul>
-              <li>Section I: Multiple Choice (70 questions, 60% of the score)</li>
-              <li>Section II: Performance Tasks (40% of the score)
-                <ul>
-                  <li>Create Performance Task (20%): Students create a computer program and submit videos, written responses, and program code.</li>
-                  <li>Explore Performance Task (20%): Students explore a computing innovation and submit written responses.</li>
-                </ul>
-              </li>
-            </ul>
-            <p>Preparation:</p>
-            <ul>
-              <li>Weekly practice exams and coding challenges will simulate the AP Exam format.</li>
-              <li>Create Performance Task preparation will be integrated throughout Units 1-8.</li>
-              <li>Review sessions will be held in the final 4 weeks of the course.</li>
-            </ul>
+            <p><strong>Exam Window: May 3–14, 2027</strong> (specific date to be confirmed by College Board).</p>
+            <h3>Exam Format</h3>
+            <table>
+              <thead><tr><th>Section</th><th>Component</th><th>Number</th><th>Weight</th><th>Timing</th></tr></thead>
+              <tbody>
+                <tr><td>Section I</td><td>Multiple-choice questions</td><td>70</td><td>70%</td><td>120 min</td></tr>
+                <tr><td>Section II</td><td>Create Performance Task (program, video, PPR)</td><td>—</td><td>30%</td><td>≥ 9 hours in class (submitted before exam)</td></tr>
+                <tr><td>Section II</td><td>Written Response questions (on exam day)</td><td>2 (4 prompts)</td><td>(part of 30%)</td><td>60 min</td></tr>
+              </tbody>
+            </table>
+            <h3>Big Idea Weighting on MCQ</h3>
+            <table>
+              <thead><tr><th>Big Idea</th><th>Exam Weighting</th></tr></thead>
+              <tbody>
+                <tr><td>1: Creative Development</td><td>10–13%</td></tr>
+                <tr><td>2: Data</td><td>17–22%</td></tr>
+                <tr><td>3: Algorithms and Programming</td><td>30–35%</td></tr>
+                <tr><td>4: Computer Systems and Networks</td><td>11–15%</td></tr>
+                <tr><td>5: Impact of Computing</td><td>21–26%</td></tr>
+              </tbody>
+            </table>
+            <p><strong>CPT Submission Deadline:</strong> April 30, 2027 (11:59 PM ET). Class target: submit by April 25. The AP CSP Exam Reference Sheet (pseudocode) is provided during the exam.</p>
         </div>
 
         <div id="schedule" class="tab-content">
             <h2>Course Schedule</h2>
-            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+            <h3>First Semester (Aug 31, 2026 – Jan 15, 2027)</h3>
+            <div style="overflow-x: auto; max-height: 320px; overflow-y: auto;">
                 <table>
                     <thead>
                         <tr>
-                            <th style="white-space: nowrap;">Week</th>
+                            <th style="white-space: nowrap;">Weeks</th>
                             <th style="white-space: nowrap;">Dates</th>
-                            <th>Unit/Topic</th>
+                            <th>Big Ideas / Unit / Topic</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Week 1</td>
-                            <td>Sep 1 - Sep 7</td>
-                            <td>Unit 1 - Digital Information (Introduction)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 2</td>
-                            <td>Sep 8 - Sep 14</td>
-                            <td>Unit 1 - Digital Information (Data Types and Compression)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 3</td>
-                            <td>Sep 15 - Sep 21</td>
-                            <td>Unit 2 - The Internet (Fundamentals)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 4</td>
-                            <td>Sep 22 - Sep 28</td>
-                            <td>Unit 2 - The Internet (Impacts)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 5</td>
-                            <td>Sep 29 - Oct 5</td>
-                            <td>Unit 3 - Intro to App Design (Basics)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 6</td>
-                            <td>Oct 6 - Oct 12</td>
-                            <td>Unit 3 - Intro to App Design (Collaborative Development)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 7</td>
-                            <td>Oct 13 - Oct 19</td>
-                            <td>Unit 4 - Variables, Conditionals, and Functions (Basics)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 8</td>
-                            <td>Oct 20 - Oct 26</td>
-                            <td>Unit 4 - Variables, Conditionals, and Functions (Functions)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 9</td>
-                            <td>Oct 27 - Nov 2</td>
-                            <td>Unit 4 - Variables, Conditionals, and Functions (API Integration)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 10</td>
-                            <td>Nov 3 - Nov 9</td>
-                            <td>Unit 5 - Lists, Loops, and Traversals (Lists)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 11</td>
-                            <td>Nov 10 - Nov 16</td>
-                            <td><strong style="color: #d32f2f;">Mid Term Exam</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Week 12</td>
-                            <td>Nov 17 - Nov 23</td>
-                            <td>Unit 5 - Lists, Loops, and Traversals (Loops)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 13</td>
-                            <td>Nov 24 - Nov 30</td>
-                            <td>Unit 5 - Lists, Loops, and Traversals (Data Processing)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 14</td>
-                            <td>Dec 1 - Dec 7</td>
-                            <td>Unit 6 - Algorithms (Fundamentals)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 15</td>
-                            <td>Dec 8 - Dec 14</td>
-                            <td>Unit 6 - Algorithms (Analysis)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 16</td>
-                            <td>Dec 15 - Dec 21</td>
-                            <td>Unit 7 - Parameters, Return, and Libraries (Parameters)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 17</td>
-                            <td>Dec 22 - Dec 28</td>
-                            <td>Unit 7 - Parameters, Return, and Libraries (Libraries)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 18</td>
-                            <td>Dec 29 - Jan 4</td>
-                            <td>Unit 8 - Create PT Prep (Overview)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 19</td>
-                            <td>Jan 5 - Jan 11</td>
-                            <td>Unit 8 - Create PT Prep (Implementation)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 20</td>
-                            <td>Jan 12 - Jan 18</td>
-                            <td>Unit 8 - Create PT Prep (Review and Practices)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 21</td>
-                            <td>Jan 19 - Jan 25</td>
-                            <td><strong style="color: #d32f2f;">Final Exam</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Week 22</td>
-                            <td>Mar 2 - Mar 8</td>
-                            <td>Unit 9 - Data (Exploration)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 23</td>
-                            <td>Mar 9 - Mar 15</td>
-                            <td>Unit 9 - Data (Visualization)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 24</td>
-                            <td>Mar 16 - Mar 22</td>
-                            <td>Unit 10 - Cybersecurity and Global Impacts (Cybersecurity)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 25</td>
-                            <td>Mar 23 - Mar 29</td>
-                            <td>Unit 10 - Cybersecurity and Global Impacts (Global Impacts)</td>
-                        </tr>
-                        <tr>
-                            <td>Week 26</td>
-                            <td>Mar 30 - Apr 5</td>
-                            <td>Project Preparation and AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 27</td>
-                            <td>Apr 6 - Apr 12</td>
-                            <td>Project Preparation and AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 28</td>
-                            <td>Apr 13 - Apr 19</td>
-                            <td>Project Preparation and AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 29</td>
-                            <td>Apr 20 - Apr 26</td>
-                            <td>Project Preparation and AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 30</td>
-                            <td>Apr 27 - May 3</td>
-                            <td><strong style="color: #d32f2f;">Second Semester Midterm Exam</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Week 31</td>
-                            <td>May 4 - May 10</td>
-                            <td><strong style="color: #d32f2f;">AP Exam Week 1</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Week 32</td>
-                            <td>May 11 - May 17</td>
-                            <td><strong style="color: #d32f2f;">AP Exam Week 2</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Week 33</td>
-                            <td>May 18 - May 24</td>
-                            <td>Final Project Development Week 1</td>
-                        </tr>
-                        <tr>
-                            <td>Week 34</td>
-                            <td>May 25 - May 31</td>
-                            <td>Final Project Development Week 2</td>
-                        </tr>
-                        <tr>
-                            <td>Week 35</td>
-                            <td>Jun 1 - Jun 7</td>
-                            <td>Final Project Development Week 3</td>
-                        </tr>
-                        <tr>
-                            <td>Week 36</td>
-                            <td>Jun 8 - Jun 14</td>
-                            <td><strong style="color: var(--primary);">Final Project Presentations</strong></td>
-                        </tr>
+                        <tr><td>1–6</td><td>Aug 31 – Oct 16</td><td>Unit 1: Creative Development + Intro to Programming + Digital Citizenship (CRD, AAP intro, IOC intro) — <strong>Personalized Greeting Program; Unit 1 Complete Oct 16</strong></td></tr>
+                        <tr><td>7–13</td><td>Oct 19 – Dec 11</td><td>Unit 2: Algorithms &amp; Programming (AAP) — Boolean, Conditionals, Iteration, Procedures, Lists, Simulations, Binary Search, Algorithmic Efficiency — <strong>Quiz App Lab; Unit 2 Complete Dec 11</strong></td></tr>
+                        <tr><td>14–17</td><td>Dec 14 – Jan 8, 2027</td><td>Unit 3: Data (DAT) — Binary Numbers, Data Compression, Extracting Info from Data — <strong>Data Analysis Lab; Unit 3 Complete Jan 8</strong></td></tr>
+                        <tr><td>18</td><td>Jan 11–15</td><td>Final Exam Week (Units 1–3)</td></tr>
                     </tbody>
                 </table>
             </div>
+            <p><em>Winter Break: January 16 – February 28, 2027</em></p>
+            <h3>Second Semester (Mar 1 – Jun 11, 2027)</h3>
+            <div style="overflow-x: auto; max-height: 320px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap;">Weeks</th>
+                            <th style="white-space: nowrap;">Dates</th>
+                            <th>Focus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>19–21</td><td>Mar 1–19</td><td>Unit 4: Computer Systems &amp; Networks (CSN) + IOC topics — Internet, Fault Tolerance, Parallel/Distributed Computing, Legal/Ethical — <strong>All content instruction complete Mar 19</strong></td></tr>
+                        <tr><td>22–23</td><td>Mar 22 – Apr 2</td><td>Comprehensive Review &amp; CPT Preparation</td></tr>
+                        <tr><td>—</td><td>Apr 6–21</td><td><strong>Create Performance Task (CPT) — ≥ 9 hours dedicated in-class time</strong></td></tr>
+                        <tr><td>—</td><td>Apr 25</td><td>Class CPT submission target (CB deadline Apr 30)</td></tr>
+                        <tr><td>—</td><td>Apr 26–30</td><td>Written Response (FRQ) Intensive Practice</td></tr>
+                        <tr><td>—</td><td>May 3–14</td><td><strong>AP CSP Exam</strong></td></tr>
+                        <tr><td>—</td><td>May 17 – Jun 4</td><td>Post-AP Capstone Project</td></tr>
+                        <tr><td>—</td><td>Jun 7–11</td><td>Final Exam Week</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>Key Dates</h3>
+            <table>
+                <tbody>
+                    <tr><td>Oct 16</td><td>Unit 1 complete; Personalized Greeting Program due</td></tr>
+                    <tr><td>Dec 11</td><td>Unit 2 complete; Quiz App Lab due</td></tr>
+                    <tr><td>Jan 8, 2027</td><td>Unit 3 complete; Data Analysis Lab due</td></tr>
+                    <tr><td>Mar 19</td><td>All content instruction complete</td></tr>
+                    <tr><td>Apr 6–21</td><td>CPT dedicated in-class time</td></tr>
+                    <tr><td>Apr 25</td><td>CPT class submission target</td></tr>
+                    <tr><td>May 3–14</td><td>AP CSP Exam</td></tr>
+                </tbody>
+            </table>
             <p style="text-align: center; margin-top: 1rem; font-size: min(0.9rem, 3vw);">
                 <em>Note: Schedule is subject to change based on class progress and needs.</em>
             </p>

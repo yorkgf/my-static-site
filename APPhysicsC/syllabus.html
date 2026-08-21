@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AP Physics C: Mechanics and Electricity & Magnetism Syllabus</title>
+    <title>AP Physics C: Mechanics Syllabus</title>
     <style>
         :root {
             --primary: #2c5aa0;
@@ -84,7 +84,8 @@
             }
 
             .tab-content {
-                height: min(250px, 35vh);
+                height: auto;
+                max-height: 70vh;
                 margin-bottom: min(1rem, 2vh);
             }
         }
@@ -96,7 +97,7 @@
             }
 
             .tab-content {
-                height: min(200px, 30vh);
+                height: auto; max-height: 65vh; overflow-y: auto;
             }
 
             .container {
@@ -189,8 +190,8 @@
             padding: min(1.5rem, 3vw);
             background-color: var(--bg-card);
             border-radius: 0 0 8px 8px;
-            height: min(320px, 40vh);
-            max-height: 60vh;
+            height: auto;
+            max-height: 78vh;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: var(--primary) rgba(200, 200, 200, 0.8);
@@ -288,6 +289,20 @@
             color: var(--accent);
             font-weight: bold;
         }
+
+        .textbook-image-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: min(1rem, 2vh);
+        }
+
+        .textbook-image {
+            max-width: min(300px, 80%);
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(44, 90, 160, 0.2);
+        }
     </style>
     <!-- Knowledge Graph CSS -->
     <link rel="stylesheet" href="css/knowledge-graph.css">
@@ -300,13 +315,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>AP Physics C: Mechanics and Electricity & Magnetism Syllabus</h1>
+        <h1>AP Physics C: Mechanics Syllabus</h1>
 
         <div class="tabs">
             <button class="tab-button active" onclick="openTab(event, 'overview')">Course Overview</button>
             <button class="tab-button" onclick="openTab(event, 'classinfo')">Class Info</button>
             <button class="tab-button" onclick="openTab(event, 'objectives')">Course Objectives</button>
-            <button class="tab-button" onclick="openTab(event, 'textbook')">Textbook</button>
+            <button class="tab-button" onclick="openTab(event, 'materials')">Materials</button>
             <button class="tab-button" onclick="openTab(event, 'grading')">Grading Policy</button>
             <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam Information</button>
             <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
@@ -314,350 +329,201 @@
         </div>
 
         <div id="overview" class="tab-content active">
-            <p>AP Physics C is a calculus-based, college-level physics course that covers two separate full-year courses: Mechanics and Electricity & Magnetism. This course is designed for students interested in pursuing careers in physical science, engineering, or mathematics. The course emphasizes problem-solving, laboratory work, and conceptual understanding of fundamental physics principles.</p>
-            <p>The Mechanics portion covers kinematics, Newton's laws of motion, work, energy, power, systems of particles, linear momentum, circular motion, rotation, oscillations, and gravitation. The Electricity & Magnetism portion covers electrostatics, conductors, capacitors, dielectrics, electric circuits, magnetic fields, electromagnetism, and electromagnetic induction.</p>
-            <p>Students will engage in hands-on laboratory experiments, develop computational models, and solve complex problems using calculus. The course prepares students for both AP Physics C exams and provides a strong foundation for future studies in physics and engineering.</p>
+            <p>AP Physics C: Mechanics is a calculus-based, college-level introductory physics course. Students cultivate deep understanding of classical mechanics by building physical models through inquiry-based investigations. The course is equivalent to the first semester of an introductory college calculus-based physics sequence.</p>
+            <p>Students develop understanding across seven domains: kinematics, forces and translational dynamics, work/energy/power, linear momentum, torque and rotational dynamics, energy and momentum of rotating systems, and oscillations. Throughout, students practice three science practices — creating representations, applying mathematical routines, and scientific argumentation — by designing experiments, deriving expressions, and justifying claims with evidence.</p>
+            <h3>Laboratory Requirement</h3>
+            <p>A minimum of 25% of instructional time is dedicated to hands-on, inquiry-based laboratory work. Students maintain a laboratory notebook throughout the year; colleges may request lab materials as part of the credit-granting process.</p>
+            <p><strong>Prerequisites:</strong> Students should have taken, or be concurrently enrolled in, calculus. Comfort with derivatives and integrals is essential by mid-year.</p>
+            <h3>Explore the Knowledge Graph</h3>
+            <p>This course includes an interactive knowledge graph linking concepts across units. Use the "Knowledge Graph" tab above to explore connections between mechanics topics.</p>
         </div>
 
         <div id="classinfo" class="tab-content">
             <table>
                 <tbody>
                     <tr>
-                        <td style="white-space: nowrap; width: 40%;">Teacher:</td>
-                        <td>Feng Gao</td>
+                        <td style="white-space: nowrap; width: 40%;">Course:</td>
+                        <td>AP® Physics C: Mechanics</td>
                     </tr>
                     <tr>
-                        <td style="white-space: nowrap;">Grade:</td>
-                        <td>11 & 12</td>
+                        <td style="white-space: nowrap;">Academic Year:</td>
+                        <td>2026–2027</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Instructor:</td>
+                        <td>Jeff Ling</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Email:</td>
+                        <td>jeffling@ghedu.com</td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap;">Office:</td>
+                        <td>冬韵103</td>
                     </tr>
                     <tr>
                         <td style="white-space: nowrap;">Prerequisite:</td>
-                        <td>Calculus AB (or concurrent enrollment)</td>
+                        <td>Calculus (taken or concurrent)</td>
                     </tr>
                     <tr>
-                        <td style="white-space: nowrap;">Classes per Week:</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td style="white-space: nowrap;">Curriculum + Credit:</td>
-                        <td>AP 5 (2 courses: Mechanics + E&M)</td>
+                        <td style="white-space: nowrap;">First Day:</td>
+                        <td>August 31, 2026</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div id="objectives" class="tab-content">
-            <p>By the end of the course, students will be able to:</p>
+            <p>Upon completion of this course, students will be able to:</p>
             <ol>
-                <li>Apply calculus to solve physics problems involving motion, forces, energy, and fields.</li>
-                <li>Understand and apply fundamental principles of mechanics: <span class="formula">F = ma</span>, conservation of energy, conservation of momentum, rotational dynamics, and gravitation.</li>
-                <li>Understand and apply fundamental principles of electricity and magnetism: Coulomb's law, Gauss's law, Ohm's law, Ampère's law, Faraday's law, and Maxwell's equations.</li>
-                <li>Design, conduct, and analyze laboratory experiments to test physical principles.</li>
-                <li>Develop computational models to simulate physical phenomena.</li>
-                <li>Critically analyze and solve complex, multi-step physics problems.</li>
-                <li>Prepare for and succeed on both AP Physics C exams (Mechanics and Electricity & Magnetism).</li>
+                <li><strong>Create Representations</strong> — Construct free-body diagrams, motion graphs, energy bar charts, and other physical representations.</li>
+                <li><strong>Apply Mathematical Routines</strong> — Derive symbolic expressions, calculate numerical results with appropriate units, compare quantities across scenarios, and predict functional dependencies.</li>
+                <li><strong>Design and Argue</strong> — Plan experimental procedures, apply physical laws to make claims, and justify those claims using evidence and reasoning.</li>
+                <li><strong>Solve Across Domains</strong> — Connect and apply concepts from kinematics, dynamics, energy, momentum, rotation, and oscillations to complex multi-step problems.</li>
+                <li><strong>Conduct Lab Investigations</strong> — Design, execute, and write up inquiry-based experiments; identify sources of experimental uncertainty.</li>
             </ol>
         </div>
 
-        <div id="textbook" class="tab-content">
-            <p>Primary Textbook: Physics for Scientists and Engineers with Modern Physics<br>
-            Authors: Raymond A. Serway and John W. Jewett<br>
-            Publisher: Cengage Learning<br>
-            Edition: Latest Edition (as available)</p>
-            <p>Supplemental Materials:</p>
+        <div id="materials" class="tab-content">
+            <h3>Textbook</h3>
+            <p><em>University Physics</em> (Young &amp; Freedman) or <em>Physics for Scientists and Engineers</em> (Serway &amp; Jewett). Supplementary: Halliday/Resnick <em>Fundamentals of Physics</em> (reference).</p>
+            <div class="textbook-image-container">
+                <img src="images/textbook.jpeg" alt="AP Physics C textbook" class="textbook-image">
+            </div>
+            <h3>Course Materials (Provided)</h3>
             <ul>
-                <li>Lab Manual for Physics C</li>
-                <li>AP Physics C Workbook and practice exams</li>
-                <li>Computational physics resources (Python/VPython)</li>
-                <li>Video lectures and interactive simulations</li>
+                <li>AP Physics C: Mechanics CED — Effective Fall 2024</li>
+                <li>AP equation sheet (Table of Information: Equations)</li>
+                <li>Lab guides and lab notebook templates</li>
+                <li>Released AP FRQ sets (2019–present) with scoring rubrics</li>
             </ul>
-            <p>This textbook provides comprehensive coverage of calculus-based physics, with numerous worked examples, problem sets, and conceptual explanations. The course follows the textbook structure closely, with additional emphasis on AP exam preparation and laboratory work.</p>
         </div>
 
         <div id="grading" class="tab-content">
-            <p>Grades will be based on the following components:</p>
+            <p>Each semester is graded independently using the same standard. The midterm assessment accounts for 40% of the semester grade and the final assessment for 60%. Each is composed as follows:</p>
+            <h3>Midterm Assessment — 40% of Semester Grade</h3>
             <table>
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Percentage</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Attendance</td>
-                  <td>15%</td>
-                </tr>
-                <tr>
-                  <td>Participation</td>
-                  <td>15%</td>
-                </tr>
-                <tr>
-                  <td>Homework</td>
-                  <td>20%</td>
-                </tr>
-                <tr>
-                  <td>Exam</td>
-                  <td>50%</td>
-                </tr>
-              </tbody>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Midterm Exam</td><td>50%</td></tr>
+                </tbody>
             </table>
-            <p>- Late Work Policy: Assignments submitted late will incur a penalty of 10% per day, up to a maximum of 5 days. After 5 days, no credit will be given.<br>
-            - Lab Policy: Laboratory reports are included in the Homework category. Students must complete all lab work to pass the course. Makeup labs are available for excused absences.<br>
-            - Extra Credit: Occasionally, extra credit opportunities may be provided, such as solving advanced physics problems or extended lab projects.</p>
+            <h3>Final Assessment — 60% of Semester Grade</h3>
+            <table>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Final Exam</td><td>50%</td></tr>
+                </tbody>
+            </table>
+            <p>- Late Work Policy: 10% deduction per day late; maximum 50% after 3 days late. Lab reports more than one week late receive a maximum of 40%.<br>
+            - Lab Notebook: Students maintain a bound lab notebook throughout the course. Each entry must include date, question/hypothesis, procedure, data table, analysis, conclusion, and error discussion. Colleges may request lab materials as evidence for credit.<br>
+            - Academic Integrity: Derivations copied from peers or AI tools will receive zero credit. AI tools may be used to check understanding, but never to generate solutions for graded work.</p>
         </div>
 
         <div id="exam" class="tab-content">
-            <p>AP Physics C consists of two separate exams, each 90 minutes long:</p>
-            <h3 class="unit-header">AP Physics C: Mechanics Exam</h3>
-            <ul>
-              <li>Section I: Multiple Choice (35 questions, 50% of score)</li>
-              <li>Section II: Free Response (3 questions, 50% of score)
-                <ul>
-                  <li>One experimental design question</li>
-                  <li>One qualitative/quantitative translation question</li>
-                  <li>One short answer question</li>
-                </ul>
-              </li>
-            </ul>
-            <h3 class="unit-header">AP Physics C: Electricity & Magnetism Exam</h3>
-            <ul>
-              <li>Section I: Multiple Choice (35 questions, 50% of score)</li>
-              <li>Section II: Free Response (3 questions, 50% of score)
-                <ul>
-                  <li>Same format as Mechanics exam</li>
-                </ul>
-              </li>
-            </ul>
-            <p>Preparation includes weekly practice problems, unit exams, and full-length practice exams in the final 8 weeks of the course.</p>
+            <h3 class="unit-header">AP Physics C: Mechanics Exam — May 3–14, 2027</h3>
+            <p>A four-function, scientific, or graphing calculator is permitted on both sections. The AP Physics C: Mechanics Table of Information and Equations is provided.</p>
+            <table>
+              <thead><tr><th>Section</th><th>Content</th><th>Questions</th><th>Time</th><th>Weight</th></tr></thead>
+              <tbody>
+                <tr><td>Section I</td><td>Multiple Choice (scenario-based, single-select)</td><td>42</td><td>85 min</td><td>50%</td></tr>
+                <tr><td>Section II</td><td>Free Response (4 question types)</td><td>4</td><td>95 min</td><td>50%</td></tr>
+              </tbody>
+            </table>
+            <h3>Free-Response Question Types</h3>
+            <table>
+              <thead><tr><th>FRQ</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Q1</td><td>Mathematical Routines (MR)</td><td>Derive symbolic expressions, calculate quantities, compare results across scenarios</td></tr>
+                <tr><td>Q2</td><td>Translation Between Representations (TBR)</td><td>Move between graphical, mathematical, and verbal descriptions of physical situations</td></tr>
+                <tr><td>Q3</td><td>Experimental Design and Analysis (EDA)</td><td>Design an experiment, identify data to collect, analyze hypothetical data, identify errors</td></tr>
+                <tr><td>Q4</td><td>Qualitative/Quantitative Translation (QQT)</td><td>Use physical reasoning to justify a quantitative claim, or predict qualitative behavior from a mathematical relationship</td></tr>
+              </tbody>
+            </table>
+            <h3>MCQ Exam Weighting by Unit</h3>
+            <table>
+              <thead><tr><th>Unit</th><th>Topic</th><th>MCQ Weight</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Kinematics</td><td>10–15%</td></tr>
+                <tr><td>2</td><td>Force and Translational Dynamics</td><td>20–25%</td></tr>
+                <tr><td>3</td><td>Work, Energy, and Power</td><td>15–25%</td></tr>
+                <tr><td>4</td><td>Linear Momentum</td><td>10–20%</td></tr>
+                <tr><td>5</td><td>Torque and Rotational Dynamics</td><td>10–15%</td></tr>
+                <tr><td>6</td><td>Energy and Momentum of Rotating Systems</td><td>10–15%</td></tr>
+                <tr><td>7</td><td>Oscillations</td><td>10–15%</td></tr>
+              </tbody>
+            </table>
+            <p>Preparation includes weekly practice problems, unit exams, derivation workshops, and a full-length mock exam in the final week of April.</p>
         </div>
 
         <div id="schedule" class="tab-content">
             <h2>Course Schedule</h2>
-            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+            <h3>First Semester (Aug 31, 2026 – Jan 15, 2027)</h3>
+            <div style="overflow-x: auto; max-height: 320px; overflow-y: auto;">
                 <table>
                     <thead>
                         <tr>
-                            <th style="white-space: nowrap;">Week</th>
+                            <th style="white-space: nowrap;">Weeks</th>
                             <th style="white-space: nowrap;">Dates</th>
-                            <th>Topics</th>
-                            <th>Unit</th>
+                            <th>Unit / Topic</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td colspan="4" class="unit-header">Semester 1: Mechanics</td>
-                        </tr>
-                        <tr>
-                            <td>Week 1</td>
-                            <td>Sep 1 - Sep 7</td>
-                            <td>Kinematics: 1D Motion, Vectors, Velocity & Acceleration</td>
-                            <td>Unit 1: Kinematics</td>
-                        </tr>
-                        <tr>
-                            <td>Week 2</td>
-                            <td>Sep 8 - Sep 14</td>
-                            <td>Kinematics: 2D Motion, Projectile Motion, Relative Motion</td>
-                            <td>Unit 1: Kinematics</td>
-                        </tr>
-                        <tr>
-                            <td>Week 3</td>
-                            <td>Sep 15 - Sep 21</td>
-                            <td>Kinematics: Motion Graphs, Free Fall, Kinematic Equations Review</td>
-                            <td>Unit 1: Kinematics</td>
-                        </tr>
-                        <tr>
-                            <td>Week 4</td>
-                            <td>Sep 22 - Sep 28</td>
-                            <td>Newton's Laws: Force, Inertia, Newton's First & Second Law</td>
-                            <td>Unit 2: Newton's Laws of Motion</td>
-                        </tr>
-                        <tr>
-                            <td>Week 5</td>
-                            <td>Sep 29 - Oct 5</td>
-                            <td>Newton's Laws: Newton's Third Law, Friction, Drag Forces</td>
-                            <td>Unit 2: Newton's Laws of Motion</td>
-                        </tr>
-                        <tr>
-                            <td>Week 6</td>
-                            <td>Oct 6 - Oct 12</td>
-                            <td>Newton's Laws: Equilibrium, Inclined Planes, Circular Motion</td>
-                            <td>Unit 2: Newton's Laws of Motion</td>
-                        </tr>
-                        <tr>
-                            <td>Week 7</td>
-                            <td>Oct 13 - Oct 19</td>
-                            <td>Work & Energy: Work done by constant/variable forces, Kinetic Energy</td>
-                            <td>Unit 3: Work, Energy, Power</td>
-                        </tr>
-                        <tr>
-                            <td>Week 8</td>
-                            <td>Oct 20 - Oct 26</td>
-                            <td>Work & Energy: Potential Energy, Conservation of Energy, Power</td>
-                            <td>Unit 3: Work, Energy, Power</td>
-                        </tr>
-                        <tr>
-                            <td>Week 9</td>
-                            <td>Oct 27 - Nov 2</td>
-                            <td>Work & Energy: Energy diagrams, Non-conservative forces, Review</td>
-                            <td>Unit 3: Work, Energy, Power</td>
-                        </tr>
-                        <tr>
-                            <td>Week 10</td>
-                            <td>Nov 3 - Nov 9</td>
-                            <td>Linear Momentum: Center of Mass, Impulse-Momentum Theorem</td>
-                            <td>Unit 4: Systems of Particles & Linear Momentum</td>
-                        </tr>
-                        <tr>
-                            <td>Week 11</td>
-                            <td>Nov 10 - Nov 16</td>
-                            <td>Midterm Exam</td>
-                            <td>Midterm Assessment</td>
-                        </tr>
-                        <tr>
-                            <td>Week 12</td>
-                            <td>Nov 17 - Nov 23</td>
-                            <td>Linear Momentum: Conservation of Momentum, Collisions</td>
-                            <td>Unit 4: Systems of Particles & Linear Momentum</td>
-                        </tr>
-                        <tr>
-                            <td>Week 13</td>
-                            <td>Nov 24 - Nov 30</td>
-                            <td>Rotation: Angular Kinematics, Rotational Energy, Torque</td>
-                            <td>Unit 5: Rotation</td>
-                        </tr>
-                        <tr>
-                            <td>Week 14</td>
-                            <td>Dec 1 - Dec 7</td>
-                            <td>Rotation: Moment of Inertia, Rolling Motion, Angular Momentum</td>
-                            <td>Unit 5: Rotation</td>
-                        </tr>
-                        <tr>
-                            <td>Week 15</td>
-                            <td>Dec 8 - Dec 14</td>
-                            <td>Rotation: Conservation of Angular Momentum, Static Equilibrium</td>
-                            <td>Unit 5: Rotation</td>
-                        </tr>
-                        <tr>
-                            <td>Week 16</td>
-                            <td>Dec 15 - Dec 21</td>
-                            <td>Oscillations: Simple Harmonic Motion, Springs, Pendulums</td>
-                            <td>Unit 6: Oscillations & Gravitation</td>
-                        </tr>
-                        <tr>
-                            <td>Week 17</td>
-                            <td>Dec 22 - Dec 28</td>
-                            <td>Gravitation: Newton's Law of Gravitation, Kepler's Laws, Orbital Mechanics</td>
-                            <td>Unit 6: Oscillations & Gravitation</td>
-                        </tr>
-                        <tr>
-                            <td>Week 18</td>
-                            <td>Dec 29 - Jan 4</td>
-                            <td>Mechanics Comprehensive Review & Final Exam</td>
-                            <td>Semester 1 Final</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="unit-header">Semester 2: Electricity & Magnetism</td>
-                        </tr>
-                        <tr>
-                            <td>Week 19</td>
-                            <td>Mar 2 - Mar 8</td>
-                            <td>Electrostatics: Coulomb's Law, Electric Fields, Gauss's Law</td>
-                            <td>Unit 1: Electrostatics</td>
-                        </tr>
-                        <tr>
-                            <td>Week 20</td>
-                            <td>Mar 9 - Mar 15</td>
-                            <td>Electrostatics: Electric Potential, Capacitance, Dielectrics</td>
-                            <td>Unit 1 + 2: Electrostatics & Capacitors</td>
-                        </tr>
-                        <tr>
-                            <td>Week 21</td>
-                            <td>Mar 16 - Mar 22</td>
-                            <td>Electric Circuits: Current, Resistance, Kirchhoff's Laws, DC Circuits</td>
-                            <td>Unit 3: Electric Circuits</td>
-                        </tr>
-                        <tr>
-                            <td>Week 22</td>
-                            <td>Mar 23 - Mar 29</td>
-                            <td>Magnetic Fields: Lorentz Force, Biot-Savart Law, Ampère's Law</td>
-                            <td>Unit 4: Magnetic Fields</td>
-                        </tr>
-                        <tr>
-                            <td>Week 23</td>
-                            <td>Mar 30 - Apr 5</td>
-                            <td>Electromagnetism: Faraday's Law, Inductance, Maxwell's Equations (ALL CONTENT COMPLETE)</td>
-                            <td>Unit 5: Electromagnetism</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: rgba(44, 90, 160, 0.1); font-weight: bold;">Review & Exam Period</td>
-                        </tr>
-                        <tr>
-                            <td>Week 24</td>
-                            <td>Apr 6 - Apr 12</td>
-                            <td>AP Review: Mechanics (Units 1-6) + Mock Exam 1</td>
-                            <td>AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 25</td>
-                            <td>Apr 13 - Apr 19</td>
-                            <td>AP Review: E&M (Units 1-5) + Mock Exam 2</td>
-                            <td>AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 26</td>
-                            <td>Apr 20 - Apr 26</td>
-                            <td>AP Review: Weak area focus + Full-length practice exam</td>
-                            <td>AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 27</td>
-                            <td>Apr 27 - May 3</td>
-                            <td>Final Review + Last practice exam</td>
-                            <td>AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 28</td>
-                            <td>May 4 - May 10</td>
-                            <td>Final AP Review & Exam Preparation</td>
-                            <td>AP Exam Review</td>
-                        </tr>
-                        <tr>
-                            <td>Week 29</td>
-                            <td>May 11 - May 17</td>
-                            <td>AP Physics C Exams (Mechanics + E&M)</td>
-                            <td>AP Exam Week</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="background-color: rgba(230, 57, 70, 0.1); font-weight: bold;">Final Project Period</td>
-                        </tr>
-                        <tr>
-                            <td>Week 30</td>
-                            <td>May 18 - May 24</td>
-                            <td>Final Project: Proposal & Planning</td>
-                            <td>Final Project</td>
-                        </tr>
-                        <tr>
-                            <td>Week 31</td>
-                            <td>May 25 - May 31</td>
-                            <td>Final Project: Development & Implementation</td>
-                            <td>Final Project</td>
-                        </tr>
-                        <tr>
-                            <td>Week 32</td>
-                            <td>Jun 1 - Jun 7</td>
-                            <td>Final Project: Testing & Documentation</td>
-                            <td>Final Project</td>
-                        </tr>
-                        <tr>
-                            <td>Week 33</td>
-                            <td>Jun 8 - Jun 14</td>
-                            <td>Final Project: Presentations & Submission</td>
-                            <td>Final Project</td>
-                        </tr>
+                        <tr><td>1–3</td><td>Aug 31 – Sep 18</td><td>Unit 1: Kinematics — <strong>Complete Sep 18</strong></td></tr>
+                        <tr><td>3–8</td><td>Sep 14 – Oct 30</td><td>Unit 2: Force and Translational Dynamics — <strong>Complete Oct 30 (Labs 2 &amp; 3 due)</strong></td></tr>
+                        <tr><td>8–11</td><td>Oct 26 – Nov 27</td><td>Unit 3: Work, Energy, and Power — <strong>Complete Nov 27 (Lab 4 due)</strong></td></tr>
+                        <tr><td>11–13</td><td>Nov 23 – Dec 11</td><td>Unit 4: Linear Momentum — <strong>Complete Dec 11 (Lab 5 due)</strong></td></tr>
+                        <tr><td>13–16</td><td>Dec 7 – Dec 31</td><td>Unit 5: Torque and Rotational Dynamics — <strong>Complete Dec 31 (Lab 6 due)</strong></td></tr>
+                        <tr><td>17</td><td>Jan 4–8, 2027</td><td>Unit 6 (Part 1): Rotational KE, Torque &amp; Work, Angular Momentum (6.1–6.3)</td></tr>
+                        <tr><td>18</td><td>Jan 11–15</td><td>Final Exam Week (Units 1–5 + 6.1–6.3)</td></tr>
                     </tbody>
                 </table>
             </div>
+            <p><em>Winter Break: January 16 – February 28, 2027</em></p>
+            <h3>Second Semester (Mar 1 – Jun 11, 2027)</h3>
+            <div style="overflow-x: auto; max-height: 320px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap;">Weeks</th>
+                            <th style="white-space: nowrap;">Dates</th>
+                            <th>Unit / Topic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>18–19</td><td>Mar 1–12</td><td>Unit 6 (Part 2): Conservation of Angular Momentum, Rolling, Satellites — <strong>Unit 6 Complete Mar 12 (Labs 7 &amp; 8 due)</strong></td></tr>
+                        <tr><td>19–22</td><td>Mar 8–31</td><td>Unit 7: Oscillations (SHM, Pendulums) — <strong>Unit 7 Complete Mar 31 (Labs 9 &amp; 10 due) — all content done</strong></td></tr>
+                        <tr><td>—</td><td>Apr 6–9</td><td>Comprehensive Content Review (Units 1–4)</td></tr>
+                        <tr><td>—</td><td>Apr 12–16</td><td>FRQ Intensive Practice (derivation workshop)</td></tr>
+                        <tr><td>—</td><td>Apr 19–23</td><td>Timed Mixed Practice (MCQ + FRQ)</td></tr>
+                        <tr><td>—</td><td>Apr 26–30</td><td>Full Mock AP Exam</td></tr>
+                        <tr><td>—</td><td>May 3–14</td><td><strong>AP Physics C: Mechanics Exam</strong></td></tr>
+                        <tr><td>—</td><td>May 17 – Jun 4</td><td>Post-AP Capstone Project</td></tr>
+                        <tr><td>—</td><td>Jun 7–11</td><td>Final Exam Week</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>Key Dates</h3>
+            <table>
+                <tbody>
+                    <tr><td>Sep 18</td><td>Unit 1 complete</td></tr>
+                    <tr><td>Oct 30</td><td>Unit 2 complete (Labs 2 &amp; 3 due)</td></tr>
+                    <tr><td>Nov 27</td><td>Unit 3 complete (Lab 4 due)</td></tr>
+                    <tr><td>Dec 11</td><td>Unit 4 complete (Lab 5 due)</td></tr>
+                    <tr><td>Dec 31</td><td>Unit 5 complete (Lab 6 due)</td></tr>
+                    <tr><td>Jan 8, 2027</td><td>Unit 6 (6.1–6.3) complete</td></tr>
+                    <tr><td>Mar 12</td><td>Unit 6 complete (Labs 7 &amp; 8 due)</td></tr>
+                    <tr><td>Mar 31</td><td>Unit 7 complete; all content done (Labs 9 &amp; 10 due)</td></tr>
+                    <tr><td>Apr 26–30</td><td>Full Mock AP Exam</td></tr>
+                    <tr><td>May 3–14</td><td>AP Exam</td></tr>
+                </tbody>
+            </table>
             <p style="text-align: center; margin-top: 1rem; font-size: min(0.9rem, 3vw);">
                 <em>Note: Schedule is subject to adjustment based on class progress and lab scheduling needs.</em>
             </p>

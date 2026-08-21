@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Statistics Syllabus</title>
+    <style>
+        :root {
+            --primary: #00897b;
+            --bg-dark: #051716;
+            --bg-card: rgba(10, 50, 45, 0.9);
+            --bg-tab: rgba(10, 45, 40, 0.8);
+            --text: #f0f0f0;
+            --border: rgba(0, 137, 123, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(0, 137, 123, 0.06) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 137, 123, 0.06) 0%, transparent 20%),
+                url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%2300897b' stroke-width='0.5' stroke-opacity='0.1'%3E%3Cpath d='M0 40h80M40 0v80'/%3E%3Crect x='10' y='10' width='12' height='60'/%3E%3Crect x='30' y='25' width='12' height='45'/%3E%3Crect x='50' y='15' width='12' height='55'/%3E%3C/g%3E%3C/svg%3E");
+            color: var(--text);
+            line-height: 1.6;
+            font-size: calc(18px + 0.5vw);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: min(1rem, 2vh) auto;
+            padding: min(1.5rem, 3vw);
+            background-color: transparent;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 1200px) { .container { width: 95%; max-width: 95%; padding: 1.5rem; } }
+
+        @media (max-width: 768px) {
+            .container { width: 95%; padding: min(1.5rem, 3vw); min-height: 100vh; justify-content: space-between; }
+            .tab-button { padding: min(0.4rem, 1vw) min(0.6rem, 1.5vw); font-size: min(0.7rem, 2vw); margin-bottom: 0.1rem; margin-right: min(0.1rem, 0.3vw); }
+            h1 { font-size: min(2rem, 6vw); }
+            .back-button { display: block; width: 100%; text-align: center; margin-top: min(0.5rem, 1vh); padding: min(0.4rem, 1vw) min(0.5rem, 1vw); font-size: min(0.6rem, 2vw); }
+            .tab-content { height: auto; max-height: 70vh; overflow-y: auto; margin-bottom: min(1rem, 2vh); }
+        }
+
+        @media (max-width: 480px) {
+            .tab-button { flex-basis: calc(50% - 0.5rem); max-width: none; }
+            .tab-content { height: auto; max-height: 65vh; overflow-y: auto; }
+            .container { padding: min(1rem, 2vw); margin: min(1rem, 2vh) auto; }
+            .back-button { font-size: min(0.4rem, 2vw); padding: min(0.4rem, 0.8vw) min(0.4rem, 0.8vw); }
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: min(1rem, 2vh);
+            font-size: min(2.5rem, 8vw);
+            text-shadow: 0 0 10px rgba(0, 137, 123, 0.5);
+            width: 100%;
+            margin-top: min(0.5rem, 1vh);
+            font-family: 'Georgia', serif;
+        }
+
+        .tabs, .back-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: min(1rem, 2vh);
+            border-bottom: 2px solid var(--primary);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .back-buttons { border-bottom: none; margin-top: min(1rem, 2vh); margin-bottom: min(1rem, 2vh); }
+        .back-buttons .tab-button { background-color: var(--primary); color: var(--bg-dark); font-weight: bold; margin-bottom: min(0.5rem, 1vh); flex: 0 1 auto; max-width: 25%; gap: 0.5rem; }
+        .back-buttons .tab-button:hover { background-color: #00796b; }
+
+        .tab-button {
+            background-color: var(--bg-tab);
+            border: none;
+            color: var(--text);
+            padding: min(0.6rem, 1.5vw) min(1rem, 2vw);
+            cursor: pointer;
+            font-size: min(0.8rem, 2.5vw);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-right: min(0.2rem, 0.5vw);
+            margin-bottom: min(0.2rem, 0.5vh);
+            outline: none;
+            flex-grow: 1;
+            text-align: center;
+            max-width: fit-content;
+            white-space: nowrap;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Georgia', serif;
+        }
+
+        .tab-button:hover { background-color: rgba(0, 137, 123, 0.3); }
+        .tab-button.active { background-color: var(--primary); color: var(--bg-dark); font-weight: bold; }
+
+        .tab-content {
+            display: none;
+            padding: min(1.5rem, 3vw);
+            background-color: var(--bg-card);
+            border-radius: 0 0 8px 8px;
+            height: auto;
+            max-height: 78vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) rgba(30, 30, 30, 0.8);
+            margin-bottom: min(1.5rem, 3vh);
+        }
+
+        .tab-content::-webkit-scrollbar { width: 8px; }
+        .tab-content::-webkit-scrollbar-track { background: rgba(5, 23, 22, 0.5); border-radius: 4px; }
+        .tab-content::-webkit-scrollbar-thumb { background-color: rgba(0, 137, 123, 0.7); border-radius: 4px; border: 1px solid rgba(5, 23, 22, 0.8); }
+        .tab-content::-webkit-scrollbar-thumb:hover { background-color: rgba(0, 137, 123, 0.9); }
+        .tab-content.active { display: block; }
+
+        h2 { color: var(--primary); text-align: center; margin-bottom: min(1.5rem, 3vh); font-size: min(1.8rem, 6vw); width: 100%; }
+        h3 { color: var(--primary); margin-bottom: min(0.5rem, 1vh); font-size: min(1.1rem, 4vw); margin-top: 1rem; }
+
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: min(0.85rem, 3vw); }
+        table th { padding: 0.6rem; text-align: left; border-bottom: 2px solid var(--primary); background-color: rgba(0, 137, 123, 0.3); white-space: nowrap; }
+        table td { padding: 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+
+        ul, ol { margin-left: 2rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.4rem; }
+        p { margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AP Statistics Syllabus</h1>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'overview')">Course Overview</button>
+            <button class="tab-button" onclick="openTab(event, 'classinfo')">Class Info</button>
+            <button class="tab-button" onclick="openTab(event, 'objectives')">Objectives</button>
+            <button class="tab-button" onclick="openTab(event, 'materials')">Materials</button>
+            <button class="tab-button" onclick="openTab(event, 'grading')">Grading</button>
+            <button class="tab-button" onclick="openTab(event, 'schedule')">Schedule</button>
+            <button class="tab-button" onclick="openTab(event, 'exam')">AP Exam</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <p>AP Statistics is an introductory, college-level statistics course. Students cultivate their understanding of statistics using technology, investigations, problem solving, and writing as they explore concepts such as exploring data, sampling and experimentation, probability and simulation, and statistical inference. The course is equivalent to a one-semester, introductory, non-calculus-based college course in statistics.</p>
+            <p>Students engage with four major themes: exploring data (describing patterns and departures from patterns), sampling and experimentation (planning and conducting a study), probability and simulation (anticipating patterns using probability and simulation), and statistical inference (confirming models and making conclusions based on data).</p>
+            <p><strong>Prerequisites:</strong> Successful completion of Algebra II or equivalent. Students should be comfortable with algebraic manipulation, including solving linear equations, working with exponents and radicals, and graphing functions.</p>
+        </div>
+
+        <div id="classinfo" class="tab-content">
+            <table>
+                <tbody>
+                    <tr><td style="white-space: nowrap; width: 40%;">Course:</td><td>AP® Statistics</td></tr>
+                    <tr><td style="white-space: nowrap;">Academic Year:</td><td>2026–2027</td></tr>
+                    <tr><td style="white-space: nowrap;">Instructor:</td><td>赵丁霓</td></tr>
+                    <tr><td style="white-space: nowrap;">Email:</td><td>Dingnizhao@ghedu.com</td></tr>
+                    <tr><td style="white-space: nowrap;">Office:</td><td>文体106</td></tr>
+                    <tr><td style="white-space: nowrap;">First Day:</td><td>August 31, 2026</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="objectives" class="tab-content">
+            <p>Upon completion of this course, students will be able to:</p>
+            <ol>
+                <li><strong>Formulate Questions</strong> — Determine valid investigative questions that require statistical investigation; identify information needed to answer questions.</li>
+                <li><strong>Collect Data</strong> — Justify appropriate methods for ethically gathering and representing data through random sampling and experimental design.</li>
+                <li><strong>Analyze Data</strong> — Construct tabular and graphical representations; calculate summary statistics, probabilities, and inference results.</li>
+                <li><strong>Interpret Results</strong> — Describe distributions, justify claims based on statistical calculations, verify conditions for inference methods, and interpret results in context.</li>
+                <li><strong>Communicate Statistical Reasoning</strong> — Explain statistical concepts clearly in writing, connecting calculations to real-world contexts.</li>
+            </ol>
+        </div>
+
+        <div id="materials" class="tab-content">
+            <h3>Textbook</h3>
+            <p><em>The Practice of Statistics</em> (Starnes, Tabor, Wilcox) or <em>Stats: Modeling the World</em> (Bock, Velleman, De Veaux).</p>
+            <h3>Technology (Required)</h3>
+            <ul>
+                <li><strong>Graphing calculator</strong> with statistical functions: TI-83/84 Plus, TI-Nspire, or equivalent.</li>
+                <li>Must be capable of: 1- and 2-variable statistics, linear regression, normal and binomial probability calculations, confidence intervals, hypothesis tests.</li>
+                <li>Required on both sections of the AP Exam.</li>
+            </ul>
+            <h3>Course Materials (Provided)</h3>
+            <ul>
+                <li>AP Statistics CED — Effective Fall 2026</li>
+                <li>AP Formula Sheet and Tables — used on all assessments</li>
+                <li>Released AP FRQ sets (2019–present) with scoring rubrics</li>
+                <li>Unit problem sets and guided practice questions</li>
+            </ul>
+            <h3>Online Resources</h3>
+            <ul>
+                <li>AP Classroom — Progress Checks, Question Bank, released FRQs</li>
+                <li>Statistical software: Fathom, StatCrunch, or R (optional supplement)</li>
+            </ul>
+        </div>
+
+        <div id="grading" class="tab-content">
+            <p>Each semester is graded independently using the same standard. The midterm assessment accounts for 40% of the semester grade and the final assessment for 60%. Each is composed as follows:</p>
+            <h3>Midterm Assessment — 40% of Semester Grade</h3>
+            <table>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Midterm Exam</td><td>50%</td></tr>
+                </tbody>
+            </table>
+            <h3>Final Assessment — 60% of Semester Grade</h3>
+            <table>
+                <thead><tr><th>Category</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Attendance</td><td>15%</td></tr>
+                    <tr><td>Class Participation</td><td>15%</td></tr>
+                    <tr><td>Homework</td><td>20%</td></tr>
+                    <tr><td>Final Exam</td><td>50%</td></tr>
+                </tbody>
+            </table>
+            <h3>Calculator Policy</h3>
+            <ul>
+                <li>A graphing calculator is required and must be brought to every class.</li>
+                <li>Calculator memory does not need to be cleared for assessments (formulas on the provided formula sheet).</li>
+                <li>On AP Exam day, calculator memory will NOT be cleared.</li>
+            </ul>
+        </div>
+
+        <div id="schedule" class="tab-content">
+            <h2>Course Schedule</h2>
+            <h3>First Semester (Aug 31, 2026 – Jan 15, 2027)</h3>
+            <table>
+                <thead><tr><th>Weeks</th><th>Dates</th><th>Unit / Topic</th></tr></thead>
+                <tbody>
+                    <tr><td>1–7</td><td>Aug 31 – Oct 23</td><td>Unit 1: Exploring One-Variable Data and Collecting Data — <strong>Complete Oct 23</strong></td></tr>
+                    <tr><td>7–12</td><td>Oct 19 – Dec 4</td><td>Unit 2: Probability, Random Variables, and Probability Distributions — <strong>Complete Dec 4</strong></td></tr>
+                    <tr><td>13–17</td><td>Dec 7 – Jan 8, 2027</td><td>Unit 3: Inference for Categorical Data: Proportions — <strong>Complete Jan 8</strong></td></tr>
+                    <tr><td>18</td><td>Jan 11–15</td><td>Final Exam Week (Units 1–3)</td></tr>
+                </tbody>
+            </table>
+            <p><em>Winter Break: January 16 – February 28, 2027</em></p>
+            <h3>Second Semester (Mar 1 – Jun 11, 2027)</h3>
+            <table>
+                <thead><tr><th>Weeks</th><th>Dates</th><th>Unit / Topic</th></tr></thead>
+                <tbody>
+                    <tr><td>18–21</td><td>Mar 1–26</td><td>Unit 4: Inference for Quantitative Data: Means — <strong>Complete Mar 26</strong></td></tr>
+                    <tr><td>21–22</td><td>Mar 22–31</td><td>Unit 5: Regression Analysis — <strong>Complete Mar 31 (all content done)</strong></td></tr>
+                    <tr><td>—</td><td>Apr 6–9</td><td>Comprehensive Content Review — Units 1–2</td></tr>
+                    <tr><td>—</td><td>Apr 12–16</td><td>Comprehensive Content Review — Units 3–5</td></tr>
+                    <tr><td>—</td><td>Apr 19–23</td><td>FRQ Intensive Practice</td></tr>
+                    <tr><td>—</td><td>Apr 26–30</td><td>Full Mock AP Exam</td></tr>
+                    <tr><td>—</td><td>May 3–14</td><td><strong>AP Statistics Exam</strong></td></tr>
+                    <tr><td>—</td><td>May 17 – Jun 4</td><td>Post-AP Capstone Project</td></tr>
+                </tbody>
+            </table>
+            <h3>Key Dates</h3>
+            <table>
+                <tbody>
+                    <tr><td>Oct 23</td><td>Unit 1 complete</td></tr>
+                    <tr><td>Dec 4</td><td>Unit 2 complete</td></tr>
+                    <tr><td>Jan 8, 2027</td><td>Unit 3 complete</td></tr>
+                    <tr><td>Mar 26</td><td>Unit 4 complete</td></tr>
+                    <tr><td>Mar 31</td><td>Unit 5 complete — all content done</td></tr>
+                    <tr><td>Apr 26–30</td><td>Full Mock AP Exam</td></tr>
+                    <tr><td>May 3–14</td><td>AP Exam</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="exam" class="tab-content">
+            <h3>Exam Window: May 3–14, 2027</h3>
+            <p>A graphing calculator is required for both sections. The AP Statistics Formula Sheet and Tables are provided.</p>
+            <table>
+                <thead><tr><th>Section</th><th>Content</th><th>Questions</th><th>Time</th><th>Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>Section I</td><td>Multiple Choice (scenario-based)</td><td>40</td><td>90 min</td><td>50%</td></tr>
+                    <tr><td>Section II</td><td>Free Response</td><td>5</td><td>90 min</td><td>50%</td></tr>
+                </tbody>
+            </table>
+            <h3>Free-Response Question Types</h3>
+            <table>
+                <thead><tr><th>FRQ</th><th>Type</th><th>Time</th></tr></thead>
+                <tbody>
+                    <tr><td>Q1</td><td>Multi-Focus on Practices 1 &amp; 2 (formulate questions, collect data)</td><td>~12 min</td></tr>
+                    <tr><td>Q2</td><td>Multi-Focus on Practices 3 &amp; 4 (analyze data, interpret results)</td><td>~12 min</td></tr>
+                    <tr><td>Q3</td><td>Inference (Hypothesis Test — four-step procedure)</td><td>~25 min</td></tr>
+                    <tr><td>Q4</td><td>Multi-Focus on Practices 2, 3, &amp; 4 (collect, analyze, interpret)</td><td>~25 min</td></tr>
+                    <tr><td>Q5</td><td>Investigative Task (synthesis across topics)</td><td>~16 min</td></tr>
+                </tbody>
+            </table>
+            <h3>MCQ Exam Weighting by Unit</h3>
+            <table>
+                <thead><tr><th>Unit</th><th>Topic</th><th>MCQ Weight</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Exploring One-Variable Data and Collecting Data</td><td>20–30%</td></tr>
+                    <tr><td>2</td><td>Probability, Random Variables, and Probability Distributions</td><td>15–25%</td></tr>
+                    <tr><td>3</td><td>Inference for Categorical Data: Proportions</td><td>15–25%</td></tr>
+                    <tr><td>4</td><td>Inference for Quantitative Data: Means</td><td>10–20%</td></tr>
+                    <tr><td>5</td><td>Regression Analysis</td><td>10–20%</td></tr>
+                </tbody>
+            </table>
+            <h3>Four-Step Inference Process</h3>
+            <p>All inference procedures follow a consistent structure:</p>
+            <ol>
+                <li><strong>STATE</strong> — Parameter/hypotheses of interest in context; confidence level or significance level α.</li>
+                <li><strong>PLAN</strong> — Name the procedure; check conditions (Random, Normal/Large Counts, Independent).</li>
+                <li><strong>DO</strong> — Calculate the interval or test statistic and p-value (calculator or formula).</li>
+                <li><strong>CONCLUDE</strong> — Interpret in context; make a decision and state conclusion with appropriate confidence/evidence language.</li>
+            </ol>
+        </div>
+
+        <div class="back-buttons" style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: min(1rem, 2vh); width: 100%; position: sticky; bottom: 0; background-color: rgba(5, 23, 22, 0.9); padding: min(0.5rem, 1vh); border-radius: 8px; z-index: 10; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);">
+            <button class="tab-button" onclick="window.location.href='../index.html'" style="display: flex; align-items: center;">
+                ← Back to Home
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
