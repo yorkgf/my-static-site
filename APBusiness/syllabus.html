@@ -149,6 +149,13 @@
 
         .tab-content.active { display: block; }
 
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 1.25rem; margin: 1rem 0; }
+        .video-card h4 { color: var(--primary); margin: 0 0 0.5rem 0; font-size: min(1rem, 3.5vw); }
+        .video-card p { font-size: min(0.8rem, 2.8vw); margin: 0.5rem 0; opacity: 0.9; }
+        .video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid rgba(76,175,80,0.3); box-shadow: 0 0 15px rgba(76,175,80,0.15); }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .video-link { color: var(--primary); word-break: break-all; }
+
         h2 { color: var(--primary); text-align: center; margin-bottom: min(1.5rem, 3vh); font-size: min(1.8rem, 6vw); width: 100%; }
         h3 { color: var(--primary); margin-bottom: min(0.5rem, 1vh); font-size: min(1.1rem, 4vw); margin-top: 1rem; }
 
@@ -235,6 +242,119 @@
                 <li><strong>Unit 3:</strong> DK Coffee Lab (Parts 1–3), Hershey, AANE</li>
                 <li><strong>Unit 4:</strong> Canva, BREAUX Capital, ExpressionMed, Square Meal Feeds</li>
             </ul>
+            <h3>Case Study Videos</h3>
+            <p>Each unit’s cases are paired with the video clips used in the course slides. Suggested use: play a 5–10 minute clip, then identify the business concept it illustrates. Videos load only when scrolled into view.</p>
+            <h4 style="color:var(--primary);margin:1.2rem 0 .6rem;">Unit 1 — Business Foundations</h4>
+            <div class="video-grid">
+                <div class="video-card">
+                    <h4>1.1 Bombas — “Better Socks, Bigger Mission”</h4>
+                    <div class="video-wrapper"><iframe src="https://www.youtube-nocookie.com/embed/RlALuStBplY" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <p>“Buy one, donate one” athletic socks. Gap, social enterprise, and risk–return (deal with Daymond John).</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.1 VANCL 凡客 — “人民快时尚”</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV11r4y1A7ny&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>Affordable apparel e-commerce that grew huge, then collapsed — a cautionary case.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.1 ofo 小黄车 — bike-share collapse</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV19V41177rV&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>Dockless bikes everywhere, but upkeep cost more than revenue; burned through billions and collapsed in 2018–19.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.2 Cola vs Chinese Soda — cost advantage</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1wrc4zPEdx&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>Why can Coca-Cola profit at 3 yuan a bottle while domestic sodas lose money at 7?</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.2 得物 Dewu — differentiation through trust</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1tZ4zeDE5B&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>The same sneakers sell elsewhere for less, yet Dewu charges more — authentication as the edge.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.2 海底捞 Haidilao — service advantage</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1jpM2zYECi&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>The same hot pot, but legendary service that commands premium pricing.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.2 元气森林 Genki Forest — marketing positioning</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1QA411E7u7&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>“0 sugar” positioning, KOL blitz, and 日系 packaging built a $15B brand.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.2 钟薛高 Zhong Xue Gao — hype without substance</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1tS411A7Xm&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>Premium ice cream (20–60 yuan) via branding and social-media hype; no real differentiator, bankrupt 2024.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.3 新东方 / 东方甄选 — PESTEL pivot</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1cg411f7EQ&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>Double-reduction policy forced a pivot to livestream commerce — a legal/environmental factor reshaping a business.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.3 Pop Mart / Labubu — social trend</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1QtGczKEeM&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>A toy whose viral social trend (collecting, sharing, status) created a Southeast Asian resale market.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.3 Shein — global fast-fashion giant</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1yZKV6aEFx&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>Ultra-cheap fashion across 150+ countries — one of the world’s most downloaded and controversial shopping apps.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.4 Pop Mart — how blind boxes began</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1GGLn6SEA3&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>From a small blind-box shop to a multi-billion-dollar company — how a business idea originates.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.4 Copa Di Vino — rejected on Shark Tank</h4>
+                    <div class="video-wrapper"><iframe src="https://www.youtube-nocookie.com/embed/FdoMOd5JFwA" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <p>Single-serve premium wine; rejected by every shark twice, yet built a $60M+ business.</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.5 Patagonia — values-driven company</h4>
+                    <div class="video-wrapper"><iframe src="https://www.youtube-nocookie.com/embed/uiGL2UrRvTg" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <p>A company that actually lives its environmental values. <a class="video-link" href="https://www.youtube.com/watch?v=BapdfqBFw8Y" target="_blank" rel="noopener">Mission-Driven Company (related ▶)</a></p>
+                </div>
+                <div class="video-card">
+                    <h4>1.5 Seesaw Coffee — abandoning vision</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1AHEv6DEAe&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>What remains of a specialty-coffee brand after it chases a price war?</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.6 携程 Ctrip — business ethics</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV12drSBpEnv&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>When a business has the data to charge loyal customers more — should it? (Big-data price discrimination.)</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.8 Supply Chain — a century of evolution</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1gAHseeEDT&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>小Lin说 case study on how modern supply chains developed (3.6M views).</p>
+                </div>
+                <div class="video-card">
+                    <h4>1.8 Zara — fast-fashion supply chain</h4>
+                    <div class="video-wrapper"><iframe src="https://player.bilibili.com/player.html?bvid=BV1qS4y1L73c&amp;page=1&amp;high_quality=1&amp;danmaku=0" scrolling="no" framespacing="0" loading="lazy" allowfullscreen></iframe></div>
+                    <p>How Zara’s vertically integrated supply chain powers its speed-to-market.</p>
+                </div>
+            </div>
+            <h4 style="color:var(--primary);margin:1.2rem 0 .6rem;">Unit 2 — Marketing</h4>
+            <div class="video-grid">
+                <div class="video-card">
+                    <h4>2.4 Dyson — from vacuum revolution to global brand</h4>
+                    <div class="video-wrapper"><iframe src="https://www.youtube-nocookie.com/embed/nyvax5Sl-N8" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <p>Product innovation story illustrating the product life cycle and product-led growth.</p>
+                </div>
+                <div class="video-card">
+                    <h4>2.5 Penetration Pricing Strategy</h4>
+                    <div class="video-wrapper"><iframe src="https://www.youtube-nocookie.com/embed/Uh2SB670-B8" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <p>An explainer on how and why firms set low initial prices to gain market share.</p>
+                </div>
+                <div class="video-card">
+                    <h4>2.5 Costco — the $40M loss-leader chicken</h4>
+                    <div class="video-wrapper"><iframe src="https://www.youtube-nocookie.com/embed/8-swQ2RrtLM" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                    <p>Costco loses $40 million a year on its rotisserie chicken — completely intentionally.</p>
+                </div>
+            </div>
         </div>
 
         <div id="grading" class="tab-content">
