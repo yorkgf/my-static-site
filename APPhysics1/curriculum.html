@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Physics 1: Algebra-Based ('26-'27)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/textbook-style.css">
+    <style>
+        /* Collapsible styles */
+        .collapsible {
+            background-color: #1565c0;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1em;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        .active:after {
+            content: '\2212';
+        }
+        .collapsible-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0d47a1;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #1565c0;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .unit {
+            margin-bottom: 20px;
+        }
+        .unit h2 {
+            color: #1565c0;
+        }
+        .unit h3 {
+            color: #0d47a1;
+        }
+        footer {
+            background-color: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .code-keyword {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.92em;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #1565c0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AP Physics 1: Algebra-Based ('26-'27)</h1>
+    </header>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="syllabus.html">Syllabus</a>
+        <a href="curriculum.html">Curriculum</a>
+    </nav>
+    <main>
+        <section class="unit" id="description">
+            <h2>Course Overview and Science Practices</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 1rem 0;">
+                <div style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h4 style="color: #0d47a1; margin-top: 0;">SCIENCE PRACTICES</h4>
+                    <p style="margin: 0.5rem 0;">The seven science practices spiral across every unit — they are revisited and built upon throughout the course, from the first motion graphs in Unit 1 to the fluid-flow arguments of Unit 8. The College Board groups these into two science practice categories: <strong>Practice 1</strong> (Visual Representations) and <strong>Practices 2–4</strong> (Question and Method, Representing Data and Phenomena, Data Analysis) and <strong>Practices 5–7</strong> (Theoretical Relationships, Mathematical Routines, Argumentation).</p>
+                    <div style="display: flex; gap: 20px; margin-top: 1rem;">
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1</span>
+                                <span style="margin-left: 0.5rem;"><strong>Visual Representations</strong><br><small>Create diagrams, tables, charts, or schematics to represent physical situations; create quantitative graphs with appropriate scales and units; create qualitative sketches of graphs that represent the behavior of a physical system.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2</span>
+                                <span style="margin-left: 0.5rem;"><strong>Question and Method</strong><br><small>Derive symbolic expressions from known quantities by selecting and following a logical mathematical pathway; calculate or estimate unknown quantities with units; compare physical quantities between scenarios; predict new values using functional dependence between variables.</small></span>
+                            </li>
+                        </ul>
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3</span>
+                                <span style="margin-left: 0.5rem;"><strong>Representing Data and Phenomena</strong><br><small>Create experimental procedures appropriate for a given scientific question; apply an appropriate law, definition, theoretical relationship, or model to make a claim; justify or support a claim using evidence from experimental data, physical representations, or physical principles.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4</span>
+                                <span style="margin-left: 0.5rem;"><strong>Data Analysis</strong><br><small>Select and use appropriate measurement tools, sources of error, and uncertainty; analyze and interpret data; draw and justify conclusions from experimental data.</small></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="display: flex; gap: 20px; margin-top: 1rem;">
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">5</span>
+                                <span style="margin-left: 0.5rem;"><strong>Theoretical Relationships</strong><br><small>Apply theoretical relationships to analyze physical systems; connect theories/models across representations; evaluate scientific questions using physical principles.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">6</span>
+                                <span style="margin-left: 0.5rem;"><strong>Mathematical Routines</strong><br><small>Select and use mathematical relationships to solve problems; use equations, symbols, and units correctly; interpret and apply functional relationships.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">7</span>
+                                <span style="margin-left: 0.5rem;"><strong>Argumentation</strong><br><small>Justify or support claims with evidence and reasoning; construct scientific arguments; evaluate alternative explanations and use physics principles to defend a position.</small></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h4 style="color: #0d47a1; margin-top: 0;">BIG IDEAS</h4>
+                    <p style="margin: 0.5rem 0;">Four big ideas spiral across the entire course. Students revisit them in every unit, connecting the content of the course into a coherent story:</p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CHA</span>
+                            <span style="margin-left: 0.5rem;"><strong>Change</strong> — Interactions produce changes in motion, energy, and momentum. Kinematics, dynamics, energy, and momentum all describe change.</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">INT</span>
+                            <span style="margin-left: 0.5rem;"><strong>Force Interactions</strong> — Forces arise from interactions between objects and systems; they change motion, transfer energy, and conserve momentum.</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">FLD</span>
+                            <span style="margin-left: 0.5rem;"><strong>Fields</strong> — Fields explain interactions at a distance (gravity in AP Physics 1); they mediate force interactions without contact.</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">CON</span>
+                            <span style="margin-left: 0.5rem;"><strong>Conservation</strong> — Energy, linear momentum, and angular momentum are conserved in isolated systems, providing powerful tools for predicting motion.</span>
+                        </li>
+                    </ul>
+                    <p style="margin: 0.5rem 0; padding: 0.5rem 0.8rem; background-color: #fff; border-left: 4px solid #1565c0; border-radius: 4px; font-style: italic; color: #0d47a1;">
+                        AP Physics 1 is an <strong>algebra-based</strong>, introductory college-level physics course. Students cultivate their understanding of physics through classroom study, in-class activity, and hands-on, inquiry-based laboratory work as they explore concepts like systems, fields, force interactions, change, and conservation.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unit 1: Kinematics -->
+        <section class="unit" id="unit-1">
+            <h2>Unit 1 - Kinematics (10-15%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Describe a scalar or vector quantity using magnitude and direction, as appropriate, and distinguish between them.</li>
+                        <li>Describe a change in an object's position using displacement, and distinguish it from distance traveled.</li>
+                        <li>Describe the average and instantaneous velocity and acceleration of an object using algebraic relationships.</li>
+                        <li>Represent constant-velocity and constant-acceleration motion in words, graphs, equations, and diagrams — and translate fluidly between these representations.</li>
+                        <li>Use reference frames to describe relative motion and explain why two observers can give conflicting but correct descriptions.</li>
+                        <li>Analyze motion in two dimensions using vector components, including projectile motion under constant gravitational acceleration.</li>
+                        <li>Create and interpret x-t, v-t, and a-t graphs: slopes, areas, intercepts, and shape of each.</li>
+                        <li>Use the kinematic equations to predict position, velocity, and acceleration of objects with constant acceleration.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>14 class periods</strong> to complete (Weeks 1–3).</li>
+                        <li>This unit contributes to a <code class="code-keyword">10%</code> to <code class="code-keyword">15%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">1.1–1.5</code></li>
+                        <li><strong>Big Ideas:</strong> <code class="code-keyword">CHA</code> (Change) — all of kinematics is the study of change in motion.</li>
+                        <li><strong>Science Practices:</strong> Practices 1 (Visual Representations), 2 (Question and Method), and 3 (Representing Data and Phenomena) are engaged in this unit.</li>
+                        <li>Progress Check 1: Multiple-choice ~18 questions; Free-response 4 questions.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How can the idea of frames of reference allow two people to tell the truth yet have conflicting reports?</li>
+                        <li>How can we estimate the height of a very tall building with only a small rock and a stopwatch?</li>
+                        <li>Why might it seem like you are moving backwards when a car passes you on the highway?</li>
+                        <li>Why is the general rule for stopping your car "when you double your speed, you must give yourself four times as much distance to stop"?</li>
+                        <li>What does the slope of an x-t graph tell us? What does the area under a v-t graph tell us?</li>
+                        <li>Why does a dropped ball and a thrown ball hit the ground at the same time (when launched horizontally from the same height)?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Scalars vs. Vectors</code>: Scalars (distance, speed) have magnitude only; vectors (displacement, velocity, acceleration) have magnitude and direction.</li>
+                        <li><code class="code-keyword">Displacement</code>: Change in position, Δx = x − x₀; independent of path taken.</li>
+                        <li><code class="code-keyword">Average vs. Instantaneous</code>: Average velocity = Δx/Δt; instantaneous velocity is the limit as Δt → 0 (slope of tangent).</li>
+                        <li><code class="code-keyword">Constant Acceleration</code>: The kinematic equations v = v₀ + at, x = x₀ + v₀t + ½at², v² = v₀² + 2aΔx.</li>
+                        <li><code class="code-keyword">Graphical Analysis</code>: Slope of x-t → velocity; slope of v-t → acceleration; area under v-t → displacement; area under a-t → change in velocity.</li>
+                        <li><code class="code-keyword">Reference Frames</code>: Relative velocity v_AB = v_A − v_B; observers in different frames describe motion differently but consistently.</li>
+                        <li><code class="code-keyword">Projectile Motion</code>: Horizontal and vertical components independent; horizontal velocity constant; vertical acceleration = g.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Scalar:</strong> A quantity described by magnitude only (e.g., distance, speed, time, mass).</li>
+                        <li><strong>Vector:</strong> A quantity described by both magnitude and direction (e.g., displacement, velocity, acceleration, force).</li>
+                        <li><strong>Position:</strong> The location of an object relative to a reference point, specified by a coordinate.</li>
+                        <li><strong>Displacement:</strong> The change in an object's position; a vector quantity.</li>
+                        <li><strong>Velocity:</strong> The rate of change of position with time; a vector (speed with direction).</li>
+                        <li><strong>Acceleration:</strong> The rate of change of velocity with time; a vector. Can be nonzero even when speed is constant (direction change).</li>
+                        <li><strong>Free Fall:</strong> Motion under the influence of gravity alone, with constant acceleration g ≈ 9.8 m/s².</li>
+                        <li><strong>Projectile:</strong> An object moving through the air under the influence of gravity only.</li>
+                        <li><strong>Reference Frame:</strong> A coordinate system relative to which motion is described.</li>
+                        <li><strong>Trajectory:</strong> The path of a projectile — a parabola for ideal projectile motion.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Create motion diagrams &amp; FBD-style schematics</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                        </li>
+                        <li><strong>Sketch x-t, v-t, a-t graphs qualitatively</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Plot and analyze quantitative motion data</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                        </li>
+                        <li><strong>Derive symbolic expressions from kinematics</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Calculate unknown quantities with units</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Compare motion between scenarios / times</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Predict values using functional dependence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Justify claims about motion with evidence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Daily warm-up: reading slopes and areas from motion graphs</li>
+                        <li>Homework problem sets (kinematic equations; vectors)</li>
+                        <li>Graph translation practice (x-t → v-t → a-t)</li>
+                        <li>PhET "Moving Man" simulation investigations</li>
+                        <li>Quiz 1.1 (scalars, vectors, displacement, velocity)</li>
+                        <li>Quiz 1.2 (graphs, reference frames, projectile motion)</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 1 Assessment</strong> (Sep 18) — MCQ + FRQ</li>
+                        <li>Projectile Motion Laboratory Investigation (Lab 1)</li>
+                        <li>AP Classroom Progress Check 1</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Misconceptions about Motion</h4>
+                    <ul>
+                        <li>Believing a negative acceleration always means slowing down — direction matters, not just sign.</li>
+                        <li>Confusing velocity and acceleration ("constant speed" vs. "no acceleration" in circular motion).</li>
+                        <li>Thinking an object with zero velocity must have zero acceleration (instantaneous rest at turnaround points).</li>
+                        <li>Mixing up distance and displacement in word problems.</li>
+                    </ul>
+                    <h4>Graph Errors</h4>
+                    <ul>
+                        <li>Reading slope of an x-t graph as acceleration instead of velocity.</li>
+                        <li>Using area under a-t graph for displacement instead of change in velocity.</li>
+                        <li>Sketching x-t graphs as straight lines for accelerated motion (should be parabolic).</li>
+                        <li>Forgetting that horizontal and vertical motion are independent in projectile problems.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0d47a1; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 1 (Aug 31 – Sep 4)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Course overview, lab safety, and classroom expectations</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.1</strong> Scalars and Vectors in One Dimension (magnitude, direction, vector notation)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.2</strong> Displacement, Velocity, and Acceleration (definitions; object model)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 2 (Sep 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.3</strong> Representing Motion (x-t, v-t, a-t graphs; kinematic equations)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.4</strong> Reference Frames and Relative Motion</li>
+                                <li style="margin: 0.3rem 0;">📐 Math Bootcamp: vector components, trigonometry review</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 3 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 3 (Sep 14–18)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.5</strong> Vectors and Motion in Two Dimensions (projectile motion)</li>
+                                <li style="margin: 0.3rem 0;">🧪 <strong>Lab 1: Projectile Motion</strong> — marble launcher; measure range and flight time</li>
+                                <li style="margin: 0.3rem 0;">Unit 1 Review</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 1 Assessment</strong> — Sep 18: <strong>Unit 1 complete</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Lab Preview Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Lab &amp; Assessment Notes</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Lab 1 report due at the start of Week 4</li>
+                                <li style="margin: 0.3rem 0;">Progress Check 1 assigned via AP Classroom</li>
+                                <li style="margin: 0.3rem 0;">Vocabulary quiz on all Unit 1 terms</li>
+                                <li style="margin: 0.3rem 0;">Next: Unit 2 begins with systems and center of mass</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 2: Force and Translational Dynamics -->
+        <section class="unit" id="unit-2">
+            <h2>Unit 2 - Force and Translational Dynamics (18-23%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Describe a force as an interaction between two objects or systems, and identify the two interacting objects for every force.</li>
+                        <li>Describe the properties and interactions of a system, and model the system as a single object at its center of mass.</li>
+                        <li>Calculate the location of a system's center of mass for systems of up to five particles in two dimensions.</li>
+                        <li>Draw and analyze free-body diagrams showing all forces exerted on an object or system.</li>
+                        <li>Apply Newton's First Law: an object at rest or in uniform motion stays that way unless acted on by a net external force.</li>
+                        <li>Apply Newton's Second Law: ΣF = ma to solve for acceleration, force, or mass in one and two dimensions.</li>
+                        <li>Apply Newton's Third Law: forces always come in equal-and-opposite pairs acting on different objects.</li>
+                        <li>Analyze gravitational, normal, tension, static friction, kinetic friction, and spring forces quantitatively.</li>
+                        <li>Analyze uniform circular motion: net force directed toward the center, centripetal acceleration v²/r.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>25 class periods</strong> to complete (Weeks 4–8).</li>
+                        <li>This unit contributes to a <code class="code-keyword">18%</code> to <code class="code-keyword">23%</code> weight in the AP exam — the largest weighting of any unit.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">2.1–2.9</code></li>
+                        <li><strong>Big Ideas:</strong> <code class="code-keyword">INT</code> (Force Interactions) with <code class="code-keyword">CHA</code> (Change).</li>
+                        <li><strong>Science Practices:</strong> Practices 1, 2, and 3 — translation between models and representations is key.</li>
+                        <li>Progress Check 2: Multiple-choice ~30 questions; Free-response 4 questions.</li>
+                        <li>Free-response Q4 (Qualitative/Quantitative Translation) frequently draws on this unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>Why do we feel pulled toward Earth but not toward a pencil?</li>
+                        <li>Why is it more difficult to stop a fully loaded dump truck than a small passenger car?</li>
+                        <li>Why is it difficult to walk on ice?</li>
+                        <li>Why will a delivery truck filled with birds sitting on its floor have the same weight as a truck with the same birds flying around inside?</li>
+                        <li>What is the difference between mass and weight, and why does your weight change on the Moon but your mass does not?</li>
+                        <li>If a heavy and a light object are dropped together, why do they fall at the same rate (ignoring air resistance)?</li>
+                        <li>Why do you feel pushed against the door when a car turns left? Is there really a force pushing you outward?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Systems</code>: A system is a chosen set of objects; forces are either internal (between system parts) or external (from the environment).</li>
+                        <li><code class="code-keyword">Free-Body Diagrams</code>: Visual representation of all external forces acting on an object; the starting point for applying Newton's Second Law.</li>
+                        <li><code class="code-keyword">Newton's First Law</code>: An object's velocity is constant unless a net external force acts — defines the concept of inertia.</li>
+                        <li><code class="code-keyword">Newton's Second Law</code>: ΣF = ma; the net force determines acceleration, not velocity.</li>
+                        <li><code class="code-keyword">Newton's Third Law</code>: Force pairs are equal in magnitude, opposite in direction, and act on different objects.</li>
+                        <li><code class="code-keyword">Friction</code>: Static friction adjusts up to a maximum (μ_sN); kinetic friction is constant (μ_kN) opposing relative motion.</li>
+                        <li><code class="code-keyword">Spring Forces</code>: Hooke's law, F = −kx, where x is displacement from equilibrium.</li>
+                        <li><code class="code-keyword">Circular Motion</code>: Net force toward center provides centripetal acceleration a_c = v²/r = ω²r.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>System:</strong> A chosen collection of objects being studied; everything else is the environment.</li>
+                        <li><strong>Force:</strong> An interaction between two objects that can cause a change in motion.</li>
+                        <li><strong>Net Force:</strong> The vector sum of all external forces acting on an object or system.</li>
+                        <li><strong>Inertia:</strong> The tendency of an object to resist changes in its velocity; quantified by mass.</li>
+                        <li><strong>Normal Force:</strong> The perpendicular contact force exerted by a surface on an object.</li>
+                        <li><strong>Friction:</strong> A force that opposes relative motion (or tendency of motion) between surfaces in contact.</li>
+                        <li><strong>Tension:</strong> The pulling force transmitted through a rope, cable, or string.</li>
+                        <li><strong>Gravitational Force:</strong> F_g = mg near Earth's surface; the field (FLD) interaction that gives weight.</li>
+                        <li><strong>Centripetal Force:</strong> The net inward force required to maintain uniform circular motion — not a new force type.</li>
+                        <li><strong>Center of Mass:</strong> The point at which a system's mass may be considered concentrated; x_cm = Σmᵢxᵢ/Σmᵢ.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Create free-body diagrams</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                        </li>
+                        <li><strong>Plot &amp; interpret force/acceleration graphs</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Derive symbolic force expressions</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Calculate forces, accelerations with units</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Compare forces between scenarios</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Predict changes using F = ma functional dependence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Design experiments for a scientific question</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                        </li>
+                        <li><strong>Make &amp; justify claims with Newton's laws</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Daily free-body diagram practice (whiteboard work)</li>
+                        <li>Homework problem sets (Newton's laws, friction, springs)</li>
+                        <li>Forces concept quizzes (mass vs. weight; action-reaction pairs)</li>
+                        <li>PhET "Forces and Motion" / "My Solar System" investigations</li>
+                        <li>Circular motion reasoning exercises</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 2 Assessment</strong> (Oct 30)</li>
+                        <li>📝 Monthly Exam (Oct 8–10) — Units 1–2</li>
+                        <li><strong>Lab 2: Friction</strong> — measure μ_s and μ_k of a shoe</li>
+                        <li><strong>Lab 3: Newton's Second Law</strong> — acceleration vs. force/mass</li>
+                        <li>AP Classroom Progress Check 2</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Newton's Laws Misconceptions</h4>
+                    <ul>
+                        <li>Thinking forces are needed to keep an object moving at constant velocity.</li>
+                        <li>Applying Newton's Third Law to forces on the same object (e.g., "action-reaction cancels").</li>
+                        <li>Confusing mass and weight; saying weight = m·g is a "force" but forgetting weight is the gravitational force.</li>
+                        <li>Including non-existent forces like "centrifugal force" or "force of motion" in FBDs.</li>
+                    </ul>
+                    <h4>Problem-Solving Errors</h4>
+                    <ul>
+                        <li>Drawing FBDs with the wrong number of forces or wrong force directions.</li>
+                        <li>Forgetting that static friction can be less than its maximum value.</li>
+                        <li>Using μ_sN when the object is already moving (should use μ_kN).</li>
+                        <li>Mixing up centripetal acceleration direction (always toward center, not outward).</li>
+                        <li>Not resolving forces along tilted axes on inclined planes.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0d47a1; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 4 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 4 (Sep 21–25)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.1</strong> Systems and Center of Mass</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.2</strong> Forces and Free-Body Diagrams</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.3</strong> Newton's Third Law</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 5 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 5 (Sep 28–30)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.4</strong> Newton's First Law (inertia, equilibrium)</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.5</strong> Newton's Second Law (ΣF = ma)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mid-Autumn Festival -->
+                <div style="background-color: rgba(21,101,192,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(21,101,192,0.3); border-bottom: 1px solid rgba(21,101,192,0.3); margin-top: 15px;">
+                    🌙 Mid-Autumn Festival — Sep 25–27 (No class)
+                </div>
+                <!-- National Day Holiday -->
+                <div style="background-color: rgba(21,101,192,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(21,101,192,0.3); border-bottom: 1px solid rgba(21,101,192,0.3); margin-top: 5px;">
+                    🇨🇳 National Day Holiday — Oct 1–7 (No class)
+                </div>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 6 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 6 (Oct 8–16)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">📝 Oct 8–10: <strong>Monthly Exam</strong> (Units 1–2, ~3 teaching days available)</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.6</strong> Gravitational Force (weight, F_g = mg; field model)</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.7</strong> Kinetic and Static Friction</li>
+                                <li style="margin: 0.3rem 0;">🧪 <strong>Lab 2: Friction</strong> — measure coefficients of static and kinetic friction</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 7 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 7 (Oct 19–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.8</strong> Spring Forces (Hooke's law; F = −kx)</li>
+                                <li style="margin: 0.3rem 0;">Inclined planes and two-body systems (Atwood-style problems)</li>
+                                <li style="margin: 0.3rem 0;">🧪 <strong>Lab 3: Newton's Second Law</strong> — fan cart / dynamics track</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 8 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 8 (Oct 26–30)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.9</strong> Circular Motion (centripetal acceleration and force)</li>
+                                <li style="margin: 0.3rem 0;">Banked curves, vertical circles, and conical pendulums</li>
+                                <li style="margin: 0.3rem 0;">Unit 2 Review</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 2 Assessment</strong> — Oct 30: <strong>Unit 2 complete</strong> (Labs 2 &amp; 3 due)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 3: Work, Energy, and Power -->
+        <section class="unit" id="unit-3">
+            <h2>Unit 3 - Work, Energy, and Power (18-23%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Define work as the dot product of force and displacement: W = F·d = Fd cos θ, and calculate work done by constant and variable forces.</li>
+                        <li>Apply the work-energy theorem: W_net = ΔK = ½mv² − ½mv₀².</li>
+                        <li>Define and calculate kinetic energy (K = ½mv²) and gravitational potential energy (U_g = mgh).</li>
+                        <li>Define and calculate elastic potential energy for a spring: U_s = ½kx².</li>
+                        <li>Apply the principle of conservation of mechanical energy: K₁ + U₁ = K₂ + U₂ when only conservative forces act.</li>
+                        <li>Analyze situations with non-conservative forces (friction) and account for energy transfer as heat: W_nc = ΔE_mech.</li>
+                        <li>Define and calculate power: P = W/t = F·v, and distinguish average from instantaneous power.</li>
+                        <li>Use energy bar charts (LOL diagrams) to visualize energy transformations and transfers.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>18 class periods</strong> to complete (Weeks 9–12).</li>
+                        <li>This unit contributes to a <code class="code-keyword">18%</code> to <code class="code-keyword">23%</code> weight in the AP exam — tied for the largest weighting with Unit 2.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">3.1–3.6</code></li>
+                        <li><strong>Big Ideas:</strong> <code class="code-keyword">CON</code> (Conservation) and <code class="code-keyword">CHA</code> (Change).</li>
+                        <li><strong>Science Practices:</strong> Practices 2 (Mathematical Routines) and 3 (Argumentation) are emphasized.</li>
+                        <li>Progress Check 3: Multiple-choice ~25 questions; Free-response 4 questions.</li>
+                        <li>Energy conservation is a recurring theme in Units 3, 5, 6, and 7.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What is the relationship between work, energy, and power in physical systems?</li>
+                        <li>How does the work-energy theorem simplify problem-solving in mechanics?</li>
+                        <li>What distinguishes conservative forces from non-conservative forces?</li>
+                        <li>How is energy conserved in isolated systems, and when is it not?</li>
+                        <li>What are the practical applications of power calculations in engineering?</li>
+                        <li>Why does a roller coaster speed up at the bottom of a hill and slow down at the top?</li>
+                        <li>Why does a person feel more tired climbing stairs than walking on flat ground?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Work</code>: W = F·d cos θ; work is done only by the component of force parallel to displacement. Positive work adds energy; negative work removes energy.</li>
+                        <li><code class="code-keyword">Kinetic Energy</code>: K = ½mv²; the energy of motion. Work-energy theorem: W_net = ΔK.</li>
+                        <li><code class="code-keyword">Potential Energy</code>: Stored energy due to position in a force field. U_g = mgh (gravity); U_s = ½kx² (spring).</li>
+                        <li><code class="code-keyword">Conservative Forces</code>: Forces for which work is path-independent; mechanical energy is conserved when only conservative forces act.</li>
+                        <li><code class="code-keyword">Non-Conservative Forces</code>: Forces (like friction) for which work depends on path; mechanical energy is not conserved.</li>
+                        <li><code class="code-keyword">Conservation of Energy</code>: Total energy in an isolated system is constant: E_total = K + U + E_thermal = constant.</li>
+                        <li><code class="code-keyword">Power</code>: P = W/t = F·v; the rate of energy transfer or work done. Units: watts (W) = J/s.</li>
+                        <li><code class="code-keyword">LOL Diagrams</code>: Energy bar charts showing initial energy, energy transfers (work), and final energy.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Work:</strong> The transfer of energy by a force acting through a displacement; W = Fd cos θ.</li>
+                        <li><strong>Kinetic Energy (K):</strong> The energy an object possesses due to its motion; K = ½mv².</li>
+                        <li><strong>Potential Energy (U):</strong> Stored energy associated with the position or configuration of an object in a force field.</li>
+                        <li><strong>Gravitational Potential Energy:</strong> U_g = mgh near Earth's surface; energy stored in the gravitational field.</li>
+                        <li><strong>Elastic Potential Energy:</strong> U_s = ½kx²; energy stored in a stretched or compressed spring.</li>
+                        <li><strong>Mechanical Energy:</strong> The sum of kinetic and potential energy: E_mech = K + U.</li>
+                        <li><strong>Conservative Force:</strong> A force for which the work done is independent of the path taken (gravity, spring force).</li>
+                        <li><strong>Non-Conservative Force:</strong> A force for which work depends on path (friction, air resistance).</li>
+                        <li><strong>Power:</strong> The rate at which work is done or energy is transferred; P = W/t.</li>
+                        <li><strong>Efficiency:</strong> The ratio of useful energy output to total energy input, often expressed as a percentage.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Create energy bar charts (LOL diagrams)</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                        </li>
+                        <li><strong>Plot energy vs. position graphs</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Derive energy expressions from work integrals</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Calculate work, energy, power with units</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Compare energy in different scenarios</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Predict energy changes using functional dependence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Design energy conservation experiments</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                        </li>
+                        <li><strong>Make &amp; justify conservation claims</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Daily LOL diagram practice (whiteboard work)</li>
+                        <li>Homework problem sets (work-energy theorem; conservation)</li>
+                        <li>Energy concept quizzes (conservative vs. non-conservative)</li>
+                        <li>PhET "Energy Skate Park" investigations</li>
+                        <li>Power calculation exercises</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 3 Assessment</strong> (Dec 4)</li>
+                        <li>📝 Midterm Exam (Nov 6–11) — Units 1–2 (Unit 3 not yet complete)</li>
+                        <li>📝 Monthly Exam (Dec 14–18) — Units 1–3</li>
+                        <li><strong>Lab 4: Conservation of Energy</strong> — roller coaster / track system</li>
+                        <li>AP Classroom Progress Check 3</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Work and Energy Errors</h4>
+                    <ul>
+                        <li>Confusing Work and Energy: work is the transfer of energy, not energy itself.</li>
+                        <li>Sign errors in work calculations: forgetting that W = Fd cos θ can be negative (force opposite to displacement).</li>
+                        <li>Misapplying conservation of energy: including non-conservative forces like friction without accounting for energy loss as heat.</li>
+                        <li>Power vs. Energy confusion: mixing up power (rate of energy transfer) with energy (total amount of work done).</li>
+                    </ul>
+                    <h4>Problem-Solving Errors</h4>
+                    <ul>
+                        <li>Path Independence Misconception: not understanding that work done by conservative forces is path-independent, while non-conservative forces depend on path.</li>
+                        <li>Forgetting to include all forms of energy (K, U_g, U_s) in conservation equations.</li>
+                        <li>Using the wrong reference level for gravitational potential energy (h = 0 point).</li>
+                        <li>Not checking that answers are physically reasonable (e.g., speed > c).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0d47a1; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 9 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 9 (Nov 2–6)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.1</strong> Work, Energy, and Power (definitions; W = Fd cos θ)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.2</strong> Kinetic Energy and the Work-Energy Theorem (W_net = ΔK)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.3</strong> Gravitational Potential Energy (U_g = mgh; reference levels)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 10 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 10 (Nov 16–20)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.4</strong> Elastic Potential Energy (U_s = ½kx²; Hooke's law review)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.5</strong> Conservation of Energy (LOL diagrams; conservative forces)</li>
+                                <li style="margin: 0.3rem 0;">🧪 <strong>Lab 4: Conservation of Energy</strong> — track system / roller coaster</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Midterm Exam Week -->
+                <div style="background-color: rgba(21,101,192,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(21,101,192,0.3); border-bottom: 1px solid rgba(21,101,192,0.3); margin-top: 15px;">
+                    📝 Midterm Exam Week — Nov 6–11 (Units 1–2)
+                </div>
+                <!-- Autumn Outing -->
+                <div style="background-color: rgba(21,101,192,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(21,101,192,0.3); border-bottom: 1px solid rgba(21,101,192,0.3); margin-top: 5px;">
+                    🍂 Autumn Outing — Nov 12 (No class)
+                </div>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 11 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 11 (Nov 23–27)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.5</strong> (cont.) Non-conservative forces and energy (friction; W_nc = ΔE_mech)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.6</strong> Power (P = W/t = F·v; average vs. instantaneous)</li>
+                                <li style="margin: 0.3rem 0;">Energy in real systems: efficiency, energy loss</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 12 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 12 (Nov 30 – Dec 4)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Review: Work-energy theorem vs. conservation of energy</li>
+                                <li style="margin: 0.3rem 0;">Unit 3 Review</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 3 Assessment</strong> — Dec 4: <strong>Unit 3 complete</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Monthly Exam -->
+                <div style="background-color: rgba(21,101,192,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(21,101,192,0.3); border-bottom: 1px solid rgba(21,101,192,0.3); margin-top: 15px;">
+                    📝 Monthly Exam — Dec 14–18 (Units 1–3)
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 4: Linear Momentum -->
+        <section class="unit" id="unit-4">
+            <h2>Unit 4 - Linear Momentum (10-15%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Define linear momentum as p = mv and impulse as J = F_net·Δt = Δp.</li>
+                        <li>Apply the impulse-momentum theorem: J = Δp = mv_f − mv_i.</li>
+                        <li>State the conditions for conservation of linear momentum: the net external force on the system must be zero.</li>
+                        <li>Apply conservation of linear momentum to solve one- and two-dimensional collision problems.</li>
+                        <li>Distinguish between elastic collisions (both momentum and kinetic energy conserved) and inelastic collisions (only momentum conserved).</li>
+                        <li>Analyze perfectly inelastic collisions where objects stick together after collision.</li>
+                        <li>Calculate the center of mass of a system and describe its motion under external forces.</li>
+                        <li>Use momentum bar charts to visualize momentum transfer in collisions.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>12 class periods</strong> to complete (Weeks 13–14).</li>
+                        <li>This unit contributes to a <code class="code-keyword">10%</code> to <code class="code-keyword">15%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">4.1–4.4</code></li>
+                        <li><strong>Big Ideas:</strong> <code class="code-keyword">CON</code> (Conservation) and <code class="code-keyword">INT</code> (Force Interactions).</li>
+                        <li><strong>Science Practices:</strong> Practices 2 (Mathematical Routines) and 3 (Argumentation) are emphasized.</li>
+                        <li>Progress Check 4: Multiple-choice ~18 questions; Free-response 4 questions.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How does the center of mass of a system behave under external forces?</li>
+                        <li>What conditions must be met for momentum to be conserved in a system?</li>
+                        <li>How do elastic and inelastic collisions differ in terms of energy conservation?</li>
+                        <li>What techniques are used to analyze two-dimensional collision problems?</li>
+                        <li>How does the concept of impulse relate to changes in momentum?</li>
+                        <li>Why does a gun recoil when fired? How does this demonstrate momentum conservation?</li>
+                        <li>Why is it harder to catch a fast-moving baseball than a slow one, even if they have the same mass?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Linear Momentum</code>: p = mv; a vector quantity conserved in isolated systems (no net external force).</li>
+                        <li><code class="code-keyword">Impulse</code>: J = F_net·Δt = Δp; the change in momentum resulting from a force applied over time.</li>
+                        <li><code class="code-keyword">Impulse-Momentum Theorem</code>: The impulse exerted on an object equals its change in momentum.</li>
+                        <li><code class="code-keyword">Conservation of Momentum</code>: Σp_before = Σp_after when the net external force is zero.</li>
+                        <li><code class="code-keyword">Elastic Collisions</code>: Both momentum and kinetic energy are conserved. Objects bounce off each other.</li>
+                        <li><code class="code-keyword">Inelastic Collisions</code>: Momentum is conserved but kinetic energy is not (converted to heat, sound, deformation).</li>
+                        <li><code class="code-keyword">Perfectly Inelastic Collisions</code>: Objects stick together after collision; maximum kinetic energy loss.</li>
+                        <li><code class="code-keyword">Center of Mass</code>: The point where the total mass of a system can be considered concentrated; x_cm = Σmᵢxᵢ/Σmᵢ.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Linear Momentum (p):</strong> The product of an object's mass and velocity; p = mv. A vector quantity.</li>
+                        <li><strong>Impulse (J):</strong> The product of the average net force and the time interval over which it acts; J = F_net·Δt = Δp.</li>
+                        <li><strong>Conservation of Momentum:</strong> The total momentum of an isolated system remains constant when no net external force acts.</li>
+                        <li><strong>Elastic Collision:</strong> A collision in which both momentum and kinetic energy are conserved.</li>
+                        <li><strong>Inelastic Collision:</strong> A collision in which momentum is conserved but kinetic energy is not.</li>
+                        <li><strong>Perfectly Inelastic Collision:</strong> A collision in which the colliding objects stick together after impact.</li>
+                        <li><strong>Center of Mass:</strong> The average position of all mass in a system, weighted by mass.</li>
+                        <li><strong>System:</strong> The collection of objects being studied; internal forces cancel in momentum conservation.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Create momentum bar charts &amp; collision diagrams</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                        </li>
+                        <li><strong>Plot momentum vs. time graphs</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Derive conservation expressions for collisions</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Calculate momentum, impulse with units</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Compare momentum before/after collisions</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Predict post-collision velocities</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Design collision experiments</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                        </li>
+                        <li><strong>Make &amp; justify momentum conservation claims</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Daily momentum bar chart practice</li>
+                        <li>Homework problem sets (impulse, 1D &amp; 2D collisions)</li>
+                        <li>Collision concept quizzes (elastic vs. inelastic)</li>
+                        <li>PhET "Collision Lab" investigations</li>
+                        <li>Center of mass calculation exercises</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 4 Assessment</strong> (Dec 11)</li>
+                        <li>🧪 <strong>Lab 5: Collisions</strong> — air track / dynamics carts; elastic &amp; inelastic</li>
+                        <li>AP Classroom Progress Check 4</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Momentum Misconceptions</h4>
+                    <ul>
+                        <li>Confusing Momentum and Energy Conservation: momentum is always conserved in isolated systems, but kinetic energy is only conserved in elastic collisions.</li>
+                        <li>Vector Direction Mistakes: forgetting that momentum is a vector quantity and not properly accounting for directions in collision problems, especially in 2D.</li>
+                        <li>Impulse Direction Errors: misunderstanding that impulse equals the change in momentum, leading to sign errors.</li>
+                        <li>Elastic vs. Inelastic Confusion: not recognizing that inelastic collisions involve energy loss while elastic collisions conserve both momentum and kinetic energy.</li>
+                    </ul>
+                    <h4>Problem-Solving Errors</h4>
+                    <ul>
+                        <li>Center of Mass Calculation Errors: incorrectly calculating center of mass by not properly weighting each mass by its position.</li>
+                        <li>Sign errors in 1D collision equations (momentum is a vector).</li>
+                        <li>Forgetting to include all objects in the system when applying conservation of momentum.</li>
+                        <li>Using conservation of kinetic energy in inelastic collision problems.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0d47a1; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 13 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 13 (Dec 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.1</strong> Momentum and Impulse (p = mv; J = FΔt = Δp)</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.2</strong> Conservation of Linear Momentum (conditions; system choice)</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.3</strong> Collisions (elastic vs. inelastic; perfectly inelastic)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 14 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 14 (Dec 14–18)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">📝 <strong>Monthly Exam</strong> (~3 teaching days for instruction)</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.4</strong> Center of Mass (motion of CM; CM of systems)</li>
+                                <li style="margin: 0.3rem 0;">🧪 <strong>Lab 5: Collisions</strong> — air track / dynamics carts</li>
+                                <li style="margin: 0.3rem 0;">Unit 4 Review &amp; <strong>Unit 4 Assessment</strong> — Dec 18: <strong>Unit 4 complete</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 5: Torque and Rotational Dynamics -->
+        <section class="unit" id="unit-5">
+            <h2>Unit 5 - Torque and Rotational Dynamics (10-15%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Explain the relationships between angular position, angular velocity, and angular acceleration and their linear counterparts.</li>
+                        <li>Calculate angular displacement, velocity, and acceleration for constant angular acceleration using rotational kinematic equations.</li>
+                        <li>Define torque as τ = rF sin θ or τ = r_perp·F, and calculate torque about a chosen pivot point.</li>
+                        <li>Apply the rotational analog of Newton's Second Law: τ_net = Iα, where I is the moment of inertia.</li>
+                        <li>Calculate the moment of inertia I for point masses (I = Σmr²) and for common geometric shapes using standard formulas.</li>
+                        <li>Analyze systems in rotational equilibrium: τ_net = 0 (no angular acceleration).</li>
+                        <li>Apply the parallel-axis theorem: I = I_cm + Md² for rotation about a non-center-of-mass axis.</li>
+                        <li>Solve problems involving combined translational and rotational motion (rolling without slipping: v = ωR).</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>14 class periods</strong> to complete (Weeks 15–17).</li>
+                        <li>This unit contributes to a <code class="code-keyword">10%</code> to <code class="code-keyword">15%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">5.1–5.5</code></li>
+                        <li><strong>Big Ideas:</strong> <code class="code-keyword">CHA</code> (Change) and <code class="code-keyword">INT</code> (Force Interactions).</li>
+                        <li><strong>Science Practices:</strong> Practices 1 (Visual Representations) and 2 (Mathematical Routines) are emphasized.</li>
+                        <li>Progress Check 5: Multiple-choice ~18 questions; Free-response 4 questions.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How do angular position, velocity, and acceleration relate to their linear counterparts?</li>
+                        <li>What role does torque play in rotational motion, and how is it calculated?</li>
+                        <li>How does the moment of inertia affect rotational motion and energy?</li>
+                        <li>Under what conditions is an object in rotational equilibrium?</li>
+                        <li>How do we analyze objects that exhibit both translational and rotational motion?</li>
+                        <li>Why do tightrope walkers carry long poles? How does this relate to rotational inertia?</li>
+                        <li>Why is it easier to open a door by pushing far from the hinge? What does this tell us about torque?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Rotational Kinematics</code>: Angular displacement θ, angular velocity ω = dθ/dt, angular acceleration α = dω/dt. Equations mirror linear kinematics with angular quantities.</li>
+                        <li><code class="code-keyword">Torque (τ)</code>: The rotational equivalent of force; τ = rF sin θ = r_perp·F. Direction by right-hand rule.</li>
+                        <li><code class="code-keyword">Moment of Inertia (I)</code>: The rotational equivalent of mass; I = Σmr² for point masses. Depends on mass distribution relative to the rotation axis.</li>
+                        <li><code class="code-keyword">Rotational Dynamics</code>: τ_net = Iα (Newton's Second Law for rotation).</li>
+                        <li><code class="code-keyword">Rotational Equilibrium</code>: τ_net = 0; no angular acceleration. Used for static systems (seesaws, balanced beams).</li>
+                        <li><code class="code-keyword">Parallel-Axis Theorem</code>: I = I_cm + Md² for rotation about an axis parallel to one through the CM.</li>
+                        <li><code class="code-keyword">Rolling Without Slipping</code>: v = ωR; static friction provides the torque for angular acceleration.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Angular Displacement (θ):</strong> The angle through which an object rotates; measured in radians.</li>
+                        <li><strong>Angular Velocity (ω):</strong> The rate of change of angular displacement; ω = dθ/dt. Units: rad/s.</li>
+                        <li><strong>Angular Acceleration (α):</strong> The rate of change of angular velocity; α = dω/dt. Units: rad/s².</li>
+                        <li><strong>Torque (τ):</strong> A force that causes rotation; τ = rF sin θ. Units: N·m.</li>
+                        <li><strong>Moment of Inertia (I):</strong> A measure of an object's resistance to changes in its rotational motion; depends on mass distribution.</li>
+                        <li><strong>Rotational Equilibrium:</strong> A state in which the net torque on an object is zero and it has no angular acceleration.</li>
+                        <li><strong>Lever Arm (r_perp):</strong> The perpendicular distance from the pivot point to the line of action of the force.</li>
+                        <li><strong>Rolling Without Slipping:</strong> A condition where the point of contact with the surface is instantaneously at rest; v = ωR.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Create torque diagrams &amp; rotational motion sketches</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                        </li>
+                        <li><strong>Plot angular position/velocity/acceleration graphs</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Derive rotational dynamics expressions</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Calculate torque, I, α with units</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Compare rotational quantities between scenarios</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Predict rotational motion using functional dependence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Design rotational motion experiments</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                        </li>
+                        <li><strong>Make &amp; justify rotational dynamics claims</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Daily torque calculation practice (whiteboard work)</li>
+                        <li>Homework problem sets (rotational kinematics; τ = Iα)</li>
+                        <li>Moment of inertia concept quizzes</li>
+                        <li>PhET "Torque" and "Rotation" investigations</li>
+                        <li>Rotational equilibrium challenge problems</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 5 Assessment</strong> (Jan 8, 2027)</li>
+                        <li>🧪 <strong>Lab 6: Rotational Dynamics</strong> — rotational motion sensor / disk</li>
+                        <li>AP Classroom Progress Check 5</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Rotation Misconceptions</h4>
+                    <ul>
+                        <li>Confusing Linear and Rotational Quantities: mixing up v with ω, a with α, m with I, F with τ.</li>
+                        <li>Moment of Inertia Calculation Mistakes: using the wrong formula for different shapes, or forgetting the parallel-axis theorem.</li>
+                        <li>Sign Convention Errors: inconsistent use of positive/negative for clockwise vs. counterclockwise rotations.</li>
+                        <li>Torque Direction Confusion: misapplying the right-hand rule to determine torque direction.</li>
+                    </ul>
+                    <h4>Problem-Solving Errors</h4>
+                    <ul>
+                        <li>Energy Conservation in Rotation: forgetting to include rotational kinetic energy (K_rot = ½Iω²) in conservation problems.</li>
+                        <li>Rolling Without Slipping: not using the constraint v = ωR to relate translational and rotational motion.</li>
+                        <li>Choosing the wrong pivot point for torque calculations (choose to eliminate unknown forces).</li>
+                        <li>Forgetting that static friction (not kinetic) provides torque for rolling without slipping.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0d47a1; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 15 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 15 (Dec 21–25)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.1</strong> Rotational Kinematics (θ, ω, α; constant-α equations)</li>
+                                <li style="margin: 0.3rem 0;"><strong>5.2</strong> Torque (τ = rF sin θ; lever arm; right-hand rule)</li>
+                                <li style="margin: 0.3rem 0;"><strong>5.3</strong> Rotational Inertia (I = Σmr²; standard formulas)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 16 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 16 (Dec 28–31)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.4</strong> Rotational Dynamics (τ_net = Iα; problem-solving)</li>
+                                <li style="margin: 0.3rem 0;"><strong>5.5</strong> Rotational Equilibrium (τ_net = 0; balance problems)</li>
+                                <li style="margin: 0.3rem 0;">🎆 Jan 1: <strong>New Year Holiday</strong> (No class)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 17 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 17 (Jan 4–8, 2027)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Parallel-axis theorem; rolling without slipping (v = ωR)</li>
+                                <li style="margin: 0.3rem 0;">🧪 <strong>Lab 6: Rotational Dynamics</strong> — rotational motion sensor</li>
+                                <li style="margin: 0.3rem 0;">Unit 5 Review &amp; <strong>Unit 5 Assessment</strong> — Jan 8: <strong>Unit 5 complete</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Final Exam Week -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #b45309;">Final Exam Week</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">📝 Jan 11–15: <strong>Final Exam — Units 1–5</strong></li>
+                                <li style="margin: 0.3rem 0;">❄️ Winter Break: Jan 16 – Feb 28, 2027</li>
+                                <li style="margin: 0.3rem 0;">No classes during Winter Break</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 6: Energy and Momentum of Rotating Systems -->
+        <section class="unit" id="unit-6">
+            <h2>Unit 6 - Energy and Momentum of Rotating Systems (5-8%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Define and calculate rotational kinetic energy: K_rot = ½Iω², and include it in conservation of energy problems.</li>
+                        <li>Calculate the work done by a torque: W = τθ (for constant torque) and relate it to the work-energy theorem for rotation.</li>
+                        <li>Define angular momentum as L = Iω for a rigid body and L = r × p = rpsin θ for a point mass.</li>
+                        <li>State the conditions for conservation of angular momentum: the net external torque on the system must be zero.</li>
+                        <li>Apply conservation of angular momentum: I₁ω₁ = I₂ω₂ when τ_net = 0.</li>
+                        <li>Analyze scenarios where moment of inertia changes (ice skater pulling arms in; collapsing star).</li>
+                        <li>Solve combined translation + rotation problems using both linear and angular momentum conservation.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>10 class periods</strong> to complete (Weeks 18–19, post-Winter Break).</li>
+                        <li>This unit contributes to a <code class="code-keyword">5%</code> to <code class="code-keyword">8%</code> weight in the AP exam — the smallest weighting.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">6.1–6.3</code></li>
+                        <li><strong>Big Ideas:</strong> <code class="code-keyword">CON</code> (Conservation) and <code class="code-keyword">CHA</code> (Change).</li>
+                        <li><strong>Science Practices:</strong> Practices 2 (Mathematical Routices) and 3 (Argumentation) are emphasized.</li>
+                        <li>Progress Check 6: Multiple-choice ~10 questions; Free-response 2 questions.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How is angular momentum related to linear momentum and rotational motion?</li>
+                        <li>Under what conditions is angular momentum conserved in physical systems?</li>
+                        <li>How does the rate of change of angular momentum relate to applied torques (τ = dL/dt)?</li>
+                        <li>What are the implications of angular momentum conservation in astronomy (collapsing stars, planetary orbits)?</li>
+                        <li>How do gyroscopes and spinning objects demonstrate angular momentum principles?</li>
+                        <li>Why does a figure skater spin faster when pulling her arms in?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Rotational Kinetic Energy</code>: K_rot = ½Iω²; included in total mechanical energy for rolling objects: E_mech = K_trans + K_rot + U.</li>
+                        <li><code class="code-keyword">Work by Torque</code>: W = τθ (for constant torque); the rotational work-energy theorem: W_net = ΔK_rot.</li>
+                        <li><code class="code-keyword">Angular Momentum (L)</code>: L = Iω for rigid bodies; L = rpsin θ for point masses. A vector quantity.</li>
+                        <li><code class="code-keyword">Conservation of Angular Momentum</code>: L_initial = L_final when τ_net = 0. I₁ω₁ = I₂ω₂.</li>
+                        <li><code class="code-keyword">Torque-Angular Momentum Relation</code>: τ_net = dL/dt (Newton's Second Law for rotation in angular momentum form).</li>
+                        <li><code class="code-keyword">Gyroscopic Effects</code>: Spinning objects resist changes to their orientation due to angular momentum conservation.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Rotational Kinetic Energy (K_rot):</strong> The energy an object possesses due to its rotation; K_rot = ½Iω².</li>
+                        <li><strong>Angular Momentum (L):</strong> The rotational equivalent of linear momentum; L = Iω for rigid bodies.</li>
+                        <li><strong>Conservation of Angular Momentum:</strong> The total angular momentum of an isolated system remains constant when no net external torque acts.</li>
+                        <li><strong>Gyroscope:</strong> A spinning wheel mounted so its axis can rotate freely; demonstrates angular momentum conservation.</li>
+                        <li><strong>Precession:</strong> The slow change in the orientation of the rotation axis of a spinning object due to an external torque.</li>
+                        <li><strong>Right-Hand Rule:</strong> A convention for determining the direction of angular velocity, angular momentum, and torque vectors.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Create angular momentum bar charts</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                        </li>
+                        <li><strong>Plot angular momentum vs. time graphs</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Derive angular momentum conservation expressions</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Calculate L, K_rot, τ with units</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Compare angular momentum in different scenarios</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Predict changes using L = Iω functional dependence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Make &amp; justify angular momentum claims</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Daily angular momentum bar chart practice</li>
+                        <li>Homework problem sets (L = Iω; conservation; rolling energy)</li>
+                        <li>Angular momentum concept quizzes</li>
+                        <li>PhET "Angular Momentum" investigations</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 6 Assessment</strong> (Mar 12)</li>
+                        <li>🧪 <strong>Lab 7: Angular Momentum</strong> — rotational collision / spinning stool</li>
+                        <li>AP Classroom Progress Check 6</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Angular Momentum Misconceptions</h4>
+                    <ul>
+                        <li>Confusing Angular and Linear Momentum: not recognizing they are distinct quantities with different conservation laws.</li>
+                        <li>Vector Direction Mistakes: forgetting that angular momentum is a vector with direction determined by the right-hand rule.</li>
+                        <li>External Torque Misconceptions: not understanding that angular momentum is only conserved when there's no net external torque.</li>
+                    </ul>
+                    <h4>Problem-Solving Errors</h4>
+                    <ul>
+                        <li>Sign Convention Errors: inconsistent use of positive/negative for angular momentum and torque directions.</li>
+                        <li>Forgetting to include rotational kinetic energy in conservation of energy problems involving rolling.</li>
+                        <li>Using the wrong moment of inertia in L = Iω calculations (must match rotation axis).</li>
+                        <li>Not recognizing when angular momentum is conserved (τ_net = 0) vs. when it is not.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0d47a1; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Post-Winter Break: Week 18 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 18 (Mar 1–5)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>6.1</strong> Rotational Kinetic Energy (K_rot = ½Iω²; rolling energy)</li>
+                                <li style="margin: 0.3rem 0;"><strong>6.2</strong> Torque and Work in Rotation (W = τθ; rotational work-energy)</li>
+                                <li style="margin: 0.3rem 0;"><strong>6.3</strong> Angular Momentum (L = Iω; L = rpsin θ)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 19 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 19 (Mar 8–12)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Conservation of Angular Momentum (I₁ω₁ = I₂ω₂)</li>
+                                <li style="margin: 0.3rem 0;">Rolling motion revisited (with energy and momentum)</li>
+                                <li style="margin: 0.3rem 0;">🧪 <strong>Lab 7: Angular Momentum</strong> — spinning stool / rotational collision</li>
+                                <li style="margin: 0.3rem 0;">Unit 6 Review &amp; <strong>Unit 6 Assessment</strong> — Mar 12: <strong>Unit 6 complete</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 7: Oscillations -->
+        <section class="unit" id="unit-7">
+            <h2>Unit 7 - Oscillations (5-8%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Describe simple harmonic motion (SHM) as oscillatory motion where the restoring force is proportional to displacement: F = −kx.</li>
+                        <li>Define and relate period (T), frequency (f), and angular frequency (ω): ω = 2πf = 2π/T.</li>
+                        <li>Derive and apply the equations for position, velocity, and acceleration in SHM: x(t) = A cos(ωt + φ).</li>
+                        <li>Analyze the energy of a simple harmonic oscillator: E_total = ½kA² = ½mv² + ½kx² (constant).</li>
+                        <li>Analyze and calculate the period and frequency of a simple pendulum: T = 2π√(L/g) (for small angles).</li>
+                        <li>Analyze and calculate the period and frequency of a mass-spring system: T = 2π√(m/k).</li>
+                        <li>Describe how amplitude, mass, spring constant, pendulum length, and gravity affect period and frequency.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>8 class periods</strong> to complete (Weeks 20–21).</li>
+                        <li>This unit contributes to a <code class="code-keyword">5%</code> to <code class="code-keyword">8%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">7.1–7.4</code></li>
+                        <li><strong>Big Ideas:</strong> <code class="code-keyword">CHA</code> (Change) and <code class="code-keyword">CON</code> (Conservation).</li>
+                        <li><strong>Science Practices:</strong> Practices 1 (Visual Representations), 2 (Mathematical Routines), and 3 (Argumentation) are emphasized.</li>
+                        <li>Progress Check 7: Multiple-choice ~10 questions; Free-response 2 questions.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What conditions produce simple harmonic motion?</li>
+                        <li>How do we describe the position, velocity, and acceleration of an oscillator as functions of time?</li>
+                        <li>How is energy conserved in an oscillating system, and how does it shift between kinetic and potential forms?</li>
+                        <li>What determines the period and frequency of a mass-spring system? Of a pendulum?</li>
+                        <li>Why does a pendulum's period depend on length but not on mass?</li>
+                        <li>Why does a guitar string produce a specific pitch? How does this relate to SHM?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Simple Harmonic Motion (SHM)</code>: Oscillatory motion with restoring force F = −kx (proportional to displacement, opposite direction). Solutions: x(t) = A cos(ωt + φ).</li>
+                        <li><code class="code-keyword">Period (T) and Frequency (f)</code>: T = 1/f; ω = 2πf = 2π/T. Period is time for one complete cycle.</li>
+                        <li><code class="code-keyword">Mass-Spring System</code>: T = 2π√(m/k); frequency increases with k, decreases with m.</li>
+                        <li><code class="code-keyword">Simple Pendulum</code>: T = 2π√(L/g) (small-angle approximation); period is independent of mass and amplitude.</li>
+                        <li><code class="code-keyword">Energy in SHM</code>: E_total = ½kA² = constant; energy oscillates between K = ½mv² and U = ½kx².</li>
+                        <li><code class="code-keyword">Amplitude (A)</code>: The maximum displacement from equilibrium; determines total energy (E ∝ A²).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Simple Harmonic Motion (SHM):</strong> Periodic motion where the restoring force is directly proportional to displacement and opposite in direction.</li>
+                        <li><strong>Oscillation:</strong> Repeated back-and-forth motion about an equilibrium position.</li>
+                        <li><strong>Period (T):</strong> The time required to complete one full cycle of motion. Units: seconds.</li>
+                        <li><strong>Frequency (f):</strong> The number of cycles per unit time; f = 1/T. Units: Hz (1/s).</li>
+                        <li><strong>Angular Frequency (ω):</strong> ω = 2πf = 2π/T. Units: rad/s.</li>
+                        <li><strong>Amplitude (A):</strong> The maximum displacement from the equilibrium position.</li>
+                        <li><strong>Restoring Force:</strong> A force that acts to return an object to its equilibrium position; F = −kx for SHM.</li>
+                        <li><strong>Pendulum:</strong> A mass suspended from a pivot that swings freely under gravity; approximates SHM for small angles.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Create x-t, v-t, a-t graphs for SHM</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Derive SHM equations from F = −kx</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Calculate T, f, ω, A with units</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Compare SHM in different systems</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Predict period changes using functional dependence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Design SHM experiments</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                        </li>
+                        <li><strong>Make &amp; justify SHM claims with evidence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Daily SHM graph sketching practice</li>
+                        <li>Homework problem sets (SHM equations; energy; pendulums)</li>
+                        <li>SHM concept quizzes (period, frequency, amplitude)</li>
+                        <li>PhET "Masses and Springs" and "Pendulum Lab" investigations</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 7 Assessment</strong> (Mar 26)</li>
+                        <li>🧪 <strong>Lab 8: Oscillations</strong> — mass-spring system / pendulum</li>
+                        <li>AP Classroom Progress Check 7</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>SHM Misconceptions</h4>
+                    <ul>
+                        <li>Thinking frequency depends on amplitude (it does not for SHM — amplitude affects energy, not period).</li>
+                        <li>Thinking a pendulum's period depends on mass (it does not for a simple pendulum).</li>
+                        <li>Confusing period (T) with frequency (f): T = 1/f, not T = f.</li>
+                        <li>Using the small-angle approximation for large-amplitude pendulum problems.</li>
+                    </ul>
+                    <h4>Problem-Solving Errors</h4>
+                    <ul>
+                        <li>Sign errors in F = −kx (the negative sign indicates restoring direction).</li>
+                        <li>Using the wrong equation for period: T = 2π√(m/k) for springs, T = 2π√(L/g) for pendulums.</li>
+                        <li>Forgetting that ω = 2πf = 2π/T (not ω = 1/T).</li>
+                        <li>Not converting units properly (cm to m, g to m/s²).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0d47a1; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 20 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 20 (Mar 15–19)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>7.1</strong> Simple Harmonic Motion (F = −kx; x(t) = A cos(ωt + φ))</li>
+                                <li style="margin: 0.3rem 0;"><strong>7.2</strong> Energy in Oscillations (E_total = ½kA²; K + U = constant)</li>
+                                <li style="margin: 0.3rem 0;"><strong>7.3</strong> Period and Frequency (T = 1/f; ω = 2πf; mass-spring: T = 2π√(m/k))</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 21 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 21 (Mar 22–26)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>7.4</strong> Pendulums (T = 2π√(L/g); small-angle approximation)</li>
+                                <li style="margin: 0.3rem 0;">🧪 <strong>Lab 8: Oscillations</strong> — mass-spring &amp; pendulum</li>
+                                <li style="margin: 0.3rem 0;">Unit 7 Review &amp; <strong>Unit 7 Assessment</strong> — Mar 26: <strong>Unit 7 complete</strong></li>
+                                <li style="margin: 0.3rem 0;">🌿 Mar 24–26: <strong>Spring Outing</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 8: Fluids -->
+        <section class="unit" id="unit-8">
+            <h2>Unit 8 - Fluids (10-15%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Define density (ρ = m/V) and pressure (P = F/A), and calculate pressure at a depth in a fluid: P = P₀ + ρgh.</li>
+                        <li>Apply Pascal's principle: pressure applied to an enclosed fluid is transmitted undiminished to all parts of the fluid.</li>
+                        <li>Apply Archimedes' principle: the buoyant force on an object equals the weight of the fluid displaced: F_b = ρ_fluid·V_displaced·g.</li>
+                        <li>Determine whether an object floats or sinks based on density comparison and force balance.</li>
+                        <li>Define and apply the equation of continuity for incompressible fluid flow: A₁v₁ = A₂v₂ (conservation of mass).</li>
+                        <li>Apply Bernoulli's equation: P + ½ρv² + ρgh = constant along a streamline (conservation of energy for fluids).</li>
+                        <li>Analyze real fluid behavior including viscosity and turbulence (qualitative understanding).</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>10 class periods</strong> to complete (Weeks 21–22).</li>
+                        <li>This unit contributes to a <code class="code-keyword">10%</code> to <code class="code-keyword">15%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">8.1–8.4</code></li>
+                        <li><strong>Big Ideas:</strong> <code class="code-keyword">INT</code> (Force Interactions) and <code class="code-keyword">CON</code> (Conservation).</li>
+                        <li><strong>Science Practices:</strong> Practices 2 (Mathematical Routines) and 3 (Argumentation) are emphasized.</li>
+                        <li>Progress Check 8: Multiple-choice ~15 questions; Free-response 3 questions.</li>
+                        <li><strong>Note:</strong> Fluids is the only unit that introduces the <code class="code-keyword">FLD</code> (Fields) big idea in depth (pressure as a field).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>Why do some objects float while others sink in water?</li>
+                        <li>How does water pressure change as you dive deeper into a pool?</li>
+                        <li>How does a hydraulic lift work to amplify force?</li>
+                        <li>Why does a fast-moving stream of air create low pressure (Bernoulli's principle)?</li>
+                        <li>How do airplanes generate lift? How does this relate to Bernoulli's equation?</li>
+                        <li>Why does a curved baseball curve in flight? How does spin affect fluid flow?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Pressure (P)</code>: Force per unit area; P = F/A. Units: Pa = N/m². In a fluid at rest, pressure increases with depth: P = P₀ + ρgh.</li>
+                        <li><code class="code-keyword">Pascal's Principle</code>: Pressure change applied to an enclosed fluid is transmitted undiminished throughout the fluid. Basis of hydraulic systems.</li>
+                        <li><code class="code-keyword">Buoyancy</code>: Upward force on an object in a fluid, equal to the weight of the displaced fluid (Archimedes' principle): F_b = ρ_fluid·V_displaced·g.</li>
+                        <li><code class="code-keyword">Equation of Continuity</code>: For incompressible flow, A₁v₁ = A₂v₂ (mass conservation). Flow rate Q = Av = constant.</li>
+                        <li><code class="code-keyword">Bernoulli's Equation</code>: P + ½ρv² + ρgh = constant along a streamline. Explains lift, venturi effect, and atomizers.</li>
+                        <li><code class="code-keyword">Viscosity</code>: A fluid's resistance to flow; causes energy loss in real fluid systems.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Density (ρ):</strong> Mass per unit volume; ρ = m/V. Units: kg/m³.</li>
+                        <li><strong>Pressure (P):</strong> Force per unit area; P = F/A. Units: pascals (Pa) = N/m².</li>
+                        <li><strong>Buoyant Force (F_b):</strong> The upward force exerted by a fluid on an immersed object; F_b = ρ_fluid·V_displaced·g.</li>
+                        <li><strong>Specific Gravity:</strong> The ratio of a substance's density to the density of water; dimensionless.</li>
+                        <li><strong>Flow Rate (Q):</strong> The volume of fluid flowing per unit time; Q = Av. Units: m³/s.</li>
+                        <li><strong>Bernoulli's Principle:</strong> In a flowing fluid, an increase in velocity is accompanied by a decrease in pressure or potential energy.</li>
+                        <li><strong>Viscosity:</strong> A measure of a fluid's resistance to flow; "thickness" of a fluid.</li>
+                        <li><strong>Turbulence:</strong> Chaotic, irregular fluid flow (vs. laminar flow, which is smooth and orderly).</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Create fluid pressure &amp; flow diagrams</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                        </li>
+                        <li><strong>Plot P vs. depth; v vs. area graphs</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Derive Bernoulli's equation from energy conservation</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Calculate P, F_b, v, Q with units</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Compare pressure/flow in different scenarios</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Predict changes using Bernoulli's functional dependence</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Design fluid experiments</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                        </li>
+                        <li><strong>Make &amp; justify fluid dynamics claims</strong>:
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Daily pressure and buoyancy calculation practice</li>
+                        <li>Homework problem sets (Pascal, Archimedes, Bernoulli)</li>
+                        <li>Fluids concept quizzes (pressure vs. force; floating vs. sinking)</li>
+                        <li>PhET "Fluid Pressure and Flow" investigations</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 8 Assessment</strong> (Apr 2)</li>
+                        <li>📝 Monthly Exam (Apr 1–2) — Units 1–8 (ALL CONTENT)</li>
+                        <li>AP Classroom Progress Check 8</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Fluids Misconceptions</h4>
+                    <ul>
+                        <li>Confusing Pressure and Force: pressure is force per unit area (P = F/A), not force itself.</li>
+                        <li>Thinking buoyant force depends on the object's mass or shape (it depends only on displaced fluid volume).</li>
+                        <li>Believing pressure acts only downward (fluid pressure acts in all directions, increasing with depth).</li>
+                        <li>Confusing Bernoulli's principle: high velocity → low pressure (not high pressure).</li>
+                    </ul>
+                    <h4>Problem-Solving Errors</h4>
+                    <ul>
+                        <li>Using the wrong density in Archimedes' principle (use fluid density, not object density).</li>
+                        <li>Forgetting atmospheric pressure (P₀) when calculating absolute pressure at depth.</li>
+                        <li>Not converting units properly (1 g/cm³ = 1000 kg/m³).</li>
+                        <li>Applying Bernoulli's equation to turbulent flow or when viscosity is significant.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #0d47a1; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 22 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">Week 22 (Mar 29 – Apr 2)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>8.1</strong> Fluid Pressure (P = F/A; P = P₀ + ρgh; absolute vs. gauge pressure)</li>
+                                <li style="margin: 0.3rem 0;"><strong>8.2</strong> Buoyancy (Archimedes' principle; floating vs. sinking)</li>
+                                <li style="margin: 0.3rem 0;"><strong>8.3</strong> Fluid Flow (equation of continuity; A₁v₁ = A₂v₂)</li>
+                                <li style="margin: 0.3rem 0;"><strong>8.4</strong> Bernoulli's Principle (P + ½ρv² + ρgh = constant)</li>
+                                <li style="margin: 0.3rem 0;">📝 Apr 1–2: <strong>Monthly Exam</strong> (ALL CONTENT COMPLETE)</li>
+                                <li style="margin: 0.3rem 0;">Unit 8 Review &amp; <strong>Unit 8 Assessment</strong> — Apr 2: <strong>ALL CONTENT COMPLETE</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Exam Prep Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #0d47a1;">April Review Plan</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">All new instruction complete by Apr 2</li>
+                                <li style="margin: 0.3rem 0;">Apr 6–9: Review Units 1–3</li>
+                                <li style="margin: 0.3rem 0;">Apr 12–16: Review Units 4–8</li>
+                                <li style="margin: 0.3rem 0;">Apr 19–23: FRQ Intensive Practice</li>
+                                <li style="margin: 0.3rem 0;">Apr 26–30: Full Mock AP Exam</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- AP Exam Prep & Exam Format -->
+        <section class="unit" id="exam-prep">
+            <h2>AP Exam Preparation &amp; Exam Format</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>April Review Plan (All New Instruction Complete by Apr 2)</h3>
+                    <h4>Review Week 1 (Apr 6–9) — Units 1–3</h4>
+                    <ul>
+                        <li>Kinematics review: motion graphs, projectile motion, relative motion</li>
+                        <li>Force and dynamics review: FBDs, Newton's laws, circular motion</li>
+                        <li>Work and energy review: work-energy theorem, conservation, power</li>
+                        <li>MCQ practice by topic (Progress Checks assigned via AP Classroom)</li>
+                    </ul>
+                    <h4>Review Week 2 (Apr 12–16) — Units 4–8</h4>
+                    <ul>
+                        <li>Momentum review: impulse, conservation, collisions</li>
+                        <li>Rotation review: torque, τ = Iα, angular momentum conservation</li>
+                        <li>Oscillations review: SHM, pendulums, energy in oscillation</li>
+                        <li>Fluids review: pressure, buoyancy, Bernoulli's equation</li>
+                        <li>Conditions for all conservation laws (momentum, energy, angular momentum)</li>
+                    </ul>
+                    <h4>Mock Week 1 (Apr 19–23) — FRQ Intensive Practice</h4>
+                    <ul>
+                        <li>Timed FRQ writing across all four types: Q1 (Experimental Design), Q2 (Data Analysis/Translation), Q3 (Mathematical Routines), Q4 (Qualitative/Quantitative Translation)</li>
+                        <li>Peer scoring using College Board rubric</li>
+                        <li>Focus on experimental design (Lab 1–8 procedures)</li>
+                    </ul>
+                    <h4>Mock Week 2 (Apr 26–30) — Full Mock AP Exam</h4>
+                    <ul>
+                        <li>Section I: 50 MCQ (90 min); Section II: 5 FRQ (90 min)</li>
+                        <li>Score with College Board rubric; targeted remediation</li>
+                        <li>Review of common errors and misconceptions</li>
+                    </ul>
+                    <p style="font-style: italic; color: #666;">Apr 26–30 is the school midterm exam week; AP Physics 1 uses this week for the full mock AP exam. May 1–3: Labor Day Holiday.</p>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>AP Exam Format (May 3–14, 2027)</h3>
+                    <div style="background-color: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #1565c0; color: white;">
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Section</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Content</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Questions</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Time</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Section I</strong></td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Multiple Choice (single-select, scenario-based)</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">50</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">90 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">50%</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Section II</strong></td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Free Response (5 questions)</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">5</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">90 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">50%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin: 0.8rem 0;"><strong>A graphing calculator is permitted on both sections.</strong> The AP Physics 1 Formula Sheet and Tables are provided.</p>
+                    <h4>Free-Response Question Types</h4>
+                    <div style="background-color: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #1565c0; color: white;">
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">FRQ</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Type</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Time</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q1</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Experimental Design — design a procedure to answer a scientific question</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~25 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">12</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q2</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Data Analysis / Translation Between Representations</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~15 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">10</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q3</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Mathematical Routines — derive expressions, calculate quantities</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~15 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">10</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q4</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Qualitative/Quantitative Translation — explain in words, then derive math</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~15 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">10</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q5</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Experimental Data Analysis — analyze given experimental data</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~15 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">8</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>MCQ Exam Weighting by Unit</h3>
+                    <div style="background-color: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #1565c0; color: white;">
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Unit</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Topic</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">MCQ Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">1</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Kinematics</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>10–15%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">2</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Force and Translational Dynamics</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>18–23%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">3</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Work, Energy, and Power</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>18–23%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">4</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Linear Momentum</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>10–15%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">5</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Torque and Rotational Dynamics</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>10–15%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">6</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Energy and Momentum of Rotating Systems</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>5–8%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">7</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Oscillations</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>5–8%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">8</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Fluids</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>10–15%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e3f2fd; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Dates — Exam Season</h3>
+                    <ul>
+                        <li>🌸 Apr 5: Qingming Festival</li>
+                        <li>📚 Apr 6–9: Review — Units 1–3</li>
+                        <li>📚 Apr 12–16: Review — Units 4–8</li>
+                        <li>✍️ Apr 19–23: FRQ Intensive Practice</li>
+                        <li>🎯 Apr 26–30: Full Mock AP Exam</li>
+                        <li>🛠️ May 1–3: Labor Day Holiday</li>
+                        <li>🎓 <strong>May 3–14: AP Physics 1 Exam</strong> (specific date TBD)</li>
+                        <li>📊 May 17 – Jun 4: Post-AP Physics Projects</li>
+                        <li>📝 Jun 7–11: Final Exam Week</li>
+                    </ul>
+                    <h4>Post-AP Capstone Options</h4>
+                    <ul>
+                        <li>Engineering Design Project (bridge, tower, or vehicle)</li>
+                        <li>Experimental Investigation (student-designed lab)</li>
+                        <li>Physics in Sports Analysis</li>
+                        <li>Renewable Energy System Study</li>
+                        <li>Astronomy and Space Physics Research</li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        AP Physics 1: Algebra-Based ('26-'27) — GHA
+    </footer>
+    <script>
+        // Collapsible functionality
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

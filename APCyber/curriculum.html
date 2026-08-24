@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Cybersecurity ('26-'27)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/textbook-style.css">
+    <style>
+        /* Collapsible styles */
+        .collapsible {
+            background-color: #1a237e;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1em;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        .active:after {
+            content: '\2212';
+        }
+        .collapsible-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0d1642;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #1a237e;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .unit {
+            margin-bottom: 20px;
+        }
+        .unit h2 {
+            color: #1a237e;
+        }
+        footer {
+            background-color: #0d1642;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .code-keyword {
+            background-color: #e8eaf6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #1a237e;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AP Cybersecurity ('26-'27)</h1>
+    </header>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="syllabus.html">Syllabus</a>
+        <a href="curriculum.html">Curriculum</a>
+    </nav>
+    <main>
+        <section class="unit" id="description">
+            <h2>Course Overview and Cybersecurity Skills</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 1rem 0;">
+                <div style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h4 style="color: #1a237e; margin-top: 0;">CYBERSECURITY SKILLS (SPIRALED ACROSS UNITS)</h4>
+                    <p style="margin: 0.5rem 0;">The four cybersecurity skill categories are developed throughout the course using hands-on, scenario-based labs aligned with the NICE Workforce Framework.</p>
+                    <div style="display: flex; gap: 20px; margin-top: 1rem;">
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1</span>
+                                <span style="margin-left: 0.5rem;"><strong>Analyze Risk</strong><br><small>Identify vulnerabilities, threats, and attacks; evaluate their likelihood and impact.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2</span>
+                                <span style="margin-left: 0.5rem;"><strong>Mitigate Risk</strong><br><small>Select and implement layered security controls across all domains.</small></span>
+                            </li>
+                        </ul>
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3</span>
+                                <span style="margin-left: 0.5rem;"><strong>Detect Attacks</strong><br><small>Monitor systems, analyze logs, and classify cyberattacks from digital evidence.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4</span>
+                                <span style="margin-left: 0.5rem;"><strong>Collaborate</strong><br><small>Work with teammates and use AI tools responsibly on cybersecurity tasks.</small></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h4 style="color: #1a237e; margin-top: 0;">SKILL CATEGORIES (SUB-SKILLS)</h4>
+                    <p style="margin: 0.5rem 0;">The College Board skill categories that students practice and master throughout the course:</p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="margin-left: 0.5rem;">Identify vulnerabilities, threats, and attacks</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B–1.D</span>
+                            <span style="margin-left: 0.5rem;">Determine exploitation methods; evaluate likelihood & impact; document risks</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A–2.D</span>
+                            <span style="margin-left: 0.5rem;">Identify controls; determine layered controls; evaluate strategies; implement mitigations</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A–3.D</span>
+                            <span style="margin-left: 0.5rem;">Identify detection methods; determine strategies; evaluate impact; analyze evidence</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #bbdefb; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A–4.D</span>
+                            <span style="margin-left: 0.5rem;">Team objectives; assign roles; use AI as tool; complete collaborative tasks</span>
+                        </li>
+                    </ul>
+                    <p style="margin: 0.5rem 0; padding: 0.5rem 0.8rem; background-color: #fff; border-left: 4px solid #1a237e; border-radius: 4px; font-style: italic; color: #0d1642;">
+                        All hands-on labs follow the <strong>Defense-in-Depth Methodology</strong> — identify vulnerabilities, assess risks, implement layered controls, and verify detection capabilities.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unit 1: Introduction to Security -->
+        <section class="unit" id="unit-1">
+            <h2>Unit 1 - Introduction to Security (~10 periods)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Define cybersecurity and explain the importance of defense-in-depth strategies across multiple domains.</li>
+                        <li>Identify and analyze social engineering tactics including intimidation, urgency, pretexting, authority, consensus, scarcity, and familiarity.</li>
+                        <li>Recognize suspicious website logins, authentication attacks, and password-based vulnerabilities.</li>
+                        <li>Evaluate security risks associated with public networks including evil twin attacks, jamming, and war driving.</li>
+                        <li>Analyze AI-based cybersecurity threats including voice cloning, AI-crafted phishing, and automated attack tools.</li>
+                        <li>Leverage AI tools responsibly for threat detection, log analysis, and defensive cybersecurity tasks.</li>
+                        <li>Explain the fundamentals of multi-factor authentication (MFA) and its role in identity protection.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>10 class periods</strong> to complete (Weeks 1–2).</li>
+                        <li>This unit contributes to foundational knowledge applied throughout the course.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">1.1–1.5</code></li>
+                        <li><strong>Cybersecurity Skills:</strong> Skills 1 (Analyze Risk) and 4 (Collaborate) are introduced in this unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What makes a cybersecurity attack successful beyond just technical vulnerabilities?</li>
+                        <li>How can psychological manipulation (social engineering) bypass even the strongest technical defenses?</li>
+                        <li>What are the risks of using public Wi-Fi, and how can they be mitigated?</li>
+                        <li>How is artificial intelligence changing both cyber attacks and cyber defense?</li>
+                        <li>Why is authentication the first line of defense in cybersecurity?</li>
+                        <li>What role does human behavior play in organizational security?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Social Engineering</code>: Psychological manipulation to trick users into making security mistakes; tactics include intimidation, urgency, pretexting, authority, consensus, scarcity, familiarity.</li>
+                        <li><code class="code-keyword">Authentication Factors</code>: Something you know (password), something you have (token), something you are (biometrics), somewhere you are (location), something you do (behavior).</li>
+                        <li><code class="code-keyword">Multi-Factor Authentication (MFA)</code>: Requires two or more authentication factors; significantly reduces account compromise risk.</li>
+                        <li><code class="code-keyword">Public Network Risks</code>: Evil twin (rogue AP), jamming (signal interference), war driving (searching for open networks).</li>
+                        <li><code class="code-keyword">AI Cybersecurity Threats</code>: Voice cloning, AI-crafted phishing emails, automated vulnerability scanning, adversarial AI.</li>
+                        <li><code class="code-keyword">AI Cybersecurity Defense</code>: Threat detection algorithms, automated log analysis, behavioral anomaly detection, AI-assisted incident response.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Social Engineering:</strong> The psychological manipulation of people into performing actions or divulging confidential information.</li>
+                        <li><strong>Phishing:</strong> Fraudulent communication (email, text, call) pretending to be from a reputable source to steal data or install malware.</li>
+                        <li><strong>Pretexting:</strong> A form of social engineering where an attacker creates a fabricated scenario (pretext) to steal information or gain access.</li>
+                        <li><strong>Evil Twin:</strong> A rogue Wi-Fi access point that appears legitimate but is set up to eavesdrop on wireless communications.</li>
+                        <li><strong>Multi-Factor Authentication (MFA):</strong> A security system requiring more than one method of authentication from independent categories of credentials.</li>
+                        <li><strong>Password Attack:</strong> Methods to obtain or crack passwords: brute force, dictionary attacks, credential stuffing, password spraying.</li>
+                        <li><strong>AI Voice Cloning:</strong> Using artificial intelligence to replicate a person's voice for impersonation attacks.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Risk</strong> (Identify threats and vulnerabilities):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                        </li>
+                        <li><strong>Mitigate Risk</strong> (Implement protective measures):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Detect Attacks</strong> (Identify attack indicators):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                        </li>
+                        <li><strong>Collaborate</strong> (Work with AI tools responsibly):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.C</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.D</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on social engineering tactics and recognition</li>
+                        <li>Phishing email analysis exercises</li>
+                        <li>Class discussions on public network safety</li>
+                        <li>AI threat scenario analysis</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Lab: Social Engineering & Authentication Analysis</strong> — Analyze phishing emails and login logs; identify attack indicators; explain psychological tactics; design personal MFA plan</li>
+                        <li><strong>Unit 1 Assessment</strong> (Week 2)</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Scenarios & Labs</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-user-shield" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Scenarios 1A–1E<br><small>Phishing, Logins, Wi-Fi, AI</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-flask" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Social Engineering Lab<br><small>Phishing Analysis</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-robot" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">AI Tools<br><small>Scenario 1E</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #1a237e; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 1 (Aug 31 – Sep 4)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.1</strong> Understanding Social Engineering (intimidation, urgency, pretexting)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.2</strong> Suspicious Website Logins and Authentication Attacks</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff; border-radius: 4px; font-size: 0.9em;"><strong>Scenario 1A:</strong> Detecting Phishing Messages<br><strong>Scenario 1B:</strong> Detecting Unauthorized Logins</p>
+                        </div>
+
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 2 (Sep 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.3</strong> Best Practices for Public Networks (evil twin, jamming, war driving)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.4</strong> AI-Based Cybersecurity Attacks (voice cloning, AI phishing)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.5</strong> Leveraging AI in Cyber Defense</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff; border-radius: 4px; font-size: 0.9em;"><strong>Scenario 1C:</strong> Public Wi-Fi Safety<br><strong>Scenario 1D:</strong> AI-Powered Attacks<br><strong>Scenario 1E:</strong> AI Defense</p>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff3e0; border-radius: 4px; font-weight: bold;">📝 Unit 1 Assessment — Sep 11</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <h4 style="margin: 0 0 10px 0; color: #1a237e;">Lab: Social Engineering & Authentication Analysis</h4>
+                    <p style="margin: 0;">Analyze a set of phishing emails and login logs: identify attack indicators, explain psychological tactics used, and design a personal MFA plan. Deliverable: Written analysis report with MFA implementation strategy.</p>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 2: Securing Spaces -->
+        <section class="unit" id="unit-2">
+            <h2>Unit 2 - Securing Spaces (~21 periods)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Classify adversary types: script kiddies, hacktivists, insiders, cyberterrorists, criminal organizations.</li>
+                        <li>Explain the phases of a cyberattack: reconnaissance, initial access, persistence, lateral movement, action, evasion.</li>
+                        <li>Conduct risk assessments using the risk formula: Risk = Likelihood × Impact.</li>
+                        <li>Apply the CIA Triad (Confidentiality, Integrity, Availability) to evaluate security controls.</li>
+                        <li>Identify and categorize physical vulnerabilities and attacks: tailgating, piggybacking, dumpster diving, shoulder surfing.</li>
+                        <li>Implement physical security controls: locks, bollards, access control systems, visitor management.</li>
+                        <li>Deploy detection methods: CCTV, motion sensors, alarm systems, security guards.</li>
+                        <li>Design layered physical security using defense-in-depth principles.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>21 class periods</strong> to complete (Weeks 3–7).</li>
+                        <li>Weeks 4–5 lose days to Mid-Autumn Festival (Sep 25–27) and National Day (Oct 1–7); Monthly Exam (Oct 8–10) replaces 3 days.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">2.1–2.4</code></li>
+                        <li><strong>Cybersecurity Skills:</strong> Skills 1 (Analyze Risk), 2 (Mitigate Risk), and 3 (Detect Attacks) are developed in this unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>Who would want to attack an organization, and what motivates them?</li>
+                        <li>How do attackers move from initial access to achieving their objectives?</li>
+                        <li>How do you quantify and prioritize security risks in a meaningful way?</li>
+                        <li>What are the trade-offs between security, usability, and cost when implementing physical controls?</li>
+                        <li>How does defense-in-depth apply to physical security spaces?</li>
+                        <li>What is the difference between prevention and detection, and why are both necessary?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Adversary Types</code>: Script kiddies (low skill), hacktivists (ideology), insiders (trusted access), cyberterrorists (disruption), criminal orgs (profit).</li>
+                        <li><code class="code-keyword">Cyberattack Phases</code>: Recon → initial access → persistence → lateral movement → action (exfiltration/damage) → evasion.</li>
+                        <li><code class="code-keyword">Risk Assessment</code>: Risk = Likelihood × Impact; qualitative (low/medium/high) vs. quantitative (dollar amounts).</li>
+                        <li><code class="code-keyword">CIA Triad</code>: Confidentiality (prevent unauthorized disclosure), Integrity (prevent unauthorized modification), Availability (ensure access when needed).</li>
+                        <li><code class="code-keyword">Security Controls</code>: Physical (locks, fences), Technical (alarms, CCTV), Managerial (policies, training).</li>
+                        <li><code class="code-keyword">Defense-in-Depth</code>: Layered security strategy; if one control fails, others provide backup protection.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Risk Management:</strong> The process of identifying, assessing, and prioritizing risks followed by coordinated application of resources to minimize impact.</li>
+                        <li><strong>Vulnerability:</strong> A weakness in a system that can be exploited by a threat to gain unauthorized access or cause damage.</li>
+                        <li><strong>Threat:</strong> A potential cause of an unwanted incident that may result in harm to a system or organization.</li>
+                        <li><strong>Tailgating:</strong> Following an authorized person into a restricted area without proper authentication.</li>
+                        <li><strong>Defense-in-Depth:</strong> A security strategy that uses multiple layers of controls to protect assets; no single point of failure.</li>
+                        <li><strong>Physical Control:</strong> Security measures that use physical barriers to prevent or detect unauthorized access (locks, fences, guards).</li>
+                        <li><strong>Technical Control:</strong> Security measures that use technology to prevent or detect unauthorized access (alarms, CCTV, access cards).</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Risk</strong> (Identify vulnerabilities, evaluate impact):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.D</span>
+                        </li>
+                        <li><strong>Mitigate Risk</strong> (Implement layered controls):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Detect Attacks</strong> (Detection methods and strategies):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on adversary types and attack phases</li>
+                        <li>Risk assessment practice exercises</li>
+                        <li>CIA Triad application scenarios</li>
+                        <li>Physical security control identification</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Lab: Physical Security Assessment</strong> (Scenario 2A: Xtensr Labs) — Given a facility floor plan: identify physical vulnerabilities, complete a risk matrix, recommend layered controls, produce annotated detection-device placement diagram</li>
+                        <li><strong>Unit 2 Assessment</strong> (Week 7)</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Scenario & Lab</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-building" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Scenario 2A<br><small>Xtensr Labs</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-clipboard-check" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Physical Security Lab<br><small>Risk Matrix</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #1a237e; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 3 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 3 (Sep 14–18)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.1</strong> Cyber Foundations (1): Social Engineering Expanded; Adversary Types</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff; border-radius: 4px; font-size: 0.9em;"><strong>Scenario 2A begins:</strong> Securing Xtensr Labs</p>
+                        </div>
+
+                        <!-- Week 4 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 4 (Sep 21–24)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.1</strong> Cyber Foundations (2): Phases of a Cyberattack; Risk Assessment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mid-Autumn Festival -->
+                <div style="background-color: rgba(26,35,126,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(26,35,126,0.3); border-bottom: 1px solid rgba(26,35,126,0.3); margin-top: 15px;">
+                    🌙 Mid-Autumn Festival — Sep 25–27 (No class)
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 5 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 5 (Sep 28–30)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.1</strong> Cyber Foundations (3): Risk Management; CIA Triad; Security Controls; Defense-in-Depth</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 6 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 6 (Oct 12–16)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.2</strong> Physical Vulnerabilities and Attacks (tailgating, piggybacking, dumpster diving)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- National Day Holiday -->
+                <div style="background-color: rgba(26,35,126,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(26,35,126,0.3); border-bottom: 1px solid rgba(26,35,126,0.3); margin-top: 5px;">
+                    🇨🇳 National Day Holiday — Oct 1–7 (No class)
+                </div>
+                <!-- Monthly Exam -->
+                <div style="background-color: rgba(255,193,7,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(255,193,7,0.3); border-bottom: 1px solid rgba(255,193,7,0.3); margin-top: 5px;">
+                    📝 Monthly Exam — Oct 8–10
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 7 Column -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 7 (Oct 19–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.3</strong> Protecting Physical Spaces (locks, bollards, access control systems)</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.4</strong> Detecting Physical Attacks (CCTV, motion sensors, alarms)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Physical Security Assessment Lab</strong></li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff3e0; border-radius: 4px; font-weight: bold;">📝 Unit 2 Assessment — Oct 23: <strong>Unit 2 complete</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 3: Securing Networks -->
+        <section class="unit" id="unit-3">
+            <h2>Unit 3 - Securing Networks (~26 periods)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Explain the OSI model and TCP/IP protocol suite fundamentals.</li>
+                        <li>Identify network vulnerabilities and attacks: packet sniffing, ARP spoofing, evil twin (network layer), MITM, DNS spoofing/poisoning, DDoS, port scanning, OSINT reconnaissance.</li>
+                        <li>Implement managerial controls for network security: network security policies, WPA3, WPA2-Enterprise, MAC filtering, VPN for clients.</li>
+                        <li>Design network segmentation using VLANs, subnets, DMZ, and network zones to limit lateral movement.</li>
+                        <li>Configure and analyze firewall rules: packet-filtering, stateful, NGFW; ACL rule logic and ordering.</li>
+                        <li>Deploy detection systems: IDS vs. IPS; signature vs. anomaly detection; SIEM overview.</li>
+                        <li>Analyze network traffic using Wireshark and log analysis to identify attack indicators.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>26 class periods</strong> to complete (Weeks 8–13).</li>
+                        <li>Midterm Exam Week (Nov 6–11) and Autumn Outing (Nov 12) interrupt. Available teaching days: ~30; 26 periods of instruction, 4 days for lab, review, and assessment.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">3.1–3.5</code></li>
+                        <li><strong>Cybersecurity Skills:</strong> Skills 1, 2, and 3 are heavily developed in this unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How does data move across networks, and where are the vulnerabilities?</li>
+                        <li>What is the difference between network monitoring and network protection, and why are both needed?</li>
+                        <li>How does network segmentation limit the impact of a successful breach?</li>
+                        <li>How do firewall rules work, and what happens when rule order is incorrect?</li>
+                        <li>What is the difference between an IDS and an IPS, and when should each be used?</li>
+                        <li>How can you identify a network attack from log data and traffic patterns?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">OSI Model</code>: 7-layer network model (Physical to Application); TCP/IP condenses to 4 layers. Understanding layers helps identify where attacks occur.</li>
+                        <li><code class="code-keyword">MITM Attack</code>: Man-in-the-Middle; attacker intercepts and potentially alters communication between two parties without their knowledge.</li>
+                        <li><code class="code-keyword">DNS Spoofing</code>: Attacker corrupts DNS cache or responds to queries with false IP addresses, redirecting traffic to malicious sites.</li>
+                        <li><code class="code-keyword">DDoS</code>: Distributed Denial of Service; overwhelming a target with traffic from multiple sources to make it unavailable.</li>
+                        <li><code class="code-keyword">VLAN/Subnet/DMZ</code>: Virtual LANs segment broadcast domains; subnets partition IP networks; DMZ provides isolated zone for public-facing services.</li>
+                        <li><code class="code-keyword">Firewall Types</code>: Packet-filtering (layer 3/4 rules), Stateful (track connections), NGFW (layer 7, application awareness).</li>
+                        <li><code class="code-keyword">IDS/IPS</code>: Intrusion Detection System (alerts only) vs. Intrusion Prevention System (blocks automatically).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Packet Sniffing:</strong> Capturing data packets as they travel across a network; can reveal sensitive information if traffic is unencrypted.</li>
+                        <li><strong>ARP Spoofing:</strong> Attack that links an attacker's MAC address to a legitimate IP address, enabling MITM attacks on a local network.</li>
+                        <li><strong>Network Segmentation:</strong> Dividing a network into smaller parts (segments) to improve security and performance; limits lateral movement.</li>
+                        <li><strong>DMZ (Demilitarized Zone):</strong> A physical or logical subnetwork that contains an organization's external-facing services, isolated from the internal network.</li>
+                        <li><strong>ACL (Access Control List):</strong> A list of rules that determines which traffic is allowed or denied through a network device like a firewall or router.</li>
+                        <li><strong>SIEM (Security Information and Event Management):</strong> A solution that aggregates and analyzes log data from multiple sources to detect threats.</li>
+                        <li><strong>Wireshark:</strong> A network protocol analyzer used to capture and inspect network traffic in real-time.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Risk</strong> (Identify network vulnerabilities):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Mitigate Risk</strong> (Implement network controls):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Detect Attacks</strong> (Analyze network evidence):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.D</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on network attack types and firewall rules</li>
+                        <li>Network diagram design exercises</li>
+                        <li>Firewall rule table practice</li>
+                        <li>Wireshark packet capture analysis</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Lab: Network Security Analysis</strong> (Scenario 3A: Hospital Network) — Analyze network traffic logs: identify attack IoCs, document findings, rewrite broken firewall rules, justify IDS/IPS placement</li>
+                        <li><strong>Unit 3 Assessment</strong> (Week 13)</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Scenario & Lab</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-hospital" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Scenario 3A<br><small>Hospital Network</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-network-wired" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Network Security Lab<br><small>Firewall Rules</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-search" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Wireshark<br><small>Packet Analysis</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #1a237e; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 8 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 8 (Oct 26–30)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.1</strong> Network Vulnerabilities and Attacks (1): OSI model, TCP/IP, packet sniffing, ARP spoofing</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff; border-radius: 4px; font-size: 0.9em;"><strong>Scenario 3A begins:</strong> Securing Hospital Network</p>
+                        </div>
+
+                        <!-- Week 9 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 9 (Nov 2–6)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.1</strong> Network Vulnerabilities and Attacks (2): MITM, DNS spoofing, DDoS, port scanning, OSINT</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Midterm Exam Week -->
+                <div style="background-color: rgba(255,193,7,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(255,193,7,0.3); border-bottom: 1px solid rgba(255,193,7,0.3); margin-top: 15px;">
+                    📝 Midterm Exam Week — Nov 6–11
+                </div>
+                <!-- Autumn Outing -->
+                <div style="background-color: rgba(76,175,80,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(76,175,80,0.3); border-bottom: 1px solid rgba(76,175,80,0.3); margin-top: 5px;">
+                    🍂 Autumn Outing — Nov 12 (No class)
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 10 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 10 (Nov 16–20)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.2</strong> Protecting Networks: Managerial Controls and Wireless Security (WPA3, VPN)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 11 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 11 (Nov 23–27)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.3</strong> Protecting Networks: Segmentation (VLANs, subnets, DMZ, network zones)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 12 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 12 (Nov 30 – Dec 4)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.4</strong> Protecting Networks: Firewalls (packet-filtering, stateful, NGFW, ACL rules)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Firewall Rules Lab</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 13 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 13 (Dec 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.5</strong> Detecting Network Attacks (IDS/IPS, SIEM, Wireshark)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Network Security Analysis Lab</strong></li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff3e0; border-radius: 4px; font-weight: bold;">📝 Unit 3 Assessment — Dec 11: <strong>Unit 3 complete</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 4: Securing Devices -->
+        <section class="unit" id="unit-4">
+            <h2>Unit 4 - Securing Devices (~23 periods)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Classify malware types: virus, worm, ransomware, spyware, RAT, rootkit; understand OS and firmware vulnerabilities.</li>
+                        <li>Explain zero-day vulnerabilities and privilege escalation techniques.</li>
+                        <li>Implement authentication strategies: password policies, biometrics, smart cards, MFA factor types, SSO and OAuth overview.</li>
+                        <li>Apply device protection measures: patch management workflow, antimalware and EDR, OS hardening (least privilege, disable unused services), full-disk encryption.</li>
+                        <li>Deploy mobile device management (MDM) and bring-your-own-device (BYOD) policies.</li>
+                        <li>Analyze endpoint event logs and SIEM integration to detect behavioral IoCs: unusual processes, outbound connections.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>23 class periods</strong> to complete (Weeks 13–17).</li>
+                        <li>Unit 4 begins in the final days of Week 13 (after Unit 3 Assessment). Monthly Exam (Dec 14–18) provides ~3 teaching days; Dec 28–31 is 4 days (New Year Jan 1).</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">4.1–4.4</code></li>
+                        <li><strong>Cybersecurity Skills:</strong> Skills 2 (Mitigate Risk) and 3 (Detect Attacks) are the focus of this unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What is the difference between viruses, worms, and ransomware, and how do their impacts differ?</li>
+                        <li>Why are zero-day vulnerabilities particularly dangerous, and how should organizations prepare?</li>
+                        <li>What makes a strong authentication system beyond just complex passwords?</li>
+                        <li>How does the principle of least privilege reduce security risk?</li>
+                        <li>What are the security implications of employees using personal devices for work (BYOD)?</li>
+                        <li>How can endpoint logs reveal an ongoing attack that went undetected by perimeter defenses?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Malware Taxonomy</code>: Virus (attaches to files), Worm (self-replicates), Ransomware (encrypts for ransom), Spyware (steals info), RAT (remote access), Rootkit (hides presence).</li>
+                        <li><code class="code-keyword">Zero-Day</code>: A vulnerability unknown to the software vendor; no patch exists; highly valuable to attackers.</li>
+                        <li><code class="code-keyword">Privilege Escalation</code>: Gaining higher-level permissions than intended; vertical (user→admin) or horizontal (user→another user).</li>
+                        <li><code class="code-keyword">MFA Factors</code>: Knowledge (password), Possession (token), Inherence (biometric), Location, Behavior.</li>
+                        <li><code class="code-keyword">OS Hardening</code>: Disabling unused services, removing unnecessary software, applying least privilege, configuring firewalls.</li>
+                        <li><code class="code-keyword">EDR (Endpoint Detection & Response)</code>: Advanced endpoint protection that records and analyzes endpoint activities to detect threats.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Ransomware:</strong> Malware that encrypts a victim's files and demands payment (ransom) to restore access.</li>
+                        <li><strong>Rootkit:</strong> Malware designed to gain administrative-level access and hide its presence from users and system processes.</li>
+                        <li><strong>Patch Management:</strong> The process of managing software updates (patches) to fix security vulnerabilities and improve functionality.</li>
+                        <li><strong>Full-Disk Encryption (FDE):</strong> Encryption that protects all data on a storage device; data is unreadable without the decryption key.</li>
+                        <li><strong>MDM (Mobile Device Management):</strong> Software that allows IT administrators to control, secure, and enforce policies on mobile devices used in an organization.</li>
+                        <li><strong>BYOD (Bring Your Own Device):</strong> Policy allowing employees to use personal devices for work purposes; requires security controls to mitigate risk.</li>
+                        <li><strong>Behavioral IoC:</strong> Indicators of Compromise based on unusual behavior patterns (e.g., unusual process execution, unexpected outbound connections).</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Risk</strong> (Identify device vulnerabilities):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                        </li>
+                        <li><strong>Mitigate Risk</strong> (Implement device protections):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Detect Attacks</strong> (Analyze endpoint evidence):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.D</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on malware types and authentication methods</li>
+                        <li>Password policy design exercises</li>
+                        <li>OS hardening checklist practice</li>
+                        <li>Endpoint log analysis exercises</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Lab: Device Security Configuration</strong> (Scenario 4A: Company Devices) — Using a VM: apply hardening checklist, analyze device event logs to identify malware IoCs, write a BYOD security policy</li>
+                        <li><strong>Unit 4 Assessment</strong> (Week 17)</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Scenario & Lab</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-laptop" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Scenario 4A<br><small>Company Devices</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-desktop" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Device Security Lab<br><small>VM Hardening</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #1a237e; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 13 (end) Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 13 (end) (Dec 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.1</strong> Device Vulnerabilities and Attacks (1): Malware taxonomy, OS/firmware vulnerabilities</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff; border-radius: 4px; font-size: 0.9em;"><strong>Scenario 4A begins:</strong> Securing Company Devices</p>
+                        </div>
+
+                        <!-- Week 14 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 14 (Dec 14–18)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.1</strong> Device Vulnerabilities (2): Zero-days, privilege escalation</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.2</strong> Authentication: Password policies, biometrics, MFA, SSO, OAuth</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: rgba(255,193,7,0.15); border-radius: 4px; font-weight: bold; font-size: 0.9em;">📝 Monthly Exam — Dec 14–18</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 15 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 15 (Dec 21–25)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.3</strong> Protecting Devices (1): Patch management, antimalware, EDR, OS hardening, encryption</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 16 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 16 (Dec 28–31)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.3</strong> Protecting Devices (2): MDM and BYOD policies</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.4</strong> Detecting Attacks on Devices: Endpoint logs, SIEM, behavioral IoCs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Year -->
+                <div style="background-color: rgba(255,193,7,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(255,193,7,0.3); border-bottom: 1px solid rgba(255,193,7,0.3); margin-top: 15px;">
+                    🎆 New Year Holiday — Jan 1 (No class)
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 17 Column -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 17 (Jan 4–8, 2027)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>Device Security Lab</strong></li>
+                                <li style="margin: 0.3rem 0;">Unit 4 Review</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff3e0; border-radius: 4px; font-weight: bold;">📝 Unit 4 Assessment — Jan 8: <strong>Unit 4 complete</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Final Exam Week -->
+                <div style="background-color: rgba(255,193,7,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(255,193,7,0.3); border-bottom: 1px solid rgba(255,193,7,0.3); margin-top: 15px;">
+                    📝 Final Exam Week (Units 1–4) — Jan 11–15, 2027
+                </div>
+                <!-- Winter Break -->
+                <div style="background-color: rgba(33,150,243,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(33,150,243,0.3); border-bottom: 1px solid rgba(33,150,243,0.3); margin-top: 5px;">
+                    ❄️ Winter Break — Jan 16 – Feb 28, 2027
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 5: Securing Applications and Data -->
+        <section class="unit" id="unit-5">
+            <h2>Unit 5 - Securing Applications and Data (~22 periods)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Identify application vulnerabilities: SQL injection, XSS, CSRF; understand OWASP Top 10.</li>
+                        <li>Explain how unsanitized input creates security risks in web applications.</li>
+                        <li>Implement managerial controls and access controls: SDLC security integration, DAC, MAC, RBAC, least privilege, separation of duties.</li>
+                        <li>Apply symmetric cryptography: AES, hashing (SHA-256), salting for password storage.</li>
+                        <li>Apply asymmetric cryptography: RSA, digital signatures, PKI, certificates, TLS/SSL.</li>
+                        <li>Protect applications using secure coding: prepared statements, input validation and sanitization, WAF, HTTPS enforcement, secure session management.</li>
+                        <li>Detect application attacks using application log patterns for SQL injection and XSS, rate limiting, and anomaly detection rules.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>22 class periods</strong> to complete (Weeks 17–20, Mar 1–31).</li>
+                        <li>Unit 5 is compressed from the CED's ~30 periods to ~22, which is feasible because students enter with strong foundations from Units 1–4.</li>
+                        <li>Spring Outing (Mar 24–26) removes 3 days. Monthly Exam Week (Mar 29–Apr 2) provides ~3 teaching days alongside the exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">5.1–5.6</code></li>
+                        <li><strong>Cybersecurity Skills:</strong> All four skills are integrated in this culminating unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How can unsanitized user input lead to complete server compromise?</li>
+                        <li>What is the difference between symmetric and asymmetric cryptography, and when should each be used?</li>
+                        <li>How do access control models (DAC, MAC, RBAC) differ in their approach to authorization?</li>
+                        <li>Why is input validation the first line of defense for web application security?</li>
+                        <li>How does TLS/SSL secure communication, and what role do digital certificates play?</li>
+                        <li>What patterns in application logs indicate an ongoing SQL injection or XSS attack?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">OWASP Top 10</code>: Standard awareness document listing the 10 most critical web application security risks; updated regularly.</li>
+                        <li><code class="code-keyword">SQL Injection</code>: Attack that inserts malicious SQL code into a query; can bypass authentication, extract, or modify data.</li>
+                        <li><code class="code-keyword">XSS (Cross-Site Scripting)</code>: Attack that injects malicious scripts into trusted websites; executed in victims' browsers.</li>
+                        <li><code class="code-keyword">CSRF (Cross-Site Request Forgery)</code>: Attack that tricks a user's browser into executing unwanted actions on a trusted site where they're authenticated.</li>
+                        <li><code class="code-keyword">Symmetric Encryption</code>: Same key for encryption and decryption (AES); fast but requires secure key distribution.</li>
+                        <li><code class="code-keyword">Asymmetric Encryption</code>: Public/private key pair (RSA); solves key distribution problem; slower than symmetric.</li>
+                        <li><code class="code-keyword">Hashing</code>: One-way function that produces a fixed-size output; used for password storage (with salt) and integrity verification.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Prepared Statements:</strong> Parameterized SQL queries that separate SQL code from data; prevent SQL injection by treating user input as data, not executable code.</li>
+                        <li><strong>Input Validation:</strong> The process of verifying that user input meets expected criteria before processing; first line of defense against injection attacks.</li>
+                        <li><strong>Digital Signature:</strong> A cryptographic technique that verifies the authenticity and integrity of a message using asymmetric encryption.</li>
+                        <li><strong>PKI (Public Key Infrastructure):</strong> A framework for managing digital certificates and public-key encryption; enables secure electronic transfer.</li>
+                        <li><strong>WAF (Web Application Firewall):</strong> A firewall that filters, monitors, and blocks HTTP traffic to and from a web application; protects against web exploits.</li>
+                        <li><strong>Salting:</strong> Adding random data to passwords before hashing; prevents rainbow table attacks and ensures identical passwords have different hashes.</li>
+                        <li><strong>Rate Limiting:</strong> Controlling the number of requests a user or IP can make in a given time period; mitigates DDoS and brute-force attacks.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Risk</strong> (Identify app vulnerabilities):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Mitigate Risk</strong> (Implement app controls):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.D</span>
+                        </li>
+                        <li><strong>Detect Attacks</strong> (Analyze app evidence):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.D</span>
+                        </li>
+                        <li><strong>Collaborate</strong> (Team security review):
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A</span>
+                            <span style="background-color: #c5cae9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.B</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on OWASP Top 10 and cryptography concepts</li>
+                        <li>Code review exercises for SQL injection and XSS</li>
+                        <li>Access control model design exercises</li>
+                        <li>Application log analysis exercises</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Lab: Application Security Analysis</strong> (Scenario 5A: Web Application) — Three tasks: (1) Review code for SQLi/XSS vulnerabilities and propose fixes; (2) Implement hashed-and-salted password storage in pseudocode; (3) Analyze application access logs to detect attack patterns and document IoCs</li>
+                        <li><strong>Unit 5 Assessment</strong> (Week 20)</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Scenario & Lab</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-globe" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Scenario 5A<br><small>Web Application</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-code" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">App Security Lab<br><small>Code Review</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-lock" style="font-size: 48px; color: #1a237e;"></i>
+                            <span style="margin-top: 5px;">Cryptography<br><small>Lab Component</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #1a237e; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 17 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 17 (Mar 1–5)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.1</strong> Application and Data Vulnerabilities (1): SQL injection, XSS, CSRF, OWASP Top 10</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff; border-radius: 4px; font-size: 0.9em;"><strong>Scenario 5A begins:</strong> Securing a Web Application</p>
+                        </div>
+
+                        <!-- Week 18 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 18 (Mar 8–12)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.1</strong> Application and Data Vulnerabilities (2): Ransomware, data breaches, insider theft</li>
+                                <li style="margin: 0.3rem 0;"><strong>5.2</strong> Managerial Controls and Access Controls (SDLC, DAC, MAC, RBAC, least privilege)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 19 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 19 (Mar 15–19)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.3</strong> Protecting Stored Data with Cryptography (AES, SHA-256, salting)</li>
+                                <li style="margin: 0.3rem 0;"><strong>5.4</strong> Asymmetric Cryptography (RSA, digital signatures, PKI, TLS/SSL)</li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff; border-radius: 4px; font-size: 0.9em;"><strong>Lab Component:</strong> Cryptography Lab — Implement hashing and encryption</p>
+                        </div>
+
+                        <!-- Week 20 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 20 (Mar 22–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.5</strong> Protecting Applications (prepared statements, input validation, WAF, HTTPS)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Spring Outing -->
+                <div style="background-color: rgba(76,175,80,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(76,175,80,0.3); border-bottom: 1px solid rgba(76,175,80,0.3); margin-top: 15px;">
+                    🌿 Spring Outing — Mar 24–26 (No class)
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 20 (cont.) Column -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #1a237e;">Week 20 (cont.) (Mar 29–31)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.6</strong> Detecting Attacks on Applications and Data (application logs, rate limiting, anomaly detection)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Application Security Analysis Lab</strong></li>
+                            </ul>
+                            <p style="margin: 0.5rem 0; padding: 0.5rem; background-color: #fff3e0; border-radius: 4px; font-weight: bold;">📝 Unit 5 Assessment — Mar 31: <strong>Unit 5 complete</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Monthly Exam -->
+                <div style="background-color: rgba(255,193,7,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(255,193,7,0.3); border-bottom: 1px solid rgba(255,193,7,0.3); margin-top: 15px;">
+                    📝 Monthly Exam — Apr 1–2
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- April Review & AP Exam -->
+        <section class="unit" id="review">
+            <h2>April Review, FRQ Practice & Mock Exam</h2>
+            <button type="button" class="collapsible">Show/Hide Content</button>
+            <div class="collapsible-content">
+            <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                <p style="margin: 0.5rem 0; font-weight: bold;">All new instruction is complete. April is dedicated entirely to exam preparation.</p>
+                <div style="display: flex; justify-content: space-between; align-items: stretch; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                        <h4 style="margin: 0 0 10px 0; color: #1a237e;">Apr Week 1 (Apr 6–9)</h4>
+                        <p style="margin: 0.3rem 0;"><strong>Comprehensive Content Review</strong></p>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;">Units 1–3 domain review</li>
+                            <li style="margin: 0.3rem 0;">Scenario analysis practice</li>
+                            <li style="margin: 0.3rem 0;">MCQ sets by unit</li>
+                            <li style="margin: 0.3rem 0;">Vocabulary and concept consolidation</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #1a237e;">Apr Week 2 (Apr 12–16)</h4>
+                        <p style="margin: 0.3rem 0;"><strong>FRQ Intensive Practice</strong></p>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;">Timed FRQ writing on all domains</li>
+                            <li style="margin: 0.3rem 0;">Peer scoring with rubric</li>
+                            <li style="margin: 0.3rem 0;">Feedback and revision</li>
+                            <li style="margin: 0.3rem 0;">Exam-day strategy</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: stretch; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                        <h4 style="margin: 0 0 10px 0; color: #1a237e;">Apr Week 3 (Apr 19–23)</h4>
+                        <p style="margin: 0.3rem 0;"><strong>Timed Mixed Practice</strong></p>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;">Full-timed MCQ sets (mixed units)</li>
+                            <li style="margin: 0.3rem 0;">FRQ timed practice (2 questions, 90 min)</li>
+                            <li style="margin: 0.3rem 0;">Score analysis and targeted remediation</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #1a237e;">Apr Week 4 (Apr 26–30)</h4>
+                        <p style="margin: 0.3rem 0;"><strong>🎯 Mock AP Exam</strong></p>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;">Full-length mock exam</li>
+                            <li style="margin: 0.3rem 0;">Section I MCQ (120 min)</li>
+                            <li style="margin: 0.3rem 0;">Section II FRQ (90 min)</li>
+                            <li style="margin: 0.3rem 0;">Score with official rubric; debrief</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Holiday Notes -->
+                <div style="background-color: rgba(26,35,126,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(26,35,126,0.3); border-bottom: 1px solid rgba(26,35,126,0.3); margin-top: 15px;">
+                    🌸 Qingming Festival — Apr 5 (No class)
+                </div>
+                <div style="background-color: rgba(255,193,7,0.15); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(255,193,7,0.3); border-bottom: 1px solid rgba(255,193,7,0.3); margin-top: 5px;">
+                    📝 Apr 26–30 is school midterm exam week. AP Cybersecurity uses this week for the Mock AP Exam — no new instruction.
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h3 style="color: #1a237e;">AP Exam Format</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    <div style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                        <h4>Section I: Multiple Choice</h4>
+                        <ul>
+                            <li>~70 scenario-based questions</li>
+                            <li>120 minutes</li>
+                            <li>60% of total score</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                        <h4>Section II: Free Response</h4>
+                        <ul>
+                            <li>2 extended scenario analysis questions</li>
+                            <li>90 minutes</li>
+                            <li>40% of total score</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); margin-top: 15px;">
+                    <h4 style="margin: 0 0 10px 0; color: #1a237e;">Free-Response Expectations</h4>
+                    <p style="margin: 0.5rem 0;">Both FRQs present an authentic cybersecurity workplace scenario. Students must:</p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                        <li style="margin: 0.3rem 0;">Identify vulnerabilities and classify their risk level</li>
+                        <li style="margin: 0.3rem 0;">Recommend and justify layered security controls</li>
+                        <li style="margin: 0.3rem 0;">Analyze configuration data or logs as evidence of an attack</li>
+                        <li style="margin: 0.3rem 0;">Explain how detection methods work and evaluate their impact</li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Post-AP Capstone -->
+        <section class="unit" id="capstone">
+            <h2>Post-AP Capstone Project (May 17 – June 4, 2027)</h2>
+            <button type="button" class="collapsible">Show/Hide Content</button>
+            <div class="collapsible-content">
+            <div style="background-color: #e8eaf6; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                    <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                        <h4 style="margin: 0 0 10px 0; color: #1a237e;">Week 29 (May 17–21)</h4>
+                        <p style="margin: 0.3rem 0;"><strong>Proposal and research</strong></p>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;">Topic selection</li>
+                            <li style="margin: 0.3rem 0;">Scope definition</li>
+                            <li style="margin: 0.3rem 0;">Methodology plan — approved by instructor</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #1a237e;">Week 30 (May 24–28)</h4>
+                        <p style="margin: 0.3rem 0;"><strong>Implementation</strong></p>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;">Conduct assessment/analysis/build</li>
+                            <li style="margin: 0.3rem 0;">Document progress</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <h4 style="margin: 0 0 10px 0; color: #1a237e;">Week 31 (May 31 – Jun 4)</h4>
+                    <p style="margin: 0.3rem 0;"><strong>Report and presentation</strong></p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                        <li style="margin: 0.3rem 0;">Final report</li>
+                        <li style="margin: 0.3rem 0;">10-minute presentation with Q&A</li>
+                    </ul>
+                </div>
+                <div style="margin-top: 15px;">
+                    <h4 style="margin: 0 0 10px 0; color: #1a237e;">Project Options</h4>
+                    <ol style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                        <li style="margin: 0.3rem 0;"><strong>Physical Security Audit</strong> — Formal assessment of a real space (with written permission)</li>
+                        <li style="margin: 0.3rem 0;"><strong>Network Lab Challenge</strong> — Attack and defend a virtual network in a lab environment</li>
+                        <li style="margin: 0.3rem 0;"><strong>Security Awareness Campaign</strong> — Training materials for a non-technical audience on a real threat</li>
+                        <li style="margin: 0.3rem 0;"><strong>Threat Intelligence Report</strong> — Deep research on an active threat actor, malware family, or CVE</li>
+                        <li style="margin: 0.3rem 0;"><strong>Security Utility</strong> — Build a tool: log parser, password auditor, phishing email detector, etc.</li>
+                    </ol>
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+    <footer>AP Cybersecurity ('26-'27) — GHA</footer>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){ content.style.maxHeight = null; }
+                else { content.style.maxHeight = content.scrollHeight + "px"; }
+            });
+        }
+    </script>
+</body>
+</html>

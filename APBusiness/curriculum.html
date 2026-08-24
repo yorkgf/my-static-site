@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Business with Personal Finance ('26-'27)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/textbook-style.css">
+    <style>
+        /* Collapsible styles */
+        .collapsible {
+            background-color: #2e7d32;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1em;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        .active:after {
+            content: '\2212';
+        }
+        .collapsible-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1b5e20;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #2e7d32;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+        .unit {
+            margin-bottom: 20px;
+        }
+        .unit h2 {
+            color: #2e7d32;
+        }
+        footer {
+            background-color: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .code-keyword {
+            background-color: #c8e6c9;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .holiday-notice {
+            background-color: rgba(46, 125, 50, 0.12);
+            padding: 0.55rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+            border-top: 1px solid rgba(46, 125, 50, 0.3);
+            border-bottom: 1px solid rgba(46, 125, 50, 0.3);
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AP Business with Personal Finance ('26-'27)</h1>
+    </header>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="syllabus.html">Syllabus</a>
+        <a href="curriculum.html">Curriculum</a>
+    </nav>
+    <main>
+        <section class="unit" id="description">
+            <h2>Course Overview and Skills</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 1rem 0;">
+                <div style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h4 style="color: #2e7d32; margin-top: 0;">COURSE SKILLS</h4>
+                    <p style="margin: 0.5rem 0;">These skills spiral across units, revisited and built upon throughout the course. Students practice these skills through business cases, the Business Canvas Project, and the Financial Advisor Project.</p>
+                    <div style="display: flex; gap: 20px; margin-top: 1rem;">
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1</span>
+                                <span style="margin-left: 0.5rem;"><strong>Concept Application</strong><br><small>Explain business and personal finance concepts, principles, and strategies, and apply them to scenarios.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2</span>
+                                <span style="margin-left: 0.5rem;"><strong>Entrepreneurship</strong><br><small>Identify a market opportunity, and develop and test a product idea designed to address the opportunity.</small></span>
+                            </li>
+                        </ul>
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3</span>
+                                <span style="margin-left: 0.5rem;"><strong>Decision Making</strong><br><small>Describe opportunities or problems, and recommend courses of action to address them.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4</span>
+                                <span style="margin-left: 0.5rem;"><strong>Communication</strong><br><small>Create authentic communications appropriate for a specific audience and purpose.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">5</span>
+                                <span style="margin-left: 0.5rem;"><strong>Collaboration</strong><br><small>Work collaboratively with and lead others to accomplish a goal or task.</small></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h4 style="color: #2e7d32; margin-top: 0;">BIG IDEAS (SPIRALED ACROSS UNITS)</h4>
+                    <p style="margin: 0.5rem 0;">Core concepts that connect content across all units:</p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #dcedc8; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1</span>
+                            <span style="margin-left: 0.5rem;"><strong>Value Creation</strong> — How businesses create value for customers through products that address problems, needs, and wants</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #dcedc8; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2</span>
+                            <span style="margin-left: 0.5rem;"><strong>Competitive Advantage</strong> — Differentiation and market positioning strategies to outperform rivals</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #dcedc8; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3</span>
+                            <span style="margin-left: 0.5rem;"><strong>Financial Health</strong> — Profitability, cash flow, and sustainability for both businesses and individuals</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #dcedc8; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4</span>
+                            <span style="margin-left: 0.5rem;"><strong>Ethical Leadership</strong> — Responsible business practices considering stakeholders and societal impact</span>
+                        </li>
+                    </ul>
+                    <p style="margin: 0.5rem 0; padding: 0.5rem 0.8rem; background-color: #fff; border-left: 4px solid #2e7d32; border-radius: 4px; font-style: italic; color: #1b5e20;">
+                        <strong>Note:</strong> Units 1-4 are assessed on the AP Exam (May 3-14). Unit 5 (Personal Goals, Budgeting, and Investing) is NOT assessed on the AP Exam and can be taught before or after.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unit 1: Businesses, Competition, and New Ideas -->
+        <section class="unit" id="unit-1">
+            <h2>Unit 1 - Businesses, Competition, and New Ideas (20-30%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Identify ways businesses address customers' problems, needs, and wants through value creation.</li>
+                        <li>Distinguish between value creation and value capture in business models.</li>
+                        <li>Explain how sellers and buyers interact in a market, establishing a market price.</li>
+                        <li>Develop or evaluate a business's plan to achieve competitive advantage in a market.</li>
+                        <li>Describe the PESTEL factors (Political, Economic, Social, Technological, Environmental, Legal) that shape markets.</li>
+                        <li>Apply the PESTEL framework to evaluate the attractiveness and potential risks of a market.</li>
+                        <li>Describe strategies entrepreneurs and businesses use to generate new product ideas.</li>
+                        <li>Apply an entrepreneurial design-thinking process to generate and validate new business ideas.</li>
+                        <li>Explain how core values and core competencies shape business and individual decision making.</li>
+                        <li>Develop or evaluate a vision statement and mission statement based on business goals and values.</li>
+                        <li>Explain how and why businesses encourage ethical behavior and respond to ethical dilemmas.</li>
+                        <li>Describe major types of business organization (sole proprietorship, partnership, LLC, corporation) and their advantages/disadvantages.</li>
+                        <li>Describe factors businesses consider when developing production processes and supply chains.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>37 class periods</strong> to complete (Weeks 1-7, plus ~12-14 days for Business Canvas Project).</li>
+                        <li>This unit contributes to a <code class="code-keyword">20%</code> to <code class="code-keyword">30%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">1.1–1.8</code></li>
+                        <li><strong>Course Skills:</strong> All five skills (Concept Application, Entrepreneurship, Decision Making, Communication, Collaboration) are introduced and practiced in this unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What is a business, and how does it create value for customers?</li>
+                        <li>How do businesses achieve competitive advantage in competitive markets?</li>
+                        <li>What are PESTEL factors, and how do they influence business viability?</li>
+                        <li>How do entrepreneurs identify and validate market opportunities?</li>
+                        <li>What role do vision and mission statements play in guiding business decisions?</li>
+                        <li>How should business leaders respond to ethical dilemmas?</li>
+                        <li>What are the advantages and disadvantages of different business organizational structures?</li>
+                        <li>How do supply chain decisions impact competitive advantage?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Value Creation vs. Value Capture</code>: Creating customer value vs. charging more than production cost.</li>
+                        <li><code class="code-keyword">Competitive Advantage</code>: Outperforming rivals through differentiation, low cost, or barriers to entry.</li>
+                        <li><code class="code-keyword">PESTEL Framework</code>: Political, Economic, Social, Technological, Environmental, Legal factors shaping markets.</li>
+                        <li><code class="code-keyword">Design Thinking Process</code>: Observe → Validate → Ideate → Prototype → Test (MVP).</li>
+                        <li><code class="code-keyword">Vision & Mission</code>: Vision describes aspirations; mission describes how to achieve long-term goals.</li>
+                        <li><code class="code-keyword">Business Ethics</code>: Codes of conduct, stakeholder impact analysis, ethical decision-making frameworks.</li>
+                        <li><code class="code-keyword">Business Organizations</code>: Sole proprietorship, partnership, LLC, corporation (control vs. liability trade-offs).</li>
+                        <li><code class="code-keyword">Supply Chains</code>: From raw materials to final customer delivery; cost, quality, efficiency, risk considerations.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Business:</strong> An organization that produces and distributes products (goods and/or services) to address customer problems, needs, and wants.</li>
+                        <li><strong>Market Opportunity:</strong> A customer problem, need, or want that a business can address profitably.</li>
+                        <li><strong>Competitive Advantage:</strong> The ability to outperform rivals in the same market, leading to increased market share and profits.</li>
+                        <li><strong>PESTEL Factors:</strong> External forces (Political, Economic, Social, Technological, Environmental, Legal) that impact business viability.</li>
+                        <li><strong>Minimum Viable Product (MVP):</strong> The simplest version of a product idea with only core features, used to validate with customers.</li>
+                        <li><strong>Core Values:</strong> Defining beliefs and principles that guide an individual's or business's actions.</li>
+                        <li><strong>Ethical Dilemma:</strong> When a core value conflicts with other values or with business goals or practices.</li>
+                        <li><strong>Sole Proprietorship:</strong> A business owned by one person who retains control and profits but has unlimited personal liability.</li>
+                        <li><strong>Supply Chain:</strong> All individuals and businesses involved in producing and distributing a product, from raw materials to final delivery.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Concept Application (1.A-1.C)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Entrepreneurship (2.A-2.C)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Decision Making (3.A-3.D)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.D</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on business types and competitive advantage strategies</li>
+                        <li>PESTEL analysis practice (written responses)</li>
+                        <li>Business case discussions (Bombas, Incredible Health, Corley Plumbing)</li>
+                        <li>Business Canvas Project Tasks 1-8 (ongoing throughout unit)</li>
+                        <li>Customer interview and hypothesis testing exercises</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 1 Assessment</strong> (Week 7)</li>
+                        <li>Business Canvas Project Milestone: Commit to business idea and revise market analysis</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Business Cases (Required)</h3>
+                    <ul>
+                        <li><strong>Bombas</strong> (Topic 1.1): How an entrepreneur identifies a customer problem, need, or want</li>
+                        <li><strong>Incredible Health</strong> (Topic 1.2): Achieving competitive advantage through differentiation</li>
+                        <li><strong>Corley Plumbing</strong> (Topic 1.3): How PESTEL factors impact business viability</li>
+                        <li><strong>Malama ia Floral Design</strong> (Topic 1.4): Identifying and validating a market opportunity</li>
+                        <li><strong>Beekeeper's Daughter</strong> (Topic 1.5): Core values and competencies impact on business goals</li>
+                        <li><strong>Pearson 1860</strong> (Topic 1.8): Supply chain decisions and competitive advantage</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #2e7d32; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 1 (Aug 31 – Sep 4)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.1</strong> What Is a Business? (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Bombas</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 1: Identify customer problem/need/want</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 2 (Sep 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.2</strong> Markets and Competitive Advantage (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Incredible Health</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 2: Develop competitive advantage plan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 3 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 3 (Sep 14–18)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.3</strong> PESTEL Factors and Business Environment (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Corley Plumbing</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 2 (cont.): Apply PESTEL framework</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 4 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 4 (Sep 21–24)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.4</strong> How Do Business Ideas Originate? (6 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Malama ia Floral Design</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Tasks 3-5: Customer interviews, solution, hypothesis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mid-Autumn Festival -->
+                <div class="holiday-notice">
+                    🌙 Mid-Autumn Festival — Sep 25–27 (No class)
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 5 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 5 (Sep 28–30)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.4</strong> (cont.) Design thinking process, MVP development</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.5</strong> Vision (3 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Beekeeper's Daughter</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 6: Vision and mission statements</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 6 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 6 (Oct 8–9, 12–16)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">📝 Oct 8–9: <strong>Monthly Exam</strong> (~3 teaching days available)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.6</strong> Business Ethics (2 class periods)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.7</strong> Organization, Roles, and Responsibilities (4 class periods)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- National Day Holiday -->
+                <div class="holiday-notice">
+                    🇨🇳 National Day Holiday — Oct 1–7 (No class)
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 7 Column -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 7 (Oct 19–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.8</strong> Supply Chains (5 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Pearson 1860</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 7: Production process and supply chain plan</li>
+                                <li style="margin: 0.3rem 0;">Unit 1 Review + Formative Assessment (3 periods)</li>
+                                <li style="margin: 0.3rem 0;">BCP Task 8: Commit to business idea</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 1 Assessment</strong> — Oct 23: <strong>Unit 1 complete</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 2: Marketing -->
+        <section class="unit" id="unit-2">
+            <h2>Unit 2 - Marketing (20-30%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Explain why and how marketers collect customer data (demographic and psychographic).</li>
+                        <li>Use market segmentation to identify target customers and develop customer profiles.</li>
+                        <li>Describe the purpose of building customer relationships and develop a relationship plan.</li>
+                        <li>Explain how collection and use of customer data creates privacy risks for individuals and businesses.</li>
+                        <li>Explain why and how consumers make buying decisions (rational process, personal, psychological, social factors).</li>
+                        <li>Evaluate sales tactics using Cialdini's principles of influence (scarcity, authority, consensus, liking, reciprocity, consistency, unity).</li>
+                        <li>Explain why businesses conduct market research (desirability, feasibility, viability).</li>
+                        <li>Conduct and interpret primary-source and secondary-source research to assess market opportunities.</li>
+                        <li>Develop and interpret data visualizations (bar charts, line graphs, pie charts) for market research.</li>
+                        <li>Describe the six stages of product development and develop an MVP and value proposition.</li>
+                        <li>Develop and evaluate branding for a business or product.</li>
+                        <li>Explain how businesses adapt marketing strategies throughout the product life cycle.</li>
+                        <li>Develop and evaluate pricing strategies (value-based, competitive, cost-based, penetration).</li>
+                        <li>Select and evaluate marketing channels (B2C, B2B, direct, indirect) for a product.</li>
+                        <li>Develop or evaluate a marketing campaign using the promotional mix.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>34 class periods</strong> to complete (Weeks 8-12, plus ~13-15 days for Business Canvas Project).</li>
+                        <li>This unit contributes to a <code class="code-keyword">20%</code> to <code class="code-keyword">30%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">2.1–2.7</code></li>
+                        <li><strong>Course Skills:</strong> Marketing applications emphasize Communication (4.A, 4.B) and Concept Application (1.A-1.C).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How do businesses identify and profile target customers?</li>
+                        <li>What factors influence consumer buying decisions?</li>
+                        <li>How do businesses use market research to reduce risk and inform decisions?</li>
+                        <li>What is the promotional mix, and when should each tool be used?</li>
+                        <li>How do pricing strategies impact profitability and market share?</li>
+                        <li>What are the advantages and disadvantages of different marketing channels?</li>
+                        <li>How does the product life cycle influence marketing strategy?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Market Segmentation</code>: Grouping customers by shared demographic/psychographic characteristics.</li>
+                        <li><code class="code-keyword">Cialdini's Principles</code>: Scarcity, authority, consensus, liking, reciprocity, consistency, unity.</li>
+                        <li><code class="code-keyword">Primary vs. Secondary Research</code>: Original data collection vs. existing sources.</li>
+                        <li><code class="code-keyword">Product Development Stages</code>: Ideation → Validation → Design → Messaging → Production → Launch.</li>
+                        <li><code class="code-keyword">Value Proposition</code>: Who, what problem, how superior to alternatives.</li>
+                        <li><code class="code-keyword">Product Life Cycle</code>: Introduction → Growth → Maturity → Decline.</li>
+                        <li><code class="code-keyword">Pricing Strategies</code>: Value-based, competitive, cost-based, penetration pricing.</li>
+                        <li><code class="code-keyword">Promotional Mix</code>: Media advertising, personal selling, sales promotion, direct marketing, public relations.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Target Customer:</strong> Buyers most likely to purchase a product based on wants, needs, and preferences.</li>
+                        <li><strong>Customer Profile:</strong> Fictional description of a sample customer incorporating demographic and psychographic data.</li>
+                        <li><strong>Customer Acquisition Cost:</strong> Total marketing/sales costs divided by number of new customers acquired.</li>
+                        <li><strong>Lifetime Value:</strong> Estimated total revenue from a customer over time.</li>
+                        <li><strong>Minimum Viable Product (MVP):</strong> Simplest product version with core features for customer validation.</li>
+                        <li><strong>Branding:</strong> Developing an identity (name, symbol, design) to distinguish from competitors.</li>
+                        <li><strong>Price Elasticity:</strong> Measure of customer responsiveness to price changes (excluded from AP Exam).</li>
+                        <li><strong>Marketing Channel:</strong> The individuals/businesses required to deliver a finished product to the final customer.</li>
+                        <li><strong>Digital Marketing:</strong> Using internet/digital tools (websites, email, social media) to connect with customers.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Concept Application (1.A-1.C)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Entrepreneurship (2.A-2.C)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.C</span>
+                        </li>
+                        <li><strong>Communication (4.A-4.B)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.B</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on consumer behavior and Cialdini's principles</li>
+                        <li>Market research project (survey design, data collection)</li>
+                        <li>Data visualization exercises (Excel/Google Sheets)</li>
+                        <li>Business case discussions (Token of Trust, Gong Cha, New Coke, siggi's, Sega, Stanley)</li>
+                        <li>Business Canvas Project Tasks 1-8 (ongoing marketing applications)</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 2 Assessment</strong> (Week 12)</li>
+                        <li>Marketing campaign presentation (BCP Task 8)</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Business Cases (Required)</h3>
+                    <ul>
+                        <li><strong>Token of Trust</strong> (Topic 2.1): Determining target customer and developing customer profile</li>
+                        <li><strong>Gong Cha</strong> (Topic 2.2): Using consumer decision-making to develop marketing strategies</li>
+                        <li><strong>New Coke</strong> (Topic 2.3): Conducting market research to inform decisions</li>
+                        <li><strong>siggi's</strong> (Topic 2.4): Product development from ideation to launch</li>
+                        <li><strong>Sega</strong> (Topic 2.5): Using pricing strategy to achieve business goals</li>
+                        <li><strong>Stanley</strong> (Topic 2.6): Selecting marketing channels to reach target customers</li>
+                        <li><strong>Hestia Construction</strong> (Topic 2.7): Developing marketing communications</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #2e7d32; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 8 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 8 (Oct 26–30)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.1</strong> Marketing to Customers (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Token of Trust</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 1-2: Target customer, relationship plan</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 9 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 9 (Nov 2–6)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.2</strong> Consumer Behavior (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Gong Cha</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 2: Sales tactic using persuasion</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 10 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 10 (Nov 16–20)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.3</strong> Market Research (6 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>New Coke</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Tasks 3-4: Primary/secondary research, data viz</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 11 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 11 (Nov 23–27)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.4</strong> Product (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>siggi's</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 5: MVP, value proposition, branding</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 12 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 12 (Nov 30 – Dec 4)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.5</strong> Price (5 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Sega</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 6: Pricing strategy</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 13 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 13 (Dec 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.6</strong> Place and Channels (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Stanley</strong></li>
+                                <li style="margin: 0.3rem 0;"><strong>2.7</strong> Promotion and Marketing (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Hestia Construction</strong></li>
+                                <li style="margin: 0.3rem 0;">BCP Task 7-8: Channel selection, marketing campaign</li>
+                                <li style="margin: 0.3rem 0;">Unit 2 Review + Formative Assessment (3 periods)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 2 Assessment</strong> — Dec 11: <strong>Unit 2 complete</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 3: Personal Saving, Borrowing, and Business Finance -->
+        <section class="unit" id="unit-3">
+            <h2>Unit 3 - Personal Saving, Borrowing, and Business Finance (25-35%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Learning Objectives - Part 1: Personal Saving & Borrowing</h3>
+                    <ul>
+                        <li>Describe reasons consumers save and identify barriers to saving (inconsistent income, impulse buying).</li>
+                        <li>Explain how PESTEL factors impact the value of savings and incentives to save.</li>
+                        <li>Develop or evaluate a savings plan (savings accounts, money market, CDs).</li>
+                        <li>Describe reasons consumers borrow and types of credit (credit cards, loans, mortgages).</li>
+                        <li>Explain how interest rates, terms, and credit scores affect borrowing costs.</li>
+                        <li>Evaluate strategies to manage debt and maintain good credit health.</li>
+                        <li>Describe potential consequences of excessive debt and bankruptcy.</li>
+                    </ul>
+                    <h3 style="color: #2e7d32; margin-top: 20px;">Learning Objectives - Part 2: Business Finance & Accounting</h3>
+                    <ul>
+                        <li>Explain the purpose of accounting and financial management for business health.</li>
+                        <li>Distinguish between revenue, expenses, profit, and cash flow.</li>
+                        <li>Interpret and analyze the three main financial statements: Income Statement, Balance Sheet, Cash Flow Statement.</li>
+                        <li>Calculate and interpret key financial ratios (profitability, liquidity, efficiency).</li>
+                        <li>Explain how businesses secure financial capital (equity vs. debt financing).</li>
+                        <li>Evaluate ethical considerations in financial reporting and accounting practices.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>Part 1 (Personal): <strong>~6 class periods</strong> (can be integrated into other units or taught separately).</li>
+                        <li>Part 2 (Business): <strong>~29 class periods</strong> (Weeks 14-17).</li>
+                        <li>Total Unit 3: <strong>~35 class periods</strong></li>
+                        <li>This unit contributes to a <code class="code-keyword">25%</code> to <code class="code-keyword">35%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">3.1–3.9</code></li>
+                        <li><strong>Course Skills:</strong> Decision Making (3.A-3.D) and Financial Literacy applications are emphasized.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>Why do individuals save, and what barriers prevent effective saving?</li>
+                        <li>How do interest rates and credit scores impact borrowing costs?</li>
+                        <li>What are the three main financial statements, and what does each reveal about a business?</li>
+                        <li>How do businesses balance profitability with cash flow management?</li>
+                        <li>What are the advantages and disadvantages of debt vs. equity financing?</li>
+                        <li>Why is ethical financial reporting critical for business sustainability?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Time Value of Money</code>: Money today is worth more than money in the future (interest).</li>
+                        <li><code class="code-keyword">Compound Interest</code>: Interest earned on both principal and accumulated interest.</li>
+                        <li><code class="code-keyword">Credit Score</code>: Numerical representation of creditworthiness (300-850).</li>
+                        <li><code class="code-keyword">Income Statement</code>: Revenue - Expenses = Profit (period of time).</li>
+                        <li><code class="code-keyword">Balance Sheet</code>: Assets = Liabilities + Equity (point in time).</li>
+                        <li><code class="code-keyword">Cash Flow Statement</code>: Operating, investing, financing activities (cash inflows/outflows).</li>
+                        <li><code class="code-keyword">Financial Ratios</code>: Profitability (ROI, profit margin), Liquidity (current ratio), Efficiency (inventory turnover).</li>
+                        <li><code class="code-keyword">Break-Even Point</code>: Where total revenue equals total costs (no profit, no loss).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Asset:</strong> Something of value owned by an individual or business (cash, inventory, equipment).</li>
+                        <li><strong>Liability:</strong> A debt or obligation owed to others (loans, accounts payable).</li>
+                        <li><strong>Net Worth:</strong> Assets minus liabilities (personal or business equity).</li>
+                        <li><strong>Interest Rate:</strong> The cost of borrowing money or return on savings, expressed as a percentage.</li>
+                        <li><strong>APR (Annual Percentage Rate):</strong> Annual cost of borrowing including fees.</li>
+                        <li><strong>Revenue:</strong> Total income from sales of goods or services (before expenses).</li>
+                        <li><strong>Profit:</strong> Revenue remaining after all expenses are paid (net income).</li>
+                        <li><strong>Cash Flow:</strong> The movement of cash into and out of a business over time.</li>
+                        <li><strong>Depreciation:</strong> The decrease in value of an asset over time due to wear and tear or obsolescence.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Concept Application (1.A-1.C)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Decision Making (3.A-3.D)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.D</span>
+                        </li>
+                        <li><strong>Communication (4.A)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on financial statements and financial ratios</li>
+                        <li>Personal savings plan project</li>
+                        <li>Business case analyses (DK Coffee Lab, Hershey, DCH, AANE, Yardley)</li>
+                        <li>Financial statement analysis exercises (Excel/Google Sheets)</li>
+                        <li>Business Canvas Project: Financial projections (revenue, costs, profit)</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 3 Assessment</strong> (Week 17)</li>
+                        <li>Monthly Exam (Dec 14–18)</li>
+                        <li><strong>Final Exam (Units 1–3)</strong> — Jan 11–15</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Business Cases (Required)</h3>
+                    <ul>
+                        <li><strong>DK Coffee Lab, Part 1</strong> (Topic 3.4): Business expenses</li>
+                        <li><strong>DK Coffee Lab, Part 2</strong> (Topic 3.5): Financial capital</li>
+                        <li><strong>Hershey</strong> (Topic 3.6): The Income Statement</li>
+                        <li><strong>DCH DK Coffee Lab, Part 3</strong> (Topic 3.7): Balance Sheet and Net Worth</li>
+                        <li><strong>AANE</strong> (Topic 3.8): Cash Flow Statement</li>
+                        <li><strong>Yardley</strong> (Topic 3.9): Ethics and Financial Reporting</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #2e7d32; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 14 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 14 (Dec 14–18)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">📝 <strong>Monthly Exam</strong> (Dec 14–18)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.1</strong> Saving for Future Purchases (3 class periods)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.2</strong> Borrowing, Credit, and Debt (3 class periods)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 15 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 15 (Jan 4–8)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.3</strong> Accounting and Financial Management (3 class periods)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.4</strong> Business Expenses (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>DK Coffee Lab, Part 1</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Winter Break Notice -->
+                <div class="holiday-notice">
+                    ❄️ Winter Break — Jan 16 – Feb 28 (No class)
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 16 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 16 (Mar 1–5)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.5</strong> Financial Capital (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>DK Coffee Lab, Part 2</strong></li>
+                                <li style="margin: 0.3rem 0;"><strong>3.6</strong> The Income Statement (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Hershey</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 17 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 17 (Mar 8–12)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.7</strong> Balance Sheet and Net Worth (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>DCH DK Coffee Lab, Part 3</strong></li>
+                                <li style="margin: 0.3rem 0;"><strong>3.8</strong> Cash Flow Statement (4 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>AANE</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 18 Column -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 18 (Mar 15–19)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.9</strong> Ethics and Financial Reporting (3 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Yardley</strong></li>
+                                <li style="margin: 0.3rem 0;">Unit 3 Review + Formative Assessment (3 periods)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 3 Assessment</strong> — Mar 19: <strong>Unit 3 complete</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 4: Management and Strategy -->
+        <section class="unit" id="unit-4">
+            <h2>Unit 4 - Management and Strategy (15-20%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Describe management and leadership roles, styles, and responsibilities.</li>
+                        <li>Explain how organizational culture and structure impact business performance.</li>
+                        <li>Evaluate business performance using Key Performance Indicators (KPIs).</li>
+                        <li>Develop or evaluate strategies using Porter's Five Forces framework.</li>
+                        <li>Develop or evaluate strategies using SWOT analysis (Strengths, Weaknesses, Opportunities, Threats).</li>
+                        <li>Explain how businesses use strategic decision-making to achieve competitive advantage.</li>
+                        <li>Describe how businesses manage growth, innovation, and change.</li>
+                        <li>Evaluate the role of human resources in talent acquisition, development, and retention.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>30 class periods</strong> to complete (Weeks 19-23).</li>
+                        <li>This unit contributes to a <code class="code-keyword">15%</code> to <code class="code-keyword">20%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">4.1–4.4</code></li>
+                        <li><strong>Course Skills:</strong> Decision Making (3.A-3.D) and Strategic Thinking are emphasized in this unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What are the differences between management and leadership?</li>
+                        <li>How do businesses measure and evaluate performance using KPIs?</li>
+                        <li>How do Porter's Five Forces shape industry competitiveness?</li>
+                        <li>When should businesses use SWOT analysis for strategic planning?</li>
+                        <li>How do businesses manage organizational change and innovation?</li>
+                        <li>What role does organizational culture play in business success?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Management vs. Leadership</code>: Management focuses on efficiency and control; leadership focuses on vision and inspiration.</li>
+                        <li><code class="code-keyword">Porter's Five Forces</code>: Threat of new entrants, supplier power, buyer power, substitute products, competitive rivalry.</li>
+                        <li><code class="code-keyword">SWOT Analysis</code>: Internal strengths/weaknesses, external opportunities/threats.</li>
+                        <li><code class="code-keyword">KPIs</code>: Quantifiable metrics to evaluate business performance (revenue growth, profit margin, customer satisfaction).</li>
+                        <li><code class="code-keyword">Organizational Structure</code>: Hierarchical, flat, matrix, divisional structures.</li>
+                        <li><code class="code-keyword">Change Management</code>: Strategies for managing organizational transitions and innovation.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Leadership Style:</strong> Autocratic, democratic, laissez-faire, transformational, servant leadership.</li>
+                        <li><strong>Organizational Culture:</strong> Shared values, beliefs, and norms that influence how employees think and behave.</li>
+                        <li><strong>KPI (Key Performance Indicator):</strong> A measurable value that demonstrates how effectively a company is achieving key objectives.</li>
+                        <li><strong>Porter's Five Forces:</strong> Framework for analyzing industry competitiveness and profitability.</li>
+                        <li><strong>SWOT Analysis:</strong> Strategic planning tool to identify Strengths, Weaknesses, Opportunities, Threats.</li>
+                        <li><strong>Strategic Decision:</strong> High-stakes decision that affects long-term direction and competitive position.</li>
+                        <li><strong>Talent Management:</strong> HR processes for attracting, developing, and retaining employees.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Decision Making (3.A-3.D)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.D</span>
+                        </li>
+                        <li><strong>Communication (4.A-4.B)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.B</span>
+                        </li>
+                        <li><strong>Collaboration (5.A-5.D)</strong>:
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">5.A</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">5.B</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">5.C</span>
+                            <span style="background-color: #c8e6c9; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">5.D</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on Porter's Five Forces and SWOT analysis</li>
+                        <li>Strategic analysis case studies (Assort Health, BREAUX Capital, ExpressionMed, Crepes & Waffles)</li>
+                        <li>KPI selection and calculation exercises</li>
+                        <li>Business Canvas Project: Final presentation preparation</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 4 Assessment</strong> (Week 23)</li>
+                        <li><strong>AP Exam Review</strong> (Weeks 24-25)</li>
+                        <li><strong>AP Exam</strong> — May 3-14, 2027</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Business Cases (Required)</h3>
+                    <ul>
+                        <li><strong>Assort Health</strong> (Topic 4.1): Management and leadership styles</li>
+                        <li><strong>BREAUX Capital</strong> (Topic 4.2): Evaluating performance using KPIs</li>
+                        <li><strong>ExpressionMed</strong> (Topic 4.3): Strategy and decision making</li>
+                        <li><strong>Crepes & Waffles / Square Meal Feeds</strong> (Topic 4.4): Porter's Five Forces and SWOT analysis</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #2e7d32; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 19 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 19 (Mar 22–26)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.1</strong> Management and Leadership (8 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Assort Health</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 20 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 20 (Mar 29 – Apr 2)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.2</strong> Evaluating Performance Using KPIs (7 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>BREAUX Capital</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 21 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 21 (Apr 5–9)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.3</strong> Strategy and Decision Making (8 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>ExpressionMed</strong></li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 22 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 22 (Apr 12–16)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.4</strong> Strategic Frameworks (7 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Business Case: <strong>Crepes & Waffles / Square Meal Feeds</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 23 Column -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2e7d32;">Week 23 (Apr 19–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Unit 4 Review + Formative Assessment (3 periods)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 4 Assessment</strong> — Apr 23: <strong>Unit 4 complete</strong></li>
+                                <li style="margin: 0.3rem 0;"><strong>AP Exam Review</strong> (Weeks 24-25)</li>
+                                <li style="margin: 0.3rem 0;">📝 <strong>AP Exam</strong> — May 3-14, 2027</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 5: Personal Goals, Budgeting, and Investing -->
+        <section class="unit" id="unit-5">
+            <h2>Unit 5 - Personal Goals, Budgeting, and Investing (NOT on AP Exam)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Explain how taxes impact net income and personal budgeting decisions.</li>
+                        <li>Develop a personal budget based on income, expenses, and financial goals.</li>
+                        <li>Describe strategies for managing personal risk (insurance, emergency funds).</li>
+                        <li>Explain the importance of insurance (health, auto, home, life, disability).</li>
+                        <li>Describe investment vehicles (stocks, bonds, mutual funds, ETFs, real estate).</li>
+                        <li>Explain the relationship between risk and return in investment decisions.</li>
+                        <li>Develop a personal investment strategy for education, housing, and retirement goals.</li>
+                        <li>Explain the power of compound interest and time horizon in wealth building.</li>
+                        <li>Evaluate the impact of inflation on long-term financial planning.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li><strong>Note: This unit is NOT assessed on the AP Exam.</strong></li>
+                        <li>Can be taught before or after the AP Exam based on school calendar.</li>
+                        <li>The unit will take approximately <strong>24 class periods</strong> to complete.</li>
+                        <li>An additional <strong>20 class periods</strong> are recommended for expanded personal finance coverage.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">5.1–5.3</code></li>
+                        <li><strong>Financial Advisor Project:</strong> Culminating project where students provide financial recommendations to a fictional household.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How do taxes impact take-home pay and budgeting decisions?</li>
+                        <li>What are the key components of a personal budget, and how do you create one?</li>
+                        <li>What types of insurance are necessary for financial protection?</li>
+                        <li>What is the relationship between risk and return in investing?</li>
+                        <li>How does compound interest work, and why does time horizon matter?</li>
+                        <li>How do you plan for long-term goals like education, homeownership, and retirement?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Net Income</code>: Gross income minus taxes and deductions.</li>
+                        <li><code class="code-keyword">50/30/20 Rule</code>: 50% needs, 30% wants, 20% savings/debt repayment.</li>
+                        <li><code class="code-keyword">Emergency Fund</code>: 3-6 months of living expenses saved for unexpected events.</li>
+                        <li><code class="code-keyword">Risk-Return Tradeoff</code>: Higher potential returns come with higher risk.</li>
+                        <li><code class="code-keyword">Diversification</code>: Spreading investments across asset classes to reduce risk.</li>
+                        <li><code class="code-keyword">Compound Interest</code>: Earning returns on both principal and accumulated returns.</li>
+                        <li><code class="code-keyword">Time Horizon</code>: Longer time horizons can tolerate more risk and benefit more from compounding.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Gross Income:</strong> Total income before taxes and deductions.</li>
+                        <li><strong>Net Income:</strong> Take-home pay after taxes and deductions.</li>
+                        <li><strong>Stock:</strong> Ownership share in a corporation (equity investment).</li>
+                        <li><strong>Bond:</strong> Debt investment where you lend money to an entity for a fixed return.</li>
+                        <li><strong>Mutual Fund:</strong> Pooled investment vehicle managed by a professional.</li>
+                        <li><strong>ETF (Exchange-Traded Fund):</strong> A basket of securities traded on an exchange like a stock.</li>
+                        <li><strong>401(k)/403(b):</strong> Employer-sponsored retirement savings plans with tax advantages.</li>
+                        <li><strong>Roth IRA:</strong> Retirement account funded with after-tax dollars; withdrawals are tax-free.</li>
+                        <li><strong>Inflation:</strong> The rate at which prices for goods and services rise, eroding purchasing power.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Concept Application (1.A-1.C)</strong>:
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.B</span>
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.C</span>
+                        </li>
+                        <li><strong>Decision Making (3.A-3.D)</strong>:
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.D</span>
+                        </li>
+                        <li><strong>Communication (4.A-4.B)</strong>:
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A</span>
+                            <span style="background-color: #ffe0b2; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.B</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Personal budget creation project</li>
+                        <li>Investment portfolio simulation (Stock Market Game or similar)</li>
+                        <li>Insurance needs analysis</li>
+                        <li>Tax calculation exercises</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Financial Advisor Project</strong> (Culminating Project):
+                            <ul>
+                                <li>Analyze a fictional household's financial profile</li>
+                                <li>Develop recommendations for budgeting, saving, investing, and risk management</li>
+                                <li>Present findings in a professional report and presentation</li>
+                            </ul>
+                        </li>
+                        <li><strong>Unit 5 Assessment</strong> (if applicable to school grading)</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3>Financial Advisor Project Guide</h3>
+                    <p style="margin: 0.5rem 0;">The Financial Advisor Project is the culminating personal finance project where students apply Unit 5 concepts to real-world scenarios.</p>
+                    <h4>Project Components:</h4>
+                    <ul>
+                        <li><strong>Household Profile Analysis:</strong> Review income, expenses, assets, liabilities, and financial goals</li>
+                        <li><strong>Budget Recommendation:</strong> Develop a monthly budget aligned with goals</li>
+                        <li><strong>Emergency Fund Plan:</strong> Calculate and recommend emergency savings</li>
+                        <li><strong>Insurance Analysis:</strong> Evaluate current coverage and recommend adjustments</li>
+                        <li><strong>Investment Strategy:</strong> Develop asset allocation based on risk tolerance and time horizon</li>
+                        <li><strong>Education/Housing/Retirement Planning:</strong> Specific recommendations for long-term goals</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #e65100; margin-top: 0;">Unit Schedule (Post-AP Exam or Flexible Timing)</h3>
+                <div style="background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #e65100;">Week 1 (Flexible Timing)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.1</strong> Taxes, Net Income, and Budgeting (8 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Personal budget project introduction</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #e65100;">Week 2 (Flexible Timing)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.2</strong> Managing Personal Risk (8 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Insurance needs analysis project</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 3 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #e65100;">Week 3 (Flexible Timing)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.3</strong> Saving and Investing (8 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Investment portfolio simulation</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 4 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #e65100;">Week 4 (Flexible Timing)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Financial Advisor Project work (8 class periods)</li>
+                                <li style="margin: 0.3rem 0;">Project presentations and peer review</li>
+                                <li style="margin: 0.3rem 0;"><strong>Course Reflection and Wrap-Up</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Course Projects Section -->
+        <section class="unit" id="projects">
+            <h2>Course Projects</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    <div style="flex: 1; min-width: 300px; background-color: #f1f8e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                        <h3>Business Canvas Project (Units 1-4)</h3>
+                        <p style="margin: 0.5rem 0;">Students develop a complete business model throughout Units 1-4, applying concepts from each unit to their own entrepreneurial idea.</p>
+                        <h4 style="color: #2e7d32; margin-top: 15px;">Project Tasks:</h4>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;"><strong>Task 1:</strong> Identify and describe a customer's problem, need, or want</li>
+                            <li style="margin: 0.3rem 0;"><strong>Task 2:</strong> Develop a plan to seek competitive advantage; apply PESTEL framework</li>
+                            <li style="margin: 0.3rem 0;"><strong>Task 3:</strong> Conduct customer interviews to validate the problem</li>
+                            <li style="margin: 0.3rem 0;"><strong>Task 4:</strong> Develop a solution (product idea)</li>
+                            <li style="margin: 0.3rem 0;"><strong>Task 5:</strong> Formulate and test business hypotheses</li>
+                            <li style="margin: 0.3rem 0;"><strong>Task 6:</strong> Develop vision and mission statements</li>
+                            <li style="margin: 0.3rem 0;"><strong>Task 7:</strong> Develop production process and supply chain plan</li>
+                            <li style="margin: 0.3rem 0;"><strong>Task 8:</strong> Commit to business idea and revise market analysis</li>
+                            <li style="margin: 0.3rem 0;"><strong>Marketing Tasks:</strong> Target customer profile, customer relationships, sales tactics, market research, MVP/branding, pricing, channels, marketing campaign</li>
+                            <li style="margin: 0.3rem 0;"><strong>Finance Tasks:</strong> Financial projections (revenue, expenses, profit, cash flow)</li>
+                        </ul>
+                        <h4 style="color: #2e7d32; margin-top: 15px;">AP Exam Day Validation:</h4>
+                        <p style="margin: 0.5rem 0;">Students will complete a free-response question on the AP Exam requiring them to explain how they used hypothesis testing to inform decision-making during their Business Canvas Project.</p>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; background-color: #fff3e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                        <h3>Financial Advisor Project (Unit 5)</h3>
+                        <p style="margin: 0.5rem 0;">Students apply personal finance concepts to provide financial recommendations to a fictional household based on a provided financial profile.</p>
+                        <h4 style="color: #e65100; margin-top: 15px;">Project Components:</h4>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;"><strong>Household Profile Analysis:</strong> Review financial situation (income, expenses, assets, liabilities, goals)</li>
+                            <li style="margin: 0.3rem 0;"><strong>Budget Recommendation:</strong> Develop monthly budget aligned with financial goals</li>
+                            <li style="margin: 0.3rem 0;"><strong>Emergency Fund Plan:</strong> Calculate 3-6 months of expenses</li>
+                            <li style="margin: 0.3rem 0;"><strong>Insurance Analysis:</strong> Evaluate and recommend insurance coverage</li>
+                            <li style="margin: 0.3rem 0;"><strong>Debt Management:</strong> Develop strategy for managing/reducing debt</li>
+                            <li style="margin: 0.3rem 0;"><strong>Investment Strategy:</strong> Asset allocation based on risk tolerance and time horizon</li>
+                            <li style="margin: 0.3rem 0;"><strong>Long-Term Planning:</strong> Education, homeownership, retirement recommendations</li>
+                        </ul>
+                        <h4 style="color: #e65100; margin-top: 15px;">Deliverables:</h4>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                            <li style="margin: 0.3rem 0;">Written report (3-5 pages) with financial analysis and recommendations</li>
+                            <li style="margin: 0.3rem 0;">Professional presentation (5-7 minutes) to the "household"</li>
+                            <li style="margin: 0.3rem 0;">Data visualizations (budget charts, investment growth projections)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; background-color: #e8f5e9; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <h3 style="color: #2e7d32; margin-top: 0;">AP Exam Information</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <h4>Exam Structure:</h4>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>Section I:</strong> Multiple-Choice (60 questions, 90 minutes) — 60%</li>
+                                <li style="margin: 0.3rem 0;"><strong>Section IIA:</strong> Business Canvas Project Exam-Day Validation (1 FRQ, 30 minutes) — 20%</li>
+                                <li style="margin: 0.3rem 0;"><strong>Section IIB:</strong> Free-Response (2 FRQs, 60 minutes) — 20%</li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1; min-width: 300px;">
+                            <h4>Units Assessed on AP Exam:</h4>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>Unit 1:</strong> Businesses, Competition, and New Ideas (20-30%)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 2:</strong> Marketing (20-30%)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 3:</strong> Personal Saving/Borrowing + Business Finance (25-35%)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 4:</strong> Management and Strategy (15-20%)</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 5:</strong> NOT ASSESSED (optional timing)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p style="margin: 0.5rem 0; padding: 0.5rem 0.8rem; background-color: #fff; border-left: 4px solid #2e7d32; border-radius: 4px; font-style: italic; color: #1b5e20;">
+                        <strong>AP Exam Dates:</strong> May 3-14, 2027. Students should check the College Board website for the exact date and time.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>AP Business with Personal Finance ('26-'27) — GHA</footer>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

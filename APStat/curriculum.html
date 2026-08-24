@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Statistics ('26-'27)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/textbook-style.css">
+    <style>
+        /* Collapsible styles */
+        .collapsible {
+            background-color: #0d9488;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1em;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        .active:after {
+            content: '\2212';
+        }
+        .collapsible-content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #064e3b;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #0d9488;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .unit {
+            margin-bottom: 20px;
+        }
+        .unit h2 {
+            color: #047857;
+        }
+        footer {
+            background-color: #065f46;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AP Statistics ('26-'27)</h1>
+    </header>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="syllabus.html">Syllabus</a>
+        <a href="curriculum.html">Curriculum</a>
+    </nav>
+    <main>
+        <section class="unit" id="description">
+            <h2>Course Overview and Statistical Practices</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 1rem 0;">
+                <div style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h4 style="color: #0d9488; margin-top: 0;">STATISTICAL PRACTICES</h4>
+                    <p style="margin: 0.5rem 0;">The four statistical practices spiral across every unit — they are revisited and built upon throughout the course, from the first investigation in Unit 1 to the inference procedures of Units 3–5.</p>
+                    <div style="display: flex; gap: 20px; margin-top: 1rem;">
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1</span>
+                                <span style="margin-left: 0.5rem;"><strong>Formulate Questions</strong><br><small>Determine valid investigative questions that require statistical investigation; identify information needed to answer questions.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2</span>
+                                <span style="margin-left: 0.5rem;"><strong>Collect Data</strong><br><small>Justify appropriate methods for ethically gathering and representing data through random sampling and experimental design.</small></span>
+                            </li>
+                        </ul>
+                        <ul style="margin: 0; padding-left: 1.2rem; flex: 1;">
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3</span>
+                                <span style="margin-left: 0.5rem;"><strong>Analyze Data</strong><br><small>Construct tabular and graphical representations; calculate summary statistics, probabilities, and inference results.</small></span>
+                            </li>
+                            <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                                <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4</span>
+                                <span style="margin-left: 0.5rem;"><strong>Interpret Results</strong><br><small>Describe distributions, justify claims based on statistical calculations, verify conditions for inference methods, and interpret results in context.</small></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h4 style="color: #0d9488; margin-top: 0;">STATISTICAL SKILLS (SPIRALED ACROSS UNITS)</h4>
+                    <p style="margin: 0.5rem 0;">The College Board skill categories that students practice and master throughout the course:</p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #d1fae5; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="margin-left: 0.5rem;">Valid investigative questions requiring statistics</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #d1fae5; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                            <span style="margin-left: 0.5rem;">Identify information needed to answer questions</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #d1fae5; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                            <span style="margin-left: 0.5rem;">Justify data collection methods</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #d1fae5; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A–3.E</span>
+                            <span style="margin-left: 0.5rem;">Tables &amp; graphs; summary statistics; probabilities; parameters; inference calculations</span>
+                        </li>
+                        <li style="margin: 0.3rem 0; display: flex; align-items: center;">
+                            <span style="background-color: #d1fae5; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A–4.G</span>
+                            <span style="margin-left: 0.5rem;">Describe distributions; justify claims; verify conditions; interpret inference in context</span>
+                        </li>
+                    </ul>
+                    <p style="margin: 0.5rem 0; padding: 0.5rem 0.8rem; background-color: #fff; border-left: 4px solid #0d9488; border-radius: 4px; font-style: italic; color: #064e3b;">
+                        All inference procedures follow the <strong>Four-Step Inference Process</strong> (State, Plan, Do, Conclude) — introduced in Unit 3 and used on every FRQ thereafter.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unit 1: Exploring One-Variable Data and Collecting Data -->
+        <section class="unit" id="unit-1">
+            <h2>Unit 1 - Exploring One-Variable Data and Collecting Data (20-30%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Identify the components of a statistical study and determine what can be learned from data.</li>
+                        <li>Distinguish between categorical and quantitative variables and choose appropriate representations for each.</li>
+                        <li>Construct and interpret frequency tables, bar charts, pie charts, dotplots, stemplots, histograms, and boxplots.</li>
+                        <li>Describe distributions of quantitative data using shape, center, variability, and unusual features (SOCS).</li>
+                        <li>Calculate and interpret summary statistics: mean, median, range, IQR, and standard deviation.</li>
+                        <li>Compare distributions of quantitative variables side-by-side using z-scores and percentiles.</li>
+                        <li>Distinguish between observational studies and experiments, and identify potential problems with sampling.</li>
+                        <li>Apply the principles of experimental design: control, randomization, and replication.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>24 class periods</strong> to complete (Weeks 1–7).</li>
+                        <li>This unit contributes to a <code class="code-keyword">20%</code> to <code class="code-keyword">30%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">1.1–1.13</code></li>
+                        <li><strong>Statistical Practices:</strong> All four practices (Formulate Questions, Collect Data, Analyze Data, Interpret Results) are engaged in this unit.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>What kind of questions can be answered using data?</li>
+                        <li>What methods should I use to collect data for future inference procedures?</li>
+                        <li>How do we choose the appropriate graph or table for a given variable type?</li>
+                        <li>How do we describe and compare distributions of quantitative data?</li>
+                        <li>What is the difference between an observational study and an experiment?</li>
+                        <li>Why is randomization important in sampling and experimental design?</li>
+                        <li>What are the potential problems with sampling, and how can we avoid bias?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Variable Types</code>: Categorical vs. quantitative variables and the representations appropriate for each.</li>
+                        <li><code class="code-keyword">Graphical Representations</code>: Frequency tables, bar charts, pie charts (categorical); dotplots, stemplots, histograms, boxplots (quantitative).</li>
+                        <li><code class="code-keyword">SOCS</code>: Shape, Outliers, Center, Spread — the standard framework for describing distributions.</li>
+                        <li><code class="code-keyword">Summary Statistics</code>: Mean, median, range, IQR, standard deviation; resistant measures (median, IQR) vs. non-resistant (mean, SD).</li>
+                        <li><code class="code-keyword">z-Scores</code>: Standardized scores measuring position relative to the mean in standard deviation units.</li>
+                        <li><code class="code-keyword">Random Sampling</code>: SRS, stratified, cluster, and systematic sampling; census vs. sample.</li>
+                        <li><code class="code-keyword">Experimental Design</code>: Control, randomization, replication; confounding variables.</li>
+                        <li><code class="code-keyword">Sampling Bias</code>: Voluntary response, undercoverage, nonresponse, and response bias.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Categorical Variable:</strong> A variable that takes on category labels (e.g., color, gender, region).</li>
+                        <li><strong>Quantitative Variable:</strong> A variable that takes on numerical values that can be averaged or ordered (e.g., height, score).</li>
+                        <li><strong>Distribution:</strong> The pattern of variation of a variable over all individuals or observations.</li>
+                        <li><strong>Center:</strong> A typical or representative value of a distribution (mean or median).</li>
+                        <li><strong>Spread/Variability:</strong> The extent to which values in a distribution vary (range, IQR, standard deviation).</li>
+                        <li><strong>Outlier:</strong> A value that falls markedly outside the overall pattern of the data.</li>
+                        <li><strong>Observational Study:</strong> A study that observes individuals and measures variables without imposing treatment.</li>
+                        <li><strong>Experiment:</strong> A study that deliberately imposes a treatment on individuals to measure response.</li>
+                        <li><strong>Simple Random Sample (SRS):</strong> A sample where every set of n individuals has an equal chance of selection.</li>
+                        <li><strong>Confounding:</strong> When two variables' effects on a response cannot be distinguished.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Formulate Questions</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">1.A</span>
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.A</span>
+                        </li>
+                        <li><strong>Collect Data (Sampling &amp; Design)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">2.B</span>
+                        </li>
+                        <li><strong>Analyze Data (Representations)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                        </li>
+                        <li><strong>Interpret Results (Describe Distributions)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A</span>
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.C</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on variable types and graph construction</li>
+                        <li>Homework problem sets</li>
+                        <li>SOCS description practice (written responses)</li>
+                        <li>Class discussions on sampling methods and bias</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 1 Assessment</strong> (Week 7)</li>
+                        <li>Monthly Exam (Oct 8–10)</li>
+                        <li>Sampling &amp; Design Investigation</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Technology &amp; Tools</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-calculator" style="font-size: 48px; color: #0d9488;"></i>
+                            <span style="margin-top: 5px;">Graphing Calculator<br><small>(TI-83/84)</small></span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-chart-bar" style="font-size: 48px; color: #0d9488;"></i>
+                            <span style="margin-top: 5px;">StatCrunch / Fathom</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-clipboard-check" style="font-size: 48px; color: #0d9488;"></i>
+                            <span style="margin-top: 5px;">AP Classroom<br><small>Progress Checks</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #047857; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 1 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 1 (Aug 31 – Sep 4)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.1</strong> Introducing Statistics: What Can We Learn from Data?</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.2</strong> Variables (categorical vs. quantitative)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 2 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 2 (Sep 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.3</strong> Tabular Representation for One Categorical Variable</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.4</strong> Graphical Representations for One Categorical Variable (bar charts, pie charts)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 3 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 3 (Sep 14–18)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.5</strong> Graphical Representations for One Quantitative Variable (dotplots, stemplots, histograms)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.6</strong> Descriptions for One Quantitative Variable Distributions (SOCS)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 4 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 4 (Sep 21–24)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.7</strong> Summary Statistics for One Quantitative Variable (mean, median, range, IQR, SD)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.8</strong> Graphical Representations of Summary Statistics (modified boxplots, outliers)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mid-Autumn Festival -->
+                <div style="background-color: rgba(13,148,136,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(13,148,136,0.3); border-bottom: 1px solid rgba(13,148,136,0.3); margin-top: 15px;">
+                    🌙 Mid-Autumn Festival — Sep 25–27 (No class)
+                </div>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 5 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 5 (Sep 28–30)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.9</strong> Comparisons of Distributions for One Quantitative Variable (z-scores, percentiles)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 6 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 6 (Oct 8–9, 12–16)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">📝 Oct 8–9: <strong>Monthly Exam</strong> (~3 teaching days available)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.10</strong> The Investigative Question Revisited and Data Collection</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.11</strong> Random Sampling (SRS, stratified, cluster, systematic)</li>
+                                <li style="margin: 0.3rem 0;"><strong>1.12</strong> Potential Problems with Sampling (bias)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- National Day Holiday -->
+                <div style="background-color: rgba(13,148,136,0.12); padding: 0.55rem 0.5rem; text-align: center; font-weight: 700; border-top: 1px solid rgba(13,148,136,0.3); border-bottom: 1px solid rgba(13,148,136,0.3); margin-top: 5px;">
+                    🇨🇳 National Day Holiday — Oct 1–7 (No class)
+                </div>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 7 Column -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 7 (Oct 19–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>1.13</strong> Experimental Design (control, randomization, replication; confounding)</li>
+                                <li style="margin: 0.3rem 0;">Unit 1 Review</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 1 Assessment</strong> — Oct 23: <strong>Unit 1 complete</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 2: Probability, Random Variables, and Probability Distributions -->
+        <section class="unit" id="unit-2">
+            <h2>Unit 2 - Probability, Random Variables, and Probability Distributions (15-25%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Construct and interpret two-way tables, including marginal and conditional distributions for two categorical variables.</li>
+                        <li>Estimate probabilities using simulation with random number generators.</li>
+                        <li>Apply the basic probability rules: complement, addition, multiplication, and general addition rules.</li>
+                        <li>Determine whether events are mutually exclusive, independent, or conditional.</li>
+                        <li>Define and compute the mean (expected value) and standard deviation of discrete random variables.</li>
+                        <li>Recognize the binomial setting and calculate binomial probabilities.</li>
+                        <li>Use the Normal distribution: standard normal, z-scores, <code>normalcdf</code>, and <code>invNorm</code>.</li>
+                        <li>Describe the sampling distribution of the sample mean and apply the Central Limit Theorem (CLT).</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>24 class periods</strong> to complete (Weeks 7–12).</li>
+                        <li>This unit contributes to a <code class="code-keyword">15%</code> to <code class="code-keyword">25%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">2.1–2.12</code></li>
+                        <li><strong>Statistical Practices:</strong> Analyze Data (probabilities and random variables) and Interpret Results are emphasized.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How can we use probability to model uncertainty?</li>
+                        <li>What is the distribution of sample statistics from repeated sampling?</li>
+                        <li>How do we determine whether two events are independent?</li>
+                        <li>How do random variables summarize chance outcomes numerically?</li>
+                        <li>When is a situation modeled by the binomial distribution, and how do we compute binomial probabilities?</li>
+                        <li>How do we use the Normal distribution to answer questions about data?</li>
+                        <li>Why does the Central Limit Theorem justify using Normal distributions for sample means?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Two-Way Tables</code>: Marginal and conditional distributions for two categorical variables.</li>
+                        <li><code class="code-keyword">Simulation</code>: Using random number generators to estimate probabilities empirically.</li>
+                        <li><code class="code-keyword">Probability Rules</code>: Complement rule, addition rule, general addition rule, multiplication rule.</li>
+                        <li><code class="code-keyword">Conditional Probability</code>: P(A|B) and the independence misconception (independence ≠ mutually exclusive).</li>
+                        <li><code class="code-keyword">Random Variables</code>: Discrete vs. continuous; probability distributions; expected value; standard deviation.</li>
+                        <li><code class="code-keyword">Binomial Distribution</code>: Binomial setting, conditions, and probability calculations.</li>
+                        <li><code class="code-keyword">Normal Distribution</code>: Standard normal, z-scores, <code>normalcdf</code>, <code>invNorm</code>.</li>
+                        <li><code class="code-keyword">Sampling Distributions</code>: Sampling distribution of x̄; Central Limit Theorem (CLT).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Probability:</strong> A number between 0 and 1 that describes the likelihood of an event occurring.</li>
+                        <li><strong>Sample Space:</strong> The set of all possible outcomes of a chance process.</li>
+                        <li><strong>Mutually Exclusive:</strong> Two events that cannot occur at the same time.</li>
+                        <li><strong>Independent Events:</strong> Events where knowing one occurs does not change the probability of the other.</li>
+                        <li><strong>Conditional Probability:</strong> The probability of one event given that another event has occurred.</li>
+                        <li><strong>Random Variable:</strong> A variable whose value is a numerical outcome of a random phenomenon.</li>
+                        <li><strong>Expected Value:</strong> The mean of a random variable, representing the long-run average outcome.</li>
+                        <li><strong>Binomial Setting:</strong> Fixed number of independent trials, two outcomes, constant probability of success.</li>
+                        <li><strong>Sampling Distribution:</strong> The distribution of values taken by a statistic in all possible samples of the same size.</li>
+                        <li><strong>Central Limit Theorem:</strong> For large samples, the sampling distribution of x̄ is approximately Normal, regardless of the population shape.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Data (Tables &amp; Summaries)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                        </li>
+                        <li><strong>Analyze Data (Probability)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.C</span>
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.D</span>
+                        </li>
+                        <li><strong>Interpret Results</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.D</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on probability rules and conditional probability</li>
+                        <li>Simulation activities with random number generators</li>
+                        <li>Homework problem sets (binomial &amp; Normal calculations)</li>
+                        <li>Calculator skills checks (<code>normalcdf</code>, <code>invNorm</code>, <code>binompdf/cdf</code>)</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 2 Assessment</strong> (Week 12)</li>
+                        <li>Midterm Exam (Nov 6–11) — Units 1–2</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Probability Misconceptions</h4>
+                    <ul>
+                        <li>Treating mutually exclusive events as independent (or vice versa).</li>
+                        <li>Using the multiplication rule when events are not independent.</li>
+                        <li>Confusing P(A|B) with P(B|A) or with P(A ∩ B).</li>
+                    </ul>
+                    <h4>Distribution Errors</h4>
+                    <ul>
+                        <li>Applying the binomial model when trials are not independent or n is not fixed.</li>
+                        <li>Forgetting to standardize with z-scores before using the Normal table.</li>
+                        <li>Using CLT when the sample size is too small and the population is not Normal.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #047857; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 7 cont Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 7 cont. (Oct 19–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.1</strong> Tabular and Graphical Representations for Two Categorical Variables</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.2</strong> Summary Statistics for Two Categorical Variables (marginal &amp; conditional distributions)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 8 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 8 (Oct 26–30)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.3</strong> Estimating Probabilities Using Simulation</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.4</strong> Introduction to Probability (rules, sample space, complement)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 9 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 9 (Nov 2–6)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.5</strong> Mutually Exclusive Events (addition rule)</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.6</strong> Conditional Probability (P(A|B); independence misconceptions)</li>
+                                <li style="margin: 0.3rem 0;">📝 Nov 6–11: <strong>Midterm Exam Week</strong></li>
+                                <li style="margin: 0.3rem 0;">🍂 Nov 12: <strong>Autumn Outing</strong> (No class)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 10 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 10 (Nov 16–20)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.7</strong> Independent Events and Unions of Events (multiplication rule; general addition rule)</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.8</strong> Introduction to Random Variables and Probability Distributions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 11 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 11 (Nov 23–27)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.9</strong> Parameters of Random Variables (mean/expected value, standard deviation)</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.10</strong> The Binomial Distribution</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 12 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 12 (Nov 30 – Dec 4)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>2.11</strong> The Normal Distribution (standard normal, z-scores, <code>normalcdf</code>, <code>invNorm</code>)</li>
+                                <li style="margin: 0.3rem 0;"><strong>2.12</strong> Sampling Distributions and the Central Limit Theorem</li>
+                                <li style="margin: 0.3rem 0;">Unit 2 Review</li>
+                                <li style="margin: 0.3rem 0;"><strong>Unit 2 Assessment</strong> — Dec 4: <strong>Unit 2 complete</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 3: Inference for Categorical Data: Proportions -->
+        <section class="unit" id="unit-3">
+            <h2>Unit 3 - Inference for Categorical Data: Proportions (15-25%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Distinguish between point estimators and interval estimators for population proportions.</li>
+                        <li>Describe the sampling distribution of the sample proportion p̂ and its conditions.</li>
+                        <li>Construct and interpret confidence intervals for a population proportion, including margin of error.</li>
+                        <li>Set up and carry out hypothesis tests for a population proportion using the four-step inference process.</li>
+                        <li>Define and interpret p-values, and explain the meaning of statistical significance.</li>
+                        <li>Describe Type I and Type II errors and the concept of power.</li>
+                        <li>Construct and interpret confidence intervals and tests for the difference between two population proportions.</li>
+                        <li>Set up and carry out chi-square tests for homogeneity and independence.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>28 class periods</strong> to complete (Weeks 13–17).</li>
+                        <li>This unit contributes to a <code class="code-keyword">15%</code> to <code class="code-keyword">25%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">3.1–3.15</code></li>
+                        <li><strong>Statistical Practices:</strong> Analyze Data (inference calculations) and Interpret Results (justify conclusions) are the focus.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How can we use sample data to make inferences about population proportions?</li>
+                        <li>How do we determine whether observed differences are statistically significant?</li>
+                        <li>What does a confidence interval tell us about the population, and what does it not tell us?</li>
+                        <li>How do we choose between a one-proportion and two-proportion procedure?</li>
+                        <li>When do we use a chi-square test for homogeneity versus a chi-square test for independence?</li>
+                        <li>What is the relationship between p-value, α, and the conclusion of a hypothesis test?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Sampling Distribution of p̂</code>: Shape, center, and variability; conditions for Normal approximation.</li>
+                        <li><code class="code-keyword">Confidence Intervals</code>: Point estimate ± margin of error; interpretation in context; confidence level.</li>
+                        <li><code class="code-keyword">Hypothesis Testing</code>: H₀ vs. Hₐ; test statistic; p-value; significance level α; decision and conclusion.</li>
+                        <li><code class="code-keyword">Type I &amp; Type II Errors</code>: False positive, false negative; power of a test.</li>
+                        <li><code class="code-keyword">Two-Proportion Inference</code>: Sampling distribution of p̂₁ − p̂₂; z-interval; z-test.</li>
+                        <li><code class="code-keyword">Chi-Square Tests</code>: Homogeneity, independence, goodness-of-fit; expected counts; chi-square statistic and degrees of freedom.</li>
+                        <li><code class="code-keyword">Conditions for Inference</code>: Random, Normal/Large Counts, Independent (10% condition).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Point Estimator:</strong> A statistic that provides a single best guess for a population parameter (e.g., p̂ for p).</li>
+                        <li><strong>Margin of Error:</strong> Half the width of a confidence interval; the maximum expected difference between the statistic and parameter.</li>
+                        <li><strong>Confidence Interval:</strong> An interval of plausible values for a parameter, with a stated level of confidence.</li>
+                        <li><strong>Hypothesis:</strong> A statement about a population parameter. H₀ (null) is the claim being tested; Hₐ (alternative) is the claim we seek evidence for.</li>
+                        <li><strong>p-Value:</strong> The probability of getting a sample result at least as extreme as the observed one, assuming H₀ is true.</li>
+                        <li><strong>Statistical Significance:</strong> When the p-value is less than α, the result is statistically significant.</li>
+                        <li><strong>Type I Error:</strong> Rejecting H₀ when H₀ is actually true (false positive).</li>
+                        <li><strong>Type II Error:</strong> Failing to reject H₀ when H₀ is actually false (false negative).</li>
+                        <li><strong>Power:</strong> The probability that a test correctly rejects H₀ when Hₐ is true.</li>
+                        <li><strong>Chi-Square Statistic:</strong> Σ(observed − expected)²/expected; used for categorical data inference.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Data (Inference Calculations)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.E</span>
+                        </li>
+                        <li><strong>Interpret Results (Verify Conditions)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.E</span>
+                        </li>
+                        <li><strong>Interpret Results (Interpret Inference)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.F</span>
+                        </li>
+                        <li><strong>Interpret Results (Justify Conclusions)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.G</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 20px;">
+                <div style="flex: 1; min-width: 300px; background-color: #ccfbf1; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #0f766e; margin-top: 0;">The Four-Step Inference Process (State, Plan, Do, Conclude)</h3>
+                    <p style="margin: 0.5rem 0;">All inference procedures — confidence intervals and hypothesis tests — follow this consistent four-step structure. It is introduced here in Unit 3 and used on every inference FRQ (Q3) on the AP exam.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 1rem;">
+                        <div style="flex: 1; min-width: 220px; background-color: #fff; padding: 12px; border-radius: 6px; border-left: 4px solid #0d9488;">
+                            <h4 style="margin: 0 0 8px 0; color: #0f766e;">1. STATE</h4>
+                            <p style="margin: 0; font-size: 0.95em;">Parameter of interest <strong>in context</strong>; hypotheses in symbols and context; confidence level or significance level α.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 220px; background-color: #fff; padding: 12px; border-radius: 6px; border-left: 4px solid #0d9488;">
+                            <h4 style="margin: 0 0 8px 0; color: #0f766e;">2. PLAN</h4>
+                            <p style="margin: 0; font-size: 0.95em;">Name the procedure; check conditions: <strong>Random</strong>, <strong>Normal/Large Counts</strong>, <strong>Independent</strong> (10% condition).</p>
+                        </div>
+                        <div style="flex: 1; min-width: 220px; background-color: #fff; padding: 12px; border-radius: 6px; border-left: 4px solid #0d9488;">
+                            <h4 style="margin: 0 0 8px 0; color: #0f766e;">3. DO</h4>
+                            <p style="margin: 0; font-size: 0.95em;">Calculate the test statistic and p-value (or the interval) using the calculator or formula; show the formula and key numbers.</p>
+                        </div>
+                        <div style="flex: 1; min-width: 220px; background-color: #fff; padding: 12px; border-radius: 6px; border-left: 4px solid #0d9488;">
+                            <h4 style="margin: 0 0 8px 0; color: #0f766e;">4. CONCLUDE</h4>
+                            <p style="margin: 0; font-size: 0.95em;">Compare p-value to α; make a decision (reject or fail to reject H₀); state the conclusion <strong>in context</strong> — never "accept H₀".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on conditions for inference</li>
+                        <li>Four-step inference practice (written responses)</li>
+                        <li>Calculator skills checks (1-PropZInt, 1-PropZTest, 2-PropZInt, χ²-Test)</li>
+                        <li>Type I/II error identification exercises</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 3 Assessment</strong> (Week 17)</li>
+                        <li>Monthly Exam (Dec 14–18)</li>
+                        <li><strong>Final Exam (Units 1–3)</strong> — Jan 11–15</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <h4>Confidence Interval Errors</h4>
+                    <ul>
+                        <li>Misinterpreting the confidence level (it is about the method, not a single interval).</li>
+                        <li>Forgetting to check the Random and Normal/Large Counts conditions.</li>
+                        <li>Concluding causation from an observational study's CI.</li>
+                    </ul>
+                    <h4>Hypothesis Test Errors</h4>
+                    <ul>
+                        <li>Writing Hₐ in words instead of symbols, or using x̄ instead of p.</li>
+                        <li>Concluding "accept H₀" when failing to reject — this is not evidence H₀ is true.</li>
+                        <li>Confusing p-value with the probability that H₀ is true.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #047857; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 13 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 13 (Dec 7–11)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.1</strong> Estimators (point estimators)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.2</strong> Sampling Distributions for Sample Proportions</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.3</strong> Constructing a Confidence Interval for a Population Proportion</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 14 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 14 (Dec 14–18)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">📝 <strong>Monthly Exam</strong> (~3 teaching days for instruction)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.4</strong> Justifying a Claim Based on a CI for a Population Proportion</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.5</strong> Setting Up a Test for a Population Proportion (H₀, Hₐ)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.6</strong> p-Values (definition and interpretation)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 15 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 15 (Dec 21–25)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.7</strong> Carrying Out a Test for a Population Proportion (z-test; four-step process)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.8</strong> Potential Errors When Performing Tests (Type I/II; power)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 16 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 16 (Dec 28–31)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.9</strong> Sampling Distributions for the Difference Between Sample Proportions</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.10</strong> Constructing a CI for the Difference Between Two Population Proportions</li>
+                                <li style="margin: 0.3rem 0;">🎆 Jan 1: <strong>New Year Holiday</strong> (No class)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 17 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 17 (Jan 4–8)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>3.11</strong> Justifying a Claim Based on a CI for the Difference</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.12</strong> Setting Up a Test for the Difference Between Two Population Proportions</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.13</strong> Carrying Out a Test for the Difference (two-proportion z-test)</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.14</strong> Setting Up a Chi-Square Test for Homogeneity or Independence</li>
+                                <li style="margin: 0.3rem 0;"><strong>3.15</strong> Carrying Out a Chi-Square Test (expected counts)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Final Exam Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #b45309;">Final Exam Week</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;">Unit 3 Review &amp; <strong>Unit 3 Assessment</strong> — Jan 8: <strong>Unit 3 complete</strong></li>
+                                <li style="margin: 0.3rem 0;">📝 Jan 11–15: <strong>Final Exam — Units 1–3</strong></li>
+                                <li style="margin: 0.3rem 0;">❄️ Winter Break: Jan 16 – Feb 28</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 4: Inference for Quantitative Data: Means -->
+        <section class="unit" id="unit-4">
+            <h2>Unit 4 - Inference for Quantitative Data: Means (10-20%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Describe the sampling distribution of the sample mean and the role of the t-distribution and degrees of freedom.</li>
+                        <li>Construct and interpret one-sample t-intervals for a population mean.</li>
+                        <li>Set up and carry out one-sample t-tests for a population mean using the four-step process.</li>
+                        <li>Construct and interpret paired t-intervals and paired t-tests for a mean difference.</li>
+                        <li>Describe the sampling distribution for the difference between two sample means.</li>
+                        <li>Construct and interpret two-sample t-intervals and two-sample t-tests (using technology for degrees of freedom).</li>
+                        <li>Justify claims based on confidence intervals and tests for means and mean differences.</li>
+                        <li>Compare and contrast z-procedures and t-procedures and choose the appropriate inference method.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>17 class periods</strong> to complete (Weeks 18–21).</li>
+                        <li>This unit contributes to a <code class="code-keyword">10%</code> to <code class="code-keyword">20%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">4.1–4.10</code></li>
+                        <li><strong>Statistical Practices:</strong> Analyze Data and Interpret Results continue to be emphasized through inference on means.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How can we evaluate the effectiveness of a new medicine?</li>
+                        <li>How can we compare average salaries across different regions?</li>
+                        <li>When do we use a t-distribution instead of a Normal distribution?</li>
+                        <li>What is the difference between a paired design and an independent two-sample design?</li>
+                        <li>How do we check the conditions for t-procedures when the population is not Normal?</li>
+                        <li>When is it appropriate to use a z-procedure versus a t-procedure for a mean?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">t-Distribution</code>: Symmetric, slightly heavier-tailed than Normal; shape determined by degrees of freedom.</li>
+                        <li><code class="code-keyword">One-Sample t-Procedures</code>: t-interval and t-test for a population mean μ.</li>
+                        <li><code class="code-keyword">Paired t-Procedures</code>: Inference on a mean difference μ_d when observations are paired (before/after, matched pairs).</li>
+                        <li><code class="code-keyword">Two-Sample t-Procedures</code>: Inference on μ₁ − μ₂; degrees of freedom from technology (Welch's approximation).</li>
+                        <li><code class="code-keyword">Conditions for t-Procedures</code>: Random sampling/assignment; approximately Normal population or large sample (CLT); independence.</li>
+                        <li><code class="code-keyword">z vs. t</code>: z-procedures require known σ; t-procedures use sample standard deviation s and are used when σ is unknown.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>t-Distribution:</strong> A family of distributions used when σ is unknown and the sample standard deviation s estimates it.</li>
+                        <li><strong>Degrees of Freedom (df):</strong> The number of independent pieces of information (n − 1 for one-sample; approximated by technology for two-sample).</li>
+                        <li><strong>Standard Error:</strong> The standard deviation of a statistic's sampling distribution (s/√n for a mean).</li>
+                        <li><strong>Paired Data:</strong> Data where each observation in one group is matched with a specific observation in the other group.</li>
+                        <li><strong>Pooled vs. Unpooled:</strong> Two-sample t-procedures on the AP exam use the unpooled (Welch) approach via technology.</li>
+                        <li><strong>Robustness:</strong> t-procedures are robust to moderate departures from Normality, especially for larger samples.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Data (Inference Calculations)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.E</span>
+                        </li>
+                        <li><strong>Interpret Results (Verify Conditions)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.E</span>
+                        </li>
+                        <li><strong>Interpret Results (Interpret Inference)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.F</span>
+                        </li>
+                        <li><strong>Interpret Results (Justify Conclusions)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.G</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on t-distribution and degrees of freedom</li>
+                        <li>Four-step inference practice for means</li>
+                        <li>Paired vs. two-sample design identification</li>
+                        <li>Calculator skills checks (TInterval, TTest, 2-SampTInt, 2-SampTTest)</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 4 Assessment</strong> (Week 21)</li>
+                        <li>Means Inference FRQ practice</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <ul>
+                        <li>Using z-procedures when σ is unknown (should use t).</li>
+                        <li>Applying a paired t-test when samples are independent (and vice versa).</li>
+                        <li>Using the incorrect degrees of freedom in two-sample procedures.</li>
+                        <li>Concluding significance when the CI includes 0 (for a difference) — should be non-significant.</li>
+                        <li>Forgetting to state the conclusion in context.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #047857; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 18 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 18 (Mar 1–5)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.1</strong> Sampling Distributions for Sample Means</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.2</strong> Constructing a CI for a Population Mean or Mean Difference (t-distributions; df; one-sample t-interval; paired t-interval)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 19 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 19 (Mar 8–12)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.3</strong> Justifying a Claim Based on a CI for a Mean</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.4</strong> Setting Up a Test for a Mean</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.5</strong> Carrying Out a Test for a Mean (one-sample t-test; paired t-test)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 20 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 20 (Mar 15–19)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.6</strong> Sampling Distributions for the Difference Between Two Sample Means</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.7</strong> Constructing a CI for the Difference Between Two Population Means (conditions; two-sample t-interval; technology for df)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 21 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 21 (Mar 22–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>4.8</strong> Justifying a Claim Based on a CI for the Difference</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.9</strong> Setting Up a Test for the Difference</li>
+                                <li style="margin: 0.3rem 0;"><strong>4.10</strong> Carrying Out a Test for the Difference (two-sample t-test; z vs. t)</li>
+                                <li style="margin: 0.3rem 0;">Unit 4 Review &amp; <strong>Unit 4 Assessment</strong> — Mar 26: <strong>Unit 4 complete</strong></li>
+                                <li style="margin: 0.3rem 0;">🌿 Mar 24–26: <strong>Spring Outing</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Unit 5: Regression Analysis -->
+        <section class="unit" id="unit-5">
+            <h2>Unit 5 - Regression Analysis (10-20%)</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Construct and interpret scatterplots to display the relationship between two quantitative variables.</li>
+                        <li>Describe the direction, form, and strength of a relationship; identify outliers and influential points.</li>
+                        <li>Calculate and interpret the correlation coefficient r and understand its properties.</li>
+                        <li>Find and interpret the least-squares regression line (LSRL): slope and intercept in context.</li>
+                        <li>Calculate and interpret residuals and use residual plots to assess the fit of a linear model.</li>
+                        <li>Interpret the coefficient of determination r² as the proportion of variability explained.</li>
+                        <li>Distinguish between correlation and causation, and understand the role of lurking variables.</li>
+                        <li>Use the regression model to make predictions and evaluate their reasonableness.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Curriculum Standards</h3>
+                    <ul>
+                        <li>The unit will take approximately <strong>9 class periods</strong> to complete (Weeks 21–22).</li>
+                        <li>This unit contributes to a <code class="code-keyword">10%</code> to <code class="code-keyword">20%</code> weight in the AP exam.</li>
+                        <li>College Board CED Topics covered: <code class="code-keyword">5.1–5.5</code></li>
+                        <li><strong>Statistical Practices:</strong> Analyze Data (bivariate representations and calculations) and Interpret Results (justify model fit).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Guiding Questions</h3>
+                    <ul>
+                        <li>How can we model the relationship between two quantitative variables?</li>
+                        <li>How well does our model fit the data?</li>
+                        <li>What does the correlation coefficient tell us about a relationship — and what does it not tell us?</li>
+                        <li>How do we interpret the slope and intercept of a regression line in context?</li>
+                        <li>Why are residual plots essential for assessing model fit?</li>
+                        <li>Can we ever conclude causation from a regression model? Why or why not?</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><code class="code-keyword">Scatterplots</code>: Displaying bivariate quantitative data; direction, form, strength; outliers and influential points.</li>
+                        <li><code class="code-keyword">Correlation (r)</code>: Measures the strength and direction of a linear relationship; −1 ≤ r ≤ 1; unitless; not resistant to outliers.</li>
+                        <li><code class="code-keyword">Least-Squares Regression Line (LSRL)</code>: The line that minimizes the sum of squared residuals; ŷ = a + bx.</li>
+                        <li><code class="code-keyword">Residuals</code>: observed − predicted; residual plots for checking linearity.</li>
+                        <li><code class="code-keyword">Coefficient of Determination (r²)</code>: Proportion of variability in y explained by the linear regression on x.</li>
+                        <li><code class="code-keyword">Causation vs. Correlation</code>: Correlation does not imply causation; lurking variables and confounding.</li>
+                        <li><code class="code-keyword">Influential Points</code>: Points that substantially change the regression line when removed.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Vocabulary</h3>
+                    <ul>
+                        <li><strong>Response Variable:</strong> The variable we measure or predict (y).</li>
+                        <li><strong>Explanatory Variable:</strong> The variable we use to explain or predict the response (x).</li>
+                        <li><strong>Correlation Coefficient (r):</strong> A measure of the strength and direction of a linear relationship.</li>
+                        <li><strong>Least-Squares Regression:</strong> A method for finding the line that minimizes the sum of squared residuals.</li>
+                        <li><strong>Residual:</strong> The difference between an observed value and the value predicted by the model.</li>
+                        <li><strong>Influential Point:</strong> A point whose removal changes the regression line substantially.</li>
+                        <li><strong>Lurking Variable:</strong> A variable not included in the study that can affect the relationship between x and y.</li>
+                        <li><strong>Extrapolation:</strong> Predicting outside the range of observed x-values — usually unreliable.</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Core Skills</h3>
+                    <ul>
+                        <li><strong>Analyze Data (Representations &amp; Calculations)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.A</span>
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">3.B</span>
+                        </li>
+                        <li><strong>Interpret Results (Justify Claims)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.B</span>
+                        </li>
+                        <li><strong>Interpret Results (Describe Distributions)</strong>:
+                            <span style="background-color: #ccfbf1; border-radius: 50%; padding: 0.2rem 0.6rem; min-width: 24px; text-align: center; font-weight: bold;">4.A</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Assessments</h3>
+                    <h4>Formative Assessments</h4>
+                    <ul>
+                        <li>Quizzes on correlation and r properties</li>
+                        <li>Scatterplot interpretation exercises</li>
+                        <li>Residual plot analysis</li>
+                        <li>Calculator skills checks (LinReg, diagnostics r and r²)</li>
+                    </ul>
+                    <h4>Summative Assessments</h4>
+                    <ul>
+                        <li><strong>Unit 5 Assessment</strong> (Week 22)</li>
+                        <li>Regression FRQ practice</li>
+                        <li>Monthly Exam (Apr 1–2)</li>
+                    </ul>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Common Mistakes</h3>
+                    <ul>
+                        <li>Confusing correlation with causation, or r with slope.</li>
+                        <li>Interpreting r² as "r squared is the correlation" instead of "proportion of variability explained".</li>
+                        <li>Using a linear model when the residual plot shows a curved pattern.</li>
+                        <li>Extrapolating beyond the range of the data.</li>
+                        <li>Ignoring influential points and outliers when they change the model.</li>
+                        <li>Interpreting the intercept when x = 0 is outside the data range.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="curriculum-section" style="margin-top: 30px;">
+                <h3 style="color: #047857; margin-top: 0;">Unit Schedule</h3>
+                <div style="background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: 100%;">
+                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                        <!-- Week 21 cont Column -->
+                        <div style="flex: 1; min-width: 300px; padding-right: 15px; border-right: 1px solid rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 21 cont. (Mar 22–23)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.1</strong> Graphical Representations Between Two Quantitative Variables (scatterplots; direction, form, strength; outliers, influential points)</li>
+                                <li style="margin: 0.3rem 0;"><strong>5.2</strong> Correlation (correlation coefficient r; properties of r)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Week 22 Column -->
+                        <div style="flex: 1; min-width: 300px; padding-left: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #047857;">Week 22 (Mar 29–31)</h4>
+                            </div>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li style="margin: 0.3rem 0;"><strong>5.3</strong> Linear Regression Models (LSRL; slope and intercept interpretation)</li>
+                                <li style="margin: 0.3rem 0;"><strong>5.4</strong> Residuals (residual plots)</li>
+                                <li style="margin: 0.3rem 0;"><strong>5.5</strong> Least-Squares Regression (coefficient of determination r²)</li>
+                                <li style="margin: 0.3rem 0;">Unit 5 Review &amp; <strong>Unit 5 Assessment</strong> — Mar 31: <strong>ALL CONTENT COMPLETE</strong></li>
+                                <li style="margin: 0.3rem 0;">📝 Apr 1–2: <strong>Monthly Exam</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- AP Exam Prep & Exam Format -->
+        <section class="unit" id="exam-prep">
+            <h2>AP Exam Preparation &amp; Exam Format</h2>
+            <button type="button" class="collapsible">Show/Hide Unit Content</button>
+            <div class="collapsible-content">
+            <div class="curriculum-section" style="display: flex; justify-content: space-between;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>April Review Plan (All New Instruction Complete by Mar 31)</h3>
+                    <h4>Review Week 1 (Apr 6–9) — Units 1–2</h4>
+                    <ul>
+                        <li>Exploring data and probability review</li>
+                        <li>MCQ practice by topic</li>
+                        <li>Two-way tables, probability trees, Normal and binomial distributions</li>
+                    </ul>
+                    <h4>Review Week 2 (Apr 12–16) — Units 3–5</h4>
+                    <ul>
+                        <li>Inference review: z vs. t, proportions vs. means, one-sample vs. two-sample</li>
+                        <li>Chi-square tests; regression</li>
+                        <li>Conditions for all procedures</li>
+                    </ul>
+                    <h4>Mock Week 1 (Apr 19–23) — FRQ Intensive Practice</h4>
+                    <ul>
+                        <li>Timed FRQ writing across all four types: Q1 (Practices 1 &amp; 2), Q2 (Practices 3 &amp; 4), Q3 (Inference), Q4 (Practices 2, 3 &amp; 4)</li>
+                        <li>Peer scoring using College Board rubric</li>
+                    </ul>
+                    <h4>Mock Week 2 (Apr 26–30) — Full Mock AP Exam</h4>
+                    <ul>
+                        <li>Section I: 40 MCQ (90 min); Section II: 5 FRQ (90 min)</li>
+                        <li>Score with College Board rubric; targeted remediation</li>
+                    </ul>
+                    <p style="font-style: italic; color: #666;">Apr 26–30 is the school midterm exam week; AP Statistics uses this week for the full mock AP exam. May 1–3: Labor Day Holiday.</p>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>AP Exam Format (May 3–14, 2027)</h3>
+                    <div style="background-color: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #0d9488; color: white;">
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Section</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Content</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Questions</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Time</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Section I</strong></td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Single-select, scenario-based MCQ</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">40</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">90 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">50%</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Section II</strong></td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Free Response (5 questions)</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">5</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">90 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">50%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin: 0.8rem 0;"><strong>A graphing calculator is required for both sections.</strong> The AP Statistics Formula Sheet and Tables are provided.</p>
+                    <h4>Free-Response Question Types</h4>
+                    <div style="background-color: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #0d9488; color: white;">
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">FRQ</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Type</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Time</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q1</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Multi-Focus on Practices 1 and 2 (experimental design / sampling)</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~12 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">4</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q2</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Multi-Focus on Practices 3 and 4 (probability / EDA)</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~12 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">4</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q3</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Inference (Hypothesis Test) — four-step process required</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~25 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">4</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q4</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Multi-Focus on Practices 2, 3, and 4 (comprehensive)</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~25 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">4</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Q5</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Investigative Task (synthesis across topics)</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">~16 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="curriculum-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>MCQ Exam Weighting by Unit</h3>
+                    <div style="background-color: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #0d9488; color: white;">
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Unit</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Topic</th>
+                                    <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">MCQ Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">1</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Exploring One-Variable Data and Collecting Data</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>20–30%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">2</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Probability, Random Variables, and Probability Distributions</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>15–25%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">3</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Inference for Categorical Data: Proportions</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>15–25%</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 8px; border: 1px solid #ddd;">4</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Inference for Quantitative Data: Means</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>10–20%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">5</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Regression Analysis</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>10–20%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="curriculum-column" style="flex: 1; min-width: 300px; background-color: #f0fdfa; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <h3>Key Dates — Exam Season</h3>
+                    <ul>
+                        <li>🌸 Apr 5: Qingming Festival</li>
+                        <li>📚 Apr 6–9: Review — Units 1–2</li>
+                        <li>📚 Apr 12–16: Review — Units 3–5</li>
+                        <li>✍️ Apr 19–23: FRQ Intensive Practice</li>
+                        <li>🎯 Apr 26–30: Full Mock AP Exam</li>
+                        <li>🛠️ May 1–3: Labor Day Holiday</li>
+                        <li>🎓 <strong>May 3–14: AP Statistics Exam</strong> (specific date TBD)</li>
+                        <li>📊 May 17 – Jun 4: Post-AP Capstone Project</li>
+                        <li>📝 Jun 7–11: Final Exam Week</li>
+                    </ul>
+                    <h4>Post-AP Capstone Options</h4>
+                    <ul>
+                        <li>Survey Design &amp; Analysis</li>
+                        <li>Experimental Investigation</li>
+                        <li>Observational Study</li>
+                        <li>Simulation Study</li>
+                        <li>Secondary Data Analysis</li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        AP Statistics ('26-'27) — GHA
+    </footer>
+    <script>
+        // Collapsible functionality
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
