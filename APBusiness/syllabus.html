@@ -156,6 +156,18 @@
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         .video-link { color: var(--primary); word-break: break-all; }
 
+        .join-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.25rem; margin: 1rem 0; }
+        .join-card { background: rgba(13, 31, 13, 0.7); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+        .join-card img { max-width: 100%; height: auto; border-radius: 6px; margin-top: 0.75rem; border: 1px solid rgba(76, 175, 80, 0.3); }
+        .join-title { color: var(--primary); font-weight: bold; font-size: min(1rem, 3.5vw); }
+        .join-session { display: inline-block; background: var(--primary); color: var(--bg-dark); border-radius: 4px; padding: 0.1rem 0.5rem; font-size: min(0.7rem, 2.5vw); margin-left: 0.4rem; vertical-align: middle; }
+        .join-code { font-size: min(2rem, 7vw); letter-spacing: 0.3em; font-family: 'Courier New', Courier, monospace; color: #ffffff; margin: 0.75rem 0 0.5rem; text-shadow: 0 0 12px rgba(76, 175, 80, 0.8); display: flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
+        .copy-btn { font-family: 'Georgia', serif; font-size: min(0.75rem, 2.5vw); background: var(--primary); color: var(--bg-dark); border: none; border-radius: 4px; padding: 0.3rem 0.8rem; cursor: pointer; font-weight: bold; letter-spacing: 0; }
+        .copy-btn:hover { background: #43a047; }
+        .copy-btn.copied { background: #ffb347; }
+        .join-teacher { font-size: min(0.8rem, 2.8vw); opacity: 0.9; }
+        .join-note { font-size: min(0.85rem, 3vw); opacity: 0.85; }
+
         h2 { color: var(--primary); text-align: center; margin-bottom: min(1.5rem, 3vh); font-size: min(1.8rem, 6vw); width: 100%; }
         h3 { color: var(--primary); margin-bottom: min(0.5rem, 1vh); font-size: min(1.1rem, 4vw); margin-top: 1rem; }
 
@@ -206,6 +218,23 @@
                     <tr><td style="white-space: nowrap;">First Day:</td><td>August 31, 2026</td></tr>
                 </tbody>
             </table>
+
+            <h3>AP Classroom Join Codes</h3>
+            <p class="join-note">Sign in to <a href="https://myap.collegeboard.org" target="_blank" rel="noopener" style="color:var(--primary);">myap.collegeboard.org</a> and enter your section's join code to enroll online. Codes can be copied with one click.</p>
+            <div class="join-grid">
+                <div class="join-card">
+                    <div class="join-title">AP Business FG 1 <span class="join-session">Session 1</span></div>
+                    <div class="join-code">NRNZ7M <button class="copy-btn" onclick="copyCode('NRNZ7M', this)">Copy</button></div>
+                    <div class="join-teacher">Teacher: Feng Gao</div>
+                    <img src="Session1code.png" alt="AP Classroom Session 1 join code" loading="lazy">
+                </div>
+                <div class="join-card">
+                    <div class="join-title">AP Business FG 2 <span class="join-session">Session 2</span></div>
+                    <div class="join-code">D2GEGA <button class="copy-btn" onclick="copyCode('D2GEGA', this)">Copy</button></div>
+                    <div class="join-teacher">Teacher: Feng Gao</div>
+                    <img src="Session2code.png" alt="AP Classroom Session 2 join code" loading="lazy">
+                </div>
+            </div>
         </div>
 
         <div id="objectives" class="tab-content">
@@ -474,6 +503,29 @@
     </div>
 
     <script>
+        function copyCode(code, btn) {
+            const done = () => {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+            };
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(code).then(done).catch(() => fallbackCopy(code, done));
+            } else {
+                fallbackCopy(code, done);
+            }
+        }
+        function fallbackCopy(code, done) {
+            const ta = document.createElement('textarea');
+            ta.value = code;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+            done();
+        }
         function openTab(evt, tabName) {
             const tabContents = document.getElementsByClassName("tab-content");
             for (let i = 0; i < tabContents.length; i++) {
