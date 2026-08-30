@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.4 Product — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #65a30d;
+    --accent-d: #4d7c0f;
+    --accent-l: #bef264;
+    --accent-xd: #3f6212;
+    --tint: #f7fee7;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 2.4-specific design — stages + life cycle ──────────── */
+:root {
+    --c-stage1: #6366f1;
+    --c-stage2: #06b6d4;
+    --c-stage3: #d97706;
+    --c-stage4: #16a34a;
+    --c-stage5: #ec4899;
+    --c-stage6: #8b5cf6;
+}
+
+/* Six stages */
+.pd-stages {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .8rem;
+    max-width: 1000px;
+    margin: 1rem auto;
+}
+.pd-stage {
+    border-radius: 12px;
+    padding: 1rem .9rem;
+    color: #fff;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+.pd-stage .num { position: absolute; top: -.55em; left: 50%; transform: translateX(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.95); color: var(--ink); font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+.pd-stage h4 { font-size: .92rem; margin: .3rem 0 .2rem; color: #fff; }
+.pd-stage p { font-size: .78em; opacity: .92; margin: 0; line-height: 1.35; }
+.pd-stage.s1 { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+.pd-stage.s2 { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.pd-stage.s3 { background: linear-gradient(135deg, #d97706, #b45309); }
+.pd-stage.s4 { background: linear-gradient(135deg, #16a34a, #15803d); }
+.pd-stage.s5 { background: linear-gradient(135deg, #ec4899, #be185d); }
+.pd-stage.s6 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+/* Product life cycle curve */
+.plc {
+    max-width: 920px;
+    margin: 1.2rem auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .8rem;
+}
+.plc-stage {
+    border-radius: 14px;
+    padding: 1rem .8rem;
+    text-align: center;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+.plc-stage h4 { font-size: .95rem; margin-bottom: .3rem; color: var(--ink); }
+.plc-stage p { font-size: .78em; color: var(--muted); margin: 0; line-height: 1.4; }
+.plc-stage .arrow { position: absolute; top: 50%; right: -1rem; transform: translateY(-50%); font-size: 1.4rem; color: var(--accent); z-index: 2; }
+.plc-stage.intro { border-color: #6366f1; background: #eef2ff; }
+.plc-stage.growth { border-color: #16a34a; background: #f0fdf4; }
+.plc-stage.maturity { border-color: #d97706; background: #fffbeb; }
+.plc-stage.decline { border-color: #dc2626; background: #fef2f2; }
+
+/* Case study */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 2.4 Product</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 2</div>
+<h1>2.4 Product</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Describe the <strong>six stages</strong> of product development and the role of market research</li>
+<li>Explain how <strong>branding</strong> builds identity, trust, and competitive advantage</li>
+<li>Describe the <strong>product life cycle</strong> and explain how strategy changes at each stage</li>
+</ol>
+<p><strong>Running example today:</strong> A founder sees a problem in everyday life and spends years solving it — one prototype at a time.</p></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.4.A — Six stages from idea to market</div>
+<h1>Part 1: Product Development</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is product development?</h2>
+<p>Product development is the process of turning a <strong>customer problem</strong> into a product people will <strong>pay for</strong>.</p>
+<p>It is not one moment — it is a <strong>sequence of six stages</strong>, each with a different key question.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The goal at every stage is the same: reduce uncertainty before spending more money.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The six stages at a glance</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem"><strong>The goal at every stage:</strong> reduce uncertainty before spending more money.</p>
+<div class="pd-stages">
+    <div class="pd-stage s1"><span class="num">1</span><h4>Generate Idea</h4><p>What customer problem can we solve?</p></div>
+    <div class="pd-stage s2"><span class="num">2</span><h4>Screen &amp; Refine</h4><p>Is this idea feasible?</p></div>
+    <div class="pd-stage s3"><span class="num">3</span><h4>Develop Prototype</h4><p>What will it look and function like?</p></div>
+    <div class="pd-stage s4"><span class="num">4</span><h4>Test Concept</h4><p>Does it solve a real problem for real people?</p></div>
+    <div class="pd-stage s5"><span class="num">5</span><h4>Develop MVP</h4><p>What is the simplest version customers will pay for?</p></div>
+    <div class="pd-stage s6"><span class="num">6</span><h4>Refine with Feedback</h4><p>What do early users want changed?</p></div>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 1 — Generate Idea</h2>
+<p>Ideas come from many sources:</p>
+<ul>
+<li><strong>Customer input</strong> — complaints, reviews, surveys, social media</li>
+<li><strong>Brainstorming</strong> — team sessions, design thinking workshops</li>
+<li><strong>Observation</strong> — watching how people actually use (or struggle with) existing products</li>
+<li><strong>Trend analysis</strong> — spotting gaps in the market</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Best ideas start with a problem, not a product.</strong></div>
+<p>If you start with "I want to build X," you may build something nobody needs.</p>
+<p>If you start with "People struggle with Y," you already have a customer.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 2 — Screen & Refine</h2>
+<p>Not every idea deserves to move forward. Screening filters out weak concepts <strong>before</strong> you spend money building.</p>
+<p><strong>Screening criteria:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>Question to Ask</th></tr></thead><tbody>
+<tr><td>Market size</td><td>Are enough people experiencing this problem?</td></tr>
+<tr><td>Competition</td><td>Is someone already solving it well? If so, can we do it differently?</td></tr>
+<tr><td>Cost</td><td>Can we build this at a price customers will accept?</td></tr>
+<tr><td>Regulatory</td><td>Are there legal barriers (safety, patents, licenses)?</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Screening is an internal exercise — you haven't talked to customers yet.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 3 — Develop Prototype</h2>
+<p>A prototype is a <strong>preliminary model</strong> of the product.</p>
+<p>It can range from:</p>
+<ul>
+<li>A <strong>sketch or 3D render</strong> (visual prototype)</li>
+<li>A <strong>cardboard mockup</strong> (physical prototype)</li>
+<li>A <strong>clickable app wireframe</strong> (digital prototype)</li>
+<li>A <strong>working model</strong> with real materials (functional prototype)</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Prototypes are built to learn, not to sell.</strong> Each version teaches you something — what works, what breaks, what confuses users.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 4 — Test Concept with Customers</h2>
+<p>Concept testing means presenting the idea to <strong>real potential customers</strong> to check:</p>
+<ul>
+<li>Does this solve a problem <strong>they actually have</strong>?</li>
+<li>Would they <strong>pay</strong> for it?</li>
+<li>What would make it <strong>better</strong>?</li>
+</ul>
+<p>This is different from idea screening:</p>
+<div class="formula">- <strong>Screening</strong> = internal evaluation (costs, competition, regulations)</div>
+<div class="formula">- <strong>Concept testing</strong> = external validation (what do real customers think?)</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A product that excites your team but bores your customers is not a product.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 5 — Develop MVP</h2>
+<p><strong>MVP = Minimum Viable Product</strong></p>
+<p>The most basic version of a product that includes only <strong>core features</strong> — and that customers are <strong>willing to pay for</strong>.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>MVP is NOT...</th><th>MVP IS...</th></tr></thead><tbody>
+<tr><td>A prototype (built to explore)</td><td>A product (built to sell)</td></tr>
+<tr><td>Full-featured</td><td>Core features only</td></tr>
+<tr><td>Perfect</td><td>Good enough to learn from</td></tr>
+<tr><td>Free</td><td>Something customers pay for</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The MVP exists to answer one question: "Will real people exchange real money for this?"</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 6 — Refine Based on Feedback</h2>
+<p>After early customers use the MVP, collect feedback and improve:</p>
+<ul>
+<li>Which features do they <strong>love</strong>? → Keep and strengthen</li>
+<li>Which features do they <strong>ignore</strong>? → Consider removing</li>
+<li>What is <strong>missing</strong>? → Add in next version</li>
+<li>What <strong>frustrates</strong> them? → Fix immediately</li>
+</ul>
+<p>This is an <strong>iterative cycle</strong> — version 1 → feedback → version 2 → feedback → version 3...</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The best products are not designed in one shot. They evolve through repeated customer feedback loops.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Stage check</h2>
+<p>A small team wants to create a meal-prep app for college students.</p>
+<p>They have:</p>
+<ul>
+<li>Sketched wireframes of the app screens</li>
+<li>Surveyed 50 students about meal planning habits</li>
+<li>Built a version with only 3 recipes and a shopping list</li>
+<li>Found that students want a "share with roommate" feature</li>
+</ul>
+<p><strong>Which stage are they in?</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Stage check answer</h2>
+<p>They are in <strong>Stage 6 — Refine Based on Feedback</strong>.</p>
+<ul>
+<li>Wireframes → Stage 3 (prototype) ✅ done</li>
+<li>Surveyed students → Stage 4 (concept testing) ✅ done</li>
+<li>Built a basic version → Stage 5 (MVP) ✅ done</li>
+<li>Found a missing feature from user feedback → <strong>Stage 6</strong> ← they are here</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Key clue: they already have a sellable product AND are learning from early users.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Product Development</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td>The six stages are <strong>sequential</strong> — each reduces uncertainty before the next investment</td></tr>
+<tr><td>2</td><td><strong>Screening</strong> (internal) ≠ <strong>Concept testing</strong> (external/customer-facing)</td></tr>
+<tr><td>3</td><td>A <strong>prototype</strong> is for exploring; an <strong>MVP</strong> is for selling</td></tr>
+<tr><td>4</td><td>The MVP includes only <strong>core features</strong> customers will pay for</td></tr>
+<tr><td>5</td><td>Product development is <strong>iterative</strong> — feedback loops refine the product over time</td></tr>
+<tr><td>6</td><td><strong>Value proposition</strong> = why a customer should choose your product over competitors</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dyson — A product development story</h2>
+<p>James Dyson (born 1947) had already invented the <strong>Ballbarrow</strong> — a wheelbarrow with a ball instead of a wheel. It sold well in the UK, but US competitors <strong>copied the design</strong>. Dyson lost that battle.</p>
+<p>Then, while renovating his farmhouse, he noticed his vacuum cleaner <strong>lost suction</strong> every time the bag filled with dust.</p>
+<p>At a local sawmill, he observed a <strong>30-foot conical centrifuge</strong> — spinning air that separated sawdust without any filter.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Dyson's idea: What if a vacuum could use cyclone technology instead of a bag?</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dyson — 5,127 prototypes</h2>
+<p>Dyson spent <strong>five years</strong> (1979–1984) building prototypes in a barn behind his house.</p>
+<ul>
+<li><strong>Prototype 1:</strong> Did not work at all</li>
+<li><strong>Prototype 500:</strong> Partial suction, but air leaked</li>
+<li><strong>Prototype 2,000:</strong> Cyclone worked, but the machine was too large</li>
+<li><strong>Prototype 5,127:</strong> Finally worked perfectly</li>
+</ul>
+<p>He had <strong>no income</strong> during this period. His wife supported the family by teaching art.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Each failed prototype was not wasted — it was a lesson that informed the next version.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dyson — Rejection and MVP</h2>
+<p>When Dyson approached vacuum manufacturers with his working prototype:</p>
+<ul>
+<li><strong>Every major brand refused</strong> to license it</li>
+<li>Why? They made <strong>billions selling replacement bags</strong> — a bagless vacuum would destroy that revenue stream</li>
+</ul>
+<p>So Dyson <strong>manufactured it himself</strong>:</p>
+<ul>
+<li>Launched the <strong>G-Force</strong> in Japan (1986) — sold for $2,000, a premium price</li>
+</ul>
+<div class="formula">- Japan launch = <strong>MVP test</strong> — would customers pay for bagless technology?</div>
+<ul>
+<li>Japanese customers loved it → validated the concept</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The G-Force was Dyson's MVP: the simplest version of his technology, sold to test demand.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dyson — From MVP to global brand</h2>
+<p>After Japan validated demand, Dyson launched the <strong>DC01</strong> in the UK (1993):</p>
+<ul>
+<li>Priced <strong>twice</strong> as high as competitor vacuums</li>
+<li>Became the <strong>#1 selling vacuum</strong> in the UK within 18 months</li>
+<li>Expanded to the US, Europe, and Asia</li>
+</ul>
+<p><strong>Key product development stages in Dyson's story:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Stage</th><th>Dyson's Action</th></tr></thead><tbody>
+<tr><td>Generate Idea</td><td>Saw industrial cyclone at sawmill</td></tr>
+<tr><td>Screen & Refine</td><td>Analyzed vacuum market, found bag pain point</td></tr>
+<tr><td>Develop Prototype</td><td>5,127 versions over 5 years</td></tr>
+<tr><td>Test Concept</td><td>Showed working prototype to manufacturers (rejected)</td></tr>
+<tr><td>Develop MVP</td><td>G-Force launch in Japan (1986)</td></tr>
+<tr><td>Refine with Feedback</td><td>DC01 in UK (1993) — refined design, price, and features</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dyson — Case discussion</h2>
+<p>Watch the case study video:</p>
+<p><strong>"The Dyson Story: From Vacuum Revolution to Global Success"</strong></p>
+<div class="formula"><a href="https://www.youtube.com/watch?v=nyvax5Sl-N8" target="_blank">https://www.youtube.com/watch?v=nyvax5Sl-N8</a></div>
+<p><strong>While watching, look for:</strong></p>
+<ol class="tick">
+<li>How did the <strong>Ballbarrow failure</strong> shape Dyson's approach to the vacuum idea?</li>
+<li>Why did <strong>every manufacturer reject</strong> his working prototype — and what does that tell us about idea screening?</li>
+<li>Why was the <strong>Japan launch</strong> (G-Force, $2,000) an example of an MVP — not just another prototype?</li>
+<li>The <strong>Contra Rotator washing machine</strong> had great reviews but failed commercially. Which stage of product development went wrong?</li>
+<li>Dyson invested <strong>$2.5 billion</strong> in an electric car, then cancelled. Is that a failure or good product portfolio management?</li>
+</ol></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.4.B — Building identity and trust</div>
+<h1>Part 2: Branding</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is a brand?</h2>
+<p>A <strong>brand</strong> is a name, term, design, symbol, or combination that <strong>identifies and differentiates</strong> a company's products from competitors.</p>
+<p>Examples:</p>
+<ul>
+<li><strong>Apple</strong> — minimalist design, innovation, premium pricing</li>
+<li><strong>Nike</strong> — athletic performance, "Just Do It" attitude</li>
+<li><strong>Dyson</strong> — engineering excellence, premium innovation</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>A brand is not a logo. A brand is what customers feel when they see that logo.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Brand vs. Branding vs. Brand Equity</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Concept</th><th>What It Is</th><th>Example</th></tr></thead><tbody>
+<tr><td><strong>Brand</strong></td><td>The identifiable mark (name, logo, symbol)</td><td>The Dyson logo and name</td></tr>
+<tr><td><strong>Branding</strong></td><td>The strategic process of shaping customer perception over time</td><td>Dyson's consistent message: "Better engineering, no compromise"</td></tr>
+<tr><td><strong>Brand Equity</strong></td><td>The added financial value from customer recognition, trust, and loyalty</td><td>Customers pay $500+ for a Dyson vacuum when a $100 vacuum exists</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Branding builds brand equity over time. You cannot buy equity — you earn it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why does branding matter?</h2>
+<p>Branding creates <strong>three advantages</strong>:</p>
+<ol class="tick">
+<li><strong>Differentiation</strong> — In a crowded market, a strong brand stands out</li>
+<li><strong>Trust and loyalty</strong> — Customers return to brands they recognize and trust</li>
+<li><strong>Pricing power</strong> — Strong brands can charge more because customers perceive higher value</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Brand equity is the reason a $50 t-shirt with a logo sells better than a $10 t-shirt without one.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Building brand equity — Consistency is key</h2>
+<p>Brand equity is built through <strong>consistent branding across every touchpoint</strong>:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Touchpoint</th><th>What It Communicates</th></tr></thead><tbody>
+<tr><td>Packaging</td><td>Quality, personality, values</td></tr>
+<tr><td>Advertising</td><td>Message, tone, target audience</td></tr>
+<tr><td>Social media</td><td>Voice, engagement, authenticity</td></tr>
+<tr><td>Customer service</td><td>Care, reliability, responsiveness</td></tr>
+<tr><td>Product design</td><td>Innovation, attention to detail</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>One bad experience at any touchpoint can damage years of brand building.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dyson — Branding strategy</h2>
+<p>Dyson built one of the strongest brands in consumer electronics:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Brand Element</th><th>How Dyson Does It</th></tr></thead><tbody>
+<tr><td>Product design</td><td>Distinctive industrial look — you recognize a Dyson instantly</td></tr>
+<tr><td>Pricing</td><td>Always premium — signals quality and innovation</td></tr>
+<tr><td>Advertising</td><td>"Say goodbye to the bag" — focused on solving the customer's pain point</td></tr>
+<tr><td>R&D investment</td><td><strong>15–20% of annual revenue</strong> on R&D; labs in UK, Singapore, US</td></tr>
+<tr><td>Patents</td><td><strong>~6,000</strong> granted and pending patents — protects innovation from imitation</td></tr>
+<tr><td>Leadership</td><td>James Dyson hired a CEO so he could personally focus on design and engineering</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Dyson's brand message is consistent: "We engineer things better."</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dyson — Brand equity in action</h2>
+<p>Why do customers pay <strong>2–3x more</strong> for a Dyson vacuum?</p>
+<ul>
+<li>They trust the brand to deliver <strong>superior performance</strong></li>
+<li>The distinctive design <strong>signals quality</strong> to visitors in their home</li>
+<li>Years of consistent messaging created <strong>perceived value</strong> beyond the product</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Brand equity turns a $150 manufacturing cost into a $500 retail price — and customers feel they got a good deal.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Brand check</h2>
+<p>A new coffee shop opens in a neighborhood with 6 existing coffee shops.</p>
+<p>They name it "Coffee Shop" with a plain white sign and generic cups.</p>
+<p><strong>What is the branding problem, and what would you recommend?</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Brand check answer</h2>
+<p><strong>Problem:</strong> No differentiation. "Coffee Shop" tells customers nothing about why this shop is different from the 6 others.</p>
+<p><strong>Recommendations:</strong></p>
+<ul>
+<li>Choose a <strong>distinctive name</strong> that communicates a value proposition</li>
+<li>Design a <strong>logo and visual identity</strong> that stands out</li>
+<li>Use <strong>consistent packaging</strong> (cups, bags, signage) to build recognition</li>
+<li>Define a <strong>brand voice</strong> — what does this coffee shop stand for? (local beans? cozy atmosphere? speed?)</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Branding is not decoration — it is a strategic decision about how customers will perceive and remember you.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Branding</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Brand</strong> = the mark; <strong>Branding</strong> = the process; <strong>Brand Equity</strong> = the value earned</td></tr>
+<tr><td>2</td><td>Brand equity is built through <strong>consistent</strong> branding across all touchpoints</td></tr>
+<tr><td>3</td><td>Strong branding creates <strong>differentiation</strong>, <strong>trust/loyalty</strong>, and <strong>pricing power</strong></td></tr>
+<tr><td>4</td><td>Brand equity allows businesses to charge <strong>premium prices</strong></td></tr>
+<tr><td>5</td><td>One negative experience can <strong>damage</strong> years of brand equity</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.4.C — Four stages, four strategies</div>
+<h1>Part 3: Product Life Cycle</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is the product life cycle?</h2>
+<p>The <strong>Product Life Cycle (PLC)</strong> is a model describing the <strong>four stages</strong> every product passes through from launch to withdrawal.</p>
+<p>Understanding the PLC helps businesses:</p>
+<ul>
+<li>Anticipate <strong>changes in sales and profit</strong></li>
+<li>Adjust <strong>marketing, production, and financial strategy</strong></li>
+<li>Manage a <strong>portfolio</strong> of products at different stages</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>No product sells forever. Every product has a life cycle — the question is how long each stage lasts.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The four stages</h2>
+<p>```</p>
+<p>Sales /</p>
+<p>Profit</p>
+<p>│        ╱‾‾‾‾‾‾‾‾╲</p>
+<p>│       ╱  Growth   ╲  Maturity</p>
+<p>│      ╱             ╲________</p>
+<p>│     ╱ Introduction        ╲</p>
+<p>│    ╱                    Decline</p>
+<p>│___╱</p>
+<p>└──────────────────────────────── Time</p>
+<p>```</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Stage</th><th>Sales</th><th>Profit</th><th>Competition</th></tr></thead><tbody>
+<tr><td>Introduction</td><td>Low, slowly rising</td><td>Negative (losses)</td><td>Few or none</td></tr>
+<tr><td>Growth</td><td>Rapidly increasing</td><td>Turning positive</td><td>Entering fast</td></tr>
+<tr><td>Maturity</td><td>Peak, slowing</td><td>High but pressured</td><td>Heavy, price wars</td></tr>
+<tr><td>Decline</td><td>Falling</td><td>Shrinking</td><td>Exiting</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 1 — Introduction</h2>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>Product just launched — most customers <strong>don't know it exists</strong></li>
+<li>Sales are <strong>low</strong> and grow slowly</li>
+<li>Costs are <strong>high</strong> (R&D, production setup, promotion)</li>
+<li>The business often operates at a <strong>loss</strong></li>
+</ul>
+<p><strong>Strategy focus:</strong></p>
+<ul>
+<li>Build <strong>awareness</strong> — advertising, demonstrations, free trials</li>
+<li>Educate <strong>early adopters</strong> — explain why this product matters</li>
+<li>Invest heavily in <strong>promotion</strong> — customers need a reason to try something new</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Introduction is about convincing the market that your product exists and is worth trying.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 2 — Growth</h2>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>Sales rise <strong>rapidly</strong> — word spreads, demand accelerates</li>
+<li>Profits begin to appear as <strong>economies of scale</strong> reduce unit costs</li>
+<li><strong>Competitors enter</strong> the market, attracted by visible demand</li>
+</ul>
+<p><strong>Strategy focus:</strong></p>
+<ul>
+<li><strong>Expand distribution</strong> — get the product into more stores, channels, regions</li>
+<li><strong>Differentiate</strong> from new competitors — improve features, branding, service</li>
+<li><strong>Scale production</strong> — invest in capacity to meet rising demand</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Growth is exciting but dangerous — competitors arrive just as the market gets profitable.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 3 — Maturity</h2>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>Sales reach their <strong>peak</strong> but growth slows</li>
+<li>The market is <strong>saturated</strong> — most potential customers already have the product</li>
+<li>Competition is <strong>heaviest</strong> — many competitors fight for the same customers</li>
+<li><strong>Price wars</strong> become common</li>
+</ul>
+<p><strong>Strategy focus:</strong></p>
+<ul>
+<li><strong>Defend market share</strong> — loyalty programs, brand reinforcement</li>
+<li><strong>Optimize costs</strong> — improve efficiency to protect margins</li>
+<li><strong>Product extensions</strong> — new features, new colors, limited editions</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Maturity is about holding your position, not expanding it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stage 4 — Decline</h2>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>Sales <strong>fall</strong> as customer preferences shift or new technology arrives</li>
+<li>Profits <strong>shrink</strong> — the business must decide what to do</li>
+</ul>
+<p><strong>Three strategic options:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Option</th><th>When to Choose</th></tr></thead><tbody>
+<tr><td><strong>Reduce investment</strong></td><td>Harvest remaining profits with minimal spending</td></tr>
+<tr><td><strong>Discontinue</strong></td><td>Exit the market and redirect resources</td></tr>
+<tr><td><strong>Reinvent</strong></td><td>Update the product to start a new life cycle</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Decline is not failure — it is a signal to make a strategic decision.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Product portfolio management</h2>
+<p>Smart businesses manage <strong>multiple products at different life cycle stages</strong>:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Product</th><th>PLC Stage</th><th>Role in Portfolio</th></tr></thead><tbody>
+<tr><td>Product A</td><td>Maturity</td><td>Cash cow — funds other products</td></tr>
+<tr><td>Product B</td><td>Growth</td><td>Rising star — needs investment to capture market</td></tr>
+<tr><td>Product C</td><td>Introduction</td><td>Future bet — may succeed or fail</td></tr>
+<tr><td>Product D</td><td>Decline</td><td>Harvest or exit</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A portfolio with products in different stages balances risk — when one declines, another grows.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dyson — Product life cycle in action</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Product</th><th>PLC Stage</th><th>Dyson's Strategy</th></tr></thead><tbody>
+<tr><td>Bagless vacuum (DC series)</td><td><strong>Maturity</strong> — market saturated, many competitors</td><td>Defend with premium positioning, continuous innovation</td></tr>
+<tr><td>Airblade hand dryer</td><td><strong>Growth</strong> — expanding into commercial spaces</td><td>Expand distribution, differentiate from paper towels</td></tr>
+<tr><td>Supersonic hair dryer</td><td><strong>Growth</strong> — disrupting a stagnant market</td><td>Premium pricing, heavy promotion, influencer marketing</td></tr>
+<tr><td>Airwrap styler</td><td><strong>Growth</strong> → approaching <strong>Maturity</strong></td><td>Brand extensions, new attachments, limited editions</td></tr>
+<tr><td>Airstrait straightener</td><td><strong>Introduction</strong> — new category</td><td>Build awareness, educate market, early adopter focus</td></tr>
+<tr><td>Contra Rotator washing machine</td><td><strong>Decline → Discontinued</strong></td><td>£1,000 price, positive reviews, but poor sales — learned from failure</td></tr>
+<tr><td>Electric car project</td><td><strong>Cancelled before launch</strong></td><td>Invested $2.5B, then cut losses — bold risk-taking</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Dyson manages a portfolio: mature vacuums fund the growth of newer product lines. Failed projects teach lessons.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — PLC stage check</h2>
+<p>Match each scenario to its PLC stage:</p>
+<ol class="tick">
+<li>A new electric skateboard launches with a YouTube ad campaign and a $50 discount for the first 100 buyers</li>
+<li>A soda brand releases a "limited edition summer flavor" to boost slowing sales</li>
+<li>A smartphone model sees sales double each quarter and three competitors release similar products</li>
+<li>A DVD rental chain closes 40% of its stores as streaming services dominate</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — PLC stage check answer</h2>
+<ol class="tick">
+<li><strong>Introduction</strong> — launch promotion, discount to attract early adopters</li>
+<li><strong>Maturity</strong> — limited edition = product extension to defend slowing sales</li>
+<li><strong>Growth</strong> — rapid sales increase + competitors entering</li>
+<li><strong>Decline</strong> — falling sales, closing stores, new technology replacing it</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Clues to look for:</strong> - "Launch" / "first" / "discount for early buyers" → Introduction - "Doubling sales" / "competitors entering" → Growth - "Slowing" / "limited edition" / "saturated" → Maturity - "Closing" / "replaced by" / "falling demand" → Decline</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Product Life Cycle</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td>Four stages: <strong>Introduction → Growth → Maturity → Decline</strong></td></tr>
+<tr><td>2</td><td>Each stage requires <strong>different</strong> marketing, production, and financial strategies</td></tr>
+<tr><td>3</td><td><strong>Introduction</strong>: low sales, high costs, losses; focus on awareness</td></tr>
+<tr><td>4</td><td><strong>Growth</strong>: rising sales, new competitors; focus on expansion and differentiation</td></tr>
+<tr><td>5</td><td><strong>Maturity</strong>: peak sales, heavy competition, price wars; focus on defending share</td></tr>
+<tr><td>6</td><td><strong>Decline</strong>: falling sales; reduce, discontinue, or reinvent</td></tr>
+<tr><td>7</td><td><strong>Product portfolio management</strong> = managing multiple products at different PLC stages</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Artisan Pops</strong> is a small company that makes gourmet ice pops using local fruit.</p><ul><li><strong>Year 1:</strong> Sold at one farmers' market; 120 pops/week; lost money on a rented freezer cart and custom molds</li><li><strong>Year 2:</strong> Added two farmers' markets and a food truck; sales tripled; two copycat brands appeared</li><li><strong>Year 3:</strong> Sold in 15 grocery stores; sales grew 20%; launched a "tropical collection" with mango and passion fruit flavors</li><li><strong>Year 4:</strong> Sales flatlined; grocery stores demanded slotting fees; a new competitor launched organic pops at a lower price</li></ul></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Q1</div>
+<div class="q-prompt">In Year 1, Artisan Pops operated at a loss despite selling 120 pops per week. Which statement <strong>best</strong> explains why?</div>
+<div class="opt"><span class="letter">A</span>The company failed to screen its idea before launching</div>
+<div class="opt"><span class="letter">B</span>The costs of the freezer cart and custom molds exceeded early revenue</div>
+<div class="opt"><span class="letter">C</span>The company should have launched in grocery stores first</div>
+<div class="opt"><span class="letter">D</span>Customer demand was too low to support the business</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>In the introduction stage, fixed costs (equipment, setup) are high and sales volume is low. Revenue from 120 pops/week did not cover the rental and mold costs.</p>
+<div class="trap"><strong>A</strong> — Screening happened before launch; the question asks about Year 1 performance</div>
+<div class="trap"><strong>C</strong> — Farmers' markets are a common MVP launch channel; there is no evidence grocery stores would have been better</div>
+<div class="trap"><strong>D</strong> — 120 pops/week is decent demand; the problem is cost structure, not demand</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>In the introduction stage, losses are normal — high fixed costs + low volume = operating at a deficit.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Q2</div>
+<div class="q-prompt">In Year 2, two copycat brands appeared. This is most consistent with which stage of the product life cycle?</div>
+<div class="opt"><span class="letter">A</span>Introduction — competitors test the concept</div>
+<div class="opt"><span class="letter">B</span>Growth — visible demand attracts new entrants</div>
+<div class="opt"><span class="letter">C</span>Maturity — all competitors are already established</div>
+<div class="opt"><span class="letter">D</span>Decline — competitors try to capture remaining demand</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>Sales tripled (rapid growth signal), and competitors entered because they could see the demand. This is the hallmark of the growth stage.</p>
+<div class="trap"><strong>A</strong> — In introduction, few or no competitors exist; the market is unproven</div>
+<div class="trap"><strong>C</strong> — Maturity has heavy existing competition, not new entrants arriving</div>
+<div class="trap"><strong>D</strong> — Decline has falling sales, not tripling sales</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>"Sales rising fast + competitors appearing" = growth stage every time.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Q3</div>
+<div class="q-prompt">Artisan Pops launched the "tropical collection" in Year 3. This is an example of:</div>
+<div class="opt"><span class="letter">A</span>Product development — generating a new idea</div>
+<div class="opt"><span class="letter">B</span>Product extension — adding variations to a mature product</div>
+<div class="opt"><span class="letter">C</span>Brand repositioning — changing how customers see the brand</div>
+<div class="opt"><span class="letter">D</span>Market penetration — entering a new geographic market</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>Adding new flavors (mango, passion fruit) to an existing product line is a classic product extension strategy used during the maturity stage to boost slowing sales.</p>
+<div class="trap"><strong>A</strong> — This is not a new product; it is a new flavor of the same product</div>
+<div class="trap"><strong>C</strong> — The brand positioning did not change; only the product variety expanded</div>
+<div class="trap"><strong>D</strong> — Market penetration means selling more of the same product in the same market; new flavors are product variation, not market expansion</div>
+<div class="formula">> <strong>Product extension = new variations of the same product to re-energize sales.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Q4</div>
+<div class="q-prompt">In Year 4, grocery stores demanded slotting fees and a new competitor launched organic pops at a lower price. Which PLC stage is Artisan Pops most likely entering?</div>
+<div class="opt"><span class="letter">A</span>Introduction — still paying to enter the market</div>
+<div class="opt"><span class="letter">B</span>Growth — expanding distribution with new costs</div>
+<div class="opt"><span class="letter">C</span>Maturity — saturated market, intense competition, margin pressure</div>
+<div class="opt"><span class="letter">D</span>Decline — sales have already fallen to zero</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>Sales flatlined (saturation), slotting fees squeeze margins, and a competitor is undercutting on price. All three are signals of the maturity stage.</p>
+<div class="trap"><strong>A</strong> — Slotting fees are a retailer demand, not a launch cost; the product is already in stores</div>
+<div class="trap"><strong>B</strong> — Sales are not rising; "flatlined" ≠ growth</div>
+<div class="trap"><strong>D</strong> — Sales have not fallen to zero; they have plateaued. Decline requires falling sales</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Flat sales + margin pressure + price competition = maturity. Falling sales = decline.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Q5</div>
+<div class="q-prompt">Artisan Pops wants to avoid decline. Which strategy is <strong>most</strong> appropriate for a product in the late maturity stage?</div>
+<div class="opt"><span class="letter">A</span>Increase prices to maximize revenue from loyal customers</div>
+<div class="opt"><span class="letter">B</span>Reduce investment and harvest remaining profits</div>
+<div class="opt"><span class="letter">C</span>Launch a new product line to diversify the portfolio while defending the existing brand</div>
+<div class="opt"><span class="letter">D</span>Discontinue the product before losses begin</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>Portfolio diversification (new product lines) is the strongest long-term strategy during late maturity. Defending the existing brand while developing new products balances risk.</p>
+<div class="trap"><strong>A</strong> — Raising prices in a price-competitive market accelerates customer loss</div>
+<div class="trap"><strong>B</strong> — "Harvest" is a decline-stage strategy; in late maturity, there is still time to reinvest</div>
+<div class="trap"><strong>D</strong> — Discontinuing a product with still-positive sales is premature; reinvention is better</div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Late maturity strategy: defend what you have + invest in what comes next.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Q6</div>
+<div class="q-prompt">A student says: "Dyson's bagless vacuum is in the decline stage because the technology is old." Which statement <strong>best</strong> evaluates this claim?</div>
+<div class="opt"><span class="letter">A</span>Correct — old technology always enters decline</div>
+<div class="opt"><span class="letter">B</span>Incorrect — the vacuum is still in the introduction stage because Dyson keeps launching new models</div>
+<div class="opt"><span class="letter">C</span>Incorrect — PLC stage is determined by sales trends and competitive dynamics, not by the age of the technology</div>
+<div class="opt"><span class="letter">D</span>Correct — Dyson should discontinue the vacuum and focus only on hair products</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>The PLC stage is determined by <strong>sales trends, market saturation, and competitive dynamics</strong> — not by how old the underlying technology is. A product with old technology can still be in growth or maturity if sales are strong.</p>
+<div class="trap"><strong>A</strong> — Age of technology ≠ PLC stage. Many products use old technology and remain in maturity (e.g., bicycles, umbrellas)</div>
+<div class="trap"><strong>B</strong> — New models do not reset the PLC to introduction; they are product extensions within the current stage</div>
+<div class="trap"><strong>D</strong> — The vacuum line still generates significant revenue; discontinuing it would be a poor business decision</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>PLC stage = what the sales data says, not what the calendar says.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap type</th><th>Where it appears</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Cost ≠ demand</strong> — introduction losses come from high fixed costs, not low demand</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>"Competitors entering" = growth</strong>, not maturity (maturity = competitors already there)</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>New flavors ≠ new product</strong> — product extension is not the same as product development</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>Flat sales ≠ decline</strong> — flat sales = maturity; falling sales = decline</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Harvest is a decline strategy</strong> — in maturity, invest in new products instead</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Technology age ≠ PLC stage</strong> — stage is determined by sales data, not by calendar time</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Wrap-up</div><h2>Wrap-up — 2.4 Product</h2>
+<p><strong>What we covered:</strong></p>
+<ul>
+<li>Product development has <strong>six stages</strong>: idea → screen → prototype → concept test → MVP → refine</li>
+<li><strong>Screening</strong> (internal) ≠ <strong>Concept testing</strong> (customer-facing)</li>
+<li>A <strong>prototype</strong> explores; an <strong>MVP</strong> sells</li>
+<li><strong>Branding</strong> builds identity, trust, and pricing power over time through consistency</li>
+</ul>
+<div class="formula">- <strong>Brand equity</strong> = the added value from customer recognition and loyalty</div>
+<ul>
+<li><strong>Product life cycle</strong>: Introduction → Growth → Maturity → Decline</li>
+<li>Each PLC stage requires <strong>different strategies</strong> for marketing, production, and finance</li>
+<li><strong>Product portfolio management</strong> balances risk across multiple products</li>
+</ul>
+<p><strong>Coming up next:</strong> 2.5 Price — you know what to build and what to call it. Now: <strong>how much do you charge?</strong></p></div>
+        </div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 2.4 Product</span>
+    <span>Slide <span id="sn">1</span> / 56</span>
+</div>
+<script>
+var cs = 0;
+var N = 56;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

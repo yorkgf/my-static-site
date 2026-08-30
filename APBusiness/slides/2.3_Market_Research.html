@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.3 Market Research — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #0891b2;
+    --accent-d: #0e7490;
+    --accent-l: #67e8f9;
+    --accent-xd: #155e75;
+    --tint: #ecfeff;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 2.3-specific design — research types + visualizations ────── */
+:root {
+    --c-quant: #2563eb;
+    --c-qual: #ec4899;
+    --c-prim: #7c3aed;
+    --c-sec: #0891b2;
+}
+
+/* Quantitative vs qualitative */
+.pair-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.pair-card {
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.pair-card .pair-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; opacity: .7; margin-bottom: .3rem; }
+.pair-card h3 { font-size: 1.15rem; margin-bottom: .5rem; color: var(--ink); }
+.pair-card p { font-size: .95em; margin: 0; }
+.pair-card.quant { border-color: var(--c-quant); background: #eff6ff; }
+.pair-card.qual { border-color: var(--c-qual); background: #fdf2f8; }
+
+/* Three viability tests */
+.vt-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.vt-card {
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    background: var(--card);
+    border-top: 5px solid var(--accent);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+.vt-card .emoji { font-size: 1.5rem; display: block; margin-bottom: .3rem; }
+.vt-card h4 { font-size: .98rem; margin-bottom: .3rem; color: var(--ink); }
+.vt-card p { font-size: .82em; color: var(--muted); margin: 0; line-height: 1.4; }
+.vt-card.des { border-color: #ec4899; background: #fdf2f8; }
+.vt-card.feas { border-color: #6366f1; background: #eef2ff; }
+.vt-card.viab { border-color: #16a34a; background: #f0fdf4; }
+
+/* Sample selection */
+.sample-vis {
+    background: var(--tint);
+    border: 2px solid var(--accent-l);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    max-width: 760px;
+    margin: 1rem auto;
+}
+
+/* Case study */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 2.3 Market Research</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 2</div>
+<h1>2.3 Market Research</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Explain what market research is and how it uses <strong>quantitative and qualitative data</strong> to test <strong>desirability, feasibility, and viability</strong> — and why research continues after launch (LO 2.3.A)</li>
+<li>Use <strong>secondary-source research</strong> to scan the competitive landscape cheaply (LO 2.3.B)</li>
+<li>Design <strong>primary-source research</strong> — match the method to the hypothesis, keep data honest, and know that research does not guarantee a prediction (LO 2.3.C)</li>
+<li>Select the right <strong>data visualization</strong> to communicate findings to stakeholders (LO 2.3.D)</li>
+</ol>
+<p><strong>Running example continues:</strong> Theo / Trued Cycles.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Opening scenario</h2>
+<p>A buyer holds up his phone showing a <strong>$75 bike</strong> online and asks why Theo charges <strong>$95</strong>. Theo points at the <strong>orange inspection tag</strong>. The buyer shrugs and walks.</p>
+<div class="callout key"><span class="tag">Key Point</span>That night Theo writes: <em>"An identical bike with a documented inspection tag sells for twenty dollars more, and faster."</em></div>
+<p>Today that's a <strong>guess</strong>. This topic turns guesses into <strong>evidence</strong>.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is market research?</h2>
+<div class="def"><div class="term">Market research</div><div class="text">the process of <strong>collecting and analyzing information</strong> to guide business decisions about customers, competitors, and the market.</div></div>
+<div class="callout key"><span class="tag">Key Point</span>It replaces <strong>"I think"</strong> with <strong>"the data shows."</strong></div>
+<ul>
+<li>Every business decision — pricing, product design, targeting — improves when it rests on evidence instead of instinct.</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.A.1 — Why it matters</h2>
+<p>Without research, a business is guessing:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Guess</th><th>Evidence</th></tr></thead><tbody>
+<tr><td>"People want this product"</td><td>Survey: 72% of target customers say they'd buy</td></tr>
+<tr><td>"Our price is right"</td><td>Competitor scan: median price is $89, ours is $95</td></tr>
+<tr><td>"Customers love us"</td><td>NPS score: 62 (promoters minus detractors)</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Research turns assumptions into testable claims.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Quantitative vs. qualitative data</h2>
+<div class="pair-compare">
+    <div class="pair-card quant">
+        <div class="pair-label">🔢 Numbers</div>
+        <h3>Quantitative</h3>
+        <p>Data expressed in <strong>numbers</strong>. Answers <em>"how many?" "how much?" "how often?"</em></p>
+        <p style="margin-top:.5rem"><strong>Example:</strong> 72% of 200 surveyed would buy.</p>
+    </div>
+    <div class="pair-card qual">
+        <div class="pair-label">💬 Words &amp; meaning</div>
+        <h3>Qualitative</h3>
+        <p>Data expressed in <strong>words, images, observations</strong>. Answers <em>"why?" "how do you feel?"</em></p>
+        <p style="margin-top:.5rem"><strong>Example:</strong> "I like the color but the seat is too hard."</p>
+    </div>
+</div>
+<div class="callout key" style="margin-top:1rem;text-align:center"><span class="tag">Key Point</span><strong>Quant = count it. Qual = understand it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Quantitative vs. qualitative — Theo examples</h2>
+<p><strong>Quantitative:</strong></p>
+<ul>
+<li>60 marketplace listings scraped — median price $82</li>
+</ul>
+<div class="formula">- 7 out of 9 tagged bikes sold in one Saturday = <strong>78%</strong></div>
+<p><strong>Qualitative:</strong></p>
+<ul>
+<li>12 one-on-one interviews → "The tag makes me trust it's not stolen"</li>
+<li>A buyer saying "I'd pay $10 more if I knew it was safe"</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The numbers tell you WHAT happened. The words tell you WHY.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Desirable / Feasible / Viable</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Criterion</th><th>Question it answers</th><th>Theo example</th></tr></thead><tbody>
+<tr><td><strong>Desirable</strong></td><td>Does the customer actually want this? (problem-solution fit)</td><td>Do buyers value the inspection tag enough to pay more?</td></tr>
+<tr><td><strong>Feasible</strong></td><td>Can we actually build / deliver it? (resources, tech, time)</td><td>Can Theo inspect and tag 15+ bikes per week with current tools?</td></tr>
+<tr><td><strong>Viable</strong></td><td>Is there a profitable path? (revenue > cost, long-term)</td><td>Does the $20 premium cover the cost of inspection and tagging?</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>All three must pass.</strong> A desirable product you can't build is a dream. A feasible product nobody wants is a waste.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Desirable / Feasible / Viable — the framework</h2>
+<p>Think of it as three gates:</p>
+<ol class="tick">
+<li><strong>Desirable</strong> — "Do they want it?" → research with customers</li>
+<li><strong>Feasible</strong> — "Can we do it?" → audit your resources and capacity</li>
+<li><strong>Viable</strong> — "Does the math work?" → model revenue vs. cost</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Gate order matters:</strong> desirability first (no point building something nobody wants), then feasibility, then viability.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Desirability — problem-solution fit</h2>
+<div class="def"><div class="term">Desirable</div><div class="text">the product solves a <strong>real customer problem</strong> and the customer values the solution enough to choose it over alternatives.</div></div>
+<ul>
+<li>Test with <strong>customer interviews, surveys, observation</strong></li>
+<li>Look for: willingness to pay, switching behavior, emotional response</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><em>Theo's desirability question: "Will buyers pay $95 for a bike with an inspection tag when a $75 bike without one is available?"</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Feasibility — resources, tech, time</h2>
+<div class="def"><div class="term">Feasible</div><div class="text">the business has (or can acquire) the <strong>resources, technology, and time</strong> to deliver the product.</div></div>
+<ul>
+<li>Test with <strong>internal audits, capacity analysis, supplier checks</strong></li>
+<li>Look for: bottlenecks, skill gaps, supply constraints</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><em>Theo's feasibility question: "Can I inspect, tag, and photograph 15 bikes per week with one helper and a Saturday schedule?"</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Viability — profitable path</h2>
+<div class="def"><div class="term">Viable</div><div class="text">the business model produces <strong>revenue greater than cost</strong> over time, creating a sustainable path.</div></div>
+<ul>
+<li>Test with <strong>financial modeling, break-even analysis, pricing research</strong></li>
+<li>Look for: margins, customer acquisition cost, repeat purchase rate</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><em>Theo's viability question: "Does the $20 premium on tagged bikes cover inspection labor, tag materials, and still leave profit?"</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Real-world case — New Coke (1985)</h2>
+<p><strong>Coca-Cola</strong> in the 1980s: owned 60% of the cola market after WWII → less than 24% by 1983.</p>
+<p><strong>Pepsi Challenge:</strong> blindfolded taste tests → people overwhelmingly chose Pepsi.</p>
+<p>Coca-Cola's response: <strong>Project Kansas</strong> — create a sweeter Coke to beat Pepsi.</p>
+<div class="callout key"><span class="tag">Key Point</span>They spent <strong>$12 million</strong> (today's dollars) testing with <strong>200,000 people.</strong> New Coke won every taste test. They launched it.</div>
+<p><strong>Three months later, they pulled it.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>New Coke — what the research showed</h2>
+<p><strong>Methods used:</strong></p>
+<ul>
+<li><strong>Sampling surveys</strong> (quantitative): 200,000 people tasted New Coke vs Classic vs Pepsi</li>
+<li><strong>Focus groups</strong> (qualitative): discussed the new flavor</li>
+</ul>
+<p><strong>Results:</strong></p>
+<ul>
+<li>New Coke <strong>"overwhelmingly beat both Pepsi and Coke Classic"</strong></li>
+<li>One bottling partner <strong>threatened to sue</strong> if they didn't release it</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>The data said <strong>launch it.</strong> The data was <strong>right about taste</strong> — and <strong>wrong about everything else.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>New Coke — where the research failed</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>What they measured</th><th>What they MISSED</th></tr></thead><tbody>
+<tr><td>Taste preference (sip test)</td><td><strong>Emotional attachment</strong> to the original brand</td></tr>
+<tr><td>"Do you prefer A or B?"</td><td>"How would you feel if Classic <strong>disappeared forever?</strong>"</td></tr>
+<tr><td>Small samples in a controlled setting</td><td>Real-world full-can drinking experience</td></tr>
+<tr><td>Quantitative data (how many prefer it)</td><td>Qualitative data on <strong>why</strong> people love Coke</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The research measured the product. It didn't measure the brand.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>New Coke — three research mistakes</h2>
+<p><strong>1. Sample design flaw</strong> (EK 2.3.C.8)</p>
+<ul>
+<li>"They only gave out a small amount — little samples didn't reflect how people drank Coke in real life"</li>
+<li>A sip ≠ a full can in your kitchen</li>
+</ul>
+<p><strong>2. Missing the key variable</strong></p>
+<ul>
+<li>Focus groups asked about taste but NOT about emotional attachment</li>
+<li>"We are not selling a soft drink. We were selling a little tiny piece of people's lives."</li>
+</ul>
+<p><strong>3. Confirmation bias</strong> (EK 2.3.C.8)</p>
+<ul>
+<li>CEO Goizueta's mind was already made up: "it was new Coke or no Coke"</li>
+<li>He ignored data that contradicted his belief</li>
+<li><strong>Not neutral</strong> → not honest research</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>New Coke — the lesson</h2>
+<p><strong>8,000 angry calls per day</strong> to Coca-Cola headquarters.</p>
+<p>Demonstrations. Letter-writing campaigns. Media frenzy.</p>
+<p>Coca-Cola brought back the original as <strong>"Coca-Cola Classic"</strong> within 3 months.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Research ≠ guaranteed prediction.</strong> 200,000 data points and $12 million said "launch." The market said "no."</div>
+<p>A former Coca-Cola executive: <em>"We did not know what we were selling. We are not selling a soft drink. We were selling a little tiny piece of people's lives."</em></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Research after launch</h2>
+<p>Research does not stop when the product launches. <strong>Post-launch research:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Purpose</th><th>What it does</th><th>Theo example</th></tr></thead><tbody>
+<tr><td><strong>Track changes</strong></td><td>Monitor shifts in customer preferences or market conditions</td><td>Buyer tastes shift from mountain bikes to city commuters</td></tr>
+<tr><td><strong>Spot openings</strong></td><td>Identify new market opportunities or unmet needs</td><td>Parents start asking for kid-sized bikes with the same tag</td></tr>
+<tr><td><strong>Build strategies</strong></td><td>Use data to adjust pricing, promotion, or positioning</td><td>Raise tagged-bike price to $100 after confirming demand holds</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A business that stops researching after launch is guessing again within months.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.A.4 — research is ongoing</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Research is not a one-time event — it's a continuous cycle.</strong></div>
+<p>The market moves. Customers change. Competitors react. What was true in January may be false by June.</p>
+<ul>
+<li><strong>Pre-launch:</strong> test desirability, feasibility, viability</li>
+<li><strong>Post-launch:</strong> track, spot, adjust</li>
+<li><strong>Ongoing:</strong> the cycle never ends</li>
+</ul></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>LO 2.3.B — Secondary-Source Research</h1>
+<hr class="divider">
+<div class="tag"><em>What's already out there — and how to use it cheaply.</em></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is secondary-source research?</h2>
+<div class="formula"><strong>Secondary-source research</strong> = collecting and analyzing data that <strong>already exists</strong> — gathered by someone else for a different purpose.</div>
+<p>Sources include:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Type</th><th>Examples</th></tr></thead><tbody>
+<tr><td><strong>Government</strong></td><td>Census data, labor statistics, trade reports</td></tr>
+<tr><td><strong>Commercial</strong></td><td>Industry reports, market research firms (Statista, IBISWorld)</td></tr>
+<tr><td><strong>Academic</strong></td><td>University studies, published journals, working papers</td></tr>
+<tr><td><strong>Internal</strong></td><td>The company's own past sales records, customer databases</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Key advantage:</strong> it's faster and cheaper than collecting new data yourself.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.B.2 — what secondary research reveals</h2>
+<p>Secondary research helps a business understand the <strong>landscape before</strong> investing in primary research:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>What it reveals</th><th>How Theo uses it</th></tr></thead><tbody>
+<tr><td><strong>PESTEL factors</strong></td><td>Local regulations on reselling used bikes (legal), e-bike trend (technological)</td></tr>
+<tr><td><strong>Market size</strong></td><td>How many used bikes sell per month in his city</td></tr>
+<tr><td><strong>Trends</strong></td><td>Growing demand for inspected/refurbished bikes</td></tr>
+<tr><td><strong>Customer segments</strong></td><td>Commuters vs. recreational riders vs. parents buying for kids</td></tr>
+<tr><td><strong>Competitor analysis</strong></td><td>What other sellers charge, how they position, what they lack</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Secondary research = cheap reconnaissance.</strong> It tells you what you're walking into.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.B.3 — secondary is cost-effective</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Secondary research is the cost-effective first step</strong> — it saves time and money by using data that already exists.</div>
+<ul>
+<li><strong>Pro:</strong> fast, cheap, broad coverage</li>
+<li><strong>Con:</strong> may not answer your specific question; data may be outdated; you didn't control how it was collected</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Always start with secondary.</strong> Only move to primary when secondary leaves gaps.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Theo's secondary move</h2>
+<p>Theo sweeps <strong>60 marketplace listings</strong> and records three fields per listing:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Field</th><th>What he finds</th></tr></thead><tbody>
+<tr><td><strong>Price</strong></td><td>Range: $55–$110; median: $82</td></tr>
+<tr><td><strong>Days listed</strong></td><td>Cheaper bikes sit longer; tagged bikes sell faster</td></tr>
+<tr><td><strong>Inspection documented?</strong></td><td>Only 8 of 60 mention any inspection</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Without spending a dollar on new data,</strong> Theo now knows: most competitors don't document inspections, and there may be a price gap he can fill.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — secondary sources</h2>
+<p><strong>Think-pair-share (2 minutes):</strong></p>
+<p>What secondary sources could you use to research <strong>your own business idea</strong> (or a school project)?</p>
+<p>Consider:</p>
+<ul>
+<li>Government data (what's available for free?)</li>
+<li>Industry reports (what does your school/library give access to?)</li>
+<li>Competitor websites and reviews</li>
+<li>Social media trends and forums</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>List at least three sources.</strong> One must be government or academic.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>LO 2.3.C — Primary-Source Research</h1>
+<hr class="divider">
+<div class="tag"><em>Generating new data from real customers.</em></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is primary-source research?</h2>
+<div class="formula"><strong>Primary-source research</strong> = collecting <strong>new data directly</strong> from customers, prospects, or the market — data that did not exist before you gathered it.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Secondary = what's already out there. Primary = what you go get yourself.</strong></div>
+<ul>
+<li>Surveys, interviews, focus groups, experiments, observations</li>
+<li>More expensive and time-consuming than secondary</li>
+<li>But it answers <strong>your specific question</strong> with <strong>your specific audience</strong></li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Business hypothesis</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Business hypothesis</strong> = an assumption about a customer, product, or market, <strong>stated so it can be tested.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Component</th><th>Example (Theo)</th></tr></thead><tbody>
+<tr><td><strong>Assumption</strong></td><td>Buyers will pay more for a bike with a documented inspection tag</td></tr>
+<tr><td><strong>Testable form</strong></td><td>"If I add an inspection tag, at least 60% of bikes will sell within one week at $95"</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A hypothesis is not a wish.</strong> It must specify what you expect and how you'll know if you're right or wrong.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.C.2 — why hypotheses matter</h2>
+<p>Without a hypothesis, research is just collecting data with no direction.</p>
+<ul>
+<li>A <strong>hypothesis focuses</strong> your research: you know what to measure</li>
+<li>It makes results <strong>interpretable</strong>: you can say "supported" or "not supported"</li>
+<li>It prevents <strong>post-hoc rationalization</strong>: deciding after the fact what the data "means"</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Write the hypothesis before you collect the data.</strong> Not after.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Research methods menu</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Method</th><th>Type of data</th><th>Best for</th><th>Theo example</th></tr></thead><tbody>
+<tr><td><strong>Survey</strong></td><td>Quantitative</td><td>Measuring opinions, preferences across a large group</td><td>Online survey: "Would you pay more for an inspected bike?"</td></tr>
+<tr><td><strong>Focus group</strong></td><td>Qualitative</td><td>Exploring attitudes, generating ideas in a group setting</td><td>6 buyers discuss what "inspection" means to them</td></tr>
+<tr><td><strong>Interview</strong></td><td>Qualitative</td><td>Deep, one-on-one understanding of motivations</td><td>12 follow-up interviews after the A/B test</td></tr>
+<tr><td><strong>Experiment / Observation</strong></td><td>Behavioral</td><td>Watching what people actually do (not just what they say)</td><td>Count how many people pick up a tagged vs. untagged bike</td></tr>
+<tr><td><strong>A/B testing</strong></td><td>Behavioral (real-world)</td><td>Comparing two versions to see which performs better</td><td>9 tagged vs. 8 untagged bikes over two Saturdays</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.C.3 — match the method to the data</h2>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The hypothesis tells you what data you need. The method must deliver that type of data.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>If your hypothesis asks…</th><th>You need…</th><th>Use…</th></tr></thead><tbody>
+<tr><td>"What do customers prefer?"</td><td>Quantitative preference data</td><td><strong>Survey</strong></td></tr>
+<tr><td>"Why do customers feel that way?"</td><td>Qualitative depth</td><td><strong>Interview or focus group</strong></td></tr>
+<tr><td>"Will customers actually buy?"</td><td>Behavioral data</td><td><strong>Experiment, observation, A/B test</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Don't use a survey to answer a "why" question. Don't use a focus group to count behavior.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.C.4 — surveys</h2>
+<div class="def"><div class="term">Survey</div><div class="text">a set of questions administered to a sample of respondents to collect <strong>quantitative (or sometimes qualitative) data.</strong></div></div>
+<ul>
+<li>Can reach <strong>large numbers</strong> quickly (online tools, paper forms)</li>
+<li>Best for: preferences, satisfaction, demographics, likelihood to buy</li>
+<li>Weakness: people may not answer honestly (social desirability bias)</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><em>Theo's survey: "On a scale of 1–5, how important is a documented inspection when buying a used bike?" — sent to 200 local commuters.</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.C.5 — focus groups and interviews</h2>
+<div class="def"><div class="term">Focus group</div><div class="text">a moderated discussion with <strong>6–10 participants</strong> to explore attitudes and generate qualitative insights.</div></div>
+<div class="formula"><strong>Interview</strong> = a one-on-one conversation to get <strong>deep, detailed</strong> qualitative responses.</div>
+<ul>
+<li>Best for: understanding <strong>motivations, feelings, reasoning</strong></li>
+<li>Weakness: small sample, not statistically generalizable</li>
+<li>Focus groups add <strong>group dynamics</strong> (participants react to each other)</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><em>Theo's 12 one-on-one interviews revealed: "The tag makes me trust it's not stolen" — a motivation the survey never surfaced.</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.C.6 — experiments and observations</h2>
+<div class="def"><div class="term">Experiment</div><div class="text">manipulating one variable while holding others constant to measure cause and effect.</div></div>
+<div class="def"><div class="term">Observation</div><div class="text">watching and recording behavior without intervening.</div></div>
+<ul>
+<li>Best for: <strong>what people actually do</strong> (vs. what they say they'll do)</li>
+<li>Weakness: hard to control all variables in a real-world setting</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><em>Theo's observation: count how many shoppers pick up, inspect, or ask about tagged vs. untagged bikes on the sales floor.</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.C.7 — A/B testing</h2>
+<div class="formula"><strong>A/B testing</strong> = comparing <strong>two versions</strong> (A and B) in a real-world setting to see which performs better on a defined metric.</div>
+<ul>
+<li>One variable changes; everything else stays the same</li>
+<li>Results are <strong>behavioral</strong> — based on what customers actually do</li>
+<li>Common in: pricing, web design, email subject lines, product placement</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>A/B testing is the gold standard for "will they actually buy?" questions.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Theo's A/B test</h2>
+<p><strong>Setup:</strong></p>
+<ul>
+<li>17 bikes total: <strong>9 tagged at $95</strong>, <strong>8 untagged at $75</strong></li>
+<li>Two consecutive Saturdays, same location, same display style</li>
+</ul>
+<p><strong>Results:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Group</th><th>Sold</th><th>Total</th><th>Sell rate</th></tr></thead><tbody>
+<tr><td><strong>Tagged ($95)</strong></td><td>7</td><td>9</td><td><strong>78%</strong></td></tr>
+<tr><td><strong>Untagged ($75)</strong></td><td>3</td><td>8</td><td><strong>38%</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The tag — not the price — appears to drive the sale. But <strong>one test is not proof.</strong> Theo needs more data.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>A/B math</h2>
+<h3>Tagged: 7 / 9 = 77.8% ≈ <strong>78%</strong></h3>
+<h3>Untagged: 3 / 8 = 37.5% ≈ <strong>38%</strong></h3>
+<div class="callout key"><span class="tag">Key Point</span>A <strong>40-percentage-point gap</strong> in a small sample. Suggestive, not conclusive — but strong enough to justify a follow-up.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Follow-up: qualitative explains quantitative</h2>
+<p>The A/B test told Theo <strong>what</strong> happened (tagged bikes sold more). The interviews told him <strong>why.</strong></p>
+<p><strong>12 one-on-one interviews with buyers who purchased tagged bikes:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Theme</th><th>Frequency</th></tr></thead><tbody>
+<tr><td>"The tag makes me trust it's not stolen"</td><td>8 of 12</td></tr>
+<tr><td>"I feel safer knowing someone checked the brakes"</td><td>6 of 12</td></tr>
+<tr><td>"It looks more professional"</td><td>4 of 12</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Quantitative data identifies the pattern. Qualitative data explains it.</strong> You need both.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Keeping data honest</h2>
+<p>Research is only useful if the data is <strong>reliable.</strong> Two key safeguards:</p>
+<h3>1. Large, representative sample</h3>
+<ul>
+<li><strong>Large enough</strong> to reduce the effect of random variation</li>
+<li><strong>Representative</strong> of the population you care about (not just who's convenient)</li>
+</ul>
+<h3>2. Neutral phrasing</h3>
+<ul>
+<li>Questions must not <strong>lead</strong> the respondent toward a particular answer</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Biased vs. neutral question phrasing</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th><strong>Biased</strong> (leading)</th><th><strong>Neutral</strong></th></tr></thead><tbody>
+<tr><td>"Don't you think inspected bikes are safer?"</td><td>"How important is a documented inspection when buying a used bike?"</td></tr>
+<tr><td>"Wouldn't you prefer a bike with a warranty tag?"</td><td>"Which features matter most when choosing a used bike: price, inspection tag, brand, or appearance?"</td></tr>
+<tr><td>"Our bikes are the best value — agree?"</td><td>"How would you rate the value of this bike relative to its price?"</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Leading questions produce useless data.</strong> The answer was baked into the question.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.C.8 — sample size and neutrality</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>The two pillars of honest data:</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Pillar</th><th>What it means</th></tr></thead><tbody>
+<tr><td><strong>Sample size & representativeness</strong></td><td>Enough respondents, drawn from the population you're studying — not just your friends</td></tr>
+<tr><td><strong>Neutral phrasing</strong></td><td>Questions that don't hint at the "right" answer</td></tr>
+</tbody></table></div>
+<ul>
+<li>A biased question with 1,000 respondents gives you <strong>1,000 useless answers</strong></li>
+<li>A neutral question with 15 carefully chosen respondents gives you <strong>15 honest answers</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Quality of the question matters more than quantity of responses.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.C.9 — research does not guarantee prediction</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Research reduces uncertainty — it does not eliminate it.</strong></div>
+<ul>
+<li>A survey showing 72% would buy does not mean 72% <strong>will</strong> buy</li>
+<li>An A/B test showing a 40-point gap in two Saturdays does not prove causation</li>
+<li>Market conditions change, competitors react, customer moods shift</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Research improves the odds. It does not promise outcomes.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The research confidence ladder</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Level</th><th>What it gives you</th></tr></thead><tbody>
+<tr><td><strong>No research</strong></td><td>Pure guess</td></tr>
+<tr><td><strong>Secondary only</strong></td><td>Landscape understanding — what's already known</td></tr>
+<tr><td><strong>Secondary + survey</strong></td><td>Quantitative preferences from your target market</td></tr>
+<tr><td><strong>Secondary + survey + interviews</strong></td><td>Numbers + motivations</td></tr>
+<tr><td><strong>Secondary + survey + interviews + A/B test</strong></td><td>Numbers + motivations + real-world behavioral data</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Each layer adds confidence. None guarantees the future.</strong></div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>LO 2.3.D — Data Visualization</h1>
+<hr class="divider">
+<div class="tag"><em>Turning numbers into patterns stakeholders can grasp.</em></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why visualize data?</h2>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Data visualizations turn raw data into patterns that stakeholders can grasp quickly.</strong></div>
+<ul>
+<li>A table of 60 numbers takes effort to read</li>
+<li>A chart of those 60 numbers reveals a pattern in seconds</li>
+<li>The <strong>right chart</strong> for the <strong>right data</strong> makes your case persuasive</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The goal is not decoration — it's communication.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.D.1 — four chart types</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Chart type</th><th>Best for</th><th>Visual</th></tr></thead><tbody>
+<tr><td><strong>Bar chart</strong></td><td>Comparing values across categories</td><td>Bars side by side</td></tr>
+<tr><td><strong>Stacked bar chart</strong></td><td>Showing total + subcategories within each bar</td><td>Bars divided into colored segments</td></tr>
+<tr><td><strong>Line chart</strong></td><td>Showing trend over time</td><td>Points connected by a line</td></tr>
+<tr><td><strong>Pie chart</strong></td><td>Showing part-to-whole (proportions of a total)</td><td>Slices of a circle</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Pick the chart that best shows your pattern.</strong> Don't pick a pie chart just because it looks nice.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Bar chart — compare discrete categories</h2>
+<p><strong>Use when:</strong> you want to compare a single value across categories.</p>
+<p><strong>Example:</strong> Average sale price of bikes by seller type (private, shop, certified reseller).</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Seller type</th><th>Avg. price</th></tr></thead><tbody>
+<tr><td>Private</td><td>$68</td></tr>
+<tr><td>Shop</td><td>$85</td></tr>
+<tr><td>Certified reseller</td><td>$98</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>A bar chart makes the price gap across seller types instantly visible.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stacked bar chart — total + parts</h2>
+<p><strong>Use when:</strong> you want to show both the <strong>total</strong> and the <strong>composition</strong> within each category.</p>
+<p><strong>Example:</strong> Monthly bike sales by type (tagged vs. untagged).</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Month</th><th>Tagged</th><th>Untagged</th><th>Total</th></tr></thead><tbody>
+<tr><td>January</td><td>12</td><td>8</td><td>20</td></tr>
+<tr><td>February</td><td>15</td><td>5</td><td>20</td></tr>
+<tr><td>March</td><td>18</td><td>4</td><td>22</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The bar height shows the total; the segments show what's inside.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Line chart — trend over time</h2>
+<p><strong>Use when:</strong> you want to show how a value <strong>changes over time.</strong></p>
+<p><strong>Example:</strong> Average selling price of inspected bikes over 6 months.</p>
+<div class="callout key"><span class="tag">Key Point</span>If the line slopes upward, the price is rising. If it dips, something changed. <strong>Time goes on the x-axis.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Pie chart — part-to-whole</h2>
+<p><strong>Use when:</strong> you want to show how <strong>parts make up a whole</strong> (proportions, percentages).</p>
+<p><strong>Example:</strong> What share of Theo's sales come from tagged vs. untagged bikes?</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Category</th><th>Share</th></tr></thead><tbody>
+<tr><td>Tagged</td><td>70%</td></tr>
+<tr><td>Untagged</td><td>30%</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Limitation:</strong> pie charts work best with <strong>few categories</strong> (3–5). More than that and the slices become hard to read.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.D.2 — pick the right chart</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>The question determines the chart.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>If you want to show…</th><th>Use…</th></tr></thead><tbody>
+<tr><td>Compare values across categories</td><td><strong>Bar chart</strong></td></tr>
+<tr><td>Total + composition within each category</td><td><strong>Stacked bar chart</strong></td></tr>
+<tr><td>Change over time</td><td><strong>Line chart</strong></td></tr>
+<tr><td>Proportions of a whole</td><td><strong>Pie chart</strong></td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Don't default to the prettiest chart.</strong> Default to the one that makes your pattern <strong>obvious.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>EK 2.3.D.3 — bar charts in depth</h2>
+<p>Bar charts are the <strong>workhorse</strong> of data visualization on the AP exam.</p>
+<ul>
+<li><strong>Horizontal axis (x):</strong> categories (seller type, product, month)</li>
+<li><strong>Vertical axis (y):</strong> the measured value (price, quantity, percentage)</li>
+<li><strong>Each bar:</strong> one category's value</li>
+</ul>
+<div class="formula">- <strong>Compare by height:</strong> taller bar = higher value</div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>If the exam asks "which chart best shows…" and the answer involves comparing categories, start with bar chart.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scatter plot — Theo's marketplace data</h2>
+<div class="def"><div class="term">Scatter plot</div><div class="text">plots individual data points on two axes to reveal <strong>relationships.</strong></div></div>
+<p><strong>Theo's 60 marketplace listings: price vs. days listed</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Pattern</th><th>What it means</th></tr></thead><tbody>
+<tr><td>Points cluster at low prices + low days listed</td><td>Cheap bikes sell fast</td></tr>
+<tr><td>Points cluster at high prices + high days listed</td><td>Expensive bikes sit unsold</td></tr>
+<tr><td><strong>Dead zone above $85</strong></td><td>Almost no bikes priced above $85 sold within 14 days</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The scatter plot reveals a <strong>price ceiling</strong> Theo didn't know existed. That's the power of visualization.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Exam points to remember</h2>
+<div class="formula">- <strong>Market research</strong> = collect and analyze information to guide decisions</div>
+<div class="formula">- <strong>Quantitative</strong> = numbers ("how many?"); <strong>Qualitative</strong> = words ("why?")</div>
+<ul>
+<li><strong>Desirable</strong> (want it?), <strong>Feasible</strong> (can we?), <strong>Viable</strong> (profitable?) — all three must pass</li>
+<li><strong>Research continues after launch</strong> — track, spot, adjust</li>
+</ul>
+<div class="formula">- <strong>Secondary</strong> = existing data (cheap, fast); <strong>Primary</strong> = new data (specific, expensive)</div>
+<div class="formula">- <strong>Hypothesis</strong> = testable assumption, written before collecting data</div>
+<ul>
+<li><strong>Match the method to the data type</strong> the hypothesis needs</li>
+</ul>
+<div class="formula">- <strong>Honest data</strong> = representative sample + neutral phrasing</div>
+<ul>
+<li><strong>Research reduces uncertainty — it does not guarantee prediction</strong> (New Coke: 200,000 data points, $12M, still failed)</li>
+<li><strong>New Coke lesson:</strong> research measured the product (taste) but missed the brand (emotional attachment) — know what you're NOT measuring</li>
+<li><strong>Pick the chart that shows your pattern</strong>, not the prettiest one</li>
+</ul></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Practice — 8 questions</h1>
+<hr class="divider">
+<div class="tag">Read → pause → <strong>commit to an answer</strong> → then reveal.</div>
+<span class="chip"><strong>6 on one stimulus (Two Bucket Detail)</strong>· <strong>2 standalone</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Tomas and Bree Herrera</strong> run <strong>Two Bucket Detail</strong>, a mobile car-detailing service. They offer two bundles:</p><div class="tbl-wrap"><table><thead><tr><th>Bundle</th><th>Includes</th><th>Price</th></tr></thead><tbody><tr><td><strong>Inside Out</strong></td><td>Interior vacuum, wipe-down, exterior wash</td><td>$65</td></tr><tr><td><strong>Showroom</strong></td><td>Everything in Inside Out + wax, tire shine, window polish</td><td>$110</td></tr></tbody></table></div><p>They want to know which bundle to promote more heavily. Tomas writes: <em>"Customers who try Showroom once will prefer it over Inside Out on their next visit."</em></p><p>They run an <strong>A/B test over 4 weekends</strong> — alternating which bundle gets the banner on their booking page. They also conduct <strong>10 follow-up interviews</strong> with customers who booked Showroom.</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>What is Tomas's sentence?</div>
+<p>Tomas's statement — <em>"Customers who try Showroom once will prefer it over Inside Out on their next visit"</em> — is best described as which?</p>
+<div class="opt"><span class="letter">A</span>A market research finding</div>
+<div class="opt"><span class="letter">B</span>A business hypothesis</div>
+<div class="opt"><span class="letter">C</span>A customer segment</div>
+<div class="opt"><span class="letter">D</span>A market observation</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>It is an <strong>assumption about customer behavior</strong> (prefer Showroom after trying it) that is <strong>stated so it can be tested</strong> (they can track repeat bookings by bundle). That is the CED's definition of a business hypothesis.</p>
+</div>
+<div class="trap">A<strong> — a "finding" comes </strong>after<strong> data collection. Tomas's sentence was written </strong>before** the test — it's a prediction, not a result.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A hypothesis = an assumption, testable, stated before the data.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>What is the 4-weekend comparison?</div>
+<p>The 4-weekend test — alternating which bundle gets the banner — is best described as which?</p>
+<div class="opt"><span class="letter">A</span>A focus group</div>
+<div class="opt"><span class="letter">B</span>A market observation</div>
+<div class="opt"><span class="letter">C</span>An A/B test</div>
+<div class="opt"><span class="letter">D</span>A customer survey</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>An A/B test compares <strong>two versions</strong> (A and B) in a real-world setting to see which performs better. Here, Version A = Inside Out banner, Version B = Showroom banner; the metric = which bundle customers book.</p>
+</div>
+<div class="trap">B<strong> — observation means </strong>watching without intervening.** Tomas and Bree are actively changing the banner — that's an experiment, not passive observation.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A/B test = change one variable, measure the difference.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>What are Bree's interviews?</div>
+<p>Bree's 10 follow-up interviews with Showroom customers are best described as which?</p>
+<div class="opt"><span class="letter">A</span>Quantitative data collected through a survey</div>
+<div class="opt"><span class="letter">B</span>Behavioral data from an experiment</div>
+<div class="opt"><span class="letter">C</span>Qualitative data collected through follow-up questions</div>
+<div class="opt"><span class="letter">D</span>A method that eliminates bias from the study</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>One-on-one interviews that ask customers to explain their experience produce <strong>qualitative data</strong> (words, not numbers). "Follow-up questions" is the key — the interviews dig into the <strong>why</strong> behind the A/B test results.</p>
+</div>
+<div class="trap">A<strong> — surveys collect structured, often quantitative data from many respondents. Interviews collect </strong>qualitative depth** from fewer people.</div>
+<div class="trap">D<strong> — interviews are valuable but they </strong>do not eliminate bias.** A small sample and the interviewer's presence can both introduce bias.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Interviews explain the numbers. They don't sterilize them.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Why research secondary first?</div>
+<p>Before launching their A/B test and interviews, Tomas reviews local competitors' websites and pricing. Why is starting with <strong>secondary research</strong> a logical first step?</p>
+<div class="opt"><span class="letter">A</span>It guarantees the most accurate data for their specific question</div>
+<div class="opt"><span class="letter">B</span>It lets them understand the competitive landscape quickly and cheaply</div>
+<div class="opt"><span class="letter">C</span>It is the only way to collect qualitative data</div>
+<div class="opt"><span class="letter">D</span>It always provides data about their own customers</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Secondary research is <strong>cost-effective</strong> — it uses data that already exists to help a business understand the landscape <strong>before</strong> investing in primary research. Tomas can see competitors' prices and bundles without spending a dollar.</p>
+</div>
+<div class="trap">A<strong> — secondary data may be </strong>outdated or not specific** to Tomas's exact question. It's a starting point, not a guarantee.</div>
+<div class="trap">D<strong> — secondary data is about the </strong>market and competitors**, not necessarily about Tomas's own customers. That's what primary research is for.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Secondary first = cheap reconnaissance. Then fill the gaps with primary.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Reading a survey table</div>
+<p><strong>Fernline Nursery</strong> surveys 200 customers about preferred plant types:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Response</th><th>Count</th></tr></thead><tbody>
+<tr><td>Succulents</td><td>120</td></tr>
+<tr><td>Ferns</td><td>50</td></tr>
+<tr><td>Orchids</td><td>30</td></tr>
+</tbody></table></div>
+<p>A manager says: <em>"30 out of our orchid-loving customers represent 15% of our respondents."</em></p>
+<p>Is the manager's math correct?</p>
+<div class="opt"><span class="letter">A</span>Yes — 30 out of 200 = 15%</div>
+<div class="opt"><span class="letter">B</span>No — 30 out of 120 = 25%</div>
+<div class="opt"><span class="letter">C</span>No — 30 out of 50 = 60%</div>
+<div class="opt"><span class="letter">D</span>Yes — but only if orchid buyers are the majority</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>The <strong>base</strong> is the total number of respondents: <strong>200.</strong> 30 / 200 = 0.15 = <strong>15%.</strong> The manager's math is correct.</p>
+</div>
+<p><strong>The trap in the trap:</strong> B calculates 30/120 = 25%, which uses the <strong>wrong base</strong> (succulent lovers, not total respondents). When the exam gives you a percentage, always <strong>check what the base is.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Always check the BASE.</strong> A percentage is only as honest as the denominator.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Which chart for the pottery studio?</div>
+<p>A pottery studio tracks monthly revenue from three sources: <strong>classes, studio rentals, and retail sales.</strong> The owner wants to show the <strong>total monthly revenue</strong> and <strong>how much each source contributes.</strong> Which chart type is best?</p>
+<div class="opt"><span class="letter">A</span>Line chart</div>
+<div class="opt"><span class="letter">B</span>Pie chart</div>
+<div class="opt"><span class="letter">C</span>Stacked bar chart</div>
+<div class="opt"><span class="letter">D</span>Bar chart (grouped)</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>A <strong>stacked bar chart</strong> shows both the <strong>total</strong> (bar height) and the <strong>composition</strong> (colored segments within each bar) — exactly what the owner needs: total revenue per month + how much each source contributes.</p>
+</div>
+<div class="trap">A<strong> — a line chart shows </strong>trend over time** for a single variable. It doesn't show composition within each month.</div>
+<div class="trap">D<strong> — a grouped bar chart compares categories side by side, but makes it harder to see the </strong>total** at a glance.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Stacked bar = total + parts.</strong> That's the exact match.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q7</span>Interpret the scatter plot</div>
+<div class="formula">Theo plots 60 marketplace listings: <strong>x-axis = price, y-axis = days listed.</strong> Most points above $85 cluster at <strong>14+ days listed.</strong> Most points below $75 cluster at <strong>under 5 days.</strong> What does this pattern suggest?</div>
+<div class="opt"><span class="letter">A</span>Higher-priced bikes always sell faster</div>
+<div class="opt"><span class="letter">B</span>There may be a price ceiling above which bikes sit unsold</div>
+<div class="opt"><span class="letter">C</span>Price has no effect on how quickly bikes sell</div>
+<div class="opt"><span class="letter">D</span>All bikes sell within two weeks regardless of price</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>The data shows that bikes priced <strong>above $85 tend to sit for 14+ days</strong>, while bikes <strong>below $75 sell in under 5 days.</strong> This suggests a <strong>price ceiling</strong> — a point above which demand drops sharply.</p>
+</div>
+<div class="trap">A<strong> — says the </strong>opposite<strong> of what the data shows. Higher prices are associated with </strong>slower** sales, not faster.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Read the axes. Read the cluster. Don't assume the direction.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q8</span>Research reduces uncertainty</div>
+<p>Which best explains why market research <strong>does not guarantee</strong> a successful business decision?</p>
+<div class="opt"><span class="letter">A</span>Research is too expensive to be worthwhile</div>
+<div class="opt"><span class="letter">B</span>Customer preferences, market conditions, and competitor actions can change after the research is conducted</div>
+<div class="opt"><span class="letter">C</span>Only large corporations can conduct reliable research</div>
+<div class="opt"><span class="letter">D</span>Quantitative data is always more reliable than qualitative data</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Research captures a <strong>snapshot</strong> of the market at a point in time. Conditions shift — customers change preferences, competitors react, external factors (PESTEL) evolve. Research <strong>reduces uncertainty</strong> but cannot predict the future with certainty.</p>
+</div>
+<div class="trap">A<strong> — research has costs, but secondary research is </strong>cheap** and even small-scale primary research can be affordable. Cost does not mean research is worthless.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Research improves the odds. It does not promise outcomes.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Hypothesis vs. finding:</strong> a sentence written <em>before</em> data collection is a hypothesis, not a finding</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>A/B test vs. observation:</strong> changing one variable = experiment; watching without intervening = observation</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>Interviews ≠ eliminate bias:</strong> qualitative depth is valuable but does not sterilize the data</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>Secondary ≠ guarantees accuracy or knows your customers:</strong> it's cheap landscape, not a silver bullet</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Check the BASE:</strong> 30/200 = 15%, not 30/120 = 25%</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Stacked bar for total + parts:</strong> don't pick line (trend) or grouped bar (comparison) when you need composition</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">Next: 2.4 Market Size and Share</div>
+<h1>Wrap-up</h1>
+<hr class="divider">
+<div class="tag">- <strong>Market research</strong> = collect and analyze info to guide decisions — it replaces "I think" with "the data shows"</div></div></div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 2.3 Market Research</span>
+    <span>Slide <span id="sn">1</span> / 74</span>
+</div>
+<script>
+var cs = 0;
+var N = 74;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

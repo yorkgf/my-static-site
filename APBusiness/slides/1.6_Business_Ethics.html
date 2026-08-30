@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.6 Business Ethics — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #0d9488;
+    --accent-d: #0f766e;
+    --accent-l: #5eead4;
+    --accent-xd: #115e59;
+    --tint: #f0fdfa;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 1.6-specific design — ethics tools + stakeholders ─────── */
+:root {
+    --c-tool-code: #6366f1;   --c-tool-code-bg: #eef2ff;
+    --c-tool-train: #06b6d4;  --c-tool-train-bg: #ecfeff;
+    --c-tool-rep: #dc2626;    --c-tool-rep-bg: #fef2f2;
+    --c-tool-model: #16a34a;  --c-tool-model-bg: #f0fdf4;
+    --c-int: #2563eb;
+    --c-ext: #ea580c;
+    --c-bad: #dc2626;
+    --c-good: #16a34a;
+}
+
+/* Three forms of unethical behavior */
+.forms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 920px;
+    margin: 1.2rem auto;
+}
+.form-card {
+    border-radius: 16px;
+    padding: 1.2rem;
+    background: var(--c-bad-bg);
+    border-top: 5px solid var(--c-bad);
+    box-shadow: var(--shadow);
+}
+.form-card .icon { font-size: 1.7rem; margin-bottom: .4rem; display: block; }
+.form-card h3 { font-size: 1.05rem; margin-bottom: .4rem; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.form-card p { font-size: .92em; margin: 0; }
+
+/* Four ethics tools */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 1.2rem auto;
+}
+.tool-card {
+    border-radius: 16px;
+    padding: 1.1rem 1.3rem;
+    background: var(--card);
+    border-left: 6px solid;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+.tool-card .timing {
+    position: absolute; top: .8rem; right: 1rem;
+    font-size: .68em; text-transform: uppercase; letter-spacing: .12em;
+    font-weight: 700; padding: .15em .7em; border-radius: 100px;
+    background: var(--tint); color: var(--muted);
+}
+.tool-card h3 { font-size: 1rem; margin-bottom: .4rem; }
+.tool-card p { font-size: .92em; margin: 0; }
+.tool-card.code { border-color: var(--c-tool-code); background: var(--c-tool-code-bg); }
+.tool-card.code .timing { background: var(--c-tool-code); color: #fff; }
+.tool-card.train { border-color: var(--c-tool-train); background: var(--c-tool-train-bg); }
+.tool-card.train .timing { background: var(--c-tool-train); color: #fff; }
+.tool-card.rep { border-color: var(--c-tool-rep); background: var(--c-tool-rep-bg); }
+.tool-card.rep .timing { background: var(--c-tool-rep); color: #fff; }
+.tool-card.model { border-color: var(--c-tool-model); background: var(--c-tool-model-bg); }
+.tool-card.model .timing { background: var(--c-tool-model); color: #fff; }
+
+/* Incentive vs Repercussion — paired */
+.pair-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.pair-card {
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.pair-card.inc { border-color: #16a34a; background: #f0fdf4; }
+.pair-card.rep { border-color: #dc2626; background: #fef2f2; }
+.pair-card .pair-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; opacity: .7; margin-bottom: .3rem; }
+.pair-card h3 { font-size: 1.15rem; margin-bottom: .5rem; color: var(--ink); }
+.pair-card p { font-size: .95em; margin: 0; }
+
+/* Stakeholder inner/outer */
+.sh-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.sh-card {
+    border-radius: 16px;
+    padding: 1.2rem;
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.sh-card.int { border-color: var(--c-int); background: #eff6ff; }
+.sh-card.ext { border-color: var(--c-ext); background: #fff7ed; }
+.sh-card h3 { font-size: 1.1rem; margin-bottom: .4rem; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.sh-card .examples { font-size: .9em; color: var(--muted); margin-top: .4rem; font-style: italic; }
+
+/* Lens comparison */
+.lens-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.lens-card {
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.lens-card.l1 { border-color: var(--c-int); background: #eff6ff; }
+.lens-card.l2 { border-color: var(--c-ext); background: #fff7ed; }
+.lens-card .lens-num { display: inline-block; padding: .15em .7em; border-radius: 100px; color: #fff; font-weight: 800; font-size: .85em; margin-bottom: .5rem; }
+.lens-card.l1 .lens-num { background: var(--c-int); }
+.lens-card.l2 .lens-num { background: var(--c-ext); }
+
+/* Case study card */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+.case-study.ctrip { background: linear-gradient(135deg, #fef2f2, #fee2e2); border-color: #dc2626; }
+.case-study.ctrip::before { content: '📌 CTRIP (携程)'; background: #dc2626; }
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 1.6 Business Ethics</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 1</div>
+<h1>1.6 Business Ethics</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Opening question</h2>
+<p>You know what the business is <em>for</em> (1.5) — vision, mission, values.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>But what happens when the profitable move and the right move point in different directions?</strong></div>
+<p>That's today's question.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Explain how and why businesses <strong>encourage ethical behavior</strong> — codes of conduct, training, repercussions, and modeling</li>
+<li>Explain how business leaders <strong>respond to ethical dilemmas</strong> — stakeholder analysis and the greatest-benefit / least-harm framework</li>
+</ol>
+<p><strong>Running story continues:</strong> the snack box has a new helper — and the helper suggests <strong>hiding the fact that one bag of chips is past its sell-by date</strong> to avoid a loss on the weekend's revenue.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is unethical behavior?</h2>
+<div class="def"><div class="term">Unethical behavior</div><div class="text">actions that violate moral or professional standards.</div></div>
+<p style="text-align:center;color:var(--muted);margin-bottom:.3rem">The CED names <strong>three forms</strong>:</p>
+<div class="forms-grid">
+    <div class="form-card">
+        <span class="icon">🤐</span>
+        <h3>Falsifying or concealing</h3>
+        <p>Lying on a label, hiding a known flaw, not disclosing a defect.</p>
+    </div>
+    <div class="form-card">
+        <span class="icon">💼</span>
+        <h3>Misusing company property</h3>
+        <p>Using business resources for personal gain without authorization.</p>
+    </div>
+    <div class="form-card">
+        <span class="icon">⚠️</span>
+        <h3>Causing harm</h3>
+        <p>Ignoring safety standards, selling a product known to be dangerous.</p>
+    </div>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Concealing information — the snack box test</h2>
+<div class="callout key"><span class="tag">Key Point</span>The helper's suggestion — <strong>hide the expired chips</strong> — is <strong>concealing information.</strong></div>
+<p>It doesn't matter that the bag is small. The customer is paying for something the seller knows is false.</p>
+<p><strong>Classify the action itself:</strong> the helper did not create a dilemma — the helper suggested <strong>hiding a known defect for financial gain.</strong> That is unethical behavior.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Where does it come from?</h2>
+<p>Unethical behavior <strong>can occur at all levels</strong> of a business — owner, manager, or entry-level employee.</p>
+<ul>
+<li>The <strong>source</strong> doesn't change the classification</li>
+<li>The <strong>behavior</strong> is what the exam asks you to identify</li>
+<li>A manager hiding a safety report is the same form as a cashier hiding an expired bag</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Incentive structures — the hidden driver</h2>
+<p>One common driver of unethical behavior: <strong>incentive structures.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>An <strong>incentive</strong> = a reward that encourages a particular action.</div>
+<p>When an incentive rewards <strong>output without checking how the output was produced</strong>, it can quietly push people toward unethical choices that benefit themselves.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Incentive structures — the snack box test</h2>
+<div class="callout key"><span class="tag">Key Point</span><em>If the snack box paid a bonus for every Saturday with zero unsold inventory, what would the helper learn to do with the last few bags?</em></div>
+<p>The incentive rewards <strong>zero leftover</strong> — it doesn't ask <strong>how</strong> the helper achieved it. The helper learns to <strong>hide or discard</strong> expiring bags rather than report them.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The incentive didn't say "cheat."</strong> It said "produce results" — and the system never checked the method. That's how incentives quietly create unethical behavior.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>How businesses encourage ethical behavior</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.3rem"><strong>Four tools</strong> the exam tests — each works differently:</p>
+<div class="tools-grid">
+    <div class="tool-card code">
+        <div class="timing">BEFORE</div>
+        <h3>📜 Code of conduct</h3>
+        <p>A written document outlining expected behavior and standards.</p>
+    </div>
+    <div class="tool-card train">
+        <div class="timing">BEFORE</div>
+        <h3>🎓 Training</h3>
+        <p>Teaching employees to follow ethical guidelines in real situations.</p>
+    </div>
+    <div class="tool-card rep">
+        <div class="timing">AFTER</div>
+        <h3>⚡ Internal repercussions</h3>
+        <p>Consequences imposed <strong>after</strong> a transgression (warnings, suspension, termination).</p>
+    </div>
+    <div class="tool-card model">
+        <div class="timing">CONTINUOUSLY</div>
+        <h3>👀 Modeling ethical behavior</h3>
+        <p>Leaders <strong>demonstrate</strong> the standard — employees learn by watching.</p>
+    </div>
+</div>
+<div class="callout key" style="margin-top:1rem"><span class="tag">Key Point</span><strong>Sort them by when they act:</strong> codes and training arrive <strong>before</strong> any behavior; repercussions arrive <strong>after</strong>; modeling runs <strong>continuously</strong>.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Code of conduct</h2>
+<p>A <strong>code of conduct</strong> is a written document that defines the business's ethical expectations.</p>
+<ul>
+<li>Sets <strong>clear boundaries</strong> employees can reference</li>
+<li>Often covers conflicts of interest, confidentiality, customer treatment</li>
+<li>Is only as strong as its <strong>enforcement</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><em>The snack box writes on the cooler lid: "Check every date. If it's past, pull it — no exceptions." That's a one-line code of conduct.</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Training</h2>
+<p><strong>Training</strong> teaches employees how to apply ethical guidelines in <strong>real situations.</strong></p>
+<ul>
+<li>Moves ethics from a poster on the wall to <strong>practice scenarios</strong></li>
+<li>Helps employees recognize dilemmas <strong>before</strong> they act</li>
+<li>Must be <strong>ongoing</strong>, not one-time</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><em>Marcus (the print shop owner in the practice questions) holds a monthly fifteen-minute session on handling rush-order defects. That's training.</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Internal repercussions</h2>
+<p>An <strong>internal repercussion</strong> = a consequence imposed <strong>after</strong> an ethical transgression.</p>
+<ul>
+<li>Can range from a written warning to termination</li>
+<li>Exists to <strong>discourage repeat behavior</strong></li>
+<li>Must be <strong>consistent and proportional</strong> to be credible</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Direction test:</strong> a repercussion pushes <strong>backward</strong> — it arrives <strong>after</strong> the behavior and deters the next occurrence.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Modeling ethical behavior</h2>
+<div class="def"><div class="term">Modeling</div><div class="text">a leader <strong>demonstrates</strong> ethical behavior in front of employees, so the standard is learned by <strong>observation, not instruction.</strong></div></div>
+<ul>
+<li>Works because employees watch what leaders <strong>do</strong>, not just what they <strong>say</strong></li>
+<li>Most powerful when it <strong>costs</strong> the leader something (time, money, short-term revenue)</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><em>Marcus reprints the flawed order at his own expense, tells both employees why, and shows them the customer note. That's modeling — the value survived contact with a real cost.</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Incentives vs. repercussions — the direction test</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.3rem"><strong>The pair the exam loves to swap.</strong> Sort by direction.</p>
+<div class="pair-compare">
+    <div class="pair-card inc">
+        <div class="pair-label">⬇️ Pulls toward · BEFORE</div>
+        <h3>🟢 Incentive</h3>
+        <p>A reward that encourages a particular action.</p>
+        <p style="margin-top:.5rem"><strong>Example:</strong> Bonus for on-schedule completion.</p>
+        <p style="margin-top:.3rem"><em>Arrives <strong>before</strong> the behavior.</em></p>
+    </div>
+    <div class="pair-card rep">
+        <div class="pair-label">⬆️ Pushes back · AFTER</div>
+        <h3>🔴 Repercussion</h3>
+        <p>A consequence imposed after an ethical transgression.</p>
+        <p style="margin-top:.5rem"><strong>Example:</strong> Written warning for concealing a defect.</p>
+        <p style="margin-top:.3rem"><em>Arrives <strong>after</strong> the behavior.</em></p>
+    </div>
+</div>
+<div class="callout key" style="margin-top:1rem"><span class="tag">Key Point</span>A bonus that rewards speed without checking disclosure is an <strong>incentive</strong> that leans on employees to cut corners.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Your turn — classify the tool</h1>
+<hr class="divider">
+<div class="tag"><em>Read each scenario. Decide: code of conduct, training, repercussion, or modeling?</em></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why ethics matter — the forward chain</h2>
+<p>Ethical business practices <strong>attract both customers and employees</strong> and contribute to <strong>brand loyalty.</strong></p>
+<p>The chain runs:</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Ethical behavior</strong> → trust from customers + employees → loyalty → <strong>higher revenue and lower costs</strong></div>
+<div class="callout key"><span class="tag">Key Point</span>Customers <strong>reward trust with loyalty.</strong> Employees who trust the employer stay longer and work harder. Both effects improve profitability.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why ethics matter — the reverse chain</h2>
+<p>And in reverse:</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Unethical behavior</strong> (or a weak response to it) → lost trust → customers leave, employees disengage → <strong>lower revenue and higher costs</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A business's response to an ethical lapse shapes customer relationships, employee relationships, and public perception — all of which land on the revenue and cost lines.</strong></div>
+<p><strong>Reputation needs no law</strong> — customers rarely wait for a court ruling before they stop buying.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is an ethical dilemma?</h2>
+<div class="def"><div class="term">Ethical dilemma</div><div class="text">a situation where a <strong>core value</strong> (transparency, fairness, empathy) conflicts with <strong>another core value</strong> or with <strong>a business goal or practice.</strong></div></div>
+<ul>
+<li>Both sides have a <strong>legitimate claim</strong> — that's what makes it a dilemma</li>
+<li>The question is always: <strong>"What should I do?"</strong> — not "Did someone do something wrong?"</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The snack box dilemma</h2>
+<div class="callout warn"><span class="tag">Exam Note</span><em>The snack box faces a dilemma:</em> <strong>honesty</strong> (tell the family the chips are past date) conflicts with the <strong>business goal</strong> (sell everything, maximize Saturday revenue).</div>
+<ul>
+<li><strong>Honesty</strong> side: the family deserves to know what they're buying</li>
+<li><strong>Revenue goal</strong> side: the business needs to sell inventory to stay profitable</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>Both sides have a legitimate claim. That's what makes it a dilemma — <strong>there is no cost-free answer.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Dilemma vs. unethical behavior</h2>
+<p><strong>A dilemma is not the same as unethical behavior.</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Ethical dilemma</th><th>Unethical behavior</th></tr></thead><tbody>
+<tr><td>Trade-offs</td><td><strong>Both sides</strong> have legitimate claims</td><td><strong>One side</strong> is clearly wrong</td></tr>
+<tr><td>Example</td><td>Honesty vs. revenue goal</td><td>Concealing a known defect</td></tr>
+<tr><td>The question</td><td>"What should I do?"</td><td>"Did someone do something wrong?"</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The distinction matters — exam trap</h2>
+<div class="callout key"><span class="tag">Key Point</span>Concealing the expired chips is <strong>not</strong> a dilemma — it's <strong>choosing the wrong side.</strong></div>
+<p>The dilemma existed <em>before</em> the helper spoke: honesty vs. revenue. The helper's suggestion — <strong>hide the defect</strong> — is unethical behavior, not a dilemma.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The sorting rule</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>If one side is clearly wrong, it's unethical behavior. If both sides have legitimate claims, it's a dilemma.</strong></div>
+<p>Sort by this rule, not by how uncomfortable the situation feels.</p>
+<ul>
+<li><strong>Clearly wrong</strong> → unethical behavior (no trade-off, just a bad choice)</li>
+<li><strong>Legitimate claims on both sides</strong> → ethical dilemma (real trade-off, no cost-free answer)</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Classify the situation — exam habit</h2>
+<p><strong>When the exam gives you a scenario, sort it first:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>What you see</th><th>It is…</th></tr></thead><tbody>
+<tr><td>A leader faces two competing values, or a value vs. a goal</td><td>An <strong>ethical dilemma</strong></td></tr>
+<tr><td>Someone lies, hides, or takes something</td><td><strong>Unethical behavior</strong></td></tr>
+<tr><td>Someone suggests hiding a flaw for gain</td><td><strong>Unethical behavior</strong> (concealing information) — even if a dilemma exists elsewhere in the scenario</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Classify the specific action described.</strong> A dilemma can exist in the background while the question asks about a specific act of concealment.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stakeholders — who has a stake?</h2>
+<div class="def"><div class="term">Stakeholder</div><div class="text">any individual or group affected by a business's decisions.</div></div>
+<p style="text-align:center;color:var(--muted);margin-bottom:.3rem"><strong>Two categories — sorted by direct involvement.</strong></p>
+<div class="sh-grid">
+    <div class="sh-card int">
+        <h3>🏛️ Internal</h3>
+        <p>Direct involvement in operations, decisions, and outcomes.</p>
+        <p class="examples">Owners · managers · employees</p>
+    </div>
+    <div class="sh-card ext">
+        <h3>🌐 External</h3>
+        <p>Not directly employed or involved, but have a vested interest.</p>
+        <p class="examples">Customers · government · community members</p>
+    </div>
+</div>
+<div class="callout warn" style="margin-top:1rem"><span class="tag">Sorting rule</span>Direct involvement, not importance or seniority. Even the most loyal customer remains <strong>external</strong>.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The sorting rule — direct involvement</h2>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The sorting rule is direct involvement — importance and seniority play no part.</strong></div>
+<ul>
+<li>An employee sweeps the floor daily → <strong>internal</strong> alongside owners and managers</li>
+<li>A customer who buys every week → still <strong>external</strong> — they have a vested interest but no role in operations</li>
+<li>The government sets the rules → <strong>external</strong> — it is affected by the business but not employed by it</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Even the most loyal customer remains external.</strong> Importance ≠ involvement.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two lenses for resolving an ethical dilemma</h2>
+<div class="lens-grid">
+    <div class="lens-card l1">
+        <div class="lens-num">Lens 1</div>
+        <h3>Stakeholder arithmetic</h3>
+        <ul style="margin-top:.5rem;font-size:.95em">
+            <li>Evaluate <strong>benefits and costs</strong> of each option <strong>for every stakeholder group</strong> (internal + external)</li>
+            <li>Choose the option producing the <strong>greatest total benefit</strong> or <strong>least total harm</strong></li>
+            <li>A <strong>net impact calculation</strong> — weigh all groups, not just the loudest one</li>
+        </ul>
+    </div>
+    <div class="lens-card l2">
+        <div class="lens-num">Lens 2</div>
+        <h3>Vision and goals</h3>
+        <ul style="margin-top:.5rem;font-size:.95em">
+            <li>Choose the option most <strong>consistent</strong> with the business's vision and/or goals</li>
+            <li>If the vision already contains the value, the answer may be <strong>built in</strong></li>
+            <li><em>"Game days where no family scrambles" — selling expired chips scrambles trust.</em></li>
+        </ul>
+    </div>
+</div>
+<div class="callout warn" style="margin-top:1rem"><span class="tag">Exam Note</span><strong>Both lenses agree?</strong> Strong answer. <strong>Conflict?</strong> The exam prompt signals which to lead with — read the question stem.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>When the two lenses conflict</h2>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>When both lenses point the same direction, the case is strong. When they conflict, the exam will tell you which lens to prioritize.</strong></div>
+<ul>
+<li>If Lens 1 and Lens 2 agree → <strong>strong answer</strong>, no conflict</li>
+<li>If they disagree → the exam prompt will <strong>signal</strong> which lens to lead with</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Which lens to use — the decision tree</h2>
+<ul>
+<li>If the exam says <strong>"consider the stakeholders"</strong> → use <strong>Lens 1</strong> (stakeholder arithmetic)</li>
+<li>If the exam says <strong>"consistent with the vision"</strong> → use <strong>Lens 2</strong></li>
+<li>If the exam gives <strong>both</strong> → <strong>both matter</strong>, but the vision is the tiebreaker</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The question stem is your instruction manual</h2>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Don't guess the priority — read the question.</strong> The exam prompt will signal which lens to lead with.</div>
+<p>The question stem tells you what the examiners <strong>want to see.</strong> If it says "evaluate the impact on stakeholders," they want Lens 1. If it says "consistent with the company's vision," they want Lens 2.</p>
+<div class="callout danger"><span class="tag">Warning</span><strong>Wrong lens = wrong answer, even if your reasoning is correct.</strong> Always start by reading the question.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stakeholder arithmetic — worked example</h2>
+<p>A furniture maker considers switching to a cheaper overseas supplier whose delays would reach customers.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Option</th><th>Internal stakeholders</th><th>External stakeholders</th><th><strong>Net</strong></th></tr></thead><tbody>
+<tr><td><strong>Keep current</strong></td><td>−$90,000 (higher input prices)</td><td>+$70,000 (reliable deliveries)</td><td><strong>−$20,000</strong></td></tr>
+<tr><td><strong>Switch</strong></td><td>+$90,000 (savings)</td><td>−$150,000 (late/canceled orders)</td><td><strong>−$60,000</strong></td></tr>
+</tbody></table></div>
+<p>Both options hurt — so the method picks the <strong>least total harm</strong> → keep current.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Always sum across every stakeholder column.</strong> An option that pays insiders by costing outsiders more is exactly what the arithmetic is built to catch.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Case study — Ctrip (携程)</h1>
+<hr class="divider">
+<span class="chip"><strong>When a business has the data to charge loyal customers more — should it?</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Ctrip — the dilemma</h2>
+<div class="case-study ctrip">
+<p><strong>Ctrip (携程)</strong> is China's largest online travel agency — hotel bookings, flights, train tickets, vacation packages. Market share exceeds 50%.</p>
+<p>The controversy: <strong>大数据杀熟</strong> — using data analytics to charge <strong>loyal, frequent users higher prices</strong> than new users for the <strong>same product, same room, same flight.</strong></p>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Ctrip — how 大数据杀熟 works</h2>
+<p>The algorithm analyzes each user's behavior — booking frequency, device type, search history, price sensitivity — to determine their <strong>maximum willingness to pay.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>A loyal user who books 20 trips/year sees <strong>¥500</strong> for a hotel room. A first-time user searching for <strong>the same room, same night</strong> sees <strong>¥380.</strong></div>
+<p>The algorithm knows the loyal user is <strong>less likely to switch</strong> — so it charges more.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Is this smart pricing — or exploiting trust?</strong> That's the dilemma.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Ctrip — the two sides</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th><strong>Core value: fairness + transparency</strong></th><th><strong>Business goal: profit maximization</strong></th></tr></thead><tbody>
+<tr><td>Loyal customers should be <strong>rewarded</strong>, not penalized</td><td>Dynamic pricing is standard in airlines and hotels</td></tr>
+<tr><td>Users don't know they're seeing a different price — <strong>no transparency</strong></td><td>Data analytics lets the company match price to willingness-to-pay</td></tr>
+<tr><td>Exploiting trust <strong>destroys brand loyalty</strong> over time</td><td>Higher revenue per user → more profit → more investment</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Ctrip — why this is a genuine dilemma</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>This is a genuine dilemma:</strong> the business has a legal right to set prices, but exercising that right in this way conflicts with fairness and transparency.</div>
+<ul>
+<li><strong>Legally</strong>, Ctrip is allowed to charge different prices to different users</li>
+<li><strong>Ethically</strong>, loyal customers are being <strong>penalized</strong> for their loyalty — without knowing it</li>
+<li><strong>Neither side is frivolous</strong> — that's the exam's threshold for a "genuine" dilemma</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Ctrip — stakeholder arithmetic</h2>
+<p><strong>Ask:</strong> who benefits and who is harmed by 大数据杀熟?</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Stakeholder</th><th>Impact</th></tr></thead><tbody>
+<tr><td><strong>Internal</strong></td><td>Ctrip / investors</td><td><strong>+</strong> Higher revenue per loyal user</td></tr>
+<tr><td><strong>External</strong></td><td>Loyal customers</td><td><strong>−</strong> Pay more for the same product; feel deceived</td></tr>
+<tr><td><strong>External</strong></td><td>New customers</td><td><strong>+</strong> Pay less (subsidized by loyal users)</td></tr>
+<tr><td><strong>External</strong></td><td>Competitors (Meituan, Fliggy)</td><td><strong>+</strong> Loyal users who discover the practice may switch</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Ctrip — short-term vs. long-term</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Short-term:</strong> internal stakeholders benefit — higher revenue per loyal user, no immediate cost.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Long-term:</strong> trust erodes, loyal customers leave, brand reputation suffers — the revenue gain is temporary.</div>
+<p>When users <strong>discover</strong> the practice (and they did — screenshots went viral on Weibo), the loyal users who felt betrayed <strong>switched to competitors.</strong> The short-term profit came at the cost of the company's most valuable asset: <strong>repeat customers.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Ctrip — the resolution question</h2>
+<p><strong>Pair up. 2 minutes.</strong></p>
+<p>If you were Ctrip's CEO, which approach would you take?</p>
+<ol class="tick">
+<li><strong>Keep 大数据杀熟</strong> — it's legal, it maximizes short-term revenue, and most users never find out</li>
+<li><strong>Stop the practice</strong> — reward loyalty with <strong>lower</strong> prices, sacrifice short-term revenue for long-term trust</li>
+<li><strong>Transparent dynamic pricing</strong> — show all users the same base price, but offer <strong>loyalty discounts</strong> openly</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Lens 1:</strong> stakeholder arithmetic — what produces the greatest total benefit or least total harm? <strong>Lens 2:</strong> consistency with vision — what would a company that says <em>"make travel easier"</em> do?</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The absolutes trap</h2>
+<p>Watch for <strong>"always," "never," and "guarantee"</strong> in answer choices:</p>
+<ul>
+<li><em>"Reliable suppliers <strong>always</strong> increase long-run profits"</em> → reaches the right decision with a <strong>broken reason</strong> — and <strong>"always" is the tell.</strong></li>
+<li><em>"A sincere apology <strong>guarantees</strong> customers will return"</em> → a good response <strong>improves the odds and promises nothing.</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>A right verdict reached by a guaranteed-profit reason is still wrong.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The legal-factor trap</h2>
+<p>Watch for answer choices that <strong>borrow from Topic 1.3 (PESTEL):</strong></p>
+<ul>
+<li><em>"Profitability is unaffected unless a law was broken"</em> → legal consequences are one risk; <strong>reputational consequences arise whether or not any law is involved.</strong></li>
+<li>Customers rarely wait for a court ruling before they stop buying.</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Reputation needs no law.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The classification tells — exam habit</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Signal in the scenario</th><th>Points to</th></tr></thead><tbody>
+<tr><td>Someone <strong>lies, hides, takes</strong> something</td><td><strong>Unethical behavior</strong></td></tr>
+<tr><td>A value conflicts with another value or a business goal</td><td><strong>Ethical dilemma</strong></td></tr>
+<tr><td>A reward offered <strong>before</strong> behavior</td><td><strong>Incentive</strong></td></tr>
+<tr><td>A consequence imposed <strong>after</strong> behavior</td><td><strong>Repercussion</strong></td></tr>
+<tr><td>A leader <strong>acts</strong> (absorbs a cost, demonstrates the standard)</td><td><strong>Modeling</strong></td></tr>
+<tr><td>"Direct involvement" in operations</td><td><strong>Internal</strong> stakeholder</td></tr>
+<tr><td>"Vested interest" but not employed/involved</td><td><strong>External</strong> stakeholder</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Practice — 6 questions</h1>
+<hr class="divider">
+<div class="tag">Read → pause → <strong>commit to an answer</strong> → then reveal.</div>
+<span class="chip"><strong>3 on one stimulus (Osei Printworks)</strong>· <strong>3 standalone</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Marcus Osei</strong> owns <strong>Osei Printworks</strong>, a small print shop with two employees. Posted <strong>core values:</strong> quality and honesty. A <strong>rush order of 500 event programs</strong> comes back with a <strong>printing flaw visible only under bright light.</strong> <strong>Reprinting costs $300 and misses the customer's deadline.</strong> A <strong>new employee suggests shipping the programs without mentioning the flaw.</strong> Marcus is also drafting the shop's first <strong>code of conduct</strong> and is considering a <strong>bonus that pays employees for each rush order completed on schedule.</strong></p><p>> <strong>Watch for the artifacts:</strong> a concealment suggestion, an incentive (the bonus), and a potential modeling moment.</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Classify the employee's suggestion</div>
+<p>The employee's suggestion to ship the programs without mentioning the flaw is best described as which?</p>
+<div class="opt"><span class="letter">A</span>Concealing information from a customer, a form of unethical behavior</div>
+<div class="opt"><span class="letter">B</span>Misusing company property</div>
+<div class="opt"><span class="letter">C</span>An ethical dilemma between two core values</div>
+<div class="opt"><span class="letter">D</span>A legal factor affecting the print market</div>
+<p>Pause. Ask: does the question ask about the dilemma Marcus faces, or the specific suggestion the employee makes?</p>
+<p>--></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Shipping a product with a known flaw and saying nothing means the customer pays believing something the seller knows is false — <strong>concealing information</strong> is a named form of unethical behavior.</p>
+</div>
+<div class="trap">C<strong> — Marcus <em>does</em> face a genuine dilemma (honesty vs. deadline), but </strong>the question asks about the employee's specific suggestion<strong> — and that suggestion is </strong>silence for gain**, which is simply unethical behavior.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Classify the specific action described.</strong> A dilemma can exist in the background while the question asks about concealment.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Classify the on-schedule bonus</div>
+<p>The proposed bonus for each rush order completed on schedule is best described as which?</p>
+<div class="opt"><span class="letter">A</span>A code of conduct provision</div>
+<div class="opt"><span class="letter">B</span>An internal repercussion for unethical behavior</div>
+<div class="opt"><span class="letter">C</span>An incentive structure that could influence employees toward cutting corners</div>
+<div class="opt"><span class="letter">D</span>Modeling ethical behavior for the staff</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>An incentive is a reward that encourages a particular action. A bonus tied <strong>only to on-schedule completion</strong> rewards speed and pays the same <strong>whether the flaw is disclosed or hidden</strong> — so it quietly leans on employees to ship and stay silent.</p>
+</div>
+<div class="trap">B<strong> — </strong>points the concept backward.<strong> A repercussion is a consequence imposed </strong>after<strong> unethical behavior; the bonus arrives </strong>before** any behavior and rewards output.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Sort by direction:</strong> incentives pull <strong>toward</strong> behavior; repercussions push <strong>back after</strong> it.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Marcus reprints + explains + shows the note</div>
+<p>Marcus <strong>reprints the order at the shop's expense</strong>, tells both employees why, and shows them the note he sent the customer. This action best represents which?</p>
+<div class="opt"><span class="letter">A</span>An external repercussion</div>
+<div class="opt"><span class="letter">B</span>Modeling ethical behavior</div>
+<div class="opt"><span class="letter">C</span>Outsourcing an ethical decision</div>
+<div class="opt"><span class="letter">D</span>A conflict of interest</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Modeling means leaders <strong>demonstrate</strong> the ethical behavior themselves, so employees learn the standard by <strong>watching it</strong> — Marcus performed the standard in front of his staff <strong>at real cost.</strong></p>
+</div>
+<div class="trap">A<strong> — a repercussion is a consequence aimed at someone who behaved unethically, and </strong>nobody here is being punished.<strong> Marcus </strong>absorbed a cost to demonstrate a value** — that's modeling.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>When a question shows a leader <em>acting</em> (rather than rewarding or punishing), look for modeling.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Stakeholder classification</div>
+<p>Which best identifies a <strong>correct</strong> classification of stakeholders in a business?</p>
+<div class="opt"><span class="letter">A</span>Customers are internal; owners are external</div>
+<div class="opt"><span class="letter">B</span>Managers are external; community members are internal</div>
+<div class="opt"><span class="letter">C</span>Owners are internal; employees are external</div>
+<div class="opt"><span class="letter">D</span>Employees are internal; government agencies are external</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Internal = <strong>direct involvement</strong> in operations/decisions/outcomes (owners, managers, employees). External = <strong>vested interest without</strong> being employed or directly involved (customers, government agencies, community members).</p>
+</div>
+<div class="trap">C<strong> — gets owners right and then </strong>exports the employees** to external.</div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The sorting rule is direct involvement — importance and seniority play no part.</strong> An employee works inside daily operations → <strong>internal</strong> alongside owners/managers.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Reading a benefit-and-cost table</div>
+<p><strong>A furniture maker</strong> must decide whether to switch to a cheaper overseas supplier whose delivery delays would reach customers. Estimated effects:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Option</th><th>Internal stakeholders</th><th>External stakeholders</th></tr></thead><tbody>
+<tr><td><strong>Keep current</strong></td><td>−$90,000 (higher input prices)</td><td>+$70,000 (reliable deliveries)</td></tr>
+<tr><td><strong>Switch</strong></td><td>+$90,000 (savings)</td><td>−$150,000 (late/canceled orders)</td></tr>
+</tbody></table></div>
+<p><em>Study the numbers. What moved? What didn't?</em></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>What does the data support?</div>
+<p>Using the approach of <strong>greatest total benefit or least total harm across all stakeholders</strong>, which decision does the table support?</p>
+<div class="opt"><span class="letter">A</span>Switching — it produces a $90,000 benefit for internal stakeholders</div>
+<div class="opt"><span class="letter">B</span>Switching — customer losses are not costs to the company</div>
+<div class="opt"><span class="letter">C</span>Keeping — its net cost of $20,000 is smaller than the $60,000 net cost of switching</div>
+<div class="opt"><span class="letter">D</span>Keeping — reliable suppliers <strong>always</strong> increase long-run profits</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p>Work each option across <strong>all</strong> stakeholders:</p>
+<div class="formula">- <strong>Keep:</strong> +$70,000 − $90,000 = <strong>net cost of $20,000</strong></div>
+<div class="formula">- <strong>Switch:</strong> +$90,000 − $150,000 = <strong>net cost of $60,000</strong></div>
+<p>Both options hurt — so the method picks the <strong>least total harm</strong> → $20,000 is the smaller loss.</p>
+<div class="trap">A<strong> — totals one column and stops. The method exists </strong>precisely to count every stakeholder group.**</div>
+<div class="trap">D<strong> — reaches the right decision with a </strong>broken reason<strong> — and </strong>"always" is the tell.** No ethical choice carries a promised profit outcome.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Always sum across every stakeholder column before totaling.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>How a response to a lapse hits profitability</div>
+<p>Which best explains how a business's <strong>response to an ethical lapse</strong> can affect its <strong>profitability</strong>?</p>
+<div class="opt"><span class="letter">A</span>Profitability is unaffected unless a law was broken</div>
+<div class="opt"><span class="letter">B</span>The response shapes customer relationships, employee relationships, and public perception, which in turn affect revenues and costs</div>
+<div class="opt"><span class="letter">C</span>A sincere apology <strong>guarantees</strong> customers will return</div>
+<div class="opt"><span class="letter">D</span>Ethical responses matter only for large corporations with public brands</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>The chain runs <strong>response → relationships and perception → profitability.</strong> Customers reward trust with loyalty and punish deception by leaving; employees weigh employers the same way; both movements land on the <strong>revenue and cost</strong> lines.</p>
+</div>
+<div class="trap">A<strong> — borrows </strong>legal-factor thinking from Topic 1.3.<strong> Reputational consequences can arise </strong>whether or not any law is involved.**</div>
+<div class="trap">C<strong> — fails on </strong>"guarantees."** A good response improves the odds and promises nothing.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Reputation needs no law. A guarantee dressed as reasoning fails even when its verdict happens to match.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead><tbody>
+<tr><td>1</td><td>Classify the <strong>specific action itself</strong> — concealment is unethical behavior, not a dilemma</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>Incentives vs. repercussions by direction:</strong> pull toward (before) vs. push back (after)</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>Leader acting = modeling; leader punishing = repercussion</strong> — watch what the leader <em>does</em></td><td>Q3</td></tr>
+<tr><td>4</td><td>Stakeholder sorting = <strong>direct involvement</strong>, not importance or seniority</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Count every stakeholder column</strong> before totaling; "pays insiders by costing outsiders more" is what the arithmetic catches</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Right decision + broken reason = still wrong</strong>; "always/guarantee" as reasoning fails</td><td>Q5</td></tr>
+<tr><td>7</td><td><strong>Absolutes</strong> ("guarantees") + borrowing <strong>legal-factor</strong> thinking from 1.3 (reputational harm needs no law)</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">Next: 1.7 Organization, Roles, and Responsibilities</div>
+<h1>Wrap-up</h1>
+<hr class="divider">
+<div class="tag">- <strong>Unethical behavior</strong> = falsifying/concealing info, misusing property, causing harm</div></div></div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 1.6 Business Ethics</span>
+    <span>Slide <span id="sn">1</span> / 59</span>
+</div>
+<script>
+var cs = 0;
+var N = 59;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

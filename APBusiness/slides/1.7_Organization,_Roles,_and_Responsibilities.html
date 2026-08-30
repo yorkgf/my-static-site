@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.7 Organization, Roles, and Responsibilities — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #e11d48;
+    --accent-d: #be123c;
+    --accent-l: #fda4af;
+    --accent-xd: #9f1239;
+    --tint: #fff1f2;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 1.7-specific design — legal structures + roles ────── */
+:root {
+    --c-prop: #6366f1;   --c-prop-bg: #eef2ff;   /* sole prop / partnership */
+    --c-shield: #16a34a; --c-shield-bg: #f0fdf4;  /* LLC / corp */
+    --c-pers-l: #dc2626; --c-pers-l-bg: #fef2f2; /* personal liability */
+    --c-fund: #d97706;   --c-fund-bg: #fffbeb;    /* funding scale */
+}
+
+.struct-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .8rem;
+    max-width: 1000px;
+    margin: 1rem auto;
+}
+.struct-card {
+    border-radius: 14px;
+    padding: 1rem .9rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+.struct-card .icon { font-size: 1.6rem; display: block; margin-bottom: .3rem; }
+.struct-card h3 { font-size: .98rem; margin-bottom: .3rem; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.struct-card .liab { font-size: .8em; font-weight: 700; padding: .2em .5em; border-radius: 100px; display: inline-block; margin-top: .3rem; }
+.struct-card .liab.pers { background: var(--c-pers-l); color: #fff; }
+.struct-card .liab.shield { background: var(--c-shield); color: #fff; }
+.struct-card p { font-size: .82em; color: var(--muted); margin: .3rem 0 0; line-height: 1.4; }
+.struct-card.prop { border-color: var(--c-prop); background: var(--c-prop-bg); }
+.struct-card.partner { border-color: var(--c-prop); background: var(--c-prop-bg); }
+.struct-card.llc { border-color: var(--c-shield); background: var(--c-shield-bg); }
+.struct-card.corp { border-color: var(--c-shield); background: var(--c-shield-bg); }
+
+/* Org hierarchy chart */
+.org-chart {
+    max-width: 720px;
+    margin: 1rem auto;
+    text-align: center;
+}
+.org-chart .level {
+    display: inline-block;
+    padding: .8rem 1.4rem;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: var(--shadow);
+    margin: .3rem;
+}
+.org-chart .lvl-1 { background: linear-gradient(135deg, #4f46e5, #4338ca); font-size: 1.1em; min-width: 240px; }
+.org-chart .lvl-2 { background: linear-gradient(135deg, #06b6d4, #0891b2); font-size: .95em; min-width: 180px; }
+.org-chart .lvl-3 { background: linear-gradient(135deg, #d97706, #b45309); font-size: .85em; min-width: 130px; }
+.org-chart .arrow-down::after { content: '↓'; display: block; font-size: 1.3rem; color: var(--accent); margin: .15rem 0; }
+.org-chart .arrows-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+.org-chart .arrows-row::before { content: '↓ ↓ ↓'; display: block; width: 100%; color: var(--accent); margin-bottom: .15rem; font-size: 1rem; letter-spacing: 1rem; }
+
+/* Six departments grid */
+.dept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .8rem;
+    max-width: 920px;
+    margin: 1rem auto;
+}
+.dept-card {
+    border-radius: 12px;
+    padding: 1rem;
+    background: var(--tint);
+    border: 2px solid var(--accent-l);
+    text-align: center;
+}
+.dept-card .emoji { font-size: 1.6rem; display: block; margin-bottom: .3rem; }
+.dept-card h4 { font-size: .98rem; color: var(--accent-xd); margin: 0 0 .3rem; }
+.dept-card p { font-size: .82em; color: var(--muted); margin: 0; }
+
+/* Case study card */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 1.7 Organization, Roles, and Responsibilities</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 1</div>
+<h1>1.7 Organization, Roles, and Responsibilities</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Opening question</h2>
+<p>You know who the customer is (1.4), what the product is (1.1), what the world looks like (1.3), what the business stands for (1.5), and what the right thing to do is (1.6).</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>But who actually <em>owns</em> this thing — and who does what?</strong></div>
+<p>Saturday morning, mid-setup, the cousin stops carrying coolers: <strong>half the work should mean half the profit.</strong> A handshake makes them partners. Twenty minutes later, a parent asks: <em>"if that cooler lid slams shut on somebody's phone, which of you pays?"</em></p>
+<p>Neither kid knows. <strong>The handshake divided the profits and never mentioned the debts.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Compare the <strong>four legal structures</strong> and the tradeoffs each carries</li>
+<li>Describe how <strong>roles and responsibilities</strong> are organized as a business grows</li>
+<li>Explain when and why a business might <strong>outsource</strong> a function</li>
+</ol>
+<p><strong>Running story continues:</strong> the snack box is three weeks old, the cousin has joined, and a parent just asked a question that the handshake can't answer.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The handshake scenario</h2>
+<p>Saturday morning. The cousin has been helping for two weeks — carrying coolers, loading vans, handing off boxes at the field.</p>
+<p>This Saturday, the cousin stops mid-lift:</p>
+<div class="callout key"><span class="tag">Key Point</span><em>"Half the work means half the profit. We're partners now."</em></div>
+<p>A handshake. No paperwork. No filings. No written agreement.</p>
+<p><strong>Twenty minutes later</strong>, a parent picks up a snack box and the cooler lid slams down on their phone screen. The screen cracks. The parent turns to both kids:</p>
+<div class="callout key"><span class="tag">Key Point</span><em>"Which one of you pays for this?"</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The question the handshake can't answer</h2>
+<p>The handshake <strong>divided the profits.</strong> It never mentioned the <strong>debts.</strong></p>
+<ul>
+<li>If something breaks, who is liable?</li>
+<li>If the business owes money, whose pocket does it come from?</li>
+<li>If the business needs to grow, where does the money come from?</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>These are structure questions — and the handshake has no answers.</strong> Today we name the four structures that do.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The four legal structures — definition</h2>
+<p>Every business sits inside a <strong>legal structure.</strong> The structure decides three things: who <strong>controls</strong> the decisions, who <strong>pays</strong> the debts, and how the business <strong>grows.</strong></p>
+<div class="struct-grid">
+    <div class="struct-card prop">
+        <span class="icon">👤</span>
+        <h3>Sole proprietorship</h3>
+        <p>1 owner. Full control, every dollar.</p>
+        <span class="liab pers">PERSONAL liability</span>
+    </div>
+    <div class="struct-card partner">
+        <span class="icon">🤝</span>
+        <h3>Partnership</h3>
+        <p>2+ owners. Shared control & profits.</p>
+        <span class="liab pers">PERSONAL liability</span>
+    </div>
+    <div class="struct-card llc">
+        <span class="icon">🛡️</span>
+        <h3>LLC</h3>
+        <p>Owners keep control. Legal filing required.</p>
+        <span class="liab shield">SHIELDED liability</span>
+    </div>
+    <div class="struct-card corp">
+        <span class="icon">🏛️</span>
+        <h3>Corporation</h3>
+        <p>Shareholders + elected board.</p>
+        <span class="liab shield">SHIELDED liability</span>
+    </div>
+</div>
+<div class="callout key" style="margin-top:.7rem;text-align:center"><span class="tag">Two tradeoffs</span><strong>Personal liability</strong> (sole prop, partnership) vs <strong>shielded liability</strong> (LLC, corp) · Funding grows from "limited" (sole prop) to "greatest" (corp).</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The four legal structures — in the examples</h2>
+<p>Each structure maps onto one moment in the snack box story:</p>
+<ul>
+<li><strong>Sole proprietorship:</strong> the snack box founder alone — five hats on a single Saturday, every dollar his, every risk his</li>
+<li><strong>Partnership:</strong> the cousin joins, handshake agreement, no filings — shared control, shared profits, <strong>shared personal liability</strong></li>
+<li><strong>LLC:</strong> what the snack box <em>should</em> become after the phone-screen question — owners keep control, but the business's debts belong to the business</li>
+<li><strong>Corporation:</strong> if they needed to sell shares for a 40-league expansion — cede control to shareholders and a board, gain the most funding</li>
+</ul>
+<div class="formula">> <strong>The structure fits the stage.</strong> One kid, one Saturday = sole prop. Two kids, one handshake = partnership. The phone-screen question = time for an LLC.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Sole proprietorship — definition</h2>
+<p>A <strong>sole proprietorship</strong> is a business owned and run by <strong>one person.</strong></p>
+<ul>
+<li>The owner has <strong>full control</strong> over every decision</li>
+<li>The owner <strong>keeps all the profits</strong></li>
+<li>The owner is <strong>personally liable</strong> for all business debts</li>
+<li>Funding comes from the owner's <strong>own savings and loans</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Simplest structure.</strong> No filings, no partners, no board. One person, one business.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Sole proprietorship — in the examples</h2>
+<p>The snack box founder on the first Saturday:</p>
+<ul>
+<li><strong>One owner</strong> — nobody else has a claim</li>
+<li><strong>Full control</strong> — he decides the menu, the price, the route</li>
+</ul>
+<div class="formula">- <strong>Keeps every dollar</strong> — profit = revenue minus cost, all his</div>
+<ul>
+<li><strong>Personal liability</strong> — if the cooler lid breaks a phone, <strong>he pays from his own pocket</strong></li>
+<li><strong>Limited funding</strong> — growth depends on what he can save or borrow</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Five hats, one head.</strong> CEO, marketer, product developer, financial manager, operations manager — all on the same Saturday.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Partnership — definition</h2>
+<p>A <strong>partnership</strong> is a business owned by <strong>two or more people</strong> who share control and profits.</p>
+<ul>
+<li>Owners <strong>share control</strong> and <strong>share profits</strong> — usually by agreement</li>
+<li>All partners are <strong>personally liable</strong> for business debts — <strong>even debts caused by the other partner</strong></li>
+<li>Funding is still <strong>limited</strong> — comes from the partners' savings and loans</li>
+<li>No legal filings required to form (in most cases) — <strong>a handshake can do it</strong></li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The exam's favorite trap:</strong> liability is <strong>shared</strong>, not <strong>divided by who did the work.</strong> If the cousin drops the cooler, the founder still pays.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Partnership — in the examples</h2>
+<p>The cousin joins the snack box:</p>
+<ul>
+<li><strong>Two owners</strong> — handshake agreement, no paperwork</li>
+<li><strong>Shared control</strong> — the cousin handles logistics, the founder handles the product</li>
+<li><strong>Shared profits</strong> — they split the cash box at the end of the day</li>
+<li><strong>Personal liability</strong> — if the cooler lid breaks a phone, <strong>both</strong> pay, regardless of whose hand was on the lid</li>
+<li><strong>Limited funding</strong> — still just two kids' savings</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The handshake divided the profits. It never mentioned the debts.</strong> Both are personally liable — the exam tests this exact point.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>LLC — definition</h2>
+<p>A <strong>limited liability company (LLC)</strong> is a business structure where owners <strong>retain control</strong> and keep profits, but their <strong>personal assets are shielded</strong> from business debts.</p>
+<ul>
+<li>Owners <strong>keep control</strong> — no board, no shareholders</li>
+<li><strong>Liability is shielded</strong> — business debts belong to the business, not to the owners personally</li>
+<li>Funding is still <strong>limited</strong> — no shares to sell</li>
+<li>Requires <strong>legal filings</strong> to form</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The LLC draws a wall between the business and the owner's personal money.</strong> The phone-screen question stops here.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>LLC — in the examples</h2>
+<p>The phone-screen question pushes the snack box toward an LLC:</p>
+<ul>
+<li><strong>Same two owners</strong> — but now with a legal filing</li>
+<li><strong>Same control</strong> — they still make every decision together</li>
+<li><strong>Shielded liability</strong> — if the cooler lid breaks a phone, the <strong>business</strong> pays, not their personal savings</li>
+<li><strong>Limited funding</strong> — they can't sell shares, so growth still depends on savings and loans</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The LLC answers the parent's question:</strong> "Which one of you pays?" → <strong>The business does.</strong> That's the wall the filing builds.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Corporation — definition</h2>
+<p>A <strong>corporation</strong> is a business owned by <strong>shareholders</strong> who elect a <strong>board of directors</strong> to make major decisions.</p>
+<ul>
+<li>Owners <strong>cede control</strong> to shareholders and an elected board</li>
+<li><strong>Liability is shielded</strong> — same wall as the LLC</li>
+<li><strong>Greatest access to funding</strong> — the corporation can <strong>sell shares</strong> to raise money</li>
+<li>The most <strong>complex and expensive</strong> structure to form and maintain</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The trade:</strong> you give up control, and in exchange you get the most funding and the strongest liability shield.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Corporation — in the examples</h2>
+<p>If the snack box needed to expand to 40 leagues at once:</p>
+<ul>
+<li><strong>Shareholders</strong> buy in — each one owns a piece of the business</li>
+<li><strong>A board is elected</strong> — the founder no longer makes every call alone</li>
+<li><strong>Selling shares</strong> raises the money for 40 new vans and 40 new cooler sets</li>
+<li><strong>Shielded liability</strong> — same wall as the LLC</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The founder traded control for scale.</strong> He can't decide the menu alone anymore — but the business can reach leagues he could never fund by himself.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tradeoff line 1 — control vs. funding</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Control and funding pull in opposite directions.</strong></div>
+<p>Owners of a <strong>sole proprietorship, partnership, or LLC</strong> <strong>retain control</strong> over decision making and keep the profits — but the price is that <strong>growth may be limited</strong>, because these structures have <strong>less access to funding.</strong></p>
+<p>A <strong>corporation flips the trade:</strong> its owners <strong>cede control</strong> to shareholders and an elected board, and in exchange the corporation gains <strong>greater access to funding and room to grow</strong>, with the company itself controlling the profits.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tradeoff line 1 — in the examples</h2>
+<p>The snack box faces this trade at every growth decision:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Stage</th><th>Structure</th><th>Control</th><th>Funding</th></tr></thead><tbody>
+<tr><td>One kid, one field</td><td>Sole proprietorship</td><td>Total</td><td>His savings</td></tr>
+<tr><td>Two kids, handshake</td><td>Partnership</td><td>Shared between two</td><td>Two savings pools</td></tr>
+<tr><td>After the phone-screen filing</td><td>LLC</td><td>Same two owners</td><td>Same limited pool</td></tr>
+<tr><td>40-league expansion</td><td>Corporation</td><td>Board + shareholders</td><td>Selling shares</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The more control you keep, the harder it is to raise money.</strong> The snack box can stay small and stay in charge — or grow big and share the wheel.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tradeoff line 2 — liability — definition</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Who pays when something goes wrong?</strong></div>
+<p><strong>Sole proprietors and partners</strong> are <strong>personally liable</strong> for all business debts — a broken screen, an unpaid loan, or a lawsuit can reach into <strong>their own pockets.</strong></p>
+<p>Organizing as an <strong>LLC</strong> lets owners <strong>avoid that personal exposure</strong> — the business's debts belong to the business. A <strong>corporation</strong> draws the same wall.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Personally liable</th><th>Liability shielded</th></tr></thead><tbody>
+<tr><td>Structures</td><td>Sole proprietorship, Partnership</td><td>LLC, Corporation</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tradeoff line 2 — liability — in the examples</h2>
+<p>The phone-screen question is the test:</p>
+<ul>
+<li><strong>Sole proprietorship:</strong> the founder pays from his own savings</li>
+<li><strong>Partnership:</strong> both the founder and the cousin pay — <strong>regardless of whose hand was on the lid</strong></li>
+<li><strong>LLC:</strong> the business pays — the owners' personal savings are untouched</li>
+<li><strong>Corporation:</strong> same wall — the business pays</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The parent's question — "which one of you pays?" — has a different answer in every structure.</strong> That's why the structure matters.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The 3-question identification method</h2>
+<div class="callout key"><span class="tag">Key Point</span>Every identification question in this topic surrenders to these three questions, in order:</div>
+<ol class="tick">
+<li><strong>How many owners</strong> — one or several?</li>
+<li><strong>Who pays the business's debts</strong> — the owners personally, or the business alone?</li>
+<li><strong>How does growth get funded</strong> — from savings and loans, or by selling shares?</li>
+</ol>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Answer pattern</th><th>Structure</th></tr></thead><tbody>
+<tr><td>One owner, personal liability, self-funded</td><td><strong>Sole proprietorship</strong></td></tr>
+<tr><td>Several owners, personal liability</td><td><strong>Partnership</strong></td></tr>
+<tr><td>Owners shielded, no shareholders/board</td><td><strong>LLC</strong></td></tr>
+<tr><td>Shareholders, a board, stock funding</td><td><strong>Corporation</strong></td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The 3-question method — in the examples</h2>
+<p>Run the snack box through the three questions at each stage:</p>
+<p><strong>Stage 1 — one kid, one Saturday:</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>How many owners? <strong>One.</strong> Who pays debts? <strong>He does — personally.</strong> How funded? <strong>His savings.</strong> → <strong>Sole proprietorship.</strong></div>
+<p><strong>Stage 2 — the cousin joins:</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>How many owners? <strong>Two.</strong> Who pays debts? <strong>Both — personally.</strong> How funded? <strong>Their savings.</strong> → <strong>Partnership.</strong></div>
+<p><strong>Stage 3 — after the filing:</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>How many owners? <strong>Two.</strong> Who pays debts? <strong>The business — liability shielded.</strong> How funded? <strong>Still their savings.</strong> → <strong>LLC.</strong></div>
+<p><strong>Stage 4 — 40-league expansion:</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>How many owners? <strong>Shareholders.</strong> Who pays debts? <strong>The business — liability shielded.</strong> How funded? <strong>Selling shares.</strong> → <strong>Corporation.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Exam tip — start with question 1</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Start with the first question (how many owners?) and you can eliminate half the options immediately.</strong></div>
+<ul>
+<li>One owner → sole proprietorship or (rarely) an LLC with one member</li>
+<li>Two or more owners, personal liability → partnership</li>
+<li>Two or more owners, shielded, no board → LLC</li>
+<li>Shareholders and a board → corporation</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The first question is the fastest filter.</strong> Use it before reading the full scenario.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Your turn — identify the structure</h1>
+<hr class="divider">
+<div class="tag"><em>Read each scenario. Run the three questions. Name the structure.</em></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scenario 1</h2>
+<p>A business has <strong>one owner</strong>, who is <strong>personally liable</strong> for all debts, and funds growth through <strong>savings and a bank loan.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span><strong>What is the legal structure?</strong></div>
+<p>Run the three questions:</p>
+<ol class="tick">
+<li>How many owners? → One</li>
+<li>Who pays debts? → The owner personally</li>
+<li>How funded? → Savings and loans</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<p><strong>Sole proprietorship.</strong></p>
+<p>One owner + personal liability + self-funded. The other options fail on the first question:</p>
+<ul>
+<li><strong>Partnership</strong> requires 2+ owners</li>
+<li><strong>LLC</strong> requires a liability shield</li>
+<li><strong>Corporation</strong> requires shareholders and a board</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Start with question 1 and eliminate.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scenario 2</h2>
+<p>Two friends start a delivery service. They <strong>shake hands</strong>, split profits equally, and <strong>file no legal paperwork.</strong> A customer's package is damaged.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Who is liable for the damage?</strong></div>
+<div class="opt"><span class="letter">A</span>Only the friend who made the delivery</div>
+<div class="opt"><span class="letter">B</span>Only the friend who took the order</div>
+<div class="opt"><span class="letter">C</span>The business alone — neither friend is personally liable</div>
+<div class="opt"><span class="letter">D</span>Both friends — personally and jointly</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<p><strong>D. Both friends — personally and jointly.</strong></p>
+<p>A partnership with no filings = personal liability for <strong>all</strong> partners. The exam's favorite trap: liability is <strong>shared</strong>, not <strong>divided by who did the work.</strong> The friend who didn't make the delivery still pays.</p>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Trap: A and B.</strong> Partnership liability doesn't sort by whose hand was on the package. Both partners are liable for all business debts.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scenario 3</h2>
+<p>A business has <strong>three owners</strong> who filed legal paperwork. The owners <strong>make all decisions together</strong>, and the business's debts <strong>do not reach their personal savings.</strong> The business has <strong>no shareholders and no board.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span><strong>What is the legal structure?</strong></div>
+<div class="opt"><span class="letter">A</span>Partnership</div>
+<div class="opt"><span class="letter">B</span>Corporation</div>
+<div class="opt"><span class="letter">C</span>Sole proprietorship</div>
+<div class="opt"><span class="letter">D</span>LLC</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<p><strong>D. LLC.</strong></p>
+<p>Run the three questions:</p>
+<ol class="tick">
+<li>How many owners? → Three (eliminates sole proprietorship)</li>
+<li>Who pays debts? → The business — liability shielded (eliminates partnership)</li>
+<li>How funded? → No shareholders, no board (eliminates corporation)</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>LLC = shielded liability + no shareholders/board.</strong> The middle structure.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Roles and responsibilities</h1>
+<hr class="divider">
+<span class="chip"><strong>Structure says who <em>owns</em> the business. Roles say who <em>does the work.</strong></em></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>One owner, every hat — definition</h2>
+<p>In a sole proprietorship, one person does all of it — <strong>five roles at once:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Role</th><th>What it means</th></tr></thead><tbody>
+<tr><td><strong>Chief executive officer</strong></td><td>Setting the direction, making the big calls</td></tr>
+<tr><td><strong>Marketer</strong></td><td>Getting the word out, building the brand</td></tr>
+<tr><td><strong>Product developer</strong></td><td>Designing and improving what's sold</td></tr>
+<tr><td><strong>Financial manager</strong></td><td>Counting the money, tracking costs</td></tr>
+<tr><td><strong>Operations manager</strong></td><td>Running the day-to-day — logistics, delivery, execution</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The hats <strong>compete for hours</strong> — a Saturday spent under the operations hat leaves the marketing hat unworn all week.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>One owner, every hat — in the examples</h2>
+<p>The snack box founder on a single Saturday:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Role</th><th>What he does</th></tr></thead><tbody>
+<tr><td><strong>CEO</strong></td><td>Decides to add fruit cups after the families' feedback</td></tr>
+<tr><td><strong>Marketer</strong></td><td>Posts the new menu in the league group chat</td></tr>
+<tr><td><strong>Product developer</strong></td><td>Tests the fruit cup recipe on Friday night</td></tr>
+<tr><td><strong>Financial manager</strong></td><td>Counts the cash box, calculates the weekend profit</td></tr>
+<tr><td><strong>Operations manager</strong></td><td>Loads the cooler, drives to the field, hands off at halftime</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Five hats, one head.</strong> Every minute under one hat is a minute stolen from another. That's why partners matter.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Partners divide the roles — definition</h2>
+<p><strong>Partners</strong> carry the same full responsibility, but typically <strong>divide the roles according to each partner's strengths and interests.</strong></p>
+<ul>
+<li>One partner might handle <strong>operations and logistics</strong> — routes, schedules, handoffs</li>
+<li>The other might handle <strong>product, pricing, and money</strong> — the menu, the cash box, the group chat</li>
+<li>The division isn't about hierarchy — it's about <strong>fit</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>A partnership where both partners fight over the same hat wastes one of its two advantages.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Partners divide the roles — in the examples</h2>
+<p>The cousin joins the snack box:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Partner</th><th>Strengths</th><th>Hats worn</th></tr></thead><tbody>
+<tr><td><strong>The founder</strong></td><td>Product design, pricing, customer relationships</td><td>CEO, product developer, financial manager, marketer</td></tr>
+<tr><td><strong>The cousin</strong></td><td>Logistics, scheduling, physical delivery</td><td>Operations manager</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The cousin loves logistics — routes, coolers, handoffs. The founder keeps the product, the pricing, and the money. <strong>Each partner wears the hats that fit.</strong></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The exam tests this as "dividing roles by strengths and interests" — not by seniority or ownership percentage.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Growing into departments — definition</h2>
+<p>As a business grows, roles organize into <strong>specialized departments.</strong></p>
+<div class="org-chart">
+    <div class="level lvl-1">Board of Directors &amp; Shareholders</div>
+    <div class="arrow-down"></div>
+    <div class="level lvl-2">CEO / Executive leaders</div>
+    <div class="arrow-down"></div>
+    <div class="arrows-row">
+        <div class="level lvl-3">Department Managers</div>
+    </div>
+</div>
+<p style="text-align:center;color:var(--muted);margin-top:.5rem;font-size:.92em">Authority flows <strong>down</strong> the chart. Accountability flows <strong>right back up</strong>.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Growing into departments — in the examples</h2>
+<p>The snack box at 40-league scale:</p>
+<ul>
+<li>The <strong>founder becomes CEO</strong> — setting direction, answering to shareholders</li>
+<li><strong>Department managers</strong> report to the CEO — each one owns a piece of the operation</li>
+<li>The <strong>board of directors</strong> holds the CEO accountable for performance</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Specialization is the payoff:</strong> departments develop <strong>deep expertise</strong>, which improves the business's ability to meet customer needs <strong>efficiently and effectively.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Organizational structure — definition</h2>
+<div class="def"><div class="term">Organizational structure</div><div class="text">the arrangement of roles, responsibility, authority, and communication. Drawing it as a chart (an <strong>org chart</strong>) makes the reporting lines readable at a glance.</div></div>
+<p>Watch one decision travel the chart:</p>
+<ol class="tick">
+<li>An <strong>operations manager</strong> pitches opening league 41</li>
+<li>The <strong>CEO</strong> weighs it against strategy and says yes</li>
+<li>At the next <strong>board meeting</strong> the CEO answers to the <strong>directors and shareholders</strong> for how the expansion performed</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Authority flows down; accountability flows up.</strong> That's the structure doing its job.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Organizational structure — in the examples</h2>
+<p>The snack box at league 41:</p>
+<ul>
+<li><strong>Operations manager:</strong> "League 41 needs a team. Here's the cost."</li>
+<li><strong>CEO (the founder):</strong> "Does it fit the expansion plan? Can we staff it?"</li>
+<li><strong>Board meeting:</strong> "How did league 41 perform against the budget?"</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The org chart isn't a drawing — it's the path every decision follows.</strong> Authority goes down, accountability comes back up.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The six departments — definition</h2>
+<div class="dept-grid">
+    <div class="dept-card">
+        <span class="emoji">📣</span>
+        <h4>Sales &amp; Marketing</h4>
+        <p>Market research, sales, brand, customer relationships.</p>
+    </div>
+    <div class="dept-card">
+        <span class="emoji">🔬</span>
+        <h4>R&amp;D</h4>
+        <p>Innovates around new goods, services, processes.</p>
+    </div>
+    <div class="dept-card">
+        <span class="emoji">⚙️</span>
+        <h4>Operations</h4>
+        <p>Making goods / services, getting products to customers.</p>
+    </div>
+    <div class="dept-card">
+        <span class="emoji">📒</span>
+        <h4>Accounting</h4>
+        <p>Tracks expenditures and earnings, financial statements.</p>
+    </div>
+    <div class="dept-card">
+        <span class="emoji">💰</span>
+        <h4>Finance</h4>
+        <p>Secures/manages funds, recommends strategy.</p>
+    </div>
+    <div class="dept-card">
+        <span class="emoji">👥</span>
+        <h4>Human Resources</h4>
+        <p>Recruits, trains, evaluates employees.</p>
+    </div>
+</div>
+<div class="callout key" style="margin-top:.8rem;text-align:center"><span class="tag">Six departments, one product.</span> A question about any single desk is answered by <strong>naming that desk's function.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The six departments — in the examples</h2>
+<p>Six departments, one product (a snack box at 40-league scale):</p>
+<ul>
+<li><strong>R&D</strong> invents and tests new snack combinations</li>
+<li><strong>Sales and marketing</strong> surveys families, prices the boxes, and builds the brand across leagues</li>
+<li><strong>Operations</strong> produces thousands of boxes and routes them to every field</li>
+<li><strong>Accounting</strong> records what the launch spends and earns</li>
+<li><strong>Finance</strong> decides the launch budget and reads the early numbers</li>
+<li><strong>Human resources</strong> hires and trains the extra Saturday staff</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Six departments, one product.</strong> A question about any single desk is answered by <strong>naming that desk's function.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The swap pair: Accounting vs. Finance — definition</h2>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Accounting and Finance are the swap pair the exam loves.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Accounting</th><th>Finance</th></tr></thead><tbody>
+<tr><td>Direction</td><td>Records and reports money that <strong>already moved</strong></td><td>Works <strong>forward</strong></td></tr>
+<tr><td>What it does</td><td>Tracks, prepares statements, monitors health</td><td>Secures funds, manages them, recommends what's next</td></tr>
+<tr><td>Looks</td><td><strong>Backward</strong></td><td><strong>Forward</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Records look backward, funding looks forward.</strong> Pin this difference now.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The swap pair: Accounting vs. Finance — in the examples</h2>
+<p>The snack box cash box:</p>
+<div class="formula">- <strong>Accounting</strong> = the cash box itself — every dollar in, every dollar out, the weekend totals on a sheet of paper. <strong>Looking backward</strong> at what already happened.</div>
+<div class="formula">- <strong>Finance</strong> = the decision to fund league 41 — do we have enough cash? Should we borrow? Is the return worth it? <strong>Looking forward</strong> at what should happen next.</div>
+<div class="callout key"><span class="tag">Key Point</span>A scenario about <strong>preparing statements</strong> belongs to <strong>accounting</strong> — <strong>even when the word "finance" appears in it.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The cash box is accounting. The decision to spend from it is finance.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Accounting vs. Finance — the exam trick</h2>
+<p>The exam writes scenarios that <strong>use the word "financial"</strong> to pull you toward the wrong answer:</p>
+<ul>
+<li><em>"The department that prepares the financial statements"</em> → <strong>Accounting</strong> (backward — records)</li>
+<li><em>"The department that secures funds for expansion"</em> → <strong>Finance</strong> (forward — funding)</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>"Financial" is unreliable as a signal.</strong> The direction test works every time: <strong>backward = accounting, forward = finance.</strong></div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Your turn — identify the department</h1>
+<hr class="divider">
+<div class="tag"><em>Read each scenario. Name the department. Watch for the swap pair.</em></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scenario A</h2>
+<p>A department at a mid-size company <strong>tracks the year's expenditures and earnings and prepares the financial statements</strong> that management reviews each quarter.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Which department is this?</strong></div>
+<div class="opt"><span class="letter">A</span>Finance</div>
+<div class="opt"><span class="letter">B</span>Accounting</div>
+<div class="opt"><span class="letter">C</span>Operations</div>
+<div class="opt"><span class="letter">D</span>Research and development</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<p><strong>B. Accounting.</strong></p>
+<p>Accounting tracks expenditures and earnings and prepares financial statements — the question restates that job almost word for word.</p>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Trap: A.</strong> Finance secures and manages funds and recommends strategies <strong>going forward.</strong> Preparing statements about money that <strong>already moved</strong> is accounting — <strong>even when the word "financial" appears.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Records look backward, funding looks forward.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scenario B</h2>
+<p>A department <strong>secures funding</strong> for a new product launch and <strong>recommends strategies</strong> for improving the company's financial performance over the next fiscal year.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Which department is this?</strong></div>
+<div class="opt"><span class="letter">A</span>Accounting</div>
+<div class="opt"><span class="letter">B</span>Operations</div>
+<div class="opt"><span class="letter">C</span>Finance</div>
+<div class="opt"><span class="letter">D</span>Human resources</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<p><strong>C. Finance.</strong></p>
+<div class="formula">Securing funds and recommending forward-looking strategies = finance. The direction is <strong>forward</strong> — planning for what comes next.</div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Trap: A.</strong> The word "financial" appears in the scenario, but the direction is forward, not backward. <strong>"Financial" is not a reliable signal.</strong> The direction test is.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Outsourcing</h1>
+<hr class="divider">
+<span class="chip"><strong>Buy the function, or build it.</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Outsourcing — definition</h2>
+<div class="def"><div class="term">Outsourcing</div><div class="text">hiring another business to handle a function <strong>instead of doing it internally.</strong></div></div>
+<p>A business may outsource a function when doing so is likely to <strong>increase efficiency or reduce costs.</strong></p>
+<p><strong>Classic triggers:</strong></p>
+<ol class="tick">
+<li>The business <strong>lacks employees with the specific skills</strong></li>
+<li>Existing <strong>labor costs run high</strong></li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>The outsourcing decision in one sentence: "buy the function, or build it."</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Outsourcing — in the examples</h2>
+<p>The snack box meets the first trigger:</p>
+<ul>
+<li>Pre-orders outgrow the group chat — families want a real ordering system</li>
+<li>Neither the founder nor the cousin can code</li>
+<li>They pay someone to build a simple order page</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Hiring the skill for a fee beat learning it for a season.</strong> The function moved outside because the skill didn't exist inside.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Outsourcing — the second trigger</h2>
+<p>A business might also outsource when <strong>labor costs run high:</strong></p>
+<ul>
+<li>A company in a high-wage city hires an outside firm to run customer support from a lower-cost region</li>
+<li>A manufacturer contracts packaging to a third party because building a packaging line is too expensive</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Two triggers, same decision:</strong> the function moves outside when <strong>building it in-house costs more</strong> — in money, time, or both.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Outsourcing vs. core competency</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Outsourcing is the opposite of developing a core competency.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Core competency</th><th>Outsourcing</th></tr></thead><tbody>
+<tr><td>Direction</td><td>Develop a function <strong>in-house</strong></td><td>Move a function <strong>outside</strong></td></tr>
+<tr><td>Why</td><td>The function is a source of <strong>competitive advantage</strong></td><td>The function is a <strong>cost to manage</strong></td></tr>
+<tr><td>Example</td><td>The snack box's halftime handoff (a skill they built)</td><td>The order page (a skill they bought)</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>If a function is your edge, keep it. If a function is a cost, buy it.</strong> The exam tests this distinction.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Your turn — apply the concepts</h1>
+<hr class="divider">
+<div class="tag"><em>Read the scenario. Identify the concept. Explain your reasoning.</em></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Discussion scenario</h2>
+<p>A small bakery makes everything in-house. Demand for wedding cakes is growing, but the bakery has no one trained in cake decorating. The owner considers two options:</p>
+<ol class="tick">
+<li><strong>Hire and train</strong> a cake decorator (build the skill)</li>
+<li><strong>Contract</strong> a freelance cake decorator for each order (buy the skill)</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Pair up. 2 minutes.</strong></div>
+<ol class="tick">
+<li>What is the outsourcing decision here — buy or build?</li>
+<li>What are the tradeoffs of each option?</li>
+<li>Which option would you recommend, and why?</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Discussion — key points</h2>
+<p><strong>Build (hire and train):</strong></p>
+<ul>
+<li>The skill stays in-house — becomes a potential <strong>core competency</strong></li>
+<li>Higher upfront cost (salary, training time)</li>
+<li>Long-term control over quality</li>
+</ul>
+<p><strong>Buy (contract):</strong></p>
+<ul>
+<li>Lower upfront cost — pay per order</li>
+<li>The skill stays <strong>outside</strong> — no core competency built</li>
+<li>Less control over quality and availability</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The outsourcing decision depends on whether the function is a cost to manage or an edge to build.</strong> Wedding cakes might be the bakery's future — or just a seasonal spike.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Exam points to remember</h2>
+<ul>
+<li><strong>3-question method:</strong> owners? debts? funding? → run it every time</li>
+<li><strong>Control and funding</strong> pull in opposite directions</li>
+</ul>
+<div class="formula">- <strong>Liability:</strong> sole prop + partnership = personal; LLC + corporation = shielded</div>
+<ul>
+<li><strong>Partnership liability is shared</strong> — not divided by who did the work</li>
+</ul>
+<div class="formula">- <strong>One owner = five hats;</strong> partners divide by <strong>strengths and interests</strong></div>
+<div class="formula">- <strong>Departments:</strong> six types; <strong>accounting = backward, finance = forward</strong></div>
+<ul>
+<li><strong>"Financial" is unreliable</strong> — use the direction test</li>
+</ul>
+<div class="formula">- <strong>Outsourcing:</strong> buy vs. build; triggers = missing skills or high costs</div>
+<ul>
+<li><strong>Outsourcing ≠ core competency</strong> — one moves out, one develops in</li>
+</ul></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Practice — 6 questions</h1>
+<hr class="divider">
+<div class="tag">Read → pause → <strong>commit to an answer</strong> → then reveal.</div>
+<span class="chip"><strong>4 on one stimulus (Tumble Route)</strong>· <strong>2 standalone</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Aiko Mori</strong> and <strong>Jordan Lee</strong> started <strong>Tumble Route</strong>, a laundry pickup-and-delivery service, with a <strong>spoken agreement and no legal filings.</strong> Aiko manages the routes, the machines, and the schedule. Jordan handles pricing, advertising, and the accounts.</p><p>Last month a customer's <strong>designer jacket was ruined</strong> in a machine. The customer demands <strong>$800.</strong> The partners are weighing two options:</p><p>1. <strong>Reorganizing as an LLC</strong>
+2. <strong>Incorporating</strong> so they can <strong>sell shares</strong> to finance <strong>20 new vans</strong></p><p>> <strong>Watch for the artifacts:</strong> a spoken partnership, a liability event, and two structure-change options.</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Liability for the ruined jacket</div>
+<p>Aiko and Jordan formed Tumble Route with a <strong>spoken agreement and no legal filings.</strong> A customer's jacket was ruined. Which best describes who is <strong>liable</strong> for the $800 claim?</p>
+<div class="opt"><span class="letter">A</span>Only Aiko, because she manages the machines</div>
+<div class="opt"><span class="letter">B</span>Only Jordan, because he handles the accounts</div>
+<div class="opt"><span class="letter">C</span>The business alone — neither Aiko nor Jordan is personally liable</div>
+<div class="opt"><span class="letter">D</span>Both Aiko and Jordan are <strong>personally liable</strong></div>
+<p>Pause. Ask: is this a sole proprietorship, a partnership, an LLC, or a corporation? What does the structure say about liability?</p>
+<p>--></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>A spoken agreement with no legal filings = a <strong>partnership.</strong> In a partnership, <strong>all partners are personally liable</strong> for business debts — regardless of whose area the damage occurred in.</p>
+</div>
+<div class="trap">A<strong> — the exam's favorite partnership trap. Liability is </strong>shared<strong>, not </strong>divided by who manages the machines.** Aiko runs the machines, but Jordan is still liable.</div>
+<div class="trap">B<strong> — same trap in reverse. Jordan handles accounts, but the jacket wasn't damaged by accounting. </strong>It doesn't matter.** Both partners are liable.</div>
+<div class="trap">C<strong> — borrows the </strong>LLC/corporation rule.<strong> No filings = no liability shield. The business </strong>is** the partners.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Partnership liability is shared and personal — not divided by who did the work.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Classify the role split</div>
+<p>Aiko manages routes, machines, and the schedule. Jordan handles pricing, advertising, and accounts. This arrangement best illustrates which concept?</p>
+<div class="opt"><span class="letter">A</span>Partners dividing roles by strengths and interests</div>
+<div class="opt"><span class="letter">B</span>Departments forming within an organizational structure</div>
+<div class="opt"><span class="letter">C</span>Outsourcing specialized functions to external firms</div>
+<div class="opt"><span class="letter">D</span>A corporation electing a board of directors</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Two partners with a spoken agreement, each handling the areas that match their skills — logistics for Aiko, business operations for Jordan. This is partners <strong>dividing roles by strengths and interests.</strong></p>
+</div>
+<div class="trap">B<strong> — departments form when a business grows large enough to need </strong>specialized teams with managers.<strong> Two partners splitting work is not departments — </strong>scale is the tell.** If the scenario said "Tumble Route has 50 employees organized into teams," then departments would apply.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Partners dividing roles ≠ departments.</strong> The difference is scale and specialization.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Tradeoff of incorporating</div>
+<p>If Tumble Route <strong>incorporates</strong> and sells shares to finance 20 new vans, which best describes the <strong>tradeoff</strong>?</p>
+<div class="opt"><span class="letter">A</span>The business loses its liability shield but gains funding</div>
+<div class="opt"><span class="letter">B</span>The partners gain more personal control over daily decisions</div>
+<div class="opt"><span class="letter">C</span>The owners <strong>cede control</strong> to shareholders and a board in exchange for <strong>greater access to funding</strong></div>
+<div class="opt"><span class="letter">D</span>The business can no longer grow because shareholders limit decision making</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Incorporating means selling shares — shareholders elect a board, and the founders <strong>cede control</strong> over major decisions. In exchange, the corporation gains the <strong>greatest access to funding</strong> — exactly what 20 new vans require.</p>
+</div>
+<div class="trap">A<strong> — flips the liability direction. Incorporating </strong>keeps** the liability shield (same as LLC). The trade is control for funding, not liability for funding.</div>
+<div class="trap">D<strong> — reverses the relationship. Shareholders </strong>enable<strong> growth by providing funding — they don't limit it. The limitation is on the </strong>founders' control**, not on the business's ability to grow.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Control and funding pull in opposite directions.</strong> Incorporating shrinks personal liability, cedes control, and unlocks funding.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Identify the department</div>
+<p>At a mid-size company, one department <strong>tracks the year's expenditures and earnings and prepares the financial statements</strong> that management reviews each quarter. Which department is this?</p>
+<div class="opt"><span class="letter">A</span>Finance</div>
+<div class="opt"><span class="letter">B</span>Accounting</div>
+<div class="opt"><span class="letter">C</span>Operations</div>
+<div class="opt"><span class="letter">D</span>Research and development</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Accounting tracks expenditures and earnings and prepares financial statements — the question restates that job almost word for word.</p>
+</div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Trap: A.</strong> Finance secures and manages funds and recommends strategies <strong>going forward.</strong> Preparing statements about money that <strong>already moved</strong> is accounting — <strong>even when the word "financial" appears.</strong></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Records look backward, funding looks forward.</strong> "Financial" is not a reliable signal. The direction test is.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Identify the structure from a data table</div>
+<p>A student studies three businesses and records the following data:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Feature</th><th>Business X</th><th>Business Y</th><th>Business Z</th></tr></thead><tbody>
+<tr><td>Number of owners</td><td>1</td><td>3</td><td>Shareholders</td></tr>
+<tr><td>Liability</td><td>Personal</td><td>Shielded</td><td>Shielded</td></tr>
+<tr><td>Funding source</td><td>Owner's savings</td><td>Partners' savings</td><td>Stock sales</td></tr>
+<tr><td>Decision maker</td><td>Owner alone</td><td>Owners together</td><td>Board of directors</td></tr>
+</tbody></table></div>
+<p>Based on the table, which row of structures is <strong>correct</strong>?</p>
+<div class="opt"><span class="letter">A</span>X = Partnership, Y = LLC, Z = Sole proprietorship</div>
+<div class="opt"><span class="letter">B</span>X = LLC, Y = Corporation, Z = Partnership</div>
+<div class="opt"><span class="letter">C</span>X = Sole proprietorship, Y = Partnership, Z = Corporation</div>
+<div class="opt"><span class="letter">D</span>X = Sole proprietorship, Y = LLC, Z = Corporation</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
+<p><strong>Run the three questions for each business:</strong></p>
+<p><strong>Business X:</strong> 1 owner + personal liability + self-funded → <strong>Sole proprietorship.</strong></p>
+<p><strong>Business Y:</strong> 3 owners + shielded liability + partners' savings (no shareholders) → <strong>LLC.</strong></p>
+<p><strong>Business Z:</strong> Shareholders + shielded liability + stock sales + board → <strong>Corporation.</strong></p>
+<div class="trap">C<strong> — gets X right but swaps Y and Z. Business Y has </strong>shielded liability<strong> — that eliminates partnership (personal liability). </strong>Check every feature in every row.**</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>ID tables: check every feature in every row.</strong> One wrong column flips the whole answer.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Outsourcing support due to high wages</div>
+<p>A software company <strong>hires an outside firm</strong> to run its customer-support phone lines because <strong>support wages in its city are unusually high.</strong> Which best describes this decision?</p>
+<div class="opt"><span class="letter">A</span>The company has made customer support one of its core competencies</div>
+<div class="opt"><span class="letter">B</span>The company has converted the support staff into internal stakeholders</div>
+<div class="opt"><span class="letter">C</span>The company is outsourcing a function because doing so is likely to <strong>reduce costs</strong></div>
+<div class="opt"><span class="letter">D</span>The company has reorganized as a corporation</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Outsourcing = hiring another business to handle a function. The two classic triggers are <strong>missing skills</strong> and <strong>high labor costs</strong> — high support wages are the second trigger.</p>
+</div>
+<div class="trap">A.<strong> Core competencies are capabilities a business </strong>develops itself.<strong> Handing a function to an outside firm is </strong>the opposite move<strong> — the company has decided support is a </strong>cost to manage**, so the function moves outside.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Outsourcing ≠ core competency.</strong> One moves a function <em>out</em>; the other develops one <em>in-house.</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Partnership liability is shared and personal</strong> — not divided by who did the work</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>Partners dividing roles ≠ departments</strong> — scale is the tell</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>Corporation:</strong> control and funding pull opposite directions; incorporating <strong>keeps</strong> the liability shield</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>Accounting (records, backward) vs. Finance (funds, forward)</strong> — "financial" is unreliable</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>ID tables: check every feature in every row</strong> — one wrong column flips the answer</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Outsourcing ≠ core competency</strong> — one moves out, one develops in</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">Next: 1.8 Supply Chains</div>
+<h1>Wrap-up</h1>
+<hr class="divider">
+<div class="tag">- The <strong>structure</strong> you choose decides three things: who <strong>controls</strong> the decisions, who <strong>pays</strong> the debts, and how the business <strong>grows</strong></div></div></div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 1.7 Organization, Roles, and Responsibilities</span>
+    <span>Slide <span id="sn">1</span> / 73</span>
+</div>
+<script>
+var cs = 0;
+var N = 73;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

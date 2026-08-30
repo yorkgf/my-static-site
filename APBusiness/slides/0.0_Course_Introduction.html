@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0.0 Course Introduction — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg: #f3faf2;
+    --ink: #17301a;
+    --muted: #5f7361;
+    --green: #16a34a;
+    --green-l: #4ade80;
+    --green-d: #15803d;
+    --green-xd: #166534;
+    --amber: #d97706;
+    --amber-bg: #fff7e0;
+    --blue: #2563eb;
+    --blue-bg: #e8f1ff;
+    --coral: #dc2626;
+    --coral-bg: #ffeded;
+    --card: #ffffff;
+    --card2: #f4fbf4;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(22,101,52,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, rgba(34,197,94,.12), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, rgba(37,99,235,.07), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* ── Top / bottom bars ─────────────────────────── */
+.bar {
+    position: fixed; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .55rem 1.3rem;
+    font-size: .72em; letter-spacing: .04em;
+    background: rgba(255,255,255,.9);
+    border-color: var(--border); border-style: solid;
+    box-shadow: 0 1px 6px rgba(22,101,52,.06);
+    backdrop-filter: blur(6px);
+}
+.bar.top    { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--green-d); font-weight: bold; }
+.bar a { color: var(--green-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--green-d); font-weight: bold; }
+
+/* ── Stage ─────────────────────────────────────── */
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column;
+    padding: 4.8rem 4vw 2.8rem;
+    overflow-y: auto;
+}
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: auto; }
+
+/* ── Kicker ────────────────────────────────────── */
+.kicker {
+    text-transform: uppercase; letter-spacing: .22em;
+    font-size: .72rem; color: var(--green-d); font-weight: 700;
+    display: flex; align-items: center; gap: .7rem;
+    margin-bottom: 1rem;
+}
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--green); }
+
+/* ── Typography ────────────────────────────────── */
+h1 { font-size: clamp(2.6rem,6vw,4.4rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.2rem,2.6vw,1.7rem); color: var(--green-d); font-weight: 700; margin-bottom: .6rem; }
+.subtitle { color: var(--muted); font-size: 1.05em; margin-bottom: 1rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; color: var(--ink); }
+strong { color: var(--green-xd); font-weight: 700; }
+em { color: #40543f; }
+
+/* Title slide */
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--green-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg,#166534 20%,#16a34a 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.15em; margin: .6rem 0 1.6rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg,var(--green),var(--green-l)); margin: 1.4rem auto; border: 0; }
+
+/* ── Cards ─────────────────────────────────────── */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border); border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 1.15rem 1.4rem;
+}
+.card h4 { color: var(--green-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+/* ── Lists ─────────────────────────────────────── */
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--green); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before {
+    content: counter(t);
+    position: absolute; left: 0; top: .08em;
+    width: 1.6em; height: 1.6em; border-radius: 50%;
+    background: linear-gradient(180deg,var(--green-l),var(--green));
+    border: 0; box-shadow: 0 2px 6px rgba(22,163,74,.35);
+    color: #fff; font-size: .74em; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+}
+
+/* ── Callouts ──────────────────────────────────── */
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--green);  background: #eaf7ec; }
+.callout.think { border-left: 4px solid var(--blue);   background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber);  background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral);  background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--green-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+/* ── Tables ────────────────────────────────────── */
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg,var(--green),var(--green-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; letter-spacing: .02em; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: #eaf7ec; }
+
+/* ── Stats ─────────────────────────────────────── */
+.stats { display: flex; flex-wrap: wrap; gap: .9rem; justify-content: center; margin: 1rem 0; }
+.stat {
+    flex: 1; min-width: 150px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 1.2rem .8rem; text-align: center;
+}
+.stat .num { font-family: var(--mono); font-size: 2.2rem; font-weight: 800; color: var(--green); line-height: 1; }
+.stat .num small { font-size: .6em; color: var(--muted); }
+.stat .lbl { margin-top: .5rem; font-size: .74rem; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 600; }
+
+/* ── Formula ───────────────────────────────────── */
+.formula {
+    font-family: var(--mono); text-align: center;
+    background: var(--card); border: 2px solid var(--green-l); border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--green-xd); font-weight: 700;
+}
+
+/* ── Emphasis chip ─────────────────────────────── */
+.chip {
+    display: inline-block; padding: .35rem .95rem; border-radius: 100px;
+    background: var(--green-l); border: 0;
+    color: #14532d; font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0;
+    box-shadow: 0 2px 6px rgba(22,163,74,.18);
+}
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+/* ── Video ─────────────────────────────────────── */
+.video-frame { position: relative; width: 100%; max-width: 640px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vid-cap { text-align: center; color: var(--muted); font-size: .85em; }
+
+/* ── Nav ───────────────────────────────────────── */
+.nav-arrow {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    width: 50px; height: 50px; z-index: 150;
+    background: #fff; border: 1px solid var(--border); border-radius: 50%;
+    box-shadow: var(--shadow);
+    color: var(--green-d); font-size: 1.4rem; cursor: pointer;
+    transition: all .2s;
+}
+.nav-arrow:hover { background: var(--green); color: #fff; border-color: var(--green); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfe5d2; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #9fd4a4; }
+.nd.active { background: var(--green); transform: scale(1.25); box-shadow: 0 0 8px rgba(22,163,74,.5); }
+
+/* Practice divider — bright green */
+.invert { background: linear-gradient(135deg,#16a34a,#15803d 60%,#166534); }
+.invert .eyebrow { color: #dcfce7; }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .divider { background: #fff; }
+.invert .tag { color: #dcfce7; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+    .grid.g2 { grid-template-columns: 1fr; }
+}
+
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· Course Introduction</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+
+<div class="stage">
+
+<!-- ══════════ 1 · Hero ══════════ -->
+<div class="slide active">
+    <div class="inner hero">
+        <div class="eyebrow">GHA · 2026–27</div>
+        <h1>AP Business with<br>Personal Finance</h1>
+        <hr class="divider">
+        <div class="tag">What we'll learn · how it's built · how you're assessed</div>
+        <span class="chip amber">First-ever AP exam — <strong style="color:inherit">May 2027</strong></span>
+    </div>
+</div>
+
+<!-- ══════════ 2 · What is this course ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Course Overview</div>
+        <h2>What is this course?</h2>
+        <div class="callout key" style="margin-top:.4rem">
+            <span class="tag">The Big Picture</span>
+            An <strong>introductory, college-level</strong> course in <strong>business + personal finance</strong>.
+        </div>
+        <ul class="tick">
+            <li><strong>College equivalent:</strong> one semester of intro-to-business</li>
+            <li><strong>Prerequisites:</strong> none — just willingness to work individually and in teams</li>
+            <li>A <strong>Career Kickstart</strong> AP course — built with colleges <em>and</em> industry employers</li>
+            <li>Built straight from the official <strong>Course and Exam Description (CED)</strong></li>
+        </ul>
+        <p class="subtitle" style="margin-top:1.2rem">You'll explore the business disciplines of <strong>entrepreneurship, marketing, finance, accounting, and management</strong> — <em>plus</em> personal finance.</p>
+    </div>
+</div>
+
+<!-- ══════════ 3 · What makes it different ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Course Overview</div>
+        <h2>What makes it different?</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card" style="border-top:4px solid var(--green)">
+                <h4>Career Kickstart</h4>
+                <p>Developed with <strong>industry leaders</strong>, not just colleges → skills for real careers.</p>
+            </div>
+            <div class="card" style="border-top:4px solid var(--blue)">
+                <h4>Work-based learning</h4>
+                <p>You act like a <strong>founder</strong> — product development, customer research, marketing, financial documents.</p>
+            </div>
+            <div class="card" style="border-top:4px solid var(--amber)">
+                <h4>Two projects, not just tests</h4>
+                <p>The <strong>Business Canvas Project</strong> and the <strong>Financial Advisor Project</strong>.</p>
+            </div>
+            <div class="card" style="border-top:4px solid var(--coral)">
+                <h4>Personal finance woven throughout</h4>
+                <p>Not a separate afterthought — it runs through the whole course.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 4 · Framework ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Framework</div>
+        <h2>The course framework = 2 components</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card" style="border-top:4px solid var(--green)">
+                <h4>Course Skills</h4>
+                <p>Business + professional/leadership skills you develop all year<br><strong>(5 categories)</strong></p>
+            </div>
+            <div class="card" style="border-top:4px solid var(--blue)">
+                <h4>Course Content</h4>
+                <p>5 units across the key business disciplines<br><strong>+ personal finance</strong></p>
+            </div>
+        </div>
+        <div class="callout key">
+            <span class="tag">How it works</span>
+            You build the skills <strong>through</strong> the content — by applying them to your own projects and to business cases.
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 5 · Five units ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">The Units</div>
+        <h2>The 5 units at a glance</h2>
+        <div class="tbl-wrap" style="margin-top:.8rem">
+            <table>
+                <thead><tr><th>Unit</th><th>Title</th><th>Exam weight</th><th>~Periods</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>Businesses, Competition, and New Ideas</td><td>20–30%</td><td>37</td></tr>
+                    <tr><td><strong>2</strong></td><td>Marketing</td><td>20–30%</td><td>34</td></tr>
+                    <tr><td><strong>3</strong></td><td>Personal Saving &amp; Borrowing <em>+</em> Business Finance &amp; Accounting</td><td>25–35%</td><td>35</td></tr>
+                    <tr><td><strong>4</strong></td><td>Management and Strategy</td><td>15–20%</td><td>30</td></tr>
+                    <tr><td><strong>5</strong></td><td>Personal Finance</td><td>— <small>(before/after exam)</small></td><td>24 + 20</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout warn"><span class="tag">Note</span>Units 1–4 are <strong>assessed on the AP exam</strong>. Unit 5 may be taught before or after.</div>
+    </div>
+</div>
+
+<!-- ══════════ 6 · Unit 1 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Unit 1</div>
+        <div style="display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap">
+            <h2>Businesses, Competition, and New Ideas</h2>
+            <span class="chip">20–30%</span>
+        </div>
+        <p class="subtitle">the entrepreneurial foundation</p>
+        <div class="card">
+            <h4>Topics 1.1 – 1.8</h4>
+            <p>1.1 What Is a Business · 1.2 Markets &amp; Competitive Advantage · 1.3 PESTEL Factors &amp; the Business Environment · 1.4 How Do Business Ideas Originate? · 1.5 Vision · 1.6 Business Ethics · 1.7 Organization, Roles &amp; Responsibilities · 1.8 Supply Chains</p>
+        </div>
+        <div class="callout key"><span class="tag">Running story</span>A student selling candy out of his backpack. By the end, a kid with a backpack is a business with <strong>values, partners, rules, and a supply chain</strong>.</div>
+    </div>
+</div>
+
+<!-- ══════════ 7 · Unit 2 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Unit 2</div>
+        <div style="display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap">
+            <h2>Marketing</h2>
+            <span class="chip">20–30%</span>
+        </div>
+        <p class="subtitle">the customer question</p>
+        <div class="card">
+            <h4>Topics 2.1 – 2.7</h4>
+            <p>2.1 Marketing to Customers · 2.2 Consumer Behavior · 2.3 Market Research · 2.4 Product · 2.5 Price · 2.6 Place and Channels · 2.7 Promotion and Marketing</p>
+        </div>
+        <div class="callout key"><span class="tag">Running story</span>Theo, 16, building <strong>Trued Cycles</strong> (used-bike refurbishing). Who is the customer? What do they want? What makes them say yes?</div>
+    </div>
+</div>
+
+<!-- ══════════ 8 · Unit 3 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Unit 3</div>
+        <div style="display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap">
+            <h2>Personal Saving &amp; Borrowing <em style="color:var(--muted)">+</em> Business Finance &amp; Accounting</h2>
+            <span class="chip">25–35%</span>
+        </div>
+        <p class="subtitle">two parts</p>
+        <div class="grid g2" style="margin-top:.4rem">
+            <div class="card"><h4>Part 1 — Personal</h4>
+                <p>3.1 Saving for Future Purchases · 3.2 Borrowing, Credit, and Debt</p>
+            </div>
+            <div class="card"><h4>Part 2 — Business</h4>
+                <p>3.3 Accounting &amp; Financial Management · 3.4 Business Expenses · 3.5 Financial Capital · 3.6 The Income Statement · 3.7 The Balance Sheet and Net Worth · 3.8 The Cash Flow Statement · 3.9 Ethics and Financial Reporting</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 9 · Unit 4 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Unit 4</div>
+        <div style="display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap">
+            <h2>Management and Strategy</h2>
+            <span class="chip">15–20%</span>
+        </div>
+        <p class="subtitle">running and growing the business</p>
+        <div class="card">
+            <h4>Topics 4.1 – 4.4</h4>
+            <p>4.1 Management and Leadership · 4.2 Evaluating Performance · 4.3 Strategy and Decision Making · 4.4 Strategic Frameworks: Porter's Five Forces</p>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 10 · Unit 5 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Unit 5</div>
+        <div style="display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap">
+            <h2>Personal Finance</h2>
+            <span class="chip amber">not on the AP exam</span>
+        </div>
+        <p class="subtitle">taught before or after</p>
+        <div class="card">
+            <h4>Topics 5.1 – 5.3</h4>
+            <p>5.1 Taxes, Net Income, and Budgeting · 5.2 Managing Personal Risk · 5.3 Saving and Investing for Education, Retirement, and Goals</p>
+        </div>
+        <div class="callout key"><span class="tag">Culmination</span>Culminates in the <strong>Financial Advisor Project</strong> — give financial recommendations to a fictional household (budget, college, home-buying, retirement, giving).</div>
+    </div>
+</div>
+
+<!-- ══════════ 11 · Two projects ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">The Projects</div>
+        <h2>Two projects anchor the course</h2>
+        <div class="grid g2" style="margin-top:.6rem">
+            <div class="card" style="border-top:4px solid var(--green)">
+                <h4>Business Canvas Project</h4>
+                <p><strong>Units 1–4.</strong> Build a real entrepreneurial idea (6 components + appendix) — <em>not</em> submitted to College Board.</p>
+                <p style="margin-top:.6rem">Assessed via: <span class="chip">Exam-Day Validation FRQ</span></p>
+            </div>
+            <div class="card" style="border-top:4px solid var(--blue)">
+                <h4>Financial Advisor Project</h4>
+                <p><strong>Unit 5.</strong> Recommend a financial plan to a fictional household.</p>
+                <p style="margin-top:.6rem">Assessed via: <span class="chip blue">Coursework</span></p>
+            </div>
+        </div>
+        <div class="callout key"><span class="tag">About the canvas</span>A <strong>modified Business Model Canvas</strong> (6 components: Organization, Operations, Customer, Product, Market, Finance/Accounting). Template provided (CED + AP Classroom) — format is flexible.</div>
+    </div>
+</div>
+
+<!-- ══════════ 12 · Course skills ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">The Skills</div>
+        <h2>Course skills <span style="color:var(--muted)">(5 categories)</span></h2>
+        <div class="tbl-wrap" style="margin-top:.8rem">
+            <table>
+                <thead><tr><th style="width:64px">#</th><th>Skill</th><th>Focus</th><th>MC weight</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>Concept Application</td><td>apply business concepts</td><td>45–55%</td></tr>
+                    <tr><td><strong>2</strong></td><td>Entrepreneurship</td><td>identify opportunities, build &amp; test ideas</td><td>5–15%</td></tr>
+                    <tr><td><strong>3</strong></td><td>Decision Making</td><td>evaluate options, choose with evidence</td><td>25–35%</td></tr>
+                    <tr><td><strong>4</strong></td><td>Communication</td><td>convey ideas &amp; findings</td><td>5–15%</td></tr>
+                    <tr><td><strong>5</strong></td><td>Collaboration</td><td>work effectively in teams</td><td><em>via projects</em></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout think"><span class="tag">On the exam</span>Skills 1–4 are assessed on the multiple-choice section; Skill 5 (collaboration) lives in the project work.</div>
+    </div>
+</div>
+
+<!-- ══════════ 13 · The AP Exam hero ══════════ -->
+<div class="slide">
+    <div class="inner hero">
+        <div class="eyebrow">Assessment</div>
+        <h1>The AP Exam</h1>
+        <div class="stats">
+            <div class="stat"><div class="num">2h40<span>m</span></div><div class="lbl">Total</div></div>
+            <div class="stat"><div class="num">60</div><div class="lbl">MCQ</div></div>
+            <div class="stat"><div class="num">4</div><div class="lbl">FRQ</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 14 · Section I ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Section I</div>
+        <h2>Multiple-choice</h2>
+        <div class="stats">
+            <div class="stat"><div class="num">60</div><div class="lbl">Questions</div></div>
+            <div class="stat"><div class="num">60%</div><div class="lbl">Of exam</div></div>
+            <div class="stat"><div class="num">70<span style="font-size:.5em">min</span></div><div class="lbl">Time</div></div>
+        </div>
+        <p class="subtitle" style="margin-top:.4rem">set-based</p>
+        <div class="grid g2">
+            <div class="card"><h4>By unit</h4>
+                <ul style="margin-bottom:0"><li>Unit 1: 20–30%</li><li>Unit 2: 20–30%</li><li>Unit 3: 25–35%</li><li>Unit 4: 15–20%</li></ul>
+            </div>
+            <div class="card"><h4>By skill</h4>
+                <ul style="margin-bottom:0"><li>Concept Application 45–55%</li><li>Decision Making 25–35%</li><li>Entrepreneurship 5–15%</li><li>Communication 5–15%</li></ul>
+            </div>
+        </div>
+        <div class="callout key"><span class="tag">Personal finance woven in</span>12–15 items across Units 1–4 = <strong>20–25% of the exam</strong>.</div>
+    </div>
+</div>
+
+<!-- ══════════ 15 · Section II ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Section II</div>
+        <h2>Free-response</h2>
+        <div class="stats" style="justify-content:flex-start">
+            <div class="stat"><div class="num">4</div><div class="lbl">Questions</div></div>
+            <div class="stat"><div class="num">40%</div><div class="lbl">Of exam</div></div>
+            <div class="stat"><div class="num">90<span style="font-size:.5em">min</span></div><div class="lbl">Time</div></div>
+        </div>
+        <div class="tbl-wrap">
+            <table>
+                <thead><tr><th>Part</th><th>Question</th><th>Weight</th><th>Time</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>IIA</strong></td><td><strong>Q1</strong> Business Canvas Validation</td><td>15%</td><td><strong>25 min</strong></td></tr>
+                    <tr><td rowspan="3"><strong>IIB</strong></td><td><strong>Q2</strong> Personal Finance</td><td>5%</td><td rowspan="3"><strong>65 min</strong> <small>(shared)</small></td></tr>
+                    <tr><td><strong>Q3</strong> Business Concept Application</td><td>5%</td></tr>
+                    <tr><td><strong>Q4</strong> Business Decision</td><td>15%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout warn"><span class="tag">Structure</span><strong>IIA = Q1 only (25 min). IIB = Q2 + Q3 + Q4 (65 min).</strong> FRQs assess Units 1–4 and Skills 1–4.</div>
+    </div>
+</div>
+
+<!-- ══════════ 16 · FRQ 1 deep-dive ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Deep-dive</div>
+        <h2>FRQ 1 — Business Canvas Validation</h2>
+        <div style="display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.6rem">
+            <span class="chip">15% · 25 minutes</span>
+            <span class="chip blue">Skills 1, 2, 4</span>
+        </div>
+        <p class="subtitle">On exam day you respond in writing about <strong>your own</strong> Business Canvas Project:</p>
+        <ol class="tick">
+            <li><strong>Pitch</strong> your product idea</li>
+            <li><strong>Explain how you used hypothesis testing</strong> to inform a decision</li>
+            <li><strong>Explain why a common entrepreneurial challenge</strong> may threaten your product's <strong>viability</strong></li>
+        </ol>
+        <div class="callout warn"><span class="tag">Important</span>The project itself isn't submitted — this FRQ is how your project work is scored. <strong>Keep your notebook/test results all year.</strong></div>
+    </div>
+</div>
+
+<!-- ══════════ 17 · Personal finance everywhere ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Threaded Theme</div>
+        <h2>How personal finance runs through everything</h2>
+        <div class="grid g3" style="margin-top:1rem">
+            <div class="card"><h4>Dedicated units</h4><p>Unit 3 Part 1 + Unit 5 are dedicated personal finance.</p></div>
+            <div class="card"><h4>Woven into MC</h4><p>12–15 items weave personal finance into Units 1–4 <em>(≈20–25% of exam)</em>.</p></div>
+            <div class="card"><h4>National standards</h4><p>Covers all <strong>National Standards for Personal Financial Education</strong> (CEE + Jump$tart).</p></div>
+        </div>
+        <div class="callout key"><span class="tag">Anchored by</span>The <strong>Financial Advisor Project</strong> (Unit 5).</div>
+    </div>
+</div>
+
+<!-- ══════════ 18 · How we'll work ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Rhythm</div>
+        <h2>How we'll work this year</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card"><h4>Lesson videos</h4><p><strong>MAMAKO</strong> — built straight from the CED, in order, with original examples.</p></div>
+            <div class="card"><h4>Per-topic notes</h4><p>A <strong>Summary</strong> + a <strong>Practice</strong> set + these <strong>Slides</strong>.</p></div>
+            <div class="card"><h4>Running stories</h4><p>Per unit (candy seller → Theo → …) — concepts taught through one business.</p></div>
+            <div class="card"><h4>Cross-links everywhere</h4><p>Each topic links forward and back.</p></div>
+        </div>
+        <div class="callout think"><span class="tag">Vault</span>Structure in the vault: <code style="font-family:var(--mono);color:var(--green-d);background:#eaf7ec;padding:.1em .4em;border-radius:6px">AP Business with Personal Finance/</code> → one Summary, Practice, and Slides file per topic.</div>
+    </div>
+</div>
+
+<!-- ══════════ 19 · How to succeed ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Mindset</div>
+        <h2>How to succeed</h2>
+        <ul class="tick">
+            <li><strong>Learn the definitions cold</strong> — then learn the <em>traps</em> (each topic's practice set lists them)</li>
+            <li><strong>Follow the running story</strong> — it's the connective tissue across the whole course</li>
+            <li><strong>Keep your Business Canvas alive</strong> all year — FRQ 1 depends on it</li>
+            <li><strong>Match the method to the question</strong> — most wrong answers are <em>right words in the wrong place</em></li>
+            <li><strong>Do every practice set</strong> — the exam repeats the same trap patterns</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ══════════ 20 · Let's begin ══════════ -->
+<div class="slide">
+    <div class="inner hero">
+        <div class="eyebrow">Unit 1 · Topic 1.1</div>
+        <h1>Let's begin.</h1>
+        <hr class="divider">
+        <div class="tag" style="font-size:1.15em">What's the smallest business you can picture?</div>
+        <p style="margin-top:1.6rem"><a href="1.1_What_Is_a_Business.html" style="color:#fff;font-weight:700;text-decoration:none;padding:.6rem 1.6rem;border-radius:100px;background:linear-gradient(135deg,var(--green),var(--green-d));box-shadow:0 4px 14px rgba(22,163,74,.35);display:inline-block">Continue to 1.1 What Is a Business →</a></p>
+    </div>
+</div>
+
+</div><!-- /stage -->
+
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 0.0 Course Introduction</span>
+    <span>Slide <span id="sn">1</span> / 20</span>
+</div>
+
+<script>
+var cs = 0;
+var N = 20;
+
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+</script>
+</body>
+</html>

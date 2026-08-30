@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.4 How Business Ideas Originate — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #7c3aed;
+    --accent-d: #6d28d9;
+    --accent-l: #c4b5fd;
+    --accent-xd: #5b21b6;
+    --tint: #f5f3ff;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 1.4-specific design — three sources + risk-return ────── */
+:root {
+    --c-gap: #f59e0b;  --c-gap-bg: #fffbeb;
+    --c-opp: #06b6d4;  --c-opp-bg: #ecfeff;
+    --c-ext: #ec4899;  --c-ext-bg: #fdf2f8;
+}
+
+.source-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 920px;
+    margin: 1.2rem auto;
+}
+.source-card {
+    border-radius: 16px;
+    padding: 1.2rem 1.2rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.source-card .icon { font-size: 1.6rem; margin-bottom: .4rem; display: block; }
+.source-card h3 { font-size: 1.05rem; margin-bottom: .4rem; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.source-card p { font-size: .95em; margin-bottom: 0; }
+.source-card.gap { border-color: var(--c-gap); background: var(--c-gap-bg); }
+.source-card.opp { border-color: var(--c-opp); background: var(--c-opp-bg); }
+.source-card.ext { border-color: var(--c-ext); background: var(--c-ext-bg); }
+
+.source-badge {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 1.4em; height: 1.4em; border-radius: 50%;
+    color: #fff; font-weight: 800; font-family: var(--mono);
+    font-size: .85em; margin-right: .35em;
+    box-shadow: 0 2px 6px rgba(0,0,0,.18);
+    vertical-align: middle;
+}
+.source-badge.gap { background: var(--c-gap); }
+.source-badge.opp { background: var(--c-opp); }
+.source-badge.ext { background: var(--c-ext); }
+h2 .source-badge { width: 1.1em; height: 1.1em; font-size: .7em; margin-right: .45em; }
+
+/* Risk-return spectrum — horizontal scale */
+.rr-spectrum {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 1.6rem auto 1.2rem;
+}
+.rr-cell {
+    padding: 1.2rem 1rem;
+    border-radius: 16px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12);
+    position: relative;
+}
+.rr-cell .level { font-size: .72em; opacity: .92; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; }
+.rr-cell .biz { font-size: 1.18em; font-weight: 800; margin: .35rem 0 .4rem; line-height: 1.2; }
+.rr-cell .desc { font-size: .82em; opacity: .92; line-height: 1.4; }
+.rr-cell.low  { background: linear-gradient(135deg, #16a34a, #15803d); }
+.rr-cell.mid  { background: linear-gradient(135deg, #d97706, #b45309); }
+.rr-cell.high { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+.rr-cell.low::before  { content: '▼'; position: absolute; top: -1.5rem; left: 50%; transform: translateX(-50%); font-size: 1.3rem; opacity: .45; }
+.rr-cell.mid::before  { content: '◆'; position: absolute; top: -1.5rem; left: 50%; transform: translateX(-50%); font-size: 1.1rem; opacity: .45; }
+.rr-cell.high::before { content: '▲'; position: absolute; top: -1.5rem; left: 50%; transform: translateX(-50%); font-size: 1.3rem; opacity: .45; }
+
+/* Case study card — used for Pop Mart, Copa Di Vino */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute;
+    top: -.7em;
+    left: 1.5rem;
+    background: var(--amber);
+    color: #fff;
+    padding: .3em 1em;
+    border-radius: 100px;
+    font-size: .7em;
+    font-weight: 800;
+    letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+.case-study h3 { margin-top: .6rem; color: #92400e; }
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 1.4 How Business Ideas Originate</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 1</div>
+<h1>1.4 How Business Ideas Originate</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Identify <strong>three sources</strong> of business ideas: gaps, opportunities, and existing businesses</li>
+<li>Explain what makes an opportunity <strong>viable</strong></li>
+<li>Connect <strong>risk</strong> and <strong>return</strong> — and why entrepreneurs choose to take that trade</li>
+</ol>
+<p><strong>Running story continues:</strong> the hallway is gone, the gym is crowded — and now we go back to the <strong>very beginning</strong> of the whole story.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The new problem</h2>
+<p>The hallway is gone. The gym is crowded.</p>
+<p>Both kids built something — but they each started from <strong>one specific moment</strong>: noticing a problem worth solving.</p>
+<div class="callout key"><span class="tag">Key Point</span>Every business begins as an <strong>idea</strong>. Some come from an empty shelf. Some come from a new machine. Some come from watching someone else struggle. Where you look <strong>shapes what you find</strong>.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The three sources of business ideas</h2>
+<div class="source-grid">
+    <div class="source-card gap">
+        <span class="icon">🕳️</span>
+        <h3><span class="source-badge gap">G</span>Gaps</h3>
+        <p>A need or want that is <strong>not currently being met</strong>.</p>
+    </div>
+    <div class="source-card opp">
+        <span class="icon">💡</span>
+        <h3><span class="source-badge opp">O</span>Opportunities</h3>
+        <p>A <strong>new or better</strong> way to do something — technology, innovation, change.</p>
+    </div>
+    <div class="source-card ext">
+        <span class="icon">🔁</span>
+        <h3><span class="source-badge ext">E</span>Existing businesses</h3>
+        <p>What is <strong>already being sold</strong> in a market — copy, adapt, or improve.</p>
+    </div>
+</div>
+<p style="text-align:center;color:var(--muted);margin-top:.5rem;font-size:.92em">Where you look shapes what you find. The next slides walk through each source.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2><span class="source-badge gap">G</span>Source 1 — Gaps</h2>
+<p>A <strong>gap</strong> is a need or want that is <strong>not currently being met</strong>.</p>
+<ul>
+<li>An empty shelf in the hallway candy aisle → a gap</li>
+<li>A student who wants a cold drink but nobody sells one → a gap</li>
+<li>A neighborhood with no grocery store → a gap</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>How entrepreneurs find gaps:</strong> they <strong>observe</strong> — watching what people struggle with, what they complain about, what they can't find.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Gaps — the key distinction</h2>
+<p>A gap is <strong>not</strong> about having no competitors at all.</p>
+<p>A gap can exist even when competitors are present — <strong>if no one is meeting a specific need</strong>:</p>
+<ul>
+<li>Five candy sellers in the hallway — but none sell <strong>sugar-free</strong> options → a gap</li>
+<li>Three coffee shops on one street — but none open before 7 AM → a gap</li>
+<li>Many tutoring services — but none in <strong>Spanish</strong> → a gap</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>A gap = a <strong>specific unmet need</strong>, not just an empty market.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2><span class="source-badge opp">O</span>Source 2 — Opportunities</h2>
+<p>An <strong>opportunity</strong> is a new or better way to do something — often triggered by a <strong>change</strong>:</p>
+<ul>
+<li>A <strong>new machine</strong> that fills bottles automatically → a vending opportunity</li>
+<li>A <strong>new technology</strong> (like smartphones) → thousands of app-based businesses</li>
+<li>A <strong>social trend</strong> (like remote work) → new demand for home office gear</li>
+<li>A <strong>rule change</strong> (like a school policy) → new markets open or close</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>How entrepreneurs find opportunities:</strong> they look for <strong>change</strong> — and ask "what does this change make possible?"</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2><span class="source-badge ext">E</span>Source 3 — Existing businesses</h2>
+<p>Many ideas come from <strong>what already exists</strong> in a market — by copying, adapting, or improving:</p>
+<ul>
+<li>A candy seller copies the <strong>pricing strategy</strong> of the kid across the hall</li>
+<li>A new coffee shop opens by offering what the old one does — <strong>but faster</strong></li>
+<li>A local delivery service copies a model that works in another city</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Replication</strong> — copying what works in one market into another — is one of the most common sources of business ideas worldwide.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Combining the sources</h2>
+<p>Most real business ideas involve <strong>more than one source at the same time</strong>.</p>
+<ul>
+<li>The vending machine idea comes from a <strong>gap</strong> (unmet demand after the hallway closed) <strong>plus</strong> an <strong>opportunity</strong> (a new filling machine)</li>
+<li>A local coffee chain copies an existing model <strong>and</strong> adapts it to local tastes → <strong>replication + gap</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>When you see a scenario, ask: <strong>"Is this about an unmet need, a new possibility, or something already on the market — or more than one?"</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Viability — recap from 1.3</h2>
+<div class="def"><div class="term">Viability</div><div class="text">the ability to <strong>survive and stay successful</strong> in a market over time.</div></div>
+<p>An idea is only a starting point. To become a <strong>business</strong>, it must be viable:</p>
+<ul>
+<li>Is there a <strong>real, unmet need</strong> (gap)? Or a change that creates a new possibility (opportunity)?</li>
+<li>Are there enough <strong>willing and able</strong> buyers?</li>
+<li>Can the business <strong>survive</strong> competition, regulation, and cost?</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>If the answer to any of these is no → the idea may be interesting, but it <strong>isn't viable</strong>.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Matching strengths to opportunities</h2>
+<p>An entrepreneur succeeds by matching <strong>what they are good at</strong> with <strong>what the market needs</strong>.</p>
+<ul>
+<li>Someone who bakes well → a cake business (strength matches a gap)</li>
+<li>Someone who codes well → an app (strength meets a technology opportunity)</li>
+<li>Someone with money and connections → a franchise (resources enable replication)</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>A good idea in the wrong hands fails. A good idea <strong>in the right hands</strong> — with the right skills, resources, and timing — becomes a viable business.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Risk — definition</h2>
+<div class="def"><div class="term">Risk</div><div class="text">the chance that things will not go as planned — the possibility of <strong>unwanted outcomes</strong> like losing money, time, or effort.</div></div>
+<p>Every business involves risk:</p>
+<ul>
+<li>Will customers actually <strong>buy</strong>?</li>
+<li>Will a competitor <strong>undercut</strong> you?</li>
+<li>Will the cost of materials <strong>rise</strong> unexpectedly?</li>
+<li>Will a new regulation <strong>shut you down</strong>?</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>Entrepreneurs don't eliminate risk — they <strong>evaluate</strong> it and decide whether the potential reward is worth the chance of failure.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Return — definition</h2>
+<div class="def"><div class="term">Return</div><div class="text">the <strong>gain</strong> (usually money) that an entrepreneur hopes to earn from a business.</div></div>
+<p>When an entrepreneur invests time and money into a business, the return is <strong>what they hope to get back — and more</strong>.</p>
+<div class="formula">- Invest $500 in candy supplies → earn $800 in sales → <strong>return = $300</strong></div>
+<div class="formula">- Invest $10,000 in a food truck → earn $15,000 → <strong>return = $5,000</strong></div>
+<ul>
+<li>Return is <strong>never guaranteed</strong> — it depends on whether the idea actually works</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The risk–return relationship</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Higher potential return usually comes with higher risk.</strong></div>
+<div class="rr-spectrum">
+    <div class="rr-cell low">
+        <div class="level">Low risk · Low return</div>
+        <div class="biz">Candy in a busy hallway</div>
+        <div class="desc">Small investment, proven demand, small profit per sale.</div>
+    </div>
+    <div class="rr-cell mid">
+        <div class="level">Medium risk · Medium return</div>
+        <div class="biz">Opening a restaurant</div>
+        <div class="desc">Bigger investment, competition, food safety — and higher revenue.</div>
+    </div>
+    <div class="rr-cell high">
+        <div class="level">High risk · High return</div>
+        <div class="biz">Launching a tech startup</div>
+        <div class="desc">Unproven market, big investment, many unknowns — but if it works, massive scale.</div>
+    </div>
+</div>
+<p style="text-align:center;color:var(--muted);margin-top:1rem;font-size:.92em">The table doesn't tell you which is "best" — it tells you <strong>what you're trading off</strong>.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Reading the table</h2>
+<p>The entrepreneur's job is to <strong>judge whether the potential return is worth the risk they're taking</strong>.</p>
+<div class="formula">- Candy = low risk, low return → safe but small</div>
+<div class="formula">- Restaurant = medium risk, medium return → bigger stakes, bigger reward</div>
+<div class="formula">- Tech startup = high risk, high return → could win big or lose everything</div>
+<div class="callout warn"><span class="tag">Exam Note</span>The table doesn't tell you which is "best" — it tells you <strong>what you're trading off</strong>.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The risk–return tradeoff</h2>
+<p>The <strong>risk–return tradeoff</strong> = a <strong>situation where taking more risk gives you the chance of a higher return, but also a higher chance of losing everything</strong>.</p>
+<ul>
+<li>Low-risk ideas are <strong>safer</strong> but often earn <strong>less</strong></li>
+<li>High-risk ideas <strong>could</strong> earn a lot — but <strong>could</strong> also fail completely</li>
+<li>The right choice depends on the entrepreneur's <strong>resources</strong>, <strong>skills</strong>, <strong>market knowledge</strong>, and <strong>tolerance for failure</strong></li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span>"High return, zero risk" = a trap answer on the exam. If it sounds too good to be true, <strong>it is</strong>.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why entrepreneurs accept risk</h2>
+<p>Not everyone takes the same risks. Entrepreneurs choose risk because:</p>
+<ul>
+<li>They see an <strong>opportunity</strong> others don't</li>
+<li>They have <strong>resources</strong> (time, money, skills) that make the risk manageable</li>
+<li>They believe the <strong>potential return</strong> justifies the chance of failure</li>
+<li>They are <strong>willing to fail</strong> and try again</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>Many successful entrepreneurs <strong>failed first</strong>. What separates them is that they <strong>kept going</strong> — and learned from what went wrong.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Risk vs. Uncertainty — the exam distinction</h2>
+<p><strong>Risk</strong> is a known danger. <strong>Uncertainty</strong> is when you don't even know what could go wrong.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Risk</th><th>Uncertainty</th></tr></thead><tbody>
+<tr><td>What you know</td><td>You can <strong>name</strong> the danger</td><td>You <strong>can't</strong> predict what will happen</td></tr>
+<tr><td>Example</td><td>"A competitor might undercut me"</td><td>"Something I haven't thought of might destroy my business"</td></tr>
+<tr><td>How entrepreneurs deal with it</td><td><strong>Plan</strong> for it (insurance, backup suppliers, savings)</td><td><strong>Can't fully plan</strong> — must stay flexible and adapt</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What the exam actually tests</h2>
+<p>Most exam scenarios describe <strong>risk</strong>, not uncertainty — they give you enough information to <strong>name</strong> the danger.</p>
+<ul>
+<li>If the scenario says "a new competitor is entering the market" → that's <strong>risk</strong> — you can name it</li>
+<li>If the scenario says "something unexpected might happen" → that's closer to <strong>uncertainty</strong> — but the exam rarely goes there</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Exam rule:</strong> if you can name what could go wrong, it's <strong>risk</strong> — and the question wants you to <strong>plan for it</strong>, not just worry about it.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The entrepreneur's decision — tying it together</h2>
+<p>An entrepreneur decides to act when three things <strong>come together</strong>:</p>
+<ol class="tick">
+<li>A source of ideas — a <strong>gap</strong>, an <strong>opportunity</strong>, or something in an <strong>existing market</strong></li>
+<li>A judgment that the idea is <strong>viable</strong> — enough buyers, survivable competition, manageable cost</li>
+<li>A belief that the potential <strong>return</strong> justifies the <strong>risk</strong></li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span>When all three align → the entrepreneur invests time, effort, and money to <strong>start the business</strong>.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>How to write a strong exam answer</h2>
+<p><strong>Name the source → state why it matters → connect to viability or risk–return.</strong></p>
+<ul>
+<li>"The gap is that no one sells sugar-free candy" → <strong>not enough</strong> — names the source but stops</li>
+<li>"The gap is that no one sells sugar-free candy, <strong>and</strong> there are 30 students with dietary restrictions who would buy daily — <strong>that makes it viable</strong>" → <strong>strong answer</strong></li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The connected-reasoning pattern</h2>
+<p>The exam rewards <strong>connected reasoning</strong>: source → viability → risk/return judgment.</p>
+<ol class="tick">
+<li><strong>Source</strong> — "This is a gap because…"</li>
+<li><strong>Viability</strong> — "…and it's viable because there are enough willing buyers…"</li>
+<li><strong>Risk/return</strong> — "…with low risk and modest return because the investment is small"</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span>Each piece <strong>builds on the last</strong>. Stopping at step 1 is the most common reason students lose marks.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Your turn — apply the concepts</h1>
+<hr class="divider">
+<span class="chip"><strong>Read the scenario → identify the source → judge viability → decide.</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The case: Vending machines at school</h2>
+<p>A school has <strong>no vending machines</strong>. Students complain about having nowhere to buy snacks or drinks between classes. A student sees an ad for a <strong>used vending machine</strong> for $1,500 and asks the principal for permission to install one in the cafeteria.</p>
+<p><em>Read the scenario. Think about the three sources, viability, and risk–return before moving on.</em></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Discussion questions</h2>
+<ol class="tick">
+<li>What is the <strong>source</strong> of this business idea — a gap, an opportunity, or an existing business?</li>
+<li>Is the idea <strong>viable</strong>? What factors would you check?</li>
+<li>What are the <strong>risks</strong>? What is the potential <strong>return</strong>?</li>
+<li>Should the student invest? <strong>Defend your answer.</strong></li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span>There is no single right answer. The strength of your reasoning is what earns the marks.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Applying PESTEL to the vending idea</h2>
+<p>The student should check the same outside forces from 1.3:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>What to check</th></tr></thead><tbody>
+<tr><td><strong>Political</strong></td><td>Will the school <strong>allow</strong> it?</td></tr>
+<tr><td><strong>Economic</strong></td><td>Can students <strong>afford</strong> $1.50 snacks?</td></tr>
+<tr><td><strong>Social</strong></td><td>Do students <strong>want</strong> snacks between classes?</td></tr>
+<tr><td><strong>Technological</strong></td><td>Can the machine accept <strong>card payments</strong>?</td></tr>
+<tr><td><strong>Environmental</strong></td><td>Will the school require <strong>healthy options</strong>?</td></tr>
+<tr><td><strong>Legal</strong></td><td>Does the school need a <strong>food-handling permit</strong>?</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The environment check — why it matters</h2>
+<p>Good entrepreneurs <strong>don't just see the idea</strong> — they check whether the <strong>environment</strong> supports it.</p>
+<ul>
+<li>The idea might be great (gap + viable demand + good return)</li>
+<li>But if the school says <strong>no</strong> (political) or requires an expensive <strong>permit</strong> (legal) → the idea <strong>dies before it starts</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Lesson 1.3 meets 1.4:</strong> an idea is only viable if the <strong>PESTEL factors</strong> around it allow it to survive.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Your turn — analyze a real case</h1>
+<hr class="divider">
+<span class="chip"><strong>Watch the video → identify the sources → judge viability → evaluate risk–return.</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The case: Pop Mart (泡泡玛特)</h2>
+<div class="case-study">
+<p>In 2010, <strong>Wang Ning</strong> (王宁) was a college graduate with no special skills and no money. He noticed something: young Chinese consumers loved <strong>collecting</strong> small toys, but nobody was selling them in a way that made the experience <strong>exciting</strong>.</p>
+<p>He opened a small shop selling blind boxes — and built it into a company worth <strong>billions</strong>.</p>
+<div class="video-frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1GGLn6SEA3&autoplay=0" frameborder="0" allowfullscreen></iframe></div>
+<p><em>As you watch, look for: where did the idea come from? What made it viable? What risks did he take?</em></p>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Analysis framework — fill in as you watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Question</th><th>Your answer</th></tr></thead><tbody>
+<tr><td><strong>Source 1 — Gap:</strong> What unmet need did Wang Ning see?</td><td></td></tr>
+<tr><td><strong>Source 2 — Opportunity:</strong> What change made this possible?</td><td></td></tr>
+<tr><td><strong>Source 3 — Existing business:</strong> What did he copy or adapt?</td><td></td></tr>
+<tr><td><strong>Viability:</strong> Why were customers willing and able to pay?</td><td></td></tr>
+<tr><td><strong>Risk:</strong> What could have gone wrong?</td><td></td></tr>
+<tr><td><strong>Return:</strong> What did he earn — and what did he risk?</td><td></td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Pop Mart — the three sources</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Source</th><th>How it applies</th></tr></thead><tbody>
+<tr><td><span class="source-badge gap">G</span><strong>Gap</strong></td><td>Young consumers wanted collectible toys, but no brand made it a <strong>lifestyle experience</strong> — the emotional thrill of "not knowing what's inside" was unserved</td></tr>
+<tr><td><span class="source-badge opp">O</span><strong>Opportunity</strong></td><td>Social media + unboxing culture + rising disposable income among Gen Z → a <strong>cultural shift</strong> that made blind boxes go viral</td></tr>
+<tr><td><span class="source-badge ext">E</span><strong>Existing business</strong></td><td>Japanese gashapon (扭蛋) machines had existed for decades → Wang Ning <strong>adapted</strong> the model for the Chinese market with designer IP</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The takeaway — combining sources</h2>
+<p>Most real businesses combine <strong>more than one source</strong>. Pop Mart is gap + opportunity + replication — all three at once.</p>
+<ul>
+<li>The <strong>gap</strong> told him what was missing</li>
+<li>The <strong>opportunity</strong> told him the timing was right</li>
+<li>The <strong>existing business</strong> model gave him a proven starting point to adapt</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span>When you see a scenario, ask: <strong>"Is this one source, or more than one?"</strong> The exam rewards you for naming <strong>all</strong> of them.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Pop Mart — why it was viable</h2>
+<ul>
+<li><strong>Willing and able buyers:</strong> Gen Z had disposable income and valued collectibles + social sharing</li>
+<li><strong>Scalable model:</strong> blind boxes are cheap to produce, high margin, and work online + offline</li>
+<li><strong>PESTEL aligned:</strong> no regulations against blind boxes (at the time), social trends favored it, technology enabled e-commerce</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>All three viability conditions from 1.3 were met: <strong>real demand</strong>, <strong>survivable environment</strong>, <strong>manageable cost</strong>.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Pop Mart — risk–return</h2>
+<ul>
+<li><strong>Risk:</strong> investing in an unproven product category — would anyone pay for "mystery toys"?</li>
+<li><strong>Return:</strong> Pop Mart's revenue grew from ¥100M to <strong>¥5+ billion</strong> in under a decade</li>
+<li><strong>The bet:</strong> Wang Ning risked everything on a product most people thought was childish — and the return was enormous</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The risk–return tradeoff in action:</strong> high risk (unproven market, skeptical investors) → high return (billion-dollar company).</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The decision — should he have done it?</h2>
+<p>Based on your analysis, was Wang Ning right to take the risk?</p>
+<ul>
+<li><strong>A.</strong> Yes — the gap was real, the opportunity was strong, and the return justified the risk</li>
+<li><strong>B.</strong> No — the risk was too high; most blind-box businesses fail</li>
+<li><strong>C.</strong> It was the right call <strong>at that time</strong> — but the same idea today might not work (market is crowded)</li>
+<li><strong>D.</strong> Some other reasoning — defend with specific factors</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>There is no single right answer.</strong> The exam rewards <strong>connected reasoning</strong> — name the source, state viability, and weigh risk against return.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Second case — same framework</h1>
+<hr class="divider">
+<span class="chip"><strong>Watch → identify sources → judge viability → weigh risk–return.</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The case: Copa Di Vino — single-serve premium wine</h2>
+<div class="case-study">
+<p><strong>James Martin</strong> was a wine lover who noticed something frustrating: you could buy a great bottle of wine, but there was <strong>no convenient way</strong> to enjoy a single glass of quality wine on the go — at a picnic, on a train, at a concert.</p>
+<p>He invented <strong>Copa Di Vino</strong>: premium wine sealed in a single-serve, resealable glass — no bottle, no corkscrew, no waste.</p>
+<p>He appeared on Shark Tank <strong>twice</strong>. Both times, <strong>every shark rejected him</strong>. He left with no deal — <strong>both times</strong>.</p>
+<div class="video-frame"><iframe src="https://www.youtube.com/embed/FdoMOd5JFwA" frameborder="0" allowfullscreen></iframe></div>
+<p><em>Watch the pitch. Ask: where did the idea come from? Is it viable? Should the sharks have invested?</em></p>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Copa Di Vino — the three sources</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Source</th><th>How it applies</th></tr></thead><tbody>
+<tr><td><span class="source-badge gap">G</span><strong>Gap</strong></td><td>Wine drinkers wanted convenience — a single glass of quality wine without opening a full bottle → <strong>no product</strong> existed that combined portability with premium wine</td></tr>
+<tr><td><span class="source-badge opp">O</span><strong>Opportunity</strong></td><td>New <strong>packaging technology</strong> (sealed single-serve glass) made it possible to preserve wine quality outside a bottle for the first time</td></tr>
+<tr><td><span class="source-badge ext">E</span><strong>Existing business</strong></td><td>Adapted the <strong>single-serve beverage concept</strong> (like juice boxes and canned cocktails) for the premium wine market</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Copa Di Vino — why it was viable</h2>
+<ul>
+<li><strong>Willing and able buyers:</strong> wine drinkers at outdoor events, concerts, picnics, and travel — a large market with no convenient option</li>
+<li><strong>Differentiated product:</strong> premium wine + portable glass + no waste → something no competitor offered</li>
+<li><strong>Distribution:</strong> could be sold in stadiums, airports, grocery stores, and online — anywhere wine is sold</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>All three viability conditions met: <strong>real demand</strong> (convenience gap), <strong>survivable environment</strong> (wine regulations allow single-serve), <strong>manageable cost</strong> (packaging technology existed).</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Copa Di Vino — risk–return</h2>
+<ul>
+<li><strong>Risk:</strong> James Martin invested his own money in packaging technology and production — with no guarantee that retailers or consumers would buy it</li>
+<li><strong>Return:</strong> after being <strong>rejected twice</strong> on national TV, he built the company independently → revenue grew to <strong>$60+ million</strong></li>
+<li><strong>The bet:</strong> the sharks said no — but the <strong>market said yes</strong>. James Martin proved that <strong>rejection by experts doesn't mean the idea isn't viable</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Key difference from Pop Mart:</strong> Pop Mart's founder got investors excited immediately. Copa Di Vino's founder was <strong>rejected on live television — twice</strong> — and succeeded anyway. Same risk–return framework, but the validation came from <strong>customers, not investors</strong>.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Practice — 6 questions</h1>
+<hr class="divider">
+<div class="tag">Read → pause → <strong>commit to an answer</strong> → then reveal.</div>
+<span class="chip"><strong>3 on one stimulus (ParkClean)</strong>· <strong>3 standalone</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Marcus Chen</strong> lives near a large public park. He notices:</p><p>1. The park has <strong>no trash cans</strong> near the picnic areas — visitors carry trash for 15 minutes before finding a bin, and many <strong>leave garbage on the ground</strong>
+2. A <strong>new city ordinance</strong> just passed requiring parks to be kept clean or the city will <strong>cut the parks budget</strong>
+3. A classmate already runs a small <strong>lawn-mowing service</strong> in the neighborhood and is earning steady money</p><p>Marcus is thinking about starting a business to <strong>clean the park on weekends</strong>.</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Classify the source</div>
+<p>The fact that the park has no trash cans near the picnic area — and visitors leave garbage on the ground — is best described as what type of business idea source?</p>
+<div class="opt"><span class="letter">A</span>An opportunity created by new technology</div>
+<div class="opt"><span class="letter">B</span>A gap — an unmet need that no one is currently serving</div>
+<div class="opt"><span class="letter">C</span>An existing business that Marcus is copying</div>
+<div class="opt"><span class="letter">D</span>A risk factor that discourages new businesses</div>
+<p>Pause. Ask: is this about something new happening, or about a need that exists but isn't being met?</p>
+<p>--></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>A gap is a need or want that is <strong>not currently being met</strong>. The park needs cleaning, nobody is providing that service, and visitors are leaving garbage behind — that is an unmet need.</p>
+</div>
+<div class="trap">A<strong> — there is no new technology in the scenario. A gap is about </strong>observation** (watching a problem nobody is solving), not about innovation.</div>
+<div class="trap">C<strong> — the classmate's lawn-mowing service is a separate business. Marcus isn't copying it; he's seeing a </strong>different** unmet need.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Viability check</div>
+<p>Which factor is <strong>most relevant</strong> to whether Marcus's park-cleaning idea is viable?</p>
+<div class="opt"><span class="letter">A</span>Whether Marcus enjoys being outdoors</div>
+<div class="opt"><span class="letter">B</span>Whether someone (the city or park visitors) is <strong>willing and able to pay</strong> for the service</div>
+<div class="opt"><span class="letter">C</span>Whether the park has flowers or trees</div>
+<div class="opt"><span class="letter">D</span>Whether Marcus's classmates think the idea is cool</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Viability depends on whether the business can <strong>survive</strong> — and that means there must be <strong>willing and able buyers</strong>. If no one will pay, the idea isn't viable no matter how good it sounds.</p>
+</div>
+<div class="trap">A<strong> — enjoyment is a </strong>personal motivation**, not a viability factor. A business can be viable even if the owner doesn't enjoy it, and unviable even if they love the work.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Viability is about the market, not about the person.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Risk–return judgment</div>
+<p>Marcus would need to spend $200 on cleaning supplies and give up his Saturday mornings. The city might pay him $80 per weekend. Which statement best describes the risk–return tradeoff?</p>
+<div class="opt"><span class="letter">A</span>The return is guaranteed because the city passed the ordinance</div>
+<div class="opt"><span class="letter">B</span>The risk is low (small investment) and the return is modest — a low-risk, low-return opportunity</div>
+<div class="opt"><span class="letter">C</span>This is a high-risk, high-return opportunity because the city might change the rules</div>
+<div class="opt"><span class="letter">D</span>There is no risk because Marcus is providing a service, not selling a product</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>$200 is a small investment, $80/weekend is a modest return, and the ordinance supports demand. This is a classic <strong>low-risk, low-return</strong> scenario — small stakes, small but steady gain.</p>
+</div>
+<div class="trap">A<strong> — "guaranteed" is an absolute. The city could cut the budget, change priorities, or find a cheaper contractor. </strong>No return is ever guaranteed.**</div>
+<div class="trap">C<strong> — the investment is $200 and the scenario gives no reason to expect massive earnings. High-risk, high-return requires </strong>large stakes or large potential gains** — neither applies here.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Combining sources</div>
+<p>A school cafeteria currently serves only hot food. Students have asked for <strong>fresh salads and cold sandwiches</strong>, but the cafeteria hasn't added them. A student starts selling homemade salads from a cooler outside the cafeteria entrance.</p>
+<p>This business idea combines which source(s)?</p>
+<div class="opt"><span class="letter">A</span>Opportunity only — the student is innovating</div>
+<div class="opt"><span class="letter">B</span>Existing business only — the student is copying the cafeteria</div>
+<div class="opt"><span class="letter">C</span>A gap (unmet demand for cold food) combined with the existing market (the cafeteria already serves food)</div>
+<div class="opt"><span class="letter">D</span>Neither — selling food at school is not a real business</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>There is a <strong>gap</strong> — students want cold food and nobody is selling it. There is also an <strong>existing market</strong> — the cafeteria already operates in the same space. The student's idea comes from <strong>both sources at once</strong>.</p>
+</div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Most real ideas combine more than one source.</strong> The exam rewards you for recognizing <strong>all</strong> the sources present, not just the loudest one.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Matching strengths to opportunity</div>
+<p>Two students both notice the same gap: the school has no tutoring service for math. Student A is <strong>excellent at math</strong> and has free time after school. Student B <strong>struggles in math</strong> but has a lot of savings from a part-time job.</p>
+<p>Which statement is most accurate?</p>
+<div class="opt"><span class="letter">A</span>Student B is better positioned because money matters more than skill</div>
+<div class="opt"><span class="letter">B</span>Student A is better positioned because their <strong>strengths match the opportunity</strong></div>
+<div class="opt"><span class="letter">C</span>Both are equally positioned because they both identified the same gap</div>
+<div class="opt"><span class="letter">D</span>Neither can succeed because the school doesn't officially allow tutoring</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Identifying a gap is only the first step. Student A has the <strong>skill</strong> (math ability) and the <strong>availability</strong> (free time) — their strengths <strong>match</strong> the opportunity. Student B has money but <strong>lacks the core skill</strong>.</p>
+</div>
+<div class="callout key"><span class="tag">Key Point</span>A good idea <strong>in the right hands</strong> becomes a viable business. A good idea <strong>in the wrong hands</strong> — with the wrong skills or resources — fails.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Risk and return are connected</div>
+<p>A student wants to start a business. They consider two options:</p>
+<ul>
+<li><strong>Option A:</strong> Buy candy for $50 and sell it at school (small investment, proven demand)</li>
+<li><strong>Option B:</strong> Spend $2,000 developing a homework app (large investment, unproven demand)</li>
+</ul>
+<p>Which statement about the risk–return tradeoff is <strong>most accurate</strong>?</p>
+<div class="opt"><span class="letter">A</span>Option B is better because higher investment always means higher profit</div>
+<div class="opt"><span class="letter">B</span>Option A has lower risk and lower potential return; Option B has higher risk and higher potential return</div>
+<div class="opt"><span class="letter">C</span>Both options have the same level of risk because both are student businesses</div>
+<div class="opt"><span class="letter">D</span>Option A is riskier because candy is a physical product that can melt</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>This is the risk–return tradeoff in its simplest form. Option A is low-risk (small investment, known demand) with low return (small profit). Option B is high-risk (big investment, no proven buyers) with high potential return (<strong>if</strong> the app succeeds, it could scale to thousands of students).</p>
+</div>
+<div class="trap">A<strong> — "higher investment </strong>always<strong> means higher profit" uses an absolute. Higher investment means higher </strong>potential<strong> return — but also higher potential </strong>loss**.</div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>"Always" and "guaranteed" are trap words</strong> — they show up in almost every risk–return question.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead><tbody>
+<tr><td>1</td><td>Confusing a <strong>gap</strong> with an <strong>opportunity</strong> — gaps are about unmet need; opportunities are about change or innovation</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>Personal motivation</strong> ≠ viability — viability is about the <strong>market</strong>, not the person</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>"Guaranteed"</strong> return — absolutes still apply</td><td>Q3</td></tr>
+<tr><td>4</td><td>Recognizing only <strong>one</strong> source when the scenario combines two</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Identifying a gap isn't enough</strong> — strengths must match the opportunity</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>"Higher investment always means higher profit"</strong> — absolutes in risk–return</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">Next: 1.5 What Is a Vision for a Business?</div>
+<h1>Wrap-up</h1>
+<hr class="divider">
+<div class="tag">- <strong>Three sources</strong> of business ideas: gaps, opportunities, existing businesses</div></div></div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 1.4 How Business Ideas Originate</span>
+    <span>Slide <span id="sn">1</span> / 56</span>
+</div>
+<script>
+var cs = 0;
+var N = 56;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

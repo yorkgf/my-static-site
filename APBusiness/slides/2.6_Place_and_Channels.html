@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.6 Place and Channels — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #0284c7;
+    --accent-d: #0369a1;
+    --accent-l: #7dd3fc;
+    --accent-xd: #075985;
+    --tint: #f0f9ff;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 2.6-specific design — channel types + comparisons ──────── */
+:root {
+    --c-direct: #2563eb;
+    --c-indirect: #d97706;
+}
+
+/* Direct vs Indirect */
+.pair-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.pair-card {
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.pair-card .pair-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; opacity: .7; margin-bottom: .3rem; }
+.pair-card h3 { font-size: 1.15rem; margin-bottom: .5rem; color: var(--ink); }
+.pair-card p { font-size: .95em; margin: 0; }
+.pair-card.direct { border-color: var(--c-direct); background: #eff6ff; }
+.pair-card.indirect { border-color: var(--c-indirect); background: #fffbeb; }
+
+/* Channel types */
+.ch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .8rem;
+    max-width: 1000px;
+    margin: 1rem auto;
+}
+.ch-card {
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    background: var(--card);
+    border-top: 5px solid var(--accent);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+.ch-card .emoji { font-size: 1.5rem; display: block; margin-bottom: .3rem; }
+.ch-card h4 { font-size: .95rem; margin-bottom: .3rem; color: var(--ink); }
+.ch-card p { font-size: .82em; color: var(--muted); margin: 0; line-height: 1.4; }
+
+/* Channel flow */
+.ch-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    max-width: 880px;
+    margin: 1.2rem auto;
+    flex-wrap: wrap;
+}
+.ch-flow .node {
+    padding: .7rem 1.1rem;
+    border-radius: 12px;
+    background: var(--card);
+    border: 2px solid var(--accent-l);
+    font-weight: 700;
+    box-shadow: var(--shadow);
+    text-align: center;
+    font-size: .95em;
+}
+.ch-flow .node.producer { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; border-color: #6366f1; }
+.ch-flow .node.interm { background: linear-gradient(135deg, #d97706, #b45309); color: #fff; border-color: #d97706; }
+.ch-flow .node.customer { background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; border-color: #16a34a; }
+.ch-flow .arrow { font-size: 1.5rem; color: var(--accent); font-weight: 800; }
+
+/* Case study */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 2.6 Place and Channels</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 2</div>
+<h1>2.6 Place and Channels</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Describe the <strong>types of marketing channels</strong> available to businesses</li>
+<li><strong>Select and evaluate</strong> potential marketing channels by comparing costs, control, reach, and customer experience</li>
+</ol>
+<p><strong>Running example today:</strong> <strong>Stanley</strong> — a 110-year-old brand for construction workers that became the most popular water bottle among young women — by changing where and how it sells.</p></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.6.A — How products reach customers</div>
+<h1>Part 1: Types of Marketing Channels</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is "Place"?</h2>
+<div class="def"><div class="term">Place</div><div class="text">where and how customers access products.</div></div>
+<p>It is one of the 4 Ps of marketing (Product, Price, <strong>Place</strong>, Promotion).</p>
+<p>Examples of "Place":</p>
+<ul>
+<li>A retail store shelf</li>
+<li>A company website</li>
+<li>A vending machine</li>
+<li>A mobile app</li>
+<li>A membership warehouse</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Place is not just a location — it is the entire path a product takes from the factory to the customer's hands.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Marketing channels vs. supply chain</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Concept</th><th>What It Covers</th></tr></thead><tbody>
+<tr><td><strong>Supply chain</strong></td><td>The ENTIRE network — from raw materials → production → distribution → final customer</td></tr>
+<tr><td><strong>Marketing channel</strong></td><td>Only the FINAL stage — from finished product → to the customer</td></tr>
+</tbody></table></div>
+<p>```</p>
+<p>Supply Chain:</p>
+<p>Raw materials → Factory → Warehouse → [Marketing Channel starts here] → Wholesaler → Retailer → Customer</p>
+<p>```</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The marketing channel is the last mile of the supply chain — it is how the finished product reaches the person who buys it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Direct vs. Indirect channels</h2>
+<div class="pair-compare">
+    <div class="pair-card direct">
+        <div class="pair-label">⬇️ Direct</div>
+        <h3>Producer → Customer</h3>
+        <p><strong>Path:</strong> No intermediaries.</p>
+        <p style="margin-top:.5rem"><strong>Example:</strong> Brand website, company-owned store.</p>
+    </div>
+    <div class="pair-card indirect">
+        <div class="pair-label">↔️ Indirect</div>
+        <h3>Producer → Intermediary → Customer</h3>
+        <p><strong>Path:</strong> Through wholesalers, retailers, or distributors.</p>
+        <p style="margin-top:.5rem"><strong>Example:</strong> Target, Amazon, grocery stores.</p>
+    </div>
+</div>
+<div class="ch-flow">
+    <div class="node producer">Producer</div>
+    <div class="arrow">→</div>
+    <div class="node interm">Intermediary</div>
+    <div class="arrow">→</div>
+    <div class="node customer">Customer</div>
+</div>
+<div class="def"><div class="term">Intermediaries</div><div class="text">any third party between the producer and the customer.</div></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Intermediary</th><th>What They Do</th></tr></thead><tbody>
+<tr><td><strong>Wholesaler</strong></td><td>Buys in bulk from manufacturer, sells in smaller quantities to retailers</td></tr>
+<tr><td><strong>Retailer</strong></td><td>Sells directly to the final customer (stores, websites)</td></tr>
+<tr><td><strong>Distributor</strong></td><td>Buys finished products from manufacturer, sells onward to retailers</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Direct = no middleman. Indirect = one or more middlemen.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>B2C vs. B2B channels</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>B2C (Business-to-Consumer)</th><th>B2B (Business-to-Business)</th></tr></thead><tbody>
+<tr><td><strong>Customer</strong></td><td>Individual consumers</td><td>Other businesses</td></tr>
+<tr><td><strong>Channel examples</strong></td><td>Retail stores, websites, mobile apps</td><td>Industrial distributors, trade shows</td></tr>
+<tr><td><strong>Buying behavior</strong></td><td>Emotional, personal, smaller quantities</td><td>Rational, organizational, larger quantities</td></tr>
+<tr><td><strong>Example</strong></td><td>Buying a water bottle at Target</td><td>A restaurant buying kitchen equipment from a supplier</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>B2C = you sell to people. B2B = you sell to companies.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Legally mandated channels</h2>
+<p>Some products <strong>must</strong> be sold through specific channels by law:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Product</th><th>Required Channel</th><th>Why</th></tr></thead><tbody>
+<tr><td>Prescription medication</td><td>Licensed pharmacies only</td><td>Health and safety</td></tr>
+<tr><td>Firearms</td><td>Licensed dealers with background checks</td><td>Public safety</td></tr>
+<tr><td>Alcohol</td><td>Licensed distributors and retailers</td><td>Age verification, regulation</td></tr>
+<tr><td>Certain chemicals</td><td>Certified industrial suppliers</td><td>Safety and environmental risk</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>When a legally mandated channel exists, the business cannot choose an alternative — the law decides the channel.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Channel type check</h2>
+<p>Classify each scenario as <strong>Direct</strong> or <strong>Indirect</strong>, and <strong>B2C</strong> or <strong>B2B</strong>:</p>
+<ol class="tick">
+<li>Nike sells shoes on nike.com</li>
+<li>Nike sells shoes at Foot Locker</li>
+<li>A farmer sells vegetables at a farmers' market</li>
+<li>A steel manufacturer sells to a car factory through a distributor</li>
+<li>A pharmacy sells prescription medication to a patient</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Channel type check answers</h2>
+<ol class="tick">
+<li><strong>Direct + B2C</strong> — Nike sells straight to the consumer, no intermediary</li>
+<li><strong>Indirect + B2C</strong> — Foot Locker is a retailer (intermediary) selling to consumers</li>
+<li><strong>Direct + B2C</strong> — The farmer sells straight to the consumer at the market</li>
+<li><strong>Indirect + B2B</strong> — A distributor (intermediary) connects the manufacturer to another business</li>
+<li><strong>Indirect + B2C</strong> — The pharmacy is an intermediary required by law (legally mandated channel)</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Key clue: if ANY third party sits between you and the buyer, the channel is indirect.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Channel Types</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Place</strong> = where and how customers access products</td></tr>
+<tr><td>2</td><td><strong>Marketing channel</strong> = the final stage of the supply chain (finished product → customer)</td></tr>
+<tr><td>3</td><td><strong>Direct</strong> = no intermediaries; <strong>Indirect</strong> = one or more intermediaries</td></tr>
+<tr><td>4</td><td><strong>Wholesaler</strong> sells to businesses (B2B); <strong>Retailer</strong> sells to consumers (B2C)</td></tr>
+<tr><td>5</td><td><strong>Legally mandated channels</strong> restrict where certain products can be sold</td></tr>
+<tr><td>6</td><td>Most businesses use a <strong>mix</strong> of direct and indirect channels</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.6.B — Choosing where to sell</div>
+<h1>Part 2: Selecting Marketing Channels</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The channel selection decision</h2>
+<p>Choosing a channel is a <strong>strategic trade-off</strong>:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>Direct Channel</th><th>Indirect Channel</th></tr></thead><tbody>
+<tr><td><strong>Control</strong></td><td>High — you set price, brand, experience</td><td>Low — partners influence how it's sold</td></tr>
+<tr><td><strong>Cost to build</strong></td><td>High — stores, websites, logistics, expertise</td><td>Low — partners already have infrastructure</td></tr>
+<tr><td><strong>Reach</strong></td><td>Limited — your own footprint only</td><td>Broader — partners' customer base and locations</td></tr>
+<tr><td><strong>Expertise needed</strong></td><td>Must build sales and distribution skills</td><td>Partners bring existing expertise</td></tr>
+<tr><td><strong>Customer experience</strong></td><td>Consistent, branded end-to-end</td><td>Varies by partner quality</td></tr>
+<tr><td><strong>Profit per unit</strong></td><td>Higher — no intermediary cut</td><td>Lower — intermediaries take a share</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>There is no "right" answer — the best channel depends on the product, the market, and the business's resources.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>When to choose a direct channel</h2>
+<p><strong>Choose direct when:</strong></p>
+<ul>
+<li>You want <strong>full control</strong> over pricing, branding, and customer experience</li>
+<li>Your product is <strong>premium or differentiated</strong> — the experience matters</li>
+<li>You have the <strong>resources</strong> to build stores, websites, and logistics</li>
+<li>You want <strong>higher profit margins</strong> per sale</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Apple Stores — full control over the experience</li>
+<li>Tesla — sells directly, no dealerships</li>
+<li>Dyson — company-owned demo stores</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Direct channels cost more to build but give you more control and more profit per sale.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>When to choose an indirect channel</h2>
+<p><strong>Choose indirect when:</strong></p>
+<ul>
+<li>You need <strong>fast, wide market access</strong> — customers are everywhere</li>
+<li>You <strong>lack the resources</strong> to build your own distribution</li>
+<li>Your product is <strong>mass-market</strong> — convenience matters more than experience</li>
+<li>Partners have <strong>expertise and networks</strong> you don't have</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>A new snack brand selling through grocery store chains</li>
+<li>A cosmetics brand selling through Sephora</li>
+<li>An electronics brand selling through Best Buy</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Indirect channels give you reach and expertise — but you give up control and margin.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — A channel transformation story</h2>
+<p><strong>Before 2019:</strong> Stanley was a 110-year-old brand selling rugged steel vacuum bottles.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Element</th><th>Stanley (Before 2019)</th></tr></thead><tbody>
+<tr><td>Target customer</td><td>Construction workers, outdoorsmen (male)</td></tr>
+<tr><td>Channels</td><td>Hardware stores, outdoor retailers (REI, Bass Pro)</td></tr>
+<tr><td>Channel type</td><td><strong>Indirect + B2C</strong> — through specialty retailers</td></tr>
+<tr><td>Brand image</td><td>Tough, rugged, utilitarian</td></tr>
+<tr><td>Revenue</td><td>~$70 million/year</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Stanley's channels matched its old customer: hardware stores for construction workers.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — The Buy Guide changes everything</h2>
+<p>In 2019, three women — <strong>Ashlee LeSueur, Taylor Colange, and Linley Hutchinson</strong> — ran a lifestyle blog called <strong>The Buy Guide</strong>.</p>
+<p>They discovered the <strong>Stanley Quencher</strong> tumbler and loved it:</p>
+<ul>
+<li>Fit in car cup holders</li>
+<li>Kept drinks cold for hours</li>
+<li>Cute enough for everyday use</li>
+</ul>
+<p><strong>The problem:</strong> Stanley was about to <strong>discontinue</strong> the Quencher because it didn't sell well through hardware stores.</p>
+<p><strong>What The Buy Guide did:</strong></p>
+<ul>
+<li>Bought <strong>5,000 Quenchers</strong> and resold them on their blog</li>
+<li><strong>Sold out in hours</strong></li>
+<li>Wrote to Stanley asking them to keep making it</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The Buy Guide proved there was a massive customer segment — young women — that Stanley's old channels could never reach.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — The new CEO sees the opportunity</h2>
+<p>In 2020, Stanley hired <strong>Terence Reilly</strong> as president. He had previously turned around <strong>Crocs</strong> by transforming it from a "ugly shoe" into a fashion brand.</p>
+<p>Reilly saw what The Buy Guide had proven:</p>
+<ul>
+<li>The Quencher had <strong>untapped demand</strong> among women</li>
+<li>The old channels (hardware stores) could <strong>never</strong> reach this customer</li>
+<li>Stanley needed <strong>new channels</strong> to match the new customer</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The product was the same. The customer was different. The channels had to change.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — Channel transformation</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Element</th><th>Before (Pre-2019)</th><th>After (2020–2024)</th></tr></thead><tbody>
+<tr><td>Target customer</td><td>Men (construction, outdoors)</td><td>Women (lifestyle, social media)</td></tr>
+<tr><td>Primary channel</td><td>Hardware stores, outdoor retailers</td><td><strong>Target</strong>, DTC website, social commerce</td></tr>
+<tr><td>Channel type</td><td>Indirect (specialty retail)</td><td><strong>Mix</strong> — indirect (Target) + direct (DTC)</td></tr>
+<tr><td>Brand image</td><td>Rugged, utilitarian</td><td>Trendy, colorful, collectible</td></tr>
+<tr><td>Marketing</td><td>Traditional advertising</td><td>Influencer marketing, TikTok, limited editions</td></tr>
+<tr><td>Revenue</td><td>~$70 million</td><td><strong>~$750 million</strong> (2023)</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Stanley did not change the product — it changed the PLACE.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — Why Target?</h2>
+<p>Stanley chose <strong>Target</strong> as its primary retail partner. Why?</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>Why Target Works for Stanley</th></tr></thead><tbody>
+<tr><td><strong>Customer match</strong></td><td>Target's core shoppers are women aged 18–40 — exactly the Quencher audience</td></tr>
+<tr><td><strong>Reach</strong></td><td>1,900+ Target stores across the US — massive physical presence</td></tr>
+<tr><td><strong>Brand alignment</strong></td><td>Target is known for trendy, affordable, design-forward products</td></tr>
+<tr><td><strong>Exclusivity</strong></td><td>Limited-edition Target drops (e.g., Starbucks x Stanley) create urgency and hype</td></tr>
+<tr><td><strong>In-store experience</strong></td><td>Products displayed prominently, not buried in a hardware aisle</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Target was not just a retailer — it was a channel that matched the NEW customer Stanley wanted to reach.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — Direct-to-Consumer (DTC)</h2>
+<p>Stanley also built its own <strong>DTC channel</strong> — the stanley1913.com website.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>DTC Advantage</th><th>How Stanley Uses It</th></tr></thead><tbody>
+<tr><td>Full control</td><td>Stanley sets the price, the branding, the experience</td></tr>
+<tr><td>Higher margin</td><td>No retailer takes a cut</td></tr>
+<tr><td>Customer data</td><td>Stanley collects data on who buys, what they want</td></tr>
+<tr><td>Limited editions</td><td>Exclusive drops drive traffic directly to Stanley's site</td></tr>
+<tr><td>Brand storytelling</td><td>The website tells Stanley's 110-year history — building brand equity</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>DTC gives Stanley control and data. Target gives Stanley reach and visibility. Together, they cover both.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — The car fire that went viral</h2>
+<p>In November 2023, a woman's car caught fire. Everything inside was destroyed — except her <strong>Stanley Quencher</strong>, which survived with ice still inside.</p>
+<p>She posted a TikTok video. It went <strong>mega-viral</strong>.</p>
+<p>Stanley's president Terence Reilly responded personally in a video:</p>
+<ul>
+<li>Thanked her for being safe</li>
+<li>Said Stanley would send her <strong>new Quenchers</strong></li>
+<li>Said Stanley would also <strong>buy her a new car</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>This moment turned a product into a legend — and it happened on social media, not in a hardware store.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — Limited editions and channel strategy</h2>
+<p>Stanley used <strong>limited-edition drops</strong> as a channel strategy:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Drop</th><th>Channel</th><th>What Happened</th></tr></thead><tbody>
+<tr><td>Starbucks x Stanley (red Quencher)</td><td>Target exclusive</td><td>Sold out in minutes; resale prices reached $300+</td></tr>
+<tr><td>Target x Stanley (pastel colors)</td><td>Target exclusive</td><td>Customers camped overnight outside stores</td></tr>
+<tr><td>Online color drops</td><td>DTC website only</td><td>Drove massive traffic to stanley1913.com</td></tr>
+</tbody></table></div>
+<p><strong>Why limited editions work as a channel tool:</strong></p>
+<ul>
+<li>Creates <strong>urgency</strong> — buy now or miss out</li>
+<li>Drives <strong>foot traffic</strong> to specific retailers (Target)</li>
+<li>Drives <strong>web traffic</strong> to DTC site</li>
+<li>Generates <strong>social media buzz</strong> — people film their purchases</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Limited editions are not just about the product — they are a channel strategy that drives customers to specific places.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley — When channels go too far</h2>
+<p>By 2024, Stanley faced <strong>market saturation</strong>:</p>
+<ul>
+<li>Too many colors, too many drops — customers felt overwhelmed</li>
+<li>Resellers bought limited editions and sold them at 3–5x markup — frustrating real fans</li>
+<li>Some customers began <strong>hoarding</strong> Stanley cups they never used</li>
+<li>Critics said Stanley was creating <strong>artificial scarcity</strong></li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Channel strategy can be too successful — overexposure and artificial scarcity can damage brand trust.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>观夏 To Summer — The opposite strategy</h2>
+<p>While Stanley <strong>expanded</strong> its channels to reach more customers, 观夏 did the <strong>opposite</strong> — it deliberately <strong>refused</strong> to use most channels.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Element</th><th>观夏 To Summer</th></tr></thead><tbody>
+<tr><td>Founded</td><td>2019 in Beijing</td></tr>
+<tr><td>Product</td><td>Niche Chinese fragrance (incense, candles, perfumes)</td></tr>
+<tr><td>Brand positioning</td><td>"东方人文香" — Chinese cultural fragrance, luxury, exclusivity</td></tr>
+<tr><td>Channels used</td><td><strong>Only</strong> WeChat mini-program + own boutique stores</td></tr>
+<tr><td>Channels <strong>REFUSED</strong></td><td>No Tmall, no JD.com, no Douyin shop, no third-party retail of any kind</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>观夏's channel strategy: fewer places to buy = stronger brand = higher price.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>观夏 — Why refuse indirect channels?</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>Direct Channel Only (观夏's Choice)</th><th>What They Sacrifice</th></tr></thead><tbody>
+<tr><td><strong>Control</strong></td><td>Total — pricing, display, customer experience, brand story</td><td>Nothing — full control maintained</td></tr>
+<tr><td><strong>Brand image</strong></td><td>Exclusive, luxury, "hard to get"</td><td>Cannot reach customers who don't know the brand</td></tr>
+<tr><td><strong>Customer experience</strong></td><td>Curated, personal, immersive (boutique stores are art spaces)</td><td>Inconvenient for customers — must go to specific locations or wait for online drops</td></tr>
+<tr><td><strong>Reach</strong></td><td>Very limited — only those who actively seek out 观夏</td><td>Massive potential market left untapped</td></tr>
+<tr><td><strong>Profit margin</strong></td><td>Highest — no intermediary cut</td><td>Volume is low — fewer total sales</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>观夏 chose control and brand equity over reach and volume — the opposite of Stanley's strategy.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>观夏 — The WeChat mini-program as a channel</h2>
+<p>观夏 sells through its <strong>WeChat mini-program</strong> — but not like a normal online store:</p>
+<ul>
+<li>Products are only available during <strong>scheduled "drops"</strong> (e.g., every Thursday at a specific time)</li>
+<li>Most products <strong>sell out within minutes</strong></li>
+<li>Customers must follow 观夏's WeChat account to know when drops happen</li>
+<li>No search, no browse, no "add to cart anytime" — <strong>scarcity by design</strong></li>
+</ul>
+<p><strong>Why this works as a channel:</strong></p>
+<ul>
+<li>Creates <strong>urgency</strong> and <strong>exclusivity</strong> — owning 观夏 feels special</li>
+<li>Drives <strong>social media buzz</strong> — customers share screenshots of successful purchases</li>
+<li>Collects <strong>customer data</strong> directly — 观夏 knows exactly who buys and when</li>
+<li>Maintains <strong>full pricing control</strong> — no discounts, no platform promotions</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The WeChat mini-program is not just a store — it is a channel strategy that turns purchasing into an event.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>观夏 — Boutique stores as brand experiences</h2>
+<p>观夏's physical stores are not normal retail — they are <strong>brand experience spaces</strong>:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Store</th><th>Location</th><th>What Makes It Special</th></tr></thead><tbody>
+<tr><td>北京国子监</td><td>Historic hutong courtyard</td><td>Blends with traditional architecture; feels like visiting a cultural site</td></tr>
+<tr><td>上海湖南路</td><td>Old Shanghai lane house</td><td>Art installations, fragrance library, intimate atmosphere</td></tr>
+<tr><td>成都祠堂街</td><td>Restored historical building</td><td>Cultural storytelling through space design</td></tr>
+</tbody></table></div>
+<p><strong>Why 观夏 builds these stores:</strong></p>
+<ul>
+<li>The store IS the brand story — customers experience "东方人文香" physically</li>
+<li>Each store is unique — cannot be replicated by competitors or mass retailers</li>
+<li>Customers visit for the <strong>experience</strong>, not just the product</li>
+<li>Media covers the stores as cultural events → free PR</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>观夏's stores are not distribution points — they are brand temples.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Stanley vs. 观夏 — Two opposite channel strategies</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Stanley</th><th>观夏</th></tr></thead><tbody>
+<tr><td><strong>Strategy</strong></td><td>Channel <strong>expansion</strong> — add more places to sell</td><td>Channel <strong>contraction</strong> — sell in fewer places</td></tr>
+<tr><td><strong>Goal</strong></td><td>Maximum reach and volume</td><td>Maximum control and brand equity</td></tr>
+<tr><td><strong>Indirect channels</strong></td><td>Yes — Target, Amazon, retailers</td><td><strong>No</strong> — refuses all third-party platforms</td></tr>
+<tr><td><strong>Direct channels</strong></td><td>DTC website + Target drops</td><td>WeChat mini-program + boutique stores only</td></tr>
+<tr><td><strong>Result</strong></td><td>$70M → $750M (10x growth)</td><td>High margins + strong loyalty + cult following</td></tr>
+<tr><td><strong>Risk</strong></td><td>Overexposure, market saturation, brand dilution</td><td>Limited reach, slow growth, missing mass-market customers</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Neither strategy is "right" — the best channel depends on the brand's goals, target customer, and positioning.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Channel recommendation</h2>
+<p>A small business makes handmade organic soap. They currently sell only at local farmers' markets (direct, B2C).</p>
+<p>They want to grow and are considering three options:</p>
+<ul>
+<li><strong>Option A:</strong> Launch a website and sell DTC (direct, B2C)</li>
+<li><strong>Option B:</strong> Partner with Whole Foods to sell in their stores (indirect, B2C)</li>
+<li><strong>Option C:</strong> Sell to hotels and spas in bulk through a distributor (indirect, B2B)</li>
+</ul>
+<p><strong>Which option would you recommend, and why? Consider control, cost, reach, and customer experience.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Channel recommendation answer</h2>
+<p><strong>There is no single right answer — students should argue for one and support it.</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Option</th><th>Control</th><th>Cost</th><th>Reach</th><th>Customer Experience</th></tr></thead><tbody>
+<tr><td>A: DTC website</td><td>High</td><td>Medium (build website, handle shipping)</td><td>Limited (only online customers who find them)</td><td>Full control, brand story told directly</td></tr>
+<tr><td>B: Whole Foods</td><td>Low (Whole Foods controls shelf placement, pricing)</td><td>Low (Whole Foods handles logistics)</td><td>High (millions of shoppers)</td><td>Varies (depends on shelf placement, store conditions)</td></tr>
+<tr><td>C: Distributor to hotels</td><td>Very Low (distributor controls relationships)</td><td>Very Low (distributor handles everything)</td><td>Moderate (hotels and spas)</td><td>No control (hotel decides how to present the soap)</td></tr>
+</tbody></table></div>
+<p><strong>Strong arguments for each:</strong></p>
+<div class="formula">- <strong>A</strong> = best for brand control and margins, but limited reach</div>
+<div class="formula">- <strong>B</strong> = best for rapid reach and credibility, but lose control</div>
+<div class="formula">- <strong>C</strong> = best for volume with minimal effort, but completely lose the customer relationship</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The best choice depends on the business's goals: control (A), reach (B), or volume (C).</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Channel Selection</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Direct channels</strong> = more control, higher margins, limited reach</td></tr>
+<tr><td>2</td><td><strong>Indirect channels</strong> = less control, lower margins, broader reach</td></tr>
+<tr><td>3</td><td>Choose channels based on: <strong>cost, profitability, customer experience, reach</strong></td></tr>
+<tr><td>4</td><td>Many businesses use a <strong>mix</strong> of direct and indirect channels</td></tr>
+<tr><td>5</td><td>Channel choice should match the <strong>target customer</strong> — not the old one</td></tr>
+<tr><td>6</td><td><strong>Legally mandated channels</strong> override all other considerations</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Brightfield Solar</strong> makes portable solar panels for camping and outdoor use.</p><div class="tbl-wrap"><table><thead><tr><th>Year</th><th>Sales Channel</th><th>Revenue</th><th>Profit Margin</th></tr></thead><tbody><tr><td>1</td><td>Company website (DTC)</td><td>$200,000</td><td>35%</td></tr><tr><td>2</td><td>Company website + REI (outdoor retailer)</td><td>$800,000</td><td>25%</td></tr><tr><td>3</td><td>Website + REI + Amazon</td><td>$2,000,000</td><td>18%</td></tr><tr><td>4</td><td>Website + REI + Amazon + Walmart</td><td>$3,500,000</td><td>12%</td></tr></tbody></table></div><p>In Year 5, Brightfield is deciding between:
+- <strong>Option A:</strong> Continue adding retailers (Costco, Target)
+- <strong>Option B:</strong> Invest in the DTC website to increase direct sales</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Q1</div>
+<div class="q-prompt">In Year 2, Brightfield added REI as a retail partner and revenue quadrupled. Why did adding an indirect channel increase revenue so dramatically?</div>
+<div class="opt"><span class="letter">A</span>REI lowered the price, making the product more affordable</div>
+<div class="opt"><span class="letter">B</span>REI gave Brightfield access to REI's existing customer base and physical store locations</div>
+<div class="opt"><span class="letter">C</span>REI took over manufacturing, reducing Brightfield's costs</div>
+<div class="opt"><span class="letter">D</span>REI replaced Brightfield's website, simplifying operations</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>REI is an indirect channel (retailer) that already has millions of outdoor enthusiasts shopping in its stores and on its website. By partnering with REI, Brightfield gained access to REI's customer base and physical locations — reach that the DTC website alone could not provide.</p>
+<div class="trap"><strong>A</strong> — There is no evidence that REI lowered the price; in fact, adding a retailer typically increases the retail price (retailer takes a margin)</div>
+<div class="trap"><strong>C</strong> — Retailers do not manufacture products; REI sells, not makes</div>
+<div class="trap"><strong>D</strong> — Brightfield still had its website in Year 2; REI was added alongside it, not instead of it</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Indirect channels increase revenue by giving you access to the partner's existing customers and locations.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Q2</div>
+<div class="q-prompt">From Year 1 to Year 4, Brightfield's profit margin dropped from 35% to 12%. What is the most likely explanation?</div>
+<div class="opt"><span class="letter">A</span>Brightfield's manufacturing costs increased each year</div>
+<div class="opt"><span class="letter">B</span>Each new channel partner takes a share of revenue, reducing Brightfield's per-unit profit</div>
+<div class="opt"><span class="letter">C</span>Customers prefer buying from retailers, so they stopped buying from the website</div>
+<div class="opt"><span class="letter">D</span>The product quality declined as sales volume increased</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>Each indirect channel (REI, Amazon, Walmart) takes a percentage of revenue as their margin. The more intermediaries in the channel, the less profit Brightfield keeps per sale. DTC (website) has no intermediary cut — 35% margin. Adding REI drops it. Adding Amazon drops it more. Adding Walmart drops it further.</p>
+<div class="trap"><strong>A</strong> — Manufacturing costs are not mentioned; the question links margin decline to channel additions</div>
+<div class="trap"><strong>C</strong> — The website still exists and generates revenue; the issue is margin, not customer preference</div>
+<div class="trap"><strong>D</strong> — No evidence of quality decline; the issue is structural (intermediary margins), not product-related</div>
+<div class="formula">> <strong>More intermediaries = more reach = less profit per unit. That is the trade-off.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Q3</div>
+<div class="q-prompt">If Brightfield chooses <strong>Option B</strong> (invest in DTC), which channel advantage are they prioritizing?</div>
+<div class="opt"><span class="letter">A</span>Reach — getting the product in front of more customers</div>
+<div class="opt"><span class="letter">B</span>Control — maintaining pricing power and the direct customer relationship</div>
+<div class="opt"><span class="letter">C</span>Cost reduction — eliminating manufacturing expenses</div>
+<div class="opt"><span class="letter">D</span>Legal compliance — avoiding regulatory requirements</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>DTC (selling through your own website) gives Brightfield full control over pricing, branding, customer experience, and customer data. By investing in DTC, Brightfield is prioritizing control and margin over the reach that retail partners provide.</p>
+<div class="trap"><strong>A</strong> — DTC has LESS reach than adding retailers; Brightfield is trading reach for control</div>
+<div class="trap"><strong>C</strong> — DTC does not reduce manufacturing costs; it reduces intermediary costs (retailer margins)</div>
+<div class="trap"><strong>D</strong> — Solar panels do not have legally mandated channels; this is irrelevant</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>DTC = more control and margin, but less reach. Retailers = more reach, but less control and margin.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Q4</div>
+<div class="q-prompt">A new competitor enters the market and sells their solar panels exclusively on Amazon. What type of channel is this?</div>
+<div class="opt"><span class="letter">A</span>Direct + B2C</div>
+<div class="opt"><span class="letter">B</span>Indirect + B2C</div>
+<div class="opt"><span class="letter">C</span>Direct + B2B</div>
+<div class="opt"><span class="letter">D</span>Indirect + B2B</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>Selling on Amazon means the competitor is using Amazon as an <strong>intermediary</strong> (indirect channel) to reach <strong>individual consumers</strong> (B2C). Amazon is a retailer that sits between the producer and the customer.</p>
+<div class="trap"><strong>A</strong> — Amazon is a third-party platform — it is an intermediary, not a direct channel</div>
+<div class="trap"><strong>C</strong> and <strong>D</strong> — Amazon sells to consumers, not to other businesses (in this context)</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Selling ON a platform (Amazon, Tmall, JD) = indirect channel. Selling FROM your own website = direct channel.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Q5</div>
+<div class="q-prompt">Brightfield discovers that a prescription-strength sunscreen manufacturer is required by law to sell only through licensed pharmacies. This is an example of:</div>
+<div class="opt"><span class="letter">A</span>A B2B channel</div>
+<div class="opt"><span class="letter">B</span>A direct channel</div>
+<div class="opt"><span class="letter">C</span>A legally mandated channel</div>
+<div class="opt"><span class="letter">D</span>A competitive pricing strategy</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>The law requires the sunscreen to be sold only through licensed pharmacies — this is a legally mandated channel. The manufacturer cannot choose to sell through Amazon, Target, or its own website.</p>
+<div class="trap"><strong>A</strong> — Pharmacies sell to consumers (B2C), not to other businesses</div>
+<div class="trap"><strong>B</strong> — The pharmacy is an intermediary, making this an indirect channel — but the key point is that the law mandates this channel</div>
+<div class="trap"><strong>D</strong> — This question is about Place (channels), not Price</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Legally mandated channels override all other channel considerations — the law decides, not the business.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Q6</div>
+<div class="q-prompt">Stanley sold Quencher tumblers through hardware stores before 2019, targeting construction workers. After 2019, Stanley sold through Target, targeting young women. What does this channel shift illustrate about the relationship between target customer and channel selection?</div>
+<div class="opt"><span class="letter">A</span>Hardware stores are always a poor channel for consumer products</div>
+<div class="opt"><span class="letter">B</span>Channel selection should match the target customer — when the customer changes, the channel must change</div>
+<div class="opt"><span class="letter">C</span>Target is a better retailer than hardware stores for all products</div>
+<div class="opt"><span class="letter">D</span>Stanley should have kept both channels and not changed anything</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>Stanley's channel shift illustrates a core principle: the channel must match the customer. Hardware stores reached construction workers (the old customer) but could never reach young women (the new customer). Target's shoppers matched the new target demographic perfectly.</p>
+<div class="trap"><strong>A</strong> — Hardware stores are excellent channels for tools and construction products; the issue is customer-channel fit, not store quality</div>
+<div class="trap"><strong>C</strong> — Target is not universally "better"; it is better for THIS customer segment</div>
+<div class="trap"><strong>D</strong> — Keeping both channels could work (and Stanley does maintain some old channels), but the PRIMARY channel had to shift to reach the new customer</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>When the target customer changes, the channel must change. The product stays the same — the PLACE must follow the customer.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap type</th><th>Where it appears</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Adding a retailer increases reach</strong> — revenue goes up because of the partner's customer base, not because of price changes</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>More intermediaries = less margin</strong> — each partner takes a cut; margin drops as channels multiply</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>DTC = control, not reach</strong> — investing in your website prioritizes control and margin over exposure</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>Amazon/Tmall = indirect channel</strong> — selling on a platform means the platform is an intermediary</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>"Legally mandated" overrides channel choice</strong> — the law decides, not the business</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Channel must match customer</strong> — when the target customer changes, the channel must change too</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Wrap-up</div><h2>Wrap-up — 2.6 Place and Channels</h2>
+<p><strong>What we covered:</strong></p>
+<div class="formula">- <strong>Place</strong> = where and how customers access products</div>
+<div class="formula">- <strong>Marketing channel</strong> = the final stage of the supply chain</div>
+<div class="formula">- <strong>Direct channels</strong> = no intermediaries (website, company store)</div>
+<div class="formula">- <strong>Indirect channels</strong> = intermediaries between producer and customer (wholesaler, retailer)</div>
+<div class="formula">- <strong>B2C</strong> = sell to consumers; <strong>B2B</strong> = sell to businesses</div>
+<div class="formula">- <strong>Legally mandated channels</strong> = law decides where the product can be sold</div>
+<ul>
+<li>Channel selection trade-off: <strong>control vs. reach</strong>, <strong>margin vs. convenience</strong></li>
+<li><strong>Stanley</strong> changed its channels (hardware stores → Target + DTC) to reach a new customer — and grew from $70M to $750M</li>
+</ul>
+<p><strong>Coming up next:</strong> 2.7 Promotion and Marketing Communications — you know what to make, what to call it, how much to charge, and where to sell it. Now: <strong>how do you tell people about it?</strong></p></div>
+        </div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 2.6 Place and Channels</span>
+    <span>Slide <span id="sn">1</span> / 47</span>
+</div>
+<script>
+var cs = 0;
+var N = 47;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

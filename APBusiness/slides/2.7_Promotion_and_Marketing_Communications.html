@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.7 Promotion and Marketing Communications — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #c026d3;
+    --accent-d: #a21caf;
+    --accent-l: #f0abfc;
+    --accent-xd: #86198f;
+    --tint: #fdf4ff;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 2.7-specific design — promotional mix ─────────────── */
+:root {
+    --c-tool1: #6366f1;
+    --c-tool2: #06b6d4;
+    --c-tool3: #d97706;
+    --c-tool4: #ec4899;
+    --c-tool5: #16a34a;
+}
+
+/* Promotional mix grid */
+.pm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .8rem;
+    max-width: 1000px;
+    margin: 1rem auto;
+}
+.pm-grid .tall { grid-row: span 2; }
+.pm-card {
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+.pm-card .num { position: absolute; top: -.55em; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.95); color: var(--ink); font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.15); font-size: .9em; }
+.pm-card h4 { font-size: 1rem; margin: .4rem 0 .3rem; color: var(--ink); }
+.pm-card p { font-size: .82em; color: var(--muted); margin: 0; line-height: 1.4; }
+.pm-card.t1 { border-color: var(--c-tool1); background: #eef2ff; }
+.pm-card.t2 { border-color: var(--c-tool2); background: #ecfeff; }
+.pm-card.t3 { border-color: var(--c-tool3); background: #fffbeb; }
+.pm-card.t4 { border-color: var(--c-tool4); background: #fdf2f8; }
+.pm-card.t5 { border-color: var(--c-tool5); background: #f0fdf4; }
+
+/* Case study */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+.case-study.florasis { background: linear-gradient(135deg, #fdf2f8, #fbcfe8); border-color: #ec4899; }
+.case-study.florasis::before { content: '📌 FLORASIS (花西子)'; background: #ec4899; }
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 2.7 Promotion and Marketing Communications</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 2</div>
+<h1>2.7 Promotion and Marketing Communications</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Identify and explain the five tools in the <strong>promotional mix</strong></li>
+<li>Evaluate how businesses choose promotional tools based on <strong>customer buying behavior</strong></li>
+<li>Explain how <strong>digital marketing</strong> has changed business interactions with customers</li>
+</ol>
+<p><strong>Running example today:</strong> <strong>Florasis (花西子)</strong> — a Chinese beauty brand that went from zero to billions in five years by mastering promotional tools that traditional cosmetics companies ignored.</p></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.7.A — Five tools to reach customers</div>
+<h1>Part 1: The Promotional Mix</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is a marketing campaign?</h2>
+<p>A <strong>marketing campaign</strong> is a coordinated effort that uses multiple promotional tools to promote a product or brand to potential customers.</p>
+<p>A campaign is not one ad or one post — it is a <strong>strategic combination</strong> of tools working together toward the same goal.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The goal of a marketing campaign: differentiate the product, build brand loyalty, and increase sales.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The promotional mix — 5 tools</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem"><strong>No single tool is "best"</strong> — the right mix depends on the product, customer, and goal.</p>
+<div class="pm-grid">
+    <div class="pm-card t1"><span class="num">1</span><h4>📺 Media advertising</h4><p>Paid messages through mass channels — reaches many at once.</p></div>
+    <div class="pm-card t2"><span class="num">2</span><h4>🤝 Personal selling</h4><p>One-on-one interaction — demos, relationship building.</p></div>
+    <div class="pm-card t3"><span class="num">3</span><h4>🎟️ Sales promotion</h4><p>Short-term incentives — discounts, coupons, BOGO.</p></div>
+    <div class="pm-card t4"><span class="num">4</span><h4>✉️ Direct marketing</h4><p>Targeted messages to specific customers — email, flyers.</p></div>
+    <div class="pm-card t5"><span class="num">5</span><h4>📰 Public relations</h4><p>Activities that build favorable public image.</p></div>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tool 1 — Media Advertising</h2>
+<p><strong>What it is:</strong> Paid messages through mass-media channels that reach a large audience with the same message at the same time.</p>
+<p><strong>Channels:</strong> TV, radio, newspapers, magazines, billboards, online display ads</p>
+<p><strong>Best for:</strong></p>
+<ul>
+<li>Routine purchases (groceries, beverages, clothing)</li>
+<li>Building broad brand awareness</li>
+<li>Reaching many people quickly with the same message</li>
+</ul>
+<p><strong>Example:</strong> A billboard in a busy shopping district showing a new lipstick shade</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Media advertising = one message → many people → at the same time.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tool 2 — Personal Selling</h2>
+<p><strong>What it is:</strong> Direct, one-on-one interaction that provides detailed product information or a demonstration.</p>
+<p><strong>Includes:</strong></p>
+<ul>
+<li>Face-to-face sales conversations</li>
+<li><strong>Sales pitch</strong> — a short presentation conveying the product's value proposition</li>
+<li>Product demonstrations</li>
+<li>Livestream selling (modern form)</li>
+</ul>
+<p><strong>Best for:</strong></p>
+<ul>
+<li>Consequential purchases (expensive, high-involvement decisions)</li>
+<li>Products that need explanation or demonstration</li>
+<li>Building trust and relationships</li>
+</ul>
+<p><strong>Example:</strong> A salesperson showing how a skincare product works on your skin</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Personal selling = one message → one customer → detailed and personalized.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tool 3 — Sales Promotion</h2>
+<p><strong>What it is:</strong> Short-term incentives designed to encourage rapid purchasing decisions or reduce unsold inventory.</p>
+<p><strong>Types:</strong></p>
+<ul>
+<li>Discounts and coupons</li>
+<li>Buy-one-get-one-free (BOGO)</li>
+<li>Free samples</li>
+<li>Limited-time offers</li>
+<li>Loyalty programs (short-term rewards)</li>
+</ul>
+<p><strong>Best for:</strong></p>
+<ul>
+<li>Driving quick purchases</li>
+<li>Clearing unsold inventory</li>
+<li>Attracting new customers to try a product</li>
+</ul>
+<p><strong>Example:</strong> "50% off — this weekend only!"</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Sales promotion = a temporary incentive that creates urgency.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tool 4 — Direct Marketing</h2>
+<p><strong>What it is:</strong> Sending targeted messages directly to a large number of potential customers.</p>
+<p><strong>Channels:</strong></p>
+<ul>
+<li>Flyers and brochures</li>
+<li>Direct mail</li>
+<li>Email marketing</li>
+<li>SMS/text messages</li>
+<li>WeChat messages</li>
+</ul>
+<p><strong>Best for:</strong></p>
+<ul>
+<li>Reaching many potential customers with a targeted message</li>
+<li>Delivering coupons, offers, or product information</li>
+<li>Measurable results (track who responds)</li>
+</ul>
+<p><strong>Example:</strong> A restaurant mailing discount flyers to every household in a neighborhood</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Direct marketing = targeted message → many specific people → measurable response.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Tool 5 — Public Relations (PR)</h2>
+<p><strong>What it is:</strong> Activities that create a favorable public image rather than advance a specific sale.</p>
+<p><strong>Includes:</strong></p>
+<ul>
+<li>Press releases</li>
+<li>Media interviews</li>
+<li>Sponsorships</li>
+<li>Charity and community events</li>
+<li>Cultural storytelling</li>
+<li>Crisis management</li>
+</ul>
+<p><strong>Best for:</strong></p>
+<ul>
+<li>Building long-term brand reputation</li>
+<li>Shaping public perception</li>
+<li>Managing the brand during a crisis</li>
+</ul>
+<p><strong>Example:</strong> A company sponsoring a cultural festival and issuing a press release about its community involvement</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>PR = shape the image, not close the sale.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Matching tools to purchase type</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Purchase Type</th><th>Best Promotional Tool</th><th>Why</th></tr></thead><tbody>
+<tr><td><strong>Consequential</strong> (expensive, high-involvement)</td><td><strong>Personal selling</strong></td><td>Customer needs detailed info, demos, trust</td></tr>
+<tr><td><strong>Routine</strong> (everyday, low-involvement)</td><td><strong>Media advertising</strong> or <strong>Direct marketing</strong></td><td>Customer doesn't need a salesperson — just awareness</td></tr>
+</tbody></table></div>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Buying a <strong>car</strong> → consequential → personal selling (salesperson, test drive)</li>
+<li>Buying a <strong>soda</strong> → routine → media advertising (TV commercial, billboard)</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The more consequential the purchase, the more personal the promotional tool should be.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Tool match</h2>
+<p>Match each scenario to the promotional mix tool:</p>
+<ol class="tick">
+<li>A cosmetics brand sends a press release about its new partnership with a traditional Chinese artist</li>
+<li>A skincare company runs a "buy 2, get 1 free" promotion this weekend</li>
+<li>A car dealership has a salesperson walk you through the financing options</li>
+<li>A new energy drink places a billboard next to a highway</li>
+<li>A restaurant mails a 20%-off coupon to every household within 5 km</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Tool match answers</h2>
+<ol class="tick">
+<li><strong>Public relations</strong> — press release about a partnership = building image, not direct selling</li>
+</ol>
+<div class="formula">2. <strong>Sales promotion</strong> — short-term incentive (buy 2 get 1 free) = drives quick decision</div>
+<div class="formula">3. <strong>Personal selling</strong> — one-on-one interaction with detailed info = consequential purchase</div>
+<ol class="tick">
+<li><strong>Media advertising</strong> — billboard = one message to many people at once</li>
+<li><strong>Direct marketing</strong> — targeted message (coupon) sent to specific households</li>
+</ol>
+<div class="formula">> <strong>Clue: PR = image building. Sales promotion = short-term urgency. Personal selling = one-on-one. Advertising = mass message. Direct marketing = targeted message.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Florasis — Using all five tools</h2>
+<p>Florasis (花西子) is a Chinese beauty brand founded in 2017. In five years, it grew from zero to one of China's top cosmetics brands — by using <strong>every tool in the promotional mix</strong>.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Tool</th><th>How Florasis Uses It</th></tr></thead><tbody>
+<tr><td><strong>Media advertising</strong></td><td>Billboard ads in premium locations (Times Square NYC, Shanghai landmarks)</td></tr>
+<tr><td><strong>Personal selling</strong></td><td>Li Jiaqi (李佳琦) livestream selling on Taobao Live — one-on-one product demos to millions</td></tr>
+<tr><td><strong>Sales promotion</strong></td><td>Limited-edition holiday gift sets, "gift with purchase" offers, Double 11 deals</td></tr>
+<tr><td><strong>Direct marketing</strong></td><td>WeChat mini-program, personalized product recommendations, customer messages</td></tr>
+<tr><td><strong>Public relations</strong></td><td>Cultural storytelling ("东方美学"), charity campaigns, international media coverage</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Florasis did not choose one tool — it built a coordinated campaign using all five.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Florasis — Li Jiaqi and personal selling</h2>
+<p><strong>Li Jiaqi (李佳琦)</strong> is China's most famous livestream seller — known as the "Lipstick King."</p>
+<p><strong>How it works as personal selling:</strong></p>
+<ul>
+<li>Li Jiaqi goes live on Taobao Live and demonstrates Florasis products in real time</li>
+<li>He applies lipstick, explains ingredients, compares shades — <strong>detailed product demo</strong></li>
+<li>Viewers ask questions and get <strong>immediate answers</strong> — one-on-one feel at scale</li>
+<li>He says "Buy it now!" and thousands purchase within seconds — <strong>the modern sales pitch</strong></li>
+</ul>
+<p><strong>Why this is personal selling, not media advertising:</strong></p>
+<div class="formula">- Media advertising = one message to many, no interaction</div>
+<div class="formula">- Li Jiaqi's livestream = <strong>interactive, detailed, personalized</strong> — even though millions watch, each viewer feels spoken to directly</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Livestream selling is personal selling at scale — detailed demos + real-time interaction + immediate purchase.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Florasis — PR through cultural storytelling</h2>
+<p>Florasis's PR strategy is built on <strong>"东方美学" (Eastern aesthetics)</strong>:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>PR Activity</th><th>What It Does</th></tr></thead><tbody>
+<tr><td>Product design inspired by traditional Chinese art</td><td>Creates a story: "this is not just makeup, it is culture"</td></tr>
+<tr><td>Packaging with Chinese motifs (lotus, phoenix, embroidery)</td><td>Media covers the design → free publicity</td></tr>
+<tr><td>Partnerships with traditional Chinese artists and craftspeople</td><td>Positions the brand as a cultural ambassador, not just a cosmetics company</td></tr>
+<tr><td>International expansion PR ("Chinese beauty goes global")</td><td>Generates media coverage in Japan, US, Southeast Asia</td></tr>
+<tr><td>Charity campaigns (donating to cultural preservation)</td><td>Builds goodwill and favorable public image</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Florasis's PR does not say "buy our lipstick." It says "we represent Chinese beauty" — and the media tells that story for free.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Florasis — Sales promotion</h2>
+<p>Florasis uses sales promotions strategically:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Promotion Type</th><th>Example</th></tr></thead><tbody>
+<tr><td><strong>Limited-edition sets</strong></td><td>Chinese New Year gift boxes, Mid-Autumn Festival collections</td></tr>
+<tr><td><strong>Gift with purchase</strong></td><td>Free miniature products with orders over a certain amount</td></tr>
+<tr><td><strong>Double 11 (Singles' Day)</strong></td><td>Deep discounts during China's biggest shopping event</td></tr>
+<tr><td><strong>First-purchase discount</strong></td><td>New customers get a special price on their first order</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Sales promotions create urgency — "buy now or miss out." Florasis uses cultural holidays as the timing for these promotions.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Promotional Mix</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td>Five tools: <strong>media advertising, personal selling, sales promotion, direct marketing, public relations</strong></td></tr>
+<tr><td>2</td><td><strong>Consequential purchases</strong> need personal selling; <strong>routine purchases</strong> respond to advertising or direct marketing</td></tr>
+<tr><td>3</td><td><strong>PR</strong> builds image; <strong>advertising</strong> delivers a message; <strong>sales promotion</strong> creates urgency</td></tr>
+<tr><td>4</td><td><strong>Livestream selling</strong> = modern personal selling (interactive, detailed, real-time)</td></tr>
+<tr><td>5</td><td>The best campaigns use a <strong>coordinated mix</strong> of multiple tools</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.7.B — How technology changed promotion forever</div>
+<h1>Part 2: Digital Marketing</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is digital marketing?</h2>
+<div class="def"><div class="term">Digital marketing</div><div class="text">using the internet and digital tools (websites, email, social media, mobile apps) to connect with and serve customers.</div></div>
+<div class="def"><div class="term">Traditional marketing</div><div class="text">offline methods that existed before the internet (TV, radio, print, billboards).</div></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Digital marketing did not replace traditional marketing — but it changed the rules of the game.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Traditional vs. Digital marketing</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Dimension</th><th>Traditional</th><th>Digital</th></tr></thead><tbody>
+<tr><td><strong>Channels</strong></td><td>TV, radio, newspapers, billboards</td><td>Websites, email, social media, apps</td></tr>
+<tr><td><strong>Audience</strong></td><td>Broad, general</td><td>Global OR precisely targeted</td></tr>
+<tr><td><strong>Personalization</strong></td><td>One-size-fits-all</td><td>Tailored to individual customer data</td></tr>
+<tr><td><strong>Cost</strong></td><td>High production and placement costs</td><td>Generally lower, especially for small businesses</td></tr>
+<tr><td><strong>Data collection</strong></td><td>Minimal — hard to track who saw the ad</td><td>Extensive — clicks, views, shares, purchases tracked</td></tr>
+<tr><td><strong>Measurability</strong></td><td>Difficult (how many saw the billboard?)</td><td>Highly measurable (clicks, conversions, engagement)</td></tr>
+<tr><td><strong>Speed</strong></td><td>Slow — weeks to assess results</td><td>Fast — real-time performance data</td></tr>
+<tr><td><strong>Communication</strong></td><td>One-way (business → customer)</td><td>Two-way (customer can respond, share, engage)</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>How digital marketing changed business</h2>
+<p><strong>The three big shifts:</strong></p>
+<h3>1. From broadcast to conversation</h3>
+<ul>
+<li>Traditional: business talks, customer listens</li>
+<li>Digital: customer talks back — reviews, comments, shares, creates content</li>
+</ul>
+<h3>2. From guessing to knowing</h3>
+<ul>
+<li>Traditional: "we think 1 million people saw our billboard"</li>
+<li>Digital: "we know exactly who clicked, when, and what they bought"</li>
+</ul>
+<h3>3. From expensive to accessible</h3>
+<ul>
+<li>Traditional: only big companies could afford TV ads</li>
+<li>Digital: a small brand can reach millions through social media for almost no cost</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Digital marketing leveled the playing field — small brands can now compete with giants.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Big data in marketing</h2>
+<p>Digital tools enable businesses to collect <strong>big data</strong> — large volumes of information about how customers respond to marketing.</p>
+<p><strong>What businesses can track:</strong></p>
+<ul>
+<li>Which ads customers click on</li>
+<li>How long they spend on a product page</li>
+<li>What they buy, when, and how often</li>
+<li>What they share on social media</li>
+<li>What makes them more likely to buy</li>
+</ul>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li>Businesses can <strong>personalize</strong> messages to individual customers</li>
+<li>Businesses can <strong>optimize</strong> campaigns in real time</li>
+<li>Businesses can <strong>predict</strong> what customers want before they know it</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Traditional marketing could not collect this data. Digital marketing makes it automatic.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Florasis — Digital marketing strategy</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Platform</th><th>How Florasis Uses It</th><th>What It Tracks</th></tr></thead><tbody>
+<tr><td><strong>Xiaohongshu (小红书)</strong></td><td>User reviews, "种草" (planting seed) content, KOL/KOC posts</td><td>Which products get shared most, customer sentiment</td></tr>
+<tr><td><strong>Douyin (抖音)</strong></td><td>Short videos, livestream selling, influencer partnerships</td><td>View counts, engagement, conversion rates</td></tr>
+<tr><td><strong>Weibo</strong></td><td>Brand announcements, PR campaigns, customer interaction</td><td>Follower growth, campaign reach</td></tr>
+<tr><td><strong>WeChat</strong></td><td>Mini-program store, personalized recommendations, customer service</td><td>Purchase data, repeat rates, customer preferences</td></tr>
+<tr><td><strong>Taobao/Tmall</strong></td><td>E-commerce store, Double 11 campaigns</td><td>Sales data, customer demographics, buying patterns</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Florasis uses each platform for a different purpose — and collects data from all of them.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Florasis — KOL and KOC strategy</h2>
+<p>Florasis uses two types of influencers:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Type</th><th>What They Are</th><th>How Florasis Uses Them</th></tr></thead><tbody>
+<tr><td><strong>KOL</strong> (Key Opinion Leader)</td><td>Major influencers with millions of followers (e.g., Li Jiaqi)</td><td>Big campaigns, product launches, brand awareness</td></tr>
+<tr><td><strong>KOC</strong> (Key Opinion Consumer)</td><td>Everyday customers with smaller followings who share genuine reviews</td><td>Organic word-of-mouth, authenticity, trust</td></tr>
+</tbody></table></div>
+<p><strong>The strategy:</strong></p>
+<ul>
+<li>KOLs create <strong>awareness</strong> → millions see the product</li>
+<li>KOCs create <strong>trust</strong> → real people share real experiences</li>
+<li>Together, they create a <strong>funnel</strong>: awareness → interest → purchase</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>KOLs are the megaphone. KOCs are the friend who says "I tried it and it's great." Florasis uses both.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Florasis — The 79-yuan eyebrow pencil crisis</h2>
+<p>In September 2023, Li Jiaqi responded to a viewer who said Florasis's eyebrow pencil was too expensive (79 yuan):</p>
+<p><strong>Li Jiaqi said:</strong> "Have you worked hard enough? Have your wages gone up?"</p>
+<p><strong>What happened:</strong></p>
+<ul>
+<li>Massive <strong>backlash</strong> on social media — customers felt shamed for questioning the price</li>
+<li>Florasis's brand image was damaged — the PR relationship with Li Jiaqi became a liability</li>
+<li>Customers questioned: "Is Florasis a Chinese cultural brand, or just another expensive product?"</li>
+</ul>
+<p><strong>The PR lesson:</strong></p>
+<ul>
+<li>A brand's image can be damaged in seconds by a spokesperson's words</li>
+<li><strong>PR crisis management</strong> requires quick, genuine response</li>
+<li>Florasis had to rebuild trust — separating its brand identity from Li Jiaqi's personal brand</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>When your personal selling partner becomes a PR liability, the entire promotional mix is affected.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Digital vs. Traditional</h2>
+<div class="callout key"><span class="tag">Key Point</span>A new local restaurant wants to promote its grand opening. It has a budget of $2,000.</div>
+<p><strong>Should it use traditional marketing (newspaper ad, flyers) or digital marketing (social media, local food bloggers)? Or both? Justify your answer using the comparison framework.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Digital vs. Traditional answer</h2>
+<p><strong>Best answer: Primarily digital, with some traditional.</strong></p>
+<p><strong>Digital advantages for this scenario:</strong></p>
+<ul>
+<li><strong>Cost:</strong> $2,000 can buy significant social media reach; a newspaper ad might consume the entire budget</li>
+<li><strong>Targeting:</strong> Social media can target people within the restaurant's delivery area</li>
+<li><strong>Measurability:</strong> The restaurant can track exactly how many people saw, clicked, and reserved</li>
+<li><strong>Speed:</strong> Results are immediate — the restaurant can adjust the campaign on day one</li>
+<li><strong>Interaction:</strong> Customers can comment, share, and tag friends</li>
+</ul>
+<p><strong>Traditional addition:</strong></p>
+<ul>
+<li><strong>Flyers</strong> in the neighborhood (direct marketing) can reach older residents who may not use social media</li>
+<li><strong>Local newspaper</strong> ad can build credibility with the community</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>For a $2,000 budget, digital marketing delivers more reach, targeting, and measurability per dollar.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Digital Marketing</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Digital marketing</strong> = internet + digital tools to connect with customers</td></tr>
+<tr><td>2</td><td>Digital enables <strong>personalization</strong>, <strong>data collection</strong> (big data), and <strong>two-way communication</strong></td></tr>
+<tr><td>3</td><td>Traditional marketing is <strong>one-way</strong> and <strong>hard to measure</strong>; digital is <strong>two-way</strong> and <strong>highly measurable</strong></td></tr>
+<tr><td>4</td><td>Digital marketing is generally <strong>lower cost</strong> and more <strong>accessible</strong> to small businesses</td></tr>
+<tr><td>5</td><td><strong>KOL</strong> = major influencer (awareness); <strong>KOC</strong> = everyday customer (trust)</td></tr>
+<tr><td>6</td><td>A brand's promotional strategy can be damaged by a spokesperson's words — <strong>PR crisis management</strong> matters</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Greenwave</strong> is a company that makes reusable water bottles from recycled ocean plastic.</p><p>They launched a marketing campaign with the following elements:
+- A <strong>TV commercial</strong> showing ocean plastic being collected and turned into bottles
+- A <strong>partnership with a popular YouTuber</strong> who reviews the bottle on camera and demonstrates how it's made
+- A <strong>"20% off your first bottle"</strong> coupon emailed to people who signed up on their website
+- A <strong>press release</strong> announcing that Greenwave has removed 1 million plastic bottles from the ocean
+- <strong>Flyers</strong> distributed at a local marathon with a QR code to the company website</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Q1</div>
+<div class="q-prompt">The TV commercial showing ocean plastic being collected and turned into bottles is an example of:</div>
+<div class="opt"><span class="letter">A</span>Personal selling</div>
+<div class="opt"><span class="letter">B</span>Media advertising</div>
+<div class="opt"><span class="letter">C</span>Public relations</div>
+<div class="opt"><span class="letter">D</span>Sales promotion</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>A TV commercial is a paid message delivered through a mass-media channel (TV) to a large audience at the same time. This is the definition of media advertising.</p>
+<div class="trap"><strong>C</strong> — The content of the ad (ocean plastic story) has PR-like qualities, but the medium (paid TV commercial) makes it advertising, not PR. PR would be if a news station chose to cover the story on its own.</div>
+<div class="trap"><strong>A</strong> — Personal selling is one-on-one interaction; a TV commercial reaches millions simultaneously</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The tool is defined by the medium and method, not just the message content.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Q2</div>
+<div class="q-prompt">The YouTuber who reviews the bottle and demonstrates how it's made is performing which promotional tool?</div>
+<div class="opt"><span class="letter">A</span>Media advertising — the YouTuber is paid to promote the product</div>
+<div class="opt"><span class="letter">B</span>Direct marketing — the video is sent to specific customers</div>
+<div class="opt"><span class="letter">C</span>Personal selling — the YouTuber provides detailed information and a demonstration</div>
+<div class="opt"><span class="letter">D</span>Public relations — the video builds the brand's image</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>The YouTuber provides <strong>detailed product information</strong> and a <strong>demonstration</strong> (showing how the bottle is made). Even though it reaches many viewers, the format — detailed explanation, visual demonstration, personal review — is functionally personal selling in a digital format.</p>
+<div class="trap"><strong>A</strong> — Media advertising delivers the same generic message to a mass audience; a product review is personalized and detailed</div>
+<div class="trap"><strong>D</strong> — The primary purpose is to inform and persuade about the specific product, not to build a general brand image</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Modern personal selling includes influencer reviews and livestream demonstrations — not just face-to-face sales.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Q3</div>
+<div class="q-prompt">The press release announcing that Greenwave has removed 1 million plastic bottles from the ocean is an example of:</div>
+<div class="opt"><span class="letter">A</span>Sales promotion</div>
+<div class="opt"><span class="letter">B</span>Media advertising</div>
+<div class="opt"><span class="letter">C</span>Public relations</div>
+<div class="opt"><span class="letter">D</span>Digital marketing</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>A press release is a classic public relations tool. Its purpose is to create a favorable public image (environmental impact) rather than to advance a specific sale. The press release invites media coverage — which is earned, not paid.</p>
+<div class="trap"><strong>B</strong> — Media advertising is paid placement; a press release is distributed to media outlets for them to cover voluntarily</div>
+<div class="trap"><strong>D</strong> — Digital marketing is a channel category, not a promotional tool; the press release could be distributed digitally, but its function is PR</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>PR = building image through earned media. Advertising = building awareness through paid media.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Q4</div>
+<div class="q-prompt">The "20% off your first bottle" coupon emailed to website sign-ups is an example of:</div>
+<div class="opt"><span class="letter">A</span>Direct marketing</div>
+<div class="opt"><span class="letter">B</span>Sales promotion</div>
+<div class="opt"><span class="letter">C</span>Both direct marketing and sales promotion</div>
+<div class="opt"><span class="letter">D</span>Public relations</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<div class="formula">This combines two tools: <strong>Direct marketing</strong> (targeted email sent to specific people who signed up) AND <strong>Sales promotion</strong> (20% discount = short-term incentive to drive quick purchasing decision). The email is the channel (direct marketing); the discount is the offer (sales promotion).</div>
+<div class="trap"><strong>A alone</strong> — Direct marketing describes the delivery method, but misses the discount incentive</div>
+<div class="trap"><strong>B alone</strong> — Sales promotion describes the discount, but misses the targeted email delivery</div>
+<div class="trap"><strong>D</strong> — This has nothing to do with public image; it is a direct sales offer</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>When a discount is sent via targeted email, it is BOTH direct marketing AND sales promotion.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Q5</div>
+<div class="q-prompt">If Greenwave wanted to reach the most customers at the lowest cost per person, which tool would be most effective?</div>
+<div class="opt"><span class="letter">A</span>Personal selling — one-on-one conversations with each potential customer</div>
+<div class="opt"><span class="letter">B</span>Media advertising — a single TV or billboard ad reaching thousands</div>
+<div class="opt"><span class="letter">C</span>Digital marketing — social media content shared by influencers and followers</div>
+<div class="opt"><span class="letter">D</span>Direct marketing — mailing flyers to every household in the country</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>Digital marketing (social media + influencer content) offers the lowest cost per impression and the highest potential reach. A single viral post can reach millions for almost no cost. TV advertising reaches many but is expensive. Personal selling reaches one person at a time. Mailing flyers to every household is extremely costly.</p>
+<div class="trap"><strong>B</strong> — TV advertising reaches many, but production and placement costs are very high</div>
+<div class="trap"><strong>A</strong> — Personal selling is the most expensive per-person tool — it is designed for consequential purchases, not mass reach</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Digital marketing = lowest cost per person reached + highest potential virality.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Q6</div>
+<div class="q-prompt">A student says: "Florasis should stop using Li Jiaqi after the 79-yuan controversy and switch entirely to digital advertising." Evaluate this recommendation.</div>
+<div class="opt"><span class="letter">A</span>Correct — Li Jiaqi damaged the brand, so all personal selling should be replaced with media advertising</div>
+<div class="opt"><span class="letter">B</span>Incorrect — Florasis should use only personal selling and stop all advertising</div>
+<div class="opt"><span class="letter">C</span>Incorrect — the promotional mix should be diversified, not replaced entirely; over-reliance on one tool (whether Li Jiaqi or advertising) creates risk</div>
+<div class="opt"><span class="letter">D</span>Correct — the controversy proves that personal selling is always more risky than media advertising</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>The lesson of the 79-yuan crisis is not that personal selling is bad — it is that <strong>over-reliance on one tool</strong> creates risk. Florasis's brand became too closely tied to Li Jiaqi. The solution is to <strong>diversify</strong> the promotional mix — use more KOCs, invest in owned media (WeChat, brand app), and build PR independently of any single spokesperson.</p>
+<div class="trap"><strong>A</strong> — "Replace entirely" is an overcorrection; personal selling through livestreams is still highly effective</div>
+<div class="trap"><strong>B</strong> — "Use only personal selling" would make the same mistake in reverse</div>
+<div class="trap"><strong>D</strong> — Personal selling is not "always more risky" — the risk came from over-dependence on one person, not from the tool itself</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The promotional mix should be diversified — no single tool should carry the entire brand.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap type</th><th>Where it appears</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Tool = medium, not message</strong> — a paid TV ad is advertising even if the content feels like PR</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>Livestream/review = personal selling</strong> — detailed demo + interaction, even at scale</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>Press release = PR</strong> — earned media, not paid placement</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>Discount via email = BOTH direct marketing AND sales promotion</strong></td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Digital = lowest cost per reach</strong> — not personal selling or TV</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Diversify the mix</strong> — don't replace one tool entirely with another</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Wrap-up</div><h2>Wrap-up — 2.7 Promotion and Marketing Communications</h2>
+<p><strong>What we covered:</strong></p>
+<div class="formula">- <strong>Marketing campaign</strong> = coordinated effort using multiple promotional tools</div>
+<ul>
+<li><strong>Five tools</strong>: media advertising, personal selling, sales promotion, direct marketing, public relations</li>
+<li><strong>Consequential purchases</strong> → personal selling; <strong>routine purchases</strong> → advertising or direct marketing</li>
+</ul>
+<div class="formula">- <strong>Livestream selling</strong> = modern personal selling (Li Jiaqi + Florasis)</div>
+<ul>
+<li><strong>Digital marketing</strong> enables personalization, big data collection, two-way communication, and lower costs</li>
+<li><strong>KOL</strong> (major influencer) vs. <strong>KOC</strong> (everyday customer) — both build the marketing funnel</li>
+<li>The 79-yuan crisis teaches: <strong>diversify the promotional mix; never depend on one tool</strong></li>
+<li><strong>Florasis</strong> used all five tools + digital marketing to grow from zero to billions in five years</li>
+</ul>
+<p><strong>That completes Unit 2 — Marketing. You now know the full marketing mix: Product, Price, Place, Promotion.</strong></p></div>
+        </div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 2.7 Promotion and Marketing Communications</span>
+    <span>Slide <span id="sn">1</span> / 44</span>
+</div>
+<script>
+var cs = 0;
+var N = 44;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

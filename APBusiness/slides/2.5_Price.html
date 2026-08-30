@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.5 Price — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #059669;
+    --accent-d: #047857;
+    --accent-l: #6ee7b7;
+    --accent-xd: #065f46;
+    --tint: #ecfdf5;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 2.5-specific design — six pricing strategies ───────── */
+:root {
+    --c-strat1: #6366f1;  --c-strat1-bg: #eef2ff;
+    --c-strat2: #06b6d4;  --c-strat2-bg: #ecfeff;
+    --c-strat3: #d97706;  --c-strat3-bg: #fffbeb;
+    --c-strat4: #16a34a;  --c-strat4-bg: #f0fdf4;
+    --c-strat5: #ec4899;  --c-strat5-bg: #fdf2f8;
+    --c-strat6: #8b5cf6;  --c-strat6-bg: #f5f3ff;
+}
+
+/* Six pricing strategies */
+.strat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .8rem;
+    max-width: 1000px;
+    margin: 1rem auto;
+}
+.strat-card {
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+.strat-card .num { position: absolute; top: -.6em; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.95); color: var(--ink); font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.15); font-size: .9em; }
+.strat-card h4 { font-size: 1rem; margin: .4rem 0 .3rem; color: var(--ink); }
+.strat-card p { font-size: .82em; color: var(--muted); margin: 0; line-height: 1.4; }
+.strat-card.s1 { border-color: var(--c-strat1); background: var(--c-strat1-bg); }
+.strat-card.s2 { border-color: var(--c-strat2); background: var(--c-strat2-bg); }
+.strat-card.s3 { border-color: var(--c-strat3); background: var(--c-strat3-bg); }
+.strat-card.s4 { border-color: var(--c-strat4); background: var(--c-strat4-bg); }
+.strat-card.s5 { border-color: var(--c-strat5); background: var(--c-strat5-bg); }
+.strat-card.s6 { border-color: var(--c-strat6); background: var(--c-strat6-bg); }
+
+/* Case study */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 2.5 Price</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 2</div>
+<h1>2.5 Price</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Explain six <strong>pricing strategies</strong> and how each affects customer behavior and revenue</li>
+<li>Describe what gives a business <strong>pricing power</strong> and how elasticity limits it</li>
+<li>Explain <strong>legal constraints</strong> that limit pricing decisions</li>
+</ol>
+<p><strong>Two running examples today:</strong></p>
+<ul>
+<li><strong>Xiaomi</strong> — the company that sold phones at a loss to conquer a market</li>
+<li><strong>Costco</strong> — the company that loses $40 million a year on chicken — on purpose</li>
+</ul></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.5.A — Six ways to set a price</div>
+<h1>Part 1: Pricing Strategies</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why does price matter?</h2>
+<p>Price is the <strong>only element of the marketing mix that generates revenue</strong>.</p>
+<ul>
+<li>Product costs money to develop</li>
+<li>Place costs money to distribute</li>
+<li>Promotion costs money to advertise</li>
+<li><strong>Price is where money comes back in</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Set the price too high → customers walk away.</strong> <strong>Set the price too low → you leave money on the table — or lose it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The six pricing strategies</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem"><strong>No strategy is "best"</strong> — the right one depends on the product, market, and goal.</p>
+<div class="strat-grid">
+    <div class="strat-card s1"><span class="num">1</span><h4>💎 Value-Based</h4><p>Price = what the customer believes it's worth.</p></div>
+    <div class="strat-card s2"><span class="num">2</span><h4>⚔️ Competitive</h4><p>Price = what competitors charge ± a little.</p></div>
+    <div class="strat-card s3"><span class="num">3</span><h4>🧮 Cost-Based</h4><p>Price = cost + markup.</p></div>
+    <div class="strat-card s4"><span class="num">4</span><h4>📈 Penetration</h4><p>Price = low to grab market share, then rise.</p></div>
+    <div class="strat-card s5"><span class="num">5</span><h4>⚡ Dynamic</h4><p>Price = shifts in real time with demand.</p></div>
+    <div class="strat-card s6"><span class="num">6</span><h4>🎯 Loss-Leader</h4><p>Price = below cost on one item to sell others.</p></div>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Strategy 1 — Value-Based Pricing</h2>
+<p><strong>How it works:</strong> Set the price based on what the customer is <strong>willing to pay</strong> — not what it costs you to make.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>Question</th></tr></thead><tbody>
+<tr><td>Customer perception</td><td>What do they think this product is worth?</td></tr>
+<tr><td>Unique benefits</td><td>What can they get here that they can't get elsewhere?</td></tr>
+<tr><td>Brand strength</td><td>Do they trust this brand enough to pay more?</td></tr>
+</tbody></table></div>
+<p><strong>Example:</strong> A Starbucks coffee costs ~$0.50 to make but sells for $5+. Customers pay for the experience, the brand, and the convenience.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Value-based pricing works when the product offers something unique that competitors cannot easily copy.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Strategy 2 — Competitive Pricing</h2>
+<p><strong>How it works:</strong> Set the price by looking at what <strong>competitors charge</strong> and positioning accordingly — slightly above, slightly below, or matching.</p>
+<p><strong>Example:</strong> Gas stations on the same street often charge within $0.02 of each other.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Competitive pricing works when many similar products exist and customers compare prices before buying.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Strategy 3 — Cost-Based Pricing</h2>
+<p><strong>How it works:</strong> Calculate the <strong>total cost per unit</strong> (materials, labor, overhead), then add a <strong>markup</strong> for profit.</p>
+<p>$$\text{Price} = \text{Cost per unit} + \text{Desired profit (markup)}$$</p>
+<div class="formula"><strong>Example:</strong> A T-shirt costs $8 to produce. The business wants $4 profit per unit. Price = $12.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Cost-based pricing is simple and predictable — but it ignores what the customer is willing to pay.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Strategy 4 — Penetration Pricing</h2>
+<p><strong>How it works:</strong> Set a <strong>low initial price</strong> to attract customers quickly and gain market share, then <strong>gradually raise</strong> the price once the customer base is established.</p>
+<p><strong>The logic:</strong></p>
+<ol class="tick">
+<li>Low price → many customers try the product</li>
+<li>Many customers → economies of scale → lower costs</li>
+<li>Lower costs + loyal customers → gradually raise price</li>
+<li>Large market share → barrier to new competitors</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Penetration pricing sacrifices short-term profit for long-term market dominance.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Xiaomi — The penetration pricing story</h2>
+<p>In 2011, Xiaomi entered the smartphone market with the <strong>Mi 1</strong> at <strong>1,999 RMB (~$310)</strong>.</p>
+<p>Competitors with similar specs (Samsung, HTC) charged <strong>4,000–5,000 RMB</strong>.</p>
+<p><strong>What happened:</strong></p>
+<ul>
+<li>Xiaomi sold <strong>high-spec phones at budget prices</strong></li>
+<li>The original plan was 1,499 RMB, but manufacturing costs exceeded expectations</li>
+<li>Xiaomi sold at a <strong>near-loss</strong> or <strong>below cost</strong> on early models</li>
+<li>Built a massive customer base in China and emerging markets</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Xiaomi's value proposition: "Flagship specs, half the price."</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Xiaomi — From penetration to premium</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Year</th><th>Model</th><th>Price (RMB)</th><th>Stage</th></tr></thead><tbody>
+<tr><td>2011</td><td>Mi 1</td><td>1,999</td><td>Penetration — entering the market</td></tr>
+<tr><td>2014</td><td>Mi 4</td><td>1,999</td><td>Holding price — building loyalty</td></tr>
+<tr><td>2019</td><td>Mi 9</td><td>2,999</td><td>Gradual increase — trust established</td></tr>
+<tr><td>2020</td><td>Mi 10</td><td>3,999</td><td>Premium push — value-based pricing</td></tr>
+<tr><td>2024</td><td>Mi 15</td><td>4,499</td><td>Premium positioning — brand equity earned</td></tr>
+<tr><td>2024</td><td>SU7 Ultra</td><td>814,900</td><td>Full premium — luxury car segment</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Over 13 years, Xiaomi went from "cheapest flagship" to "premium brand" — the penetration pricing playbook in action.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Xiaomi — The 5% rule</h2>
+<p>Xiaomi made a public commitment: <strong>hardware net profit margin will never exceed 5%</strong>.</p>
+<p>This is written into the company's <strong>articles of association</strong> — a legal document.</p>
+<p><strong>Why?</strong></p>
+<ul>
+<li>Reinforces the "value for money" brand promise</li>
+<li>Customers trust that Xiaomi is not overcharging</li>
+<li>Profits come from <strong>internet services</strong> (72.3% gross margin) and <strong>ecosystem products</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Xiaomi's pricing power grew not from charging more on hardware — but from building an ecosystem customers don't want to leave.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Xiaomi — Case discussion</h2>
+<p>Watch the case study video:</p>
+<p><strong>"What is Penetration Pricing Strategy?"</strong></p>
+<div class="formula"><a href="https://www.youtube.com/watch?v=Uh2SB670-B8" target="_blank">https://www.youtube.com/watch?v=Uh2SB670-B8</a></div>
+<p><strong>While watching, look for:</strong></p>
+<ol class="tick">
+<li>What are the <strong>six features</strong> of penetration pricing?</li>
+<li>Why does penetration pricing work best with <strong>high price elasticity</strong>?</li>
+<li>What are the <strong>four limitations</strong> of this strategy?</li>
+<li>How does Xiaomi's story illustrate each feature and limitation?</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Strategy 5 — Dynamic Pricing</h2>
+<p><strong>How it works:</strong> Adjust the price in <strong>real time</strong> based on current demand, supply, time, or other conditions.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><strong>Uber/Lyft:</strong> Prices surge during rush hour or bad weather</li>
+<li><strong>Airlines:</strong> Same seat costs $200 in January, $800 in July</li>
+<li><strong>Hotels:</strong> Weekend rates ≠ weekday rates</li>
+<li><strong>Amazon:</strong> Prices on some products change multiple times per day</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Dynamic pricing works when demand fluctuates and customers accept that prices change.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Strategy 6 — Loss-Leader Pricing</h2>
+<p><strong>How it works:</strong> Sell a <strong>specific product below cost</strong> to draw customers in — expecting they will also buy <strong>profitable items</strong>.</p>
+<p><strong>The math:</strong></p>
+<ul>
+<li>Lose $1 on Product A (the "leader")</li>
+<li>Customer also buys Products B, C, D (profitable)</li>
+<li>Net profit from the basket > loss on Product A</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Grocery stores selling milk below cost</li>
+<li>Printers sold cheaply, ink cartridges sold at high margins</li>
+<li>Video game consoles sold at a loss, games sold at profit</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Loss-leader pricing works when the business sells many products and can afford a loss on one.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Costco — The loss-leader master</h2>
+<p>Costco is the world's master of loss-leader pricing:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Product</th><th>Costco Price</th><th>What It Really Is</th></tr></thead><tbody>
+<tr><td>Rotisserie chicken</td><td><strong>$4.99</strong></td><td>Costco loses <strong>$30–40 million/year</strong> on chicken — on purpose</td></tr>
+<tr><td>Hot dog + drink</td><td><strong>$1.50</strong></td><td>Same price since <strong>1985</strong> — over 40 years without a raise</td></tr>
+<tr><td>Kirkland Signature products</td><td><strong>At or near cost</strong></td><td>Costco caps markup at <strong>14%</strong> (competitors: 25–50%)</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The chicken is not a product — it is an advertisement for the $65 membership.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Costco — The membership model</h2>
+<p>Costco's real product is the <strong>membership card</strong>, not the goods on the shelf.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Metric</th><th>Number</th></tr></thead><tbody>
+<tr><td>Annual membership fee</td><td>$65 (US)</td></tr>
+<tr><td>Cardholders worldwide</td><td>135+ million</td></tr>
+<tr><td>Annual membership revenue</td><td><strong>$4.8 billion</strong></td></tr>
+<tr><td>Membership renewal rate</td><td><strong>90%+</strong></td></tr>
+<tr><td>Gross margin on goods</td><td><strong>~12%</strong> (vs. Walmart's ~24%)</td></tr>
+</tbody></table></div>
+<p><strong>The math:</strong></p>
+<ul>
+<li>Costco makes almost <strong>zero profit</strong> on selling products</li>
+<li><strong>100% of profit</strong> comes from membership fees</li>
+<li>Loss leaders (chicken, hot dog) keep customers renewing</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Costco doesn't make money when you buy. Costco makes money when you come back.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Costco — The 14% rule</h2>
+<p>Costco has a company rule: <strong>no product can be marked up more than 14%</strong>.</p>
+<ul>
+<li>Most retailers mark up <strong>25–50%</strong></li>
+<li>Costco's cap means customers <strong>always get a deal</strong></li>
+<li>This builds <strong>trust</strong> — customers know Costco is not gouging them</li>
+<li>Kirkland Signature (Costco's private label) has a slightly higher cap of <strong>15%</strong></li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The 14% cap is Costco's version of Xiaomi's 5% rule — a public pricing commitment that builds customer trust.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Costco — Case discussion</h2>
+<p>Watch the case study video:</p>
+<p><strong>"Costco Loses $40 Million a Year on Chickens. It's Completely Intentional"</strong></p>
+<div class="formula"><a href="https://www.youtube.com/watch?v=8-swQ2RrtLM" target="_blank">https://www.youtube.com/watch?v=8-swQ2RrtLM</a></div>
+<p><strong>While watching, look for:</strong></p>
+<ol class="tick">
+<li>Why does Costco <strong>intentionally lose money</strong> on rotisserie chicken?</li>
+<li>How does the <strong>membership model</strong> change the pricing logic entirely?</li>
+<li>What is the <strong>14% markup cap</strong>, and how does it create pricing power?</li>
+<li>How does Costco's approach compare to Walmart's?</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Strategy match</h2>
+<p>Match each scenario to its pricing strategy:</p>
+<ol class="tick">
+<li>A new streaming service charges $2/month for the first year, then $12/month</li>
+<li>A ride-sharing app charges $15 for the same trip at 8 AM that costs $7 at 2 PM</li>
+<li>A coffee shop charges $5.50 because the café next door charges $5.25</li>
+<li>A grocery store sells eggs at a loss to get shoppers in the door</li>
+<li>A luxury handbag costs $50 to make but sells for $2,000</li>
+<li>A contractor calculates materials ($500) + labor ($300) + 20% markup = project price</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Strategy match answers</h2>
+<ol class="tick">
+<li><strong>Penetration</strong> — low initial price, plans to raise later</li>
+<li><strong>Dynamic</strong> — real-time price changes based on demand</li>
+<li><strong>Competitive</strong> — pricing relative to the competitor next door</li>
+<li><strong>Loss-Leader</strong> — below cost on one item to drive overall sales</li>
+<li><strong>Value-Based</strong> — price based on what customers perceive, not on cost</li>
+<li><strong>Cost-Based</strong> — cost + markup formula</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Key distinction: Value-based asks "what will they pay?" Cost-based asks "what did it cost us?"</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Pricing Strategies</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Value-based</strong> = customer perception; <strong>Cost-based</strong> = production cost + markup</td></tr>
+<tr><td>2</td><td><strong>Penetration</strong> = low price to gain share, then raise; <strong>Loss-Leader</strong> = below cost on one item, profit on the rest</td></tr>
+<tr><td>3</td><td><strong>Competitive</strong> = fixed price relative to rivals; <strong>Dynamic</strong> = real-time price changes</td></tr>
+<tr><td>4</td><td>No strategy is universally "best" — it depends on the product, market, and goal</td></tr>
+<tr><td>5</td><td>Price is the only marketing mix element that <strong>generates revenue</strong></td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.5.B — Who can raise prices and who cannot?</div>
+<h1>Part 2: Pricing Power</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is pricing power?</h2>
+<div class="def"><div class="term">Pricing power</div><div class="text">the ability to raise prices <strong>without losing customers</strong> to competitors.</div></div>
+<p>Some businesses can raise prices and customers stay:</p>
+<ul>
+<li><strong>Apple</strong> raises iPhone prices every year — customers line up</li>
+<li><strong>Dyson</strong> charges 2–3x competitors — customers pay</li>
+</ul>
+<p>Other businesses raise prices and customers leave:</p>
+<ul>
+<li>A gas station raises prices by $0.10 — drivers go next door</li>
+<li>A generic cereal raises price — shoppers switch brands</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Pricing power is determined by how customers respond — not by what the business wants.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What creates pricing power?</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>More Pricing Power</th><th>Less Pricing Power</th></tr></thead><tbody>
+<tr><td>Brand identity</td><td>Strong, trusted brand</td><td>Weak or unknown brand</td></tr>
+<tr><td>Product uniqueness</td><td>No close substitutes</td><td>Many similar alternatives</td></tr>
+<tr><td>Switching costs</td><td>Hard for customers to leave</td><td>Easy to switch</td></tr>
+<tr><td>Customer loyalty</td><td>Built on trust and quality</td><td>Purely price-sensitive</td></tr>
+<tr><td>Demand type</td><td>Inelastic (customers keep buying)</td><td>Elastic (customers leave when price rises)</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The more unique your product and the more loyal your customers, the more pricing power you have.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Price elasticity of demand</h2>
+<p><strong>Price elasticity</strong> measures how <strong>sensitive</strong> customers are to price changes.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Type</th><th>What Happens</th><th>Example</th></tr></thead><tbody>
+<tr><td><strong>Elastic</strong> demand</td><td>Small price increase → big drop in sales</td><td>Generic bottled water — switch brands easily</td></tr>
+<tr><td><strong>Inelastic</strong> demand</td><td>Price increase → sales barely change</td><td>Insulin — patients have no alternative</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Businesses with elastic demand have LESS pricing power.</strong> <strong>Businesses with inelastic demand have MORE pricing power.</strong></div>
+<p><strong>Note:</strong> Calculating elasticity is <strong>excluded</strong> from the AP Exam, but you need to understand the concept.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Xiaomi — Pricing power evolution</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Phase</th><th>Pricing Power</th><th>Why</th></tr></thead><tbody>
+<tr><td>2011–2015</td><td><strong>Low</strong></td><td>Customers were price-sensitive; if Xiaomi raised prices, they would switch to other budget brands</td></tr>
+<tr><td>2016–2019</td><td><strong>Growing</strong></td><td>Ecosystem lock-in (phones + wearables + smart home); switching costs rising</td></tr>
+<tr><td>2020–2024</td><td><strong>Strong</strong></td><td>Brand premium established; Mi 10 at 3,999 RMB sold well; customers trust the brand</td></tr>
+<tr><td>2024 (SU7 Ultra)</td><td><strong>Very strong</strong></td><td>814,900 RMB for a car — customers pay for the Xiaomi ecosystem + brand</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Xiaomi's pricing power grew as the ecosystem expanded — leaving Xiaomi means leaving the whole ecosystem.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Costco — Pricing power through loyalty</h2>
+<p>Costco's pricing power comes from a different source than Xiaomi's:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>How Costco Creates It</th></tr></thead><tbody>
+<tr><td>Membership lock-in</td><td>You paid $65 — you want to "use" your membership</td></tr>
+<tr><td>Trust</td><td>14% cap means customers know they're getting a fair deal</td></tr>
+<tr><td>Exclusive products</td><td>Kirkland Signature only available at Costco</td></tr>
+<tr><td>Bulk buying</td><td>Once you buy in bulk, you plan your shopping around Costco</td></tr>
+<tr><td>Renewal rate</td><td><strong>90%+</strong> — customers choose to come back every year</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Costco's pricing power is not about charging more — it's about keeping customers from leaving.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Pricing power check</h2>
+<div class="callout key"><span class="tag">Key Point</span>A local bakery sells artisan bread for $8/loaf. A new supermarket opens nearby and sells bread for $3/loaf. The bakery's sales drop by only 10%.</div>
+<p><strong>Does the bakery have pricing power? What factors might explain why most customers stayed?</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Pricing power check answer</h2>
+<p><strong>Yes — the bakery has pricing power.</strong> Despite a $5 price difference, 90% of customers stayed.</p>
+<p><strong>Possible explanations:</strong></p>
+<ul>
+<li><strong>Brand loyalty</strong> — customers trust the bakery's quality</li>
+<li><strong>Product uniqueness</strong> — artisan bread is not the same as supermarket bread (no close substitute)</li>
+<li><strong>Switching costs</strong> — customers value the experience, the relationship, the routine</li>
+<li><strong>Inelastic demand</strong> — for these customers, artisan bread is not easily replaced</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Pricing power = customers choose you even when cheaper alternatives exist.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Pricing Power</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Pricing power</strong> = ability to raise prices without losing customers</td></tr>
+<tr><td>2</td><td>Strong brand + unique product + high switching costs = <strong>more</strong> pricing power</td></tr>
+<tr><td>3</td><td><strong>Elastic</strong> demand = customers are price-sensitive = <strong>less</strong> pricing power</td></tr>
+<tr><td>4</td><td><strong>Inelastic</strong> demand = customers keep buying despite price increase = <strong>more</strong> pricing power</td></tr>
+<tr><td>5</td><td>Pricing power is determined by <strong>customer behavior</strong>, not by what the business wants</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">LO 2.5.C — What businesses cannot do with prices</div>
+<h1>Part 3: Legal Constraints</h1>
+<hr class="divider"></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Three illegal pricing practices</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Practice</th><th>What It Is</th><th>Why It's Illegal</th></tr></thead><tbody>
+<tr><td><strong>Price Fixing</strong></td><td>Competitors secretly agree to set the same price</td><td>Eliminates real competition; customers pay artificially high prices</td></tr>
+<tr><td><strong>Price Gouging</strong></td><td>Raising prices to unfair levels during a crisis</td><td>Exploits people in emergencies (e.g., $50 for water during a hurricane)</td></tr>
+<tr><td><strong>Price Discrimination</strong></td><td>Charging different prices to different groups for the same product</td><td>Illegal when based on race, nationality, sex, or other protected status</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>These laws exist to protect customers and ensure fair competition.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Price fixing — Collusion</h2>
+<p><strong>What it is:</strong> Two or more competitors <strong>secretly agree</strong> to set prices at a certain level — usually higher than the market would naturally set.</p>
+<p><strong>Example:</strong> Three airlines agree to charge $500 for the same route. Without collusion, competition would drive the price down to $350.</p>
+<p><strong>Why it's harmful:</strong></p>
+<ul>
+<li>Customers pay more than they should</li>
+<li>Competition is an illusion — the "market" is rigged</li>
+<li>New competitors cannot enter because the price is artificially controlled</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Price fixing is illegal in the US, EU, China, and most countries. It is a criminal offense.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Price gouging — Crisis exploitation</h2>
+<p><strong>What it is:</strong> Raising prices to <strong>unfair levels</strong> during a crisis or emergency when customers have no alternative.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Selling bottled water for $50 during a hurricane</li>
+<li>Charging $200 for a box of masks during a pandemic</li>
+<li>Raising hotel prices 500% during a natural disaster</li>
+</ul>
+<p><strong>Legal status:</strong></p>
+<ul>
+<li>Illegal in <strong>many US states</strong> during declared emergencies</li>
+<li>Illegal in <strong>many countries</strong> including China</li>
+<li>Laws vary by jurisdiction — some states have no specific price gouging law</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Price gouging exploits desperation — the customer has no choice and no alternative.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Price discrimination — Different prices for different groups</h2>
+<p><strong>What it is:</strong> Charging <strong>different prices to different customer segments</strong> for the <strong>same product</strong>.</p>
+<p><strong>When it IS legal:</strong></p>
+<ul>
+<li>Student discounts (age-based, not protected status)</li>
+<li>Senior citizen discounts</li>
+<li>Bulk pricing (buy more, pay less per unit)</li>
+<li>Geographic pricing (different prices in different markets)</li>
+</ul>
+<p><strong>When it is ILLEGAL:</strong></p>
+<ul>
+<li>Charging more based on <strong>race, nationality, sex, or other protected status</strong></li>
+<li>Example: Charging higher prices in neighborhoods based on the ethnicity of residents</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Not all price discrimination is illegal — only when it targets protected characteristics.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Legal check</h2>
+<div class="callout key"><span class="tag">Key Point</span>During a severe winter storm, a hardware store raises the price of generators from $300 to $1,200. The store owner says: "I'm just responding to high demand."</div>
+<p><strong>Is this price gouging, dynamic pricing, or both? What makes the difference?</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — Legal check answer</h2>
+<p><strong>This is most likely price gouging.</strong></p>
+<p>The key difference:</p>
+<ul>
+<li><strong>Dynamic pricing</strong> adjusts based on normal market conditions (Uber surge pricing on a Friday night)</li>
+<li><strong>Price gouging</strong> exploits a <strong>crisis</strong> when customers have <strong>no alternative</strong> and <strong>no time to shop around</strong></li>
+</ul>
+<p>In this scenario:</p>
+<ul>
+<li>A winter storm is a crisis/emergency</li>
+<li>Customers need generators to stay safe — no alternative exists</li>
+<li>Raising the price 4x exploits desperation</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The line between dynamic pricing and price gouging is context: normal demand fluctuation vs. crisis exploitation.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>🔑 Exam points to remember — Legal Constraints</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Point</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Price fixing</strong> = competitors collude to set prices = illegal everywhere</td></tr>
+<tr><td>2</td><td><strong>Price gouging</strong> = crisis exploitation = illegal in many jurisdictions</td></tr>
+<tr><td>3</td><td><strong>Price discrimination</strong> = different prices for different groups = illegal only when based on protected status</td></tr>
+<tr><td>4</td><td>Student/senior discounts and bulk pricing are <strong>legal</strong> forms of price discrimination</td></tr>
+<tr><td>5</td><td>The line between <strong>dynamic pricing</strong> and <strong>price gouging</strong> is whether the situation is a normal market or a crisis</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Peak & Trail</strong> is a mid-range outdoor gear company that sells hiking boots.</p><div class="tbl-wrap"><table><thead><tr><th>Year</th><th>Price per pair</th><th>Pairs sold</th><th>Revenue</th></tr></thead><tbody><tr><td>1</td><td>$85</td><td>12,000</td><td>$1,020,000</td></tr><tr><td>2</td><td>$95</td><td>11,200</td><td>$1,064,000</td></tr><tr><td>3</td><td>$110</td><td>9,000</td><td>$990,000</td></tr></tbody></table></div><p>In Year 4, a competitor launches a similar boot at $75.</p><p>Peak & Trail's marketing team debates three options:
+- <strong>Option A:</strong> Drop the price to $70 to match the competitor
+- <strong>Option B:</strong> Keep the price at $110 and invest in brand advertising
+- <strong>Option C:</strong> Launch a premium line at $150 with advanced materials</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Q1</div>
+<div class="q-prompt">In Year 2, Peak & Trail raised the price from $85 to $95 and lost 800 customers, but revenue still increased. What does this suggest about the demand for Peak & Trail boots at that price range?</div>
+<div class="opt"><span class="letter">A</span>Demand was perfectly elastic — any price increase causes customers to leave</div>
+<div class="opt"><span class="letter">B</span>Demand was relatively inelastic — the price increase did not cause enough lost sales to reduce revenue</div>
+<div class="opt"><span class="letter">C</span>Demand was perfectly inelastic — the price increase had no effect on sales</div>
+<div class="opt"><span class="letter">D</span>Demand was elastic — the company lost revenue from the price increase</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>Price rose from $85 to $95 (+12%). Sales dropped from 12,000 to 11,200 (−6.7%). Revenue rose from $1,020,000 to $1,064,000 (+4.3%). The percentage drop in sales was smaller than the percentage increase in price, so demand was relatively inelastic in this range.</p>
+<div class="trap"><strong>A</strong> — "Perfectly elastic" means ANY price increase drives ALL customers away; 800 out of 12,000 stayed</div>
+<div class="trap"><strong>C</strong> — "Perfectly inelastic" means sales would not change at all; 800 customers left</div>
+<div class="trap"><strong>D</strong> — Revenue increased, not decreased; elastic demand would have reduced revenue</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>If revenue goes UP when price goes UP, demand is inelastic in that range.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Q2</div>
+<div class="q-prompt">In Year 3, Peak & Trail raised the price from $95 to $110 and revenue dropped from $1,064,000 to $990,000. What changed?</div>
+<div class="opt"><span class="letter">A</span>Demand became more inelastic at higher prices</div>
+<div class="opt"><span class="letter">B</span>Demand became more elastic at higher prices — more customers were sensitive to the higher price</div>
+<div class="opt"><span class="letter">C</span>The company should have lowered the price instead</div>
+<div class="opt"><span class="letter">D</span>Revenue dropped because of external factors, not the price change</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>At $95, demand was inelastic (price up, revenue up). At $110, demand became elastic (price up, revenue down). The price increase from $95 to $110 crossed a threshold where enough customers stopped buying to reduce total revenue.</p>
+<div class="trap"><strong>A</strong> — The opposite happened: at higher prices, more customers left, making demand MORE elastic</div>
+<div class="trap"><strong>C</strong> — This is a strategy recommendation, not an explanation of what happened</div>
+<div class="trap"><strong>D</strong> — The question provides no evidence of external factors; the price change is the most direct cause</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Demand elasticity is not fixed — it can shift from inelastic to elastic as the price rises.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Q3</div>
+<div class="q-prompt">A competitor launches a similar boot at $75. If Peak & Trail chooses <strong>Option A</strong> (drop price to $70), which pricing strategy is this?</div>
+<div class="opt"><span class="letter">A</span>Value-based pricing</div>
+<div class="opt"><span class="letter">B</span>Penetration pricing</div>
+<div class="opt"><span class="letter">C</span>Competitive pricing</div>
+<div class="opt"><span class="letter">D</span>Loss-leader pricing</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>Option A sets the price <strong>relative to the competitor</strong> ($70 vs. $75) — this is competitive pricing. The price is not based on costs (cost-based), customer perception (value-based), or an initial low price designed to rise later (penetration). It is a direct response to a competitor's price.</p>
+<div class="trap"><strong>B</strong> — Penetration pricing is a <strong>strategy for entering a market</strong> with a low price that will later increase; Peak & Trail is already in the market</div>
+<div class="trap"><strong>D</strong> — Loss-leader means selling below cost; there is no evidence the boot costs more than $70 to produce</div>
+<div class="trap"><strong>A</strong> — Value-based pricing would focus on what customers believe the boot is worth, not what the competitor charges</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>"Match the competitor" = competitive pricing. "Low price to enter and raise later" = penetration pricing.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Q4</div>
+<div class="q-prompt">If Peak & Trail chooses <strong>Option C</strong> (premium line at $150), which pricing strategy is this most aligned with?</div>
+<div class="opt"><span class="letter">A</span>Penetration pricing — attracting new customers with a low price</div>
+<div class="opt"><span class="letter">B</span>Dynamic pricing — adjusting based on demand</div>
+<div class="opt"><span class="letter">C</span>Value-based pricing — charging based on what customers believe premium materials are worth</div>
+<div class="opt"><span class="letter">D</span>Cost-based pricing — simply adding a markup to the higher material costs</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>A premium line at $150 with "advanced materials" targets customers who perceive higher value in quality, durability, and performance. The price is set based on what these customers are willing to pay — not on the cost of materials or on competitor prices.</p>
+<div class="trap"><strong>A</strong> — $150 is not a "low initial price"; it is the opposite of penetration</div>
+<div class="trap"><strong>B</strong> — There is no indication the price will change based on real-time demand</div>
+<div class="trap"><strong>D</strong> — Cost-based pricing would calculate materials + markup; "advanced materials" suggests the price reflects perceived value, not just added cost</div>
+<div class="formula">> <strong>"Premium product + what customers are willing to pay" = value-based pricing.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Q5</div>
+<div class="q-prompt">A sports equipment retailer approaches Peak & Trail and says: "Sell us your Year 2 boot at $60 per pair. We will only sell it in our stores, not online." Peak & Trail agrees, and the retailer sells it at $95 — the same price Peak & Trail charges on its own website.</div>
+<div class="q-prompt">What type of legal pricing constraint is <strong>most relevant</strong> to this arrangement?</div>
+<div class="opt"><span class="letter">A</span>Price fixing</div>
+<div class="opt"><span class="letter">B</span>Price gouging</div>
+<div class="opt"><span class="letter">C</span>Price discrimination</div>
+<div class="opt"><span class="letter">D</span>No legal constraint — this is a normal wholesale arrangement</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
+<p><strong>Answer: D.</strong></p>
+<p>This is a normal wholesale/retail arrangement. Peak & Trail sells at wholesale ($60) and the retailer sets its own retail price ($95). There is no agreement between competitors (price fixing), no crisis exploitation (price gouging), and no different pricing to different customer groups based on protected status (price discrimination).</p>
+<div class="trap"><strong>A</strong> — Price fixing requires an agreement between <strong>competitors</strong>; Peak & Trail and the retailer are not competitors — they are in a supply chain relationship</div>
+<div class="trap"><strong>B</strong> — Price gouging requires a crisis or emergency; this is a routine business transaction</div>
+<div class="trap"><strong>C</strong> — The retailer charges the same price ($95) to all its customers; there is no discrimination between customer groups</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Wholesale pricing with retailer markup is standard business practice — not a pricing law violation.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Q6</div>
+<div class="q-prompt">Peak & Trail decides to charge $110 for boots sold in its US stores but only $85 for the same boots sold in Southeast Asian markets. Is this price discrimination, and is it legal?</div>
+<div class="opt"><span class="letter">A</span>It is price discrimination and it is illegal because it charges different prices for the same product</div>
+<div class="opt"><span class="letter">B</span>It is not price discrimination because different markets have different costs</div>
+<div class="opt"><span class="letter">C</span>It is price discrimination, but it is legal because geographic pricing is not based on a protected status</div>
+<div class="opt"><span class="letter">D</span>It is price gouging because the US price is higher than necessary</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>This is a form of price discrimination (different prices for the same product), but it is <strong>legal</strong>. Geographic pricing is a common business practice. Price discrimination is only illegal when based on <strong>protected characteristics</strong> (race, nationality, sex, etc.) — not when based on market conditions, purchasing power, or geography.</p>
+<div class="trap"><strong>A</strong> — "Price discrimination" and "illegal" are not the same thing; many forms of discrimination are legal</div>
+<div class="trap"><strong>B</strong> — Even if costs are the same, geographic pricing is still a form of discrimination — but a legal one</div>
+<div class="trap"><strong>D</strong> — Price gouging requires a crisis; this is a routine market-based pricing decision</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Price discrimination ≠ illegal. It is only illegal when targeting protected status.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap type</th><th>Where it appears</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Revenue up + price up = inelastic</strong>; revenue down + price up = elastic</td><td>Q1, Q2</td></tr>
+<tr><td>2</td><td><strong>Elasticity changes with price level</strong> — inelastic at low prices, elastic at high prices</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>"Match competitor" = competitive</strong>, not penetration (penetration = enter market then raise)</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>Premium pricing = value-based</strong>, not cost-based (even if materials cost more)</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Wholesale markup is not price fixing</strong> — fixing requires competitor collusion</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Geographic pricing is legal</strong> price discrimination — only protected-status discrimination is illegal</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Wrap-up</div><h2>Wrap-up — 2.5 Price</h2>
+<p><strong>What we covered:</strong></p>
+<ul>
+<li>Six pricing strategies: value-based, competitive, cost-based, penetration, dynamic, loss-leader</li>
+</ul>
+<div class="formula">- <strong>Xiaomi</strong> = penetration pricing → premium pricing over 13 years</div>
+<div class="formula">- <strong>Costco</strong> = loss-leader + membership model = profitable despite near-zero product margins</div>
+<ul>
+<li><strong>Pricing power</strong> depends on brand, uniqueness, switching costs, and demand elasticity</li>
+</ul>
+<div class="formula">- <strong>Elastic demand</strong> = less pricing power; <strong>inelastic demand</strong> = more pricing power</div>
+<ul>
+<li>Three illegal practices: <strong>price fixing</strong>, <strong>price gouging</strong>, <strong>price discrimination</strong> (when targeting protected status)</li>
+</ul>
+<p><strong>Coming up next:</strong> 2.6 Place and Channels — you know what to make, how to brand it, and how much to charge. Now: <strong>where do customers find it?</strong></p></div>
+        </div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 2.5 Price</span>
+    <span>Slide <span id="sn">1</span> / 54</span>
+</div>
+<script>
+var cs = 0;
+var N = 54;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.5 Vision — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #d97706;
+    --accent-d: #b45309;
+    --accent-l: #fcd34d;
+    --accent-xd: #92400e;
+    --tint: #fffbeb;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 1.5-specific design — values/vision/organizations ──── */
+:root {
+    --c-vision: #6366f1;  --c-vision-bg: #eef2ff;  /* aspiration */
+    --c-mission: #0d9488; --c-mission-bg: #f0fdfa; /* operations */
+    --c-value: #f59e0b;   --c-value-bg: #fffbeb;   /* believes */
+    --c-comp: #06b6d4;    --c-comp-bg: #ecfeff;    /* good at */
+    --c-biz: #2563eb;     --c-biz-bg: #eff6ff;     /* business */
+    --c-social: #ec4899;  --c-social-bg: #fdf2f8;  /* social enterprise */
+    --c-np: #16a34a;      --c-np-bg: #f0fdf4;      /* nonprofit */
+}
+
+/* Paired concept comparison — side-by-side cards */
+.pair-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.pair-card {
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.pair-card.vision { border-color: var(--c-vision); background: var(--c-vision-bg); }
+.pair-card.mission { border-color: var(--c-mission); background: var(--c-mission-bg); }
+.pair-card.value { border-color: var(--c-value); background: var(--c-value-bg); }
+.pair-card.comp { border-color: var(--c-comp); background: var(--c-comp-bg); }
+.pair-card .pair-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; opacity: .7; margin-bottom: .3rem; }
+.pair-card h3 { font-size: 1.15rem; margin-bottom: .5rem; color: var(--ink); }
+.pair-card p { font-size: .95em; margin: 0; }
+
+/* Organization grid — 3 types */
+.org-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 940px;
+    margin: 1.2rem auto;
+}
+.org-card {
+    border-radius: 16px;
+    padding: 1.2rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.org-card .icon { font-size: 1.8rem; margin-bottom: .4rem; display: block; }
+.org-card h3 { font-size: 1.05rem; margin-bottom: .4rem; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.org-card .key { font-size: .82em; color: var(--muted); margin-top: .5rem; }
+.org-card.biz { border-color: var(--c-biz); background: var(--c-biz-bg); }
+.org-card.social { border-color: var(--c-social); background: var(--c-social-bg); }
+.org-card.np { border-color: var(--c-np); background: var(--c-np-bg); }
+
+/* Concept badges */
+.concept-badge {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 1.3em; height: 1.3em; border-radius: 50%;
+    color: #fff; font-weight: 800; font-family: var(--mono);
+    font-size: .82em; margin-right: .35em;
+    box-shadow: 0 2px 6px rgba(0,0,0,.18);
+    vertical-align: middle;
+}
+.concept-badge.vision { background: var(--c-vision); }
+.concept-badge.mission { background: var(--c-mission); }
+.concept-badge.value { background: var(--c-value); }
+.concept-badge.comp { background: var(--c-comp); }
+.concept-badge.biz { background: var(--c-biz); }
+.concept-badge.social { background: var(--c-social); }
+.concept-badge.np { background: var(--c-np); }
+h2 .concept-badge { width: 1em; height: 1em; font-size: .65em; margin-right: .45em; }
+
+/* Decision tree — simple visual flow */
+.dtree {
+    background: var(--tint);
+    border: 2px solid var(--accent-l);
+    border-radius: 14px;
+    padding: 1.2rem;
+    max-width: 740px;
+    margin: 1rem auto;
+    text-align: center;
+}
+.dtree .q { font-weight: 700; color: var(--accent-xd); margin: .5rem 0; }
+.dtree .branches { display: flex; justify-content: space-around; gap: 1rem; margin-top: .8rem; }
+.dtree .branch {
+    flex: 1;
+    padding: .8rem .6rem;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    font-size: .92em;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+.dtree .branch.np { background: var(--c-np); }
+.dtree .branch.cont { background: var(--c-biz); color: #fff; padding: .8rem .6rem; border-radius: 10px; flex: 1; }
+.dtree .branch.social { background: var(--c-social); }
+.dtree .branch.biz { background: var(--c-biz); }
+.dtree .arrow { font-size: 1.4rem; color: var(--accent); margin: .3rem 0; }
+
+/* Case study card */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute;
+    top: -.7em;
+    left: 1.5rem;
+    background: var(--amber);
+    color: #fff;
+    padding: .3em 1em;
+    border-radius: 100px;
+    font-size: .7em;
+    font-weight: 800;
+    letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+.case-study.patagonia { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-color: #16a34a; }
+.case-study.patagonia::before { content: '📌 PATAGONIA'; background: #16a34a; }
+.case-study.seesaw { background: linear-gradient(135deg, #fef2f2, #fee2e2); border-color: #dc2626; }
+.case-study.seesaw::before { content: '📌 SEESAW COFFEE'; background: #dc2626; }
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 1.5 Vision</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 1</div>
+<h1>1.5 Vision</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Distinguish between <strong>core values</strong> and <strong>core competencies</strong>, and explain how each shapes business and personal decisions</li>
+<li>Evaluate <strong>vision statements</strong> and <strong>mission statements</strong> — and tell them apart</li>
+<li>Classify organizations as <strong>businesses</strong>, <strong>social enterprises</strong>, or <strong>nonprofits</strong></li>
+</ol>
+<p><strong>Running story continues:</strong> the snack box is three weeks old, and <strong>two offers</strong> arrive in the same week that the cash box can't decide between.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The two offers</h2>
+<p>The snack box has regulars — then one week brings <strong>two offers:</strong></p>
+<ol class="tick">
+<li>A parent offers to <strong>bankroll a candy-only mega cart</strong>: double the inventory, double the margin — but <strong>the fruit the families asked for would have to go</strong></li>
+<li>The league asks him to take over the <strong>far field's snack table</strong> — a bigger job that <strong>pays less at first</strong> and runs entirely on trust</li>
+</ol>
+<p>One pair of hands, one Saturday, two doors.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Nothing in his cash box answers this</strong>, because it's a decision about <strong>what the business is <em>for<strong><em> and </strong>what it is </em>best at</em></strong> — not about the arithmetic.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Core values — definition</h2>
+<div class="def"><div class="term">Core values</div><div class="text">the <strong>defining beliefs and principles</strong> that guide an individual's or a business's actions.</div></div>
+<p>Examples: creativity, excellence, transparency, empathy, reliability.</p>
+<p>He writes three on the <strong>lid of his cooler:</strong></p>
+<ul>
+<li><em>Show up on time</em></li>
+<li><em>Listen to the families</em></li>
+<li><em>Keep prices fair</em></li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why communicate core values?</h2>
+<p>Businesses communicate core values for <strong>two reasons:</strong></p>
+<ol class="tick">
+<li><strong>Align employees</strong> to a shared purpose</li>
+<li><strong>Guide decision makers</strong> toward choices consistent with what the business believes</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span>His cousin helps on Saturdays, and <strong>the cooler lid is how the cousin makes the right call when nobody's watching.</strong> That's the job values do: <strong>turn one person's judgment into the whole team's default.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Testing a stated value</h2>
+<p><strong>Run the mega cart past the lid:</strong> double margin, but the fruit goes — and the families asked for that fruit two weeks ago.</p>
+<p>The cart <strong>fails "listen to the families" before the math even starts.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span><strong>A value the business abandons the first time money appears was a decoration.</strong> Test any stated value by asking: <strong>what did it cost the business at the last real decision?</strong></div>
+<ul>
+<li>Transparency → what goes on the label?</li>
+<li>Empathy → how a refund is handled?</li>
+<li>Excellence → whether a flawed batch ships?</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Core competencies — definition</h2>
+<div class="def"><div class="term">Core competencies</div><div class="text">the <strong>capabilities, skills, and expertise</strong> that help an individual or a business <strong>outperform rivals and achieve competitive advantage.</strong></div></div>
+<p>Examples: innovation, customer service, communication, ethical behavior, efficiency.</p>
+<p>His list:</p>
+<ul>
+<li>The <strong>pre-order system</strong> in the group chat (nobody else takes orders before game day)</li>
+<li>The <strong>halftime handoff</strong> (one minute per team)</li>
+<li>A <strong>reputation for showing up</strong> (carried from the hallway in 1.1)</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Core value vs. core competency</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem"><strong>The pair the exam loves to swap — pin the difference now:</strong></p>
+<div class="pair-compare">
+    <div class="pair-card value">
+        <div class="pair-label">💛 What it believes</div>
+        <h3><span class="concept-badge value">V</span>Core value</h3>
+        <p>A <strong>defining belief or principle</strong> that guides the business's actions.</p>
+        <p style="margin-top:.5rem"><strong>Signal:</strong> "Believes"</p>
+        <p style="margin-top:.3rem"><em>e.g. reliability on the cooler lid</em></p>
+    </div>
+    <div class="pair-card comp">
+        <div class="pair-label">🔧 What it's good at</div>
+        <h3><span class="concept-badge comp">C</span>Core competency</h3>
+        <p>A <strong>capability or skill</strong> that helps it outperform rivals.</p>
+        <p style="margin-top:.5rem"><strong>Signal:</strong> "Good at"</p>
+        <p style="margin-top:.3rem"><em>e.g. the 60-second handoff</em></p>
+    </div>
+</div>
+<div class="callout key" style="margin-top:1rem"><span class="tag">Key Point</span><strong>A value is what the business <em>believes</em>; a competency is what it is <em>good at</em>.</strong> Speed is a <strong>built skill</strong> → competency.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Competencies feed competitive advantage</h2>
+<p><strong>Competitive advantage</strong> (from 1.2) = the edge that lets one win customers from a rival.</p>
+<p><strong>Core competencies feed that edge.</strong> A differentiated product, a lower cost, a faster service — trace an advantage backward and you usually find <strong>a capability somebody developed.</strong></p>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Rule of thumb:</strong> pursue the opportunities your <strong>strengths can win</strong>, and spend resources where those strengths <strong>compound.</strong></div>
+<p>The far-field table leans on his logistics + reputation; the mega cart leans mostly on <strong>someone else's money.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Values and competencies for individuals</h2>
+<p>The same tool points at <strong>you.</strong> Individuals consider their own core values and core competencies when choosing <strong>educational paths, careers, and jobs.</strong></p>
+<ul>
+<li>A student who values <strong>independence</strong> and is skilled with <strong>systems</strong> reads one set of options</li>
+<li>A student who values <strong>service</strong> and is skilled with <strong>people</strong> reads another</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Two job offers:</strong> one pays <strong>20% more</strong> but demands weekend hours that collide with something you refuse to give up; the other pays <strong>less</strong> but builds a skill already on your strengths list.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Knowing your list before the offer arrives is the entire advantage.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Vision statement — definition</h2>
+<div class="def"><div class="term">Vision statement</div><div class="text">a concise description of the <strong>future</strong> the business is trying to create — its <strong>aspirations</strong> and <strong>core values</strong>.</div></div>
+<div class="callout key"><span class="tag">Key Point</span>His vision: <strong>"Game days where no family scrambles."</strong></div>
+<ul>
+<li>Describes <strong>no operations</strong> — just a future worth wanting</li>
+<li>The <strong>aspiration</strong>, not the work</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Mission statement — definition</h2>
+<div class="formula"><strong>Mission statement</strong> = describes <strong>what the business does</strong> and <strong>how</strong> it will achieve its long-term goals.</div>
+<div class="callout key"><span class="tag">Key Point</span>His mission: <strong>"Deliver pre-ordered snack boxes to every team by halftime, reliably, at prices families can trust."</strong></div>
+<ul>
+<li>Describes <strong>the work</strong> — what it does + how</li>
+<li>The <strong>operation</strong>, not the aspiration</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Vision vs. mission — the test</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem"><strong>Test any statement with one question:</strong> does it describe a <strong>future worth wanting</strong>, or does it describe <strong>the work</strong>?</p>
+<div class="pair-compare">
+    <div class="pair-card vision">
+        <div class="pair-label">🌅 Aspiration</div>
+        <h3><span class="concept-badge vision">●</span>Vision statement</h3>
+        <p>The <strong>future</strong> the business is trying to create.</p>
+        <p style="margin-top:.5rem"><strong>Signal:</strong> "Aspires" — a future worth wanting.</p>
+        <p style="margin-top:.3rem"><em>No operations. Just a destination.</em></p>
+    </div>
+    <div class="pair-card mission">
+        <div class="pair-label">🛠️ Operation</div>
+        <h3><span class="concept-badge mission">●</span>Mission statement</h3>
+        <p><strong>What</strong> the business does and <strong>how</strong> it does it.</p>
+        <p style="margin-top:.5rem"><strong>Signal:</strong> "Does and how" — describes the work.</p>
+        <p style="margin-top:.3rem"><em>The operation, not the aspiration.</em></p>
+    </div>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Classify by content — not by label</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>"A city where every student graduates ready"</strong> → no operations, all aspiration → <strong>vision.</strong> <strong>"We provide afterschool math tutoring in three neighborhoods, priced by family income"</strong> → what it does + how → <strong>mission.</strong></div>
+<p><strong>The labels are unreliable:</strong> the words "vision" and "mission" rarely appear inside the statements themselves — <strong>classify by content.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why vision and mission matter — internally</h2>
+<p>These statements earn their space <strong>twice.</strong> Inside the business:</p>
+<ul>
+<li>Communicate long-term goals + core values</li>
+<li>Guide decision making</li>
+<li>Give everyone a shared purpose</li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The cooler-lid test:</strong> the snack box's vision ("Game days where no family scrambles") tells the cousin what to do when nobody's watching — that's the internal job.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why vision and mission matter — externally</h2>
+<p>Outside the business, vision and mission statements <strong>earn trust before a single transaction:</strong></p>
+<ul>
+<li><strong>Customers</strong> read the mission and learn what the business stands for without buying first</li>
+<li><strong>Investors and partners</strong> evaluate alignment with their own goals before committing resources</li>
+<li><strong>Community members</strong> gauge whether the business shares their values</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>The mission does the work <strong>before the first sale.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Vision and mission — the snack box test</h2>
+<div class="callout key"><span class="tag">Key Point</span>When the wholesale parent reads the snack box's mission — <em>"Deliver pre-ordered snack boxes to every team by halftime, reliably, at prices families can trust"</em> — <strong>he learns the fruit stays.</strong></div>
+<p>He doesn't need to buy a single bag first. He doesn't need to watch a Saturday.</p>
+<p><strong>The statement told him what he needed to know.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The external job — mission before the first sale</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>That's the external job:</strong> the mission answers the question a customer or partner would otherwise have to ask by experience.</div>
+<p>A parent who reads the mission <strong>knows the fruit stays</strong> — without buying a single bag.</p>
+<p>An investor who reads the vision <strong>knows the direction</strong> — without sitting in a single meeting.</p>
+<p><strong>The mission does the work before the first transaction.</strong></p></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Case study — Patagonia</h1>
+<hr class="divider">
+<span class="chip"><strong>When a company actually lives its values.</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Patagonia — the statements</h2>
+<div class="case-study patagonia">
+<p>Founded 1973 by <strong>Yvon Chouinard</strong> — a climber who built gear for friends.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Statement</th><th>Content</th><th>Type</th></tr></thead><tbody>
+<tr><td><span class="concept-badge vision">●</span><strong>Vision</strong></td><td><em>"We're in business to save our home planet."</em></td><td>Aspiration — no operations, a future worth wanting</td></tr>
+<tr><td><span class="concept-badge mission">●</span><strong>Mission</strong></td><td><em>"Build the best product, cause no unnecessary harm, use business to inspire and implement solutions to the environmental crisis."</em></td><td>What + how — the work itself</td></tr>
+</tbody></table></div>
+</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Run the test:</strong> one sentence describes a <strong>future</strong>; the other describes <strong>the work.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Patagonia — transparency tested</h2>
+<ul>
+<li><strong>Transparency</strong> → published its own supply-chain failures publicly <strong>before anyone asked</strong></li>
+</ul>
+<p>The company released a report admitting that some suppliers used exploitative labor practices — then published its own plan to fix them. Most companies hide supply-chain problems; Patagonia <strong>volunteered</strong> them.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The cost:</strong> short-term reputation risk. <strong>The gain:</strong> long-term trust.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Patagonia — environmental commitment tested</h2>
+<ul>
+<li><strong>Environmental commitment</strong> → ran a full-page ad on Black Friday: <em>"Don't Buy This Jacket"</em> — telling customers to <strong>buy less</strong></li>
+</ul>
+<p>On the biggest shopping day of the year, Patagonia told consumers <strong>not to buy its products</strong> unless they truly needed them. The ad listed the environmental cost of producing the jacket.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The cost:</strong> revenue from the biggest sales day of the year. <strong>The gain:</strong> a brand identity no competitor could copy.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Patagonia — quality as a value</h2>
+<ul>
+<li><strong>Quality</strong> → offered <strong>free lifetime repairs</strong>, sacrificing repeat purchases</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>The value said <em>"build things that last"</em> — not <em>"build things that break on schedule so customers come back."</em></div>
+<p>A jacket that lasts fifteen years <strong>costs Patagonia fifteen years of replacement sales.</strong> The value held anyway.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The pattern — values survived contact with revenue</h2>
+<p>Three tests. Three values. <strong>Every one cost money.</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Value</th><th>Decision</th><th>Revenue impact</th></tr></thead><tbody>
+<tr><td>Transparency</td><td>Published own supply-chain failures</td><td>Short-term reputation risk</td></tr>
+<tr><td>Environmental commitment</td><td>"Don't Buy This Jacket" ad</td><td>Told customers <strong>not to buy</strong></td></tr>
+<tr><td>Quality</td><td>Free lifetime repairs</td><td>Sacrificed repeat purchases</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Test any stated value by asking: what did it cost the business at the last real decision?</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The principle — values vs. money</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>A value the business abandons the first time money appears was a decoration.</strong></div>
+<p>Patagonia's values <strong>survived contact with revenue</strong> across every test — transparency, environmental commitment, and quality.</p>
+<p><strong>Ask yourself:</strong> does your snack box's cooler-lid list hold up the same way? If a parent offered to double the margin in exchange for cutting the fruit, would <em>"listen to the families"</em> survive?</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Patagonia — the ultimate test (2022)</h2>
+<p>In September 2022, Chouinard <strong>gave the company away:</strong></p>
+<ul>
+<li><strong>98%</strong> of shares → Holdfast Collective (<strong>a nonprofit</strong> fighting climate change)</li>
+<li><strong>2%</strong> → a trust ensuring the mission is enforced</li>
+<li><strong>All future profit</strong> → environmental causes, not owners</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><em>"Earth is now our only shareholder."</em></div>
+<p><strong>Ask:</strong> is Patagonia now a <strong>business</strong>, a <strong>social enterprise</strong>, or a <strong>nonprofit</strong>?</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The decision tree:</strong> owners keep profit? → <strong>No</strong> (surplus → mission) → the structure moved <strong>past social enterprise into nonprofit territory</strong> — while the stores still sell jackets.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Patagonia vs. Seesaw — setup</h2>
+<p><strong>Two specialty brands. Two relationships with their own vision.</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Patagonia</th><th>Seesaw Coffee</th></tr></thead><tbody>
+<tr><td>Stated vision</td><td><em>"Save our home planet"</em></td><td><em>"Bring specialty coffee into everyone's daily life"</em></td></tr>
+<tr><td>Vision connected to business?</td><td><strong>Yes</strong> — outdoor gear, supply chain, planet</td><td><strong>Started yes</strong> — then chased the 9.9-yuan price war</td></tr>
+<tr><td>Values tested at real decisions?</td><td><strong>Yes</strong> — took real revenue hits</td><td><strong>No</strong> — sacrificed quality to match Luckin's discounts</td></tr>
+<tr><td>Outcome</td><td>Growing; ownership transferred to fight climate change</td><td>Bankrupt — closed stores, debts unpaid</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>A vision that guides real decisions is a strategy. A vision that gets abandoned at the first price war is a warning.</strong></div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Case study — Seesaw Coffee</h1>
+<hr class="divider">
+<span class="chip"><strong>What happens when a brand abandons its own vision to chase a price war?</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Seesaw — the vision</h2>
+<div class="case-study seesaw">
+<p>Seesaw Coffee was founded in 2012 in Shanghai — one of the <strong>pioneers of China's specialty coffee movement.</strong></p>
+<p>Its stated vision:</p>
+<div class="callout key"><span class="tag">Vision</span><em>"Bring specialty coffee into everyone's daily life."</em></div>
+<p>Core values: <strong>craft, innovation, community</strong> — the brand built its identity around quality beans, skilled baristas, and a curated café experience.</p>
+</div>
+<div class="callout key"><span class="tag">Run the test</span>Does this describe a <strong>future worth wanting</strong> or <strong>the work</strong>? It reads like aspiration — a future where specialty coffee is everyday, not premium.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Seesaw — the gap</h2>
+<p>The specialty vision worked — until the <strong>9.9-yuan price war</strong> arrived.</p>
+<ul>
+<li>Luckin Coffee and Cotti flooded the market with <strong>deep-discount coupons</strong> (9.9 yuan per cup)</li>
+<li>Seesaw <strong>cut prices and ran its own 9.9 promotions</strong> to keep customers</li>
+<li>But specialty beans and trained baristas <strong>cost more than 9.9 yuan per cup</strong> — every discounted sale was a <strong>loss</strong></li>
+<li>The brand that stood for <strong>craft</strong> was now competing on <strong>price</strong> — a war it could not win</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>A value the business abandons the first time money appears was a decoration.</strong> Seesaw's core value of "craft" was discarded the moment the price war started.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Seesaw — the result</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Year</th><th>Event</th></tr></thead><tbody>
+<tr><td>2012</td><td>Founded in Shanghai — specialty coffee pioneer</td></tr>
+<tr><td>2017–2021</td><td>VC-funded expansion; stores in major cities across China</td></tr>
+<tr><td>2023–2024</td><td>Price war with Luckin/Cotti; 9.9-yuan promotions erode margins</td></tr>
+<tr><td>2024–2025</td><td>Mass store closures; debts unpaid; <strong>bankruptcy</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The vision could not survive the first competitive shock because the business stopped acting on it.</strong> When the price war arrived, "craft" was the first thing to go — and the brand followed.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Seesaw — discussion</h2>
+<p><strong>Pair up. 2 minutes.</strong></p>
+<ol class="tick">
+<li>Classify Seesaw's <em>"Bring specialty coffee into everyone's daily life"</em> — vision or mission? <strong>Why?</strong></li>
+<li>Seesaw's value was <strong>craft</strong>. At what point did the business <strong>stop testing that value at real decisions</strong>? What did the 9.9-yuan promotion tell customers?</li>
+<li>How is Seesaw's outcome <strong>different</strong> from Patagonia's? Both faced pressure to compromise — what made the difference?</li>
+</ol></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Your turn — apply the concepts</h1>
+<hr class="divider">
+<span class="chip"><strong>Classify the statement → explain why.</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Three kinds of organizations — at a glance</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem"><strong>The difference is what else they do.</strong></p>
+<div class="org-grid">
+    <div class="org-card biz">
+        <span class="icon">🏢</span>
+        <h3><span class="concept-badge biz">B</span>Business</h3>
+        <p>Achieve and increase profits, remain competitive and viable.</p>
+        <p class="key"><strong>Profit:</strong> owners keep or reinvest.</p>
+    </div>
+    <div class="org-card social">
+        <span class="icon">🤝</span>
+        <h3><span class="concept-badge social">S</span>Social enterprise</h3>
+        <p>Profit <strong>plus</strong> a built-in social objective.</p>
+        <p class="key"><strong>Profit:</strong> owners keep it.</p>
+    </div>
+    <div class="org-card np">
+        <span class="icon">🌱</span>
+        <h3><span class="concept-badge np">N</span>Nonprofit</h3>
+        <p>Serve the public good.</p>
+        <p class="key"><strong>Profit:</strong> surplus must be reinvested; <strong>no owner payment</strong>.</p>
+    </div>
+</div>
+<div class="callout key" style="margin-top:1rem"><span class="tag">Key Point</span><strong>The decision tree:</strong> owners keep profit? → <strong>no</strong> = nonprofit. <strong>Yes</strong> + built-in social objective = social enterprise. <strong>Yes</strong> + no social objective = business.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2><span class="concept-badge np">N</span>The nonprofit signature</h2>
+<div class="dtree">
+    <div class="q">Can owners keep the profit at all?</div>
+    <div class="arrow">▼</div>
+    <div class="branches">
+        <div class="branch np">NO → every surplus → mission = <strong>NONPROFIT</strong></div>
+    </div>
+    <div class="arrow" style="margin-top:1rem">▼</div>
+    <div class="q" style="font-size:.92em;color:var(--muted)">Surplus reinvestment is the legal signature of a nonprofit.</div>
+</div>
+<p>A nonprofit <em>can</em> sell goods, and revenues <em>can</em> exceed costs — but <strong>none of the surplus may flow to an owner.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Business — definition</h2>
+<p>A <strong>business</strong> seeks to <strong>achieve and increase profits</strong>, fulfill its stated mission/goals, and <strong>remain competitive and viable</strong> long-term.</p>
+<p>Profit improves in exactly <strong>two ways:</strong></p>
+<ul>
+<li><strong>Increase revenues</strong></li>
+<li><strong>Decrease costs</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>That's the <strong>revenue − cost</strong> arithmetic from 1.1, now running a whole organization.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Social enterprise — definition</h2>
+<p>A <strong>social enterprise</strong> seeks <strong>profit while also, by design, achieving social objectives.</strong></p>
+<p>Impact travels through <strong>three channels:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Channel</th><th>Example</th></tr></thead><tbody>
+<tr><td>The <strong>products</strong> themselves</td><td>A company whose product is a low-cost water filter</td></tr>
+<tr><td><strong>Operations</strong></td><td>A moving company that hires workers other employers overlook</td></tr>
+<tr><td>The <strong>financial model</strong></td><td>A brand that routes a share of every sale to a local scholarship fund</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Nonprofit organization — definition</h2>
+<p>A <strong>nonprofit</strong> serves the <strong>public good</strong> rather than generating profit for owners.</p>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Mark the precision — the exam tests the edges:</strong> a nonprofit <strong>can</strong> sell goods and services, and its revenues <strong>can</strong> exceed its costs. The law draws <strong>one hard line: any surplus must be reinvested in the organization, and none of it may flow to owners.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Nonprofit revenue sources</h2>
+<p>Nonprofits raise funds through channels that <strong>don't require a sale:</strong></p>
+<div class="formula">- <strong>Grant</strong> = funding awarded for a stated purpose, usually by a government or foundation; earned <strong>by application, not by sale</strong></div>
+<ul>
+<li><strong>Donations</strong> arrive with <strong>no product attached</strong></li>
+<li><strong>Volunteers</strong> lower the <strong>labor</strong> side of the cost ledger</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Surplus reinvestment is the legal signature of a nonprofit.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The organization decision tree</h2>
+<p><strong>Ask two questions in order:</strong></p>
+<ol class="tick">
+<li><strong>Can owners keep the profit at all?</strong></li>
+</ol>
+<ul>
+<li>If <strong>no</strong> (every surplus feeds the mission) → <strong>nonprofit</strong></li>
+</ul>
+<ol class="tick">
+<li>If <strong>yes</strong> → look for a <strong>social objective</strong> built into the products, operations, or financial model:</li>
+</ol>
+<ul>
+<li><strong>Find one</strong> → social enterprise</li>
+<li><strong>Find none</strong> → business</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Surplus reinvestment is the legal signature of a nonprofit.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>All three at the park on Saturday</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Who</th><th>Type</th><th>Why</th></tr></thead><tbody>
+<tr><td>His snack box</td><td><strong>Business</strong></td><td>Profit is his to keep or reinvest</td></tr>
+<tr><td>The league itself</td><td><strong>Nonprofit</strong></td><td>Registration fees + bake-sale table fund uniforms and goals; surplus buys nets, never a payout</td></tr>
+<tr><td>Parent floating a drink stand, donating half its profit to field-repair</td><td><strong>Social enterprise</strong></td><td>Profit-seeking + a built-in social objective</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>Same park, three different answers to <strong>whom the gains ultimately serve.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The classification tells — exam habit</h2>
+<p>This is a <strong>classification topic</strong> — collect the tells:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Signal in the scenario</th><th>Points to</th></tr></thead><tbody>
+<tr><td>"Believes"</td><td>Core <strong>value</strong></td></tr>
+<tr><td>"Good at"</td><td>Core <strong>competency</strong></td></tr>
+<tr><td>"Aspires" (a future worth wanting)</td><td><strong>Vision</strong></td></tr>
+<tr><td>"Does and how" (the work)</td><td><strong>Mission</strong></td></tr>
+<tr><td>Owners keep profit, no social objective</td><td><strong>Business</strong></td></tr>
+<tr><td>Owners keep profit + built-in social objective</td><td><strong>Social enterprise</strong></td></tr>
+<tr><td>No owner keeps surplus; surplus → mission</td><td><strong>Nonprofit</strong></td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Practice — 6 questions</h1>
+<hr class="divider">
+<div class="tag">Read → pause → <strong>commit to an answer</strong> → then reveal.</div>
+<span class="chip"><strong>3 on one stimulus (Bright Thread)</strong>· <strong>3 standalone</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Rosa Delgado</strong> owns <strong>Bright Thread</strong>, a clothing alteration and repair shop. Posted <strong>core values:</strong> craftsmanship, honesty, community. Bright Thread is known across the neighborhood for the <strong>fastest turnaround of any tailor</strong> — a strength built on Rosa's <strong>custom scheduling system.</strong> Two framed statements hang by the register:</p><p>1. <em>"Clothing that lasts, in a neighborhood that thrives."</em>
+2. <em>"Bright Thread repairs and alters clothing with same-week service at prices working families can afford."</em></p><p>Rosa is weighing two expansions: (1) <strong>reselling inexpensive imported garments she has not inspected</strong> at a high markup, or (2) <strong>launching a same-day uniform repair service</strong> for local businesses.</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Classify the fastest turnaround</div>
+<p>Bright Thread's fastest-in-the-neighborhood turnaround is best classified as which?</p>
+<div class="opt"><span class="letter">A</span>A core value</div>
+<div class="opt"><span class="letter">B</span>A vision statement</div>
+<div class="opt"><span class="letter">C</span>A social objective</div>
+<div class="opt"><span class="letter">D</span>A core competency</div>
+<p>Pause. Ask: is "fastest turnaround" something the business believes, or something it is good at?</p>
+<p>--></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Core competencies are capabilities/skills/expertise that help a business <strong>outperform rivals</strong> and achieve competitive advantage. Fastest turnaround is a capability with the <strong>rival comparison built right into the phrase</strong>, resting on a specific skill — Rosa's scheduling system.</p>
+</div>
+<div class="trap">A<strong> — the </strong>paired-concept swap<strong> for this topic. Core </strong>values** are beliefs/principles (the craftsmanship, honesty, community posted on the wall).</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A value is what the business <em>believes</em>; a competency is what it is <em>good at</em>.</strong> Speed here is a <strong>built skill</strong> → competency.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>How values + competencies should guide the choice</div>
+<p>Which best explains how Rosa's core values and core competencies should influence her choice between the two expansions?</p>
+<div class="opt"><span class="letter">A</span>Choose the resale option, because higher markups increase profit fastest</div>
+<div class="opt"><span class="letter">B</span>Favor the option that aligns with her values and uses her existing strengths — the same-day uniform service</div>
+<div class="opt"><span class="letter">C</span>Pursue both options, because businesses grow by accepting every opportunity</div>
+<div class="opt"><span class="letter">D</span>Core values apply only to employees, so they shouldn't affect an owner's decision</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Businesses consider core competencies when deciding which opportunities to pursue and how to allocate resources, and choose actions <strong>consistent with their values.</strong> The uniform service runs directly on her speed + scheduling system <strong>and</strong> serves the community her values name; reselling uninspected garments strains craftsmanship + honesty while using <strong>none</strong> of her strengths.</p>
+</div>
+<div class="trap">A<strong> — high-margin move that abandons strengths/values </strong>risks the reputation the profits depend on.**</div>
+<div class="trap">C<strong> — one shop cannot fund and staff every opportunity; </strong>choosing well is the entire skill being tested.**</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Classify statement 1</div>
+<p>The first framed statement — <em>"clothing that lasts, in a neighborhood that thrives"</em> — is best classified as which?</p>
+<div class="opt"><span class="letter">A</span>A vision statement, because it expresses the shop's values and aspirations</div>
+<div class="opt"><span class="letter">B</span>A mission statement, because it describes the shop's daily operations</div>
+<div class="opt"><span class="letter">C</span>A code of conduct for employees</div>
+<div class="opt"><span class="letter">D</span>A business hypothesis to be tested</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>A vision statement is a concise description of <strong>core values and aspirations</strong> — this names <strong>a future the shop wants to exist</strong> (durable clothing, thriving neighborhood) and describes <strong>no operations.</strong></p>
+</div>
+<div class="trap">B<strong> — the </strong>vision-mission swap.<strong> Statement 2 is the </strong>mission:** what it does — repairs/alterations — and how — same-week service at fair prices.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Run the test:</strong> a <strong>future worth wanting</strong> = vision; a <strong>description of the work</strong> = mission.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Why communicate core values?</div>
+<p>Which best explains why businesses communicate core values to their employees?</p>
+<div class="opt"><span class="letter">A</span>To <strong>guarantee</strong> that no employee ever behaves unethically</div>
+<div class="opt"><span class="letter">B</span>To increase revenue in the following quarter</div>
+<div class="opt"><span class="letter">C</span>To align employees to a shared purpose and guide decisions consistent with the business's beliefs</div>
+<div class="opt"><span class="letter">D</span>To satisfy a legal requirement that businesses publish their values</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Businesses communicate core values to <strong>align employees</strong> to a shared purpose and <strong>guide decision makers</strong> toward choices consistent with the business's beliefs.</p>
+</div>
+<div class="trap">A<strong> — </strong>"guarantee"<strong> is an absolute. Values </strong>guide<strong> choices; </strong>no statement on a wall guarantees behavior.**</div>
+<div class="trap">D<strong> — borrows </strong>legal-factor thinking from Topic 1.3** — no law requires a business to publish core values.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Reading a financial table</div>
+<p><strong>Harbor Kitchen's year in numbers:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Line item</th><th>Amount</th></tr></thead><tbody>
+<tr><td>Revenue from meal sales</td><td>$180,000</td></tr>
+<tr><td>Grant funding</td><td>$60,000</td></tr>
+<tr><td>Donations</td><td>$40,000</td></tr>
+<tr><td>Total costs</td><td>$250,000</td></tr>
+</tbody></table></div>
+<p><em>Study the numbers. What moved? What didn't?</em></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>What does the data support?</div>
+<p>The <strong>$30,000 surplus</strong> was spent expanding the organization's <strong>free cooking classes</strong>, and <strong>no payment went to any owner.</strong> Based on the table, Harbor Kitchen is best classified as which?</p>
+<div class="opt"><span class="letter">A</span>A traditional business, because it earns revenue from selling meals</div>
+<div class="opt"><span class="letter">B</span>A nonprofit organization, because its surplus is reinvested in its mission and it relies partly on grants and donations</div>
+<div class="opt"><span class="letter">C</span>A social enterprise, because it sells meals and offers free classes</div>
+<div class="opt"><span class="letter">D</span>A failing organization, because its costs exceeded its sales revenue</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Every marker points the same direction: <strong>grants and donations</strong> alongside sales revenue, the surplus went <strong>back into the mission</strong>, and <strong>no owner received a payment.</strong></p>
+</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Surplus reinvestment is the legal signature of a nonprofit.</strong></div>
+<div class="trap">C<strong> — the tell is the </strong>destination of the money:<strong> a social enterprise seeks profit </strong>for its owners<strong> alongside social objectives; Harbor Kitchen pays </strong>no owner anything.**</div>
+<div class="trap">D<strong> — reads one row and stops: sales alone fall short of costs, but </strong>total revenue is $280,000 against $250,000<strong> = a $30,000 surplus. </strong>A nonprofit running a surplus is healthy, legal, and common.**</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Social enterprise vs. traditional business</div>
+<p>Which best distinguishes a social enterprise from a traditional business?</p>
+<div class="opt"><span class="letter">A</span>A social enterprise intentionally pursues social objectives through its products, operations, or financial model while still seeking profit</div>
+<div class="opt"><span class="letter">B</span>A social enterprise is legally required to reinvest all surplus funds into the organization</div>
+<div class="opt"><span class="letter">C</span>A social enterprise must be owned by a charity</div>
+<div class="opt"><span class="letter">D</span>A social enterprise <strong>always</strong> donates the <strong>majority</strong> of its profits</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>A social enterprise seeks profit while also achieving social objectives; impact travels through <strong>three channels:</strong> products, operations, or financial model.</p>
+</div>
+<div class="trap">B<strong> — borrows the </strong>nonprofit's legal rule.<strong> Reinvestment of </strong>all<strong> surplus defines nonprofits; social enterprises </strong>keep real profit.**</div>
+<div class="trap">D<strong> — fails on </strong>"always"<strong> and </strong>"majority"<strong> — a fixed donation share is </strong>one possible** financial model, and nothing about the category requires it.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Paired-concept swap:</strong> core value (believes) vs. core competency (good at)</td><td>Q1</td></tr>
+<tr><td>2</td><td>High-margin move that abandons strengths/values <strong>risks reputation</strong></td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>Vision-mission swap:</strong> a future worth wanting vs. a description of the work</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>"Guarantee"</strong> — absolutes still apply</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Nonprofit vs. social enterprise:</strong> the tell is the <strong>destination of the money</strong></td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Reading one row and stopping:</strong> sum ALL revenue (sales + grants + donations)</td><td>Q5</td></tr>
+<tr><td>7</td><td><strong>Neighboring-concept trap:</strong> reusing the nonprofit rule for a social enterprise</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">Next: 1.6 Business Ethics</div>
+<h1>Wrap-up</h1>
+<hr class="divider">
+<div class="tag">- <strong>Core values</strong> = what the business <strong>believes</strong>; <strong>core competencies</strong> = what it is <strong>good at</strong></div></div></div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 1.5 Vision</span>
+    <span>Slide <span id="sn">1</span> / 59</span>
+</div>
+<script>
+var cs = 0;
+var N = 59;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

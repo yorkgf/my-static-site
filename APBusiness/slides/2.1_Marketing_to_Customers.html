@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.1 Marketing to Customers — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #db2777;
+    --accent-d: #be185d;
+    --accent-l: #f9a8d4;
+    --accent-xd: #9d174d;
+    --tint: #fdf2f8;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 2.1-specific design — data + segmentation ────────────── */
+:root {
+    --c-mkt: #db2777;
+    --c-data: #0891b2;
+    --c-seg: #7c3aed;
+}
+
+/* Three data questions */
+.q-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 1.2rem auto;
+}
+.q-card {
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+.q-card .qword { font-size: .68em; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; opacity: .7; }
+.q-card h4 { font-size: 1.4rem; margin: .3rem 0; color: var(--ink); font-family: var(--mono); }
+.q-card p { font-size: .85em; margin: 0; color: var(--muted); }
+.q-card.who { border-color: #6366f1; background: #eef2ff; }
+.q-card.who h4 { color: #4f46e5; }
+.q-card.what { border-color: #d97706; background: #fffbeb; }
+.q-card.what h4 { color: #b45309; }
+.q-card.how { border-color: #16a34a; background: #f0fdf4; }
+.q-card.how h4 { color: #15803d; }
+
+/* Segmentation criteria grid */
+.seg-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .8rem;
+    max-width: 940px;
+    margin: 1rem auto;
+}
+.seg-card {
+    border-radius: 12px;
+    padding: .9rem .7rem;
+    background: var(--card);
+    border: 2px solid var(--c-seg);
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+.seg-card .emoji { font-size: 1.4rem; display: block; margin-bottom: .3rem; }
+.seg-card h4 { font-size: .88rem; color: var(--c-seg); margin: 0; }
+.seg-card p { font-size: .75em; color: var(--muted); margin: .3rem 0 0; line-height: 1.35; }
+
+/* Customer funnel */
+.funnel {
+    max-width: 700px;
+    margin: 1rem auto;
+    text-align: center;
+}
+.funnel .step {
+    padding: .9rem 1.2rem;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: var(--shadow);
+    margin: .25rem auto;
+}
+.funnel .s1 { background: linear-gradient(135deg, #0891b2, #0e7490); width: 90%; border-radius: 14px 14px 0 0; }
+.funnel .s2 { background: linear-gradient(135deg, #06b6d4, #0891b2); width: 78%; }
+.funnel .s3 { background: linear-gradient(135deg, #2563eb, #1d4ed8); width: 66%; }
+.funnel .s4 { background: linear-gradient(135deg, #7c3aed, #6d28d9); width: 54%; }
+.funnel .s5 { background: linear-gradient(135deg, #db2777, #be185d); width: 42%; border-radius: 0 0 14px 14px; }
+.funnel .arrow { color: var(--accent); font-size: 1.1rem; margin: .15rem 0; }
+
+/* Case study card */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 2.1 Marketing to Customers</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 2</div>
+<h1>2.1 Marketing to Customers</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Explain <strong>why and how</strong> marketers collect customer data</li>
+<li>Use <strong>market segmentation</strong> to identify target customers and build a <strong>customer profile</strong></li>
+<li>Describe how <strong>customer relationships</strong> affect acquisition cost and lifetime value</li>
+<li>Explain how data collection creates <strong>privacy risks</strong> for customers and businesses</li>
+</ol>
+<p><strong>Running example all period:</strong> Theo, 16, rebuilding bikes in his family's garage — <strong>Trued Cycles.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Meet Theo — Trued Cycles</h2>
+<p>Theo is 16. He rebuilds neglected bikes in his family's garage.</p>
+<ul>
+<li>His first customer is <strong>Ricky</strong> (the candy seller from Unit 1)</li>
+<li>Ricky needs a bike to haul crates to his soccer-park snack box</li>
+<li>Theo sells him a <strong>$60 used bike with a cargo rack</strong></li>
+<li>Ricky pays cash and asks for a <strong>receipt</strong></li>
+</ul>
+<p>Theo has no receipts — so he opens a <strong>$2 spiral notebook</strong> and writes one line: buy price, parts cost, hours, sale price.</p>
+<div class="callout key"><span class="tag">Key Point</span>One request for paperwork created a <strong>ledger</strong> — and a ledger full of buyers is <strong>customer data.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>From receipt to ledger</h2>
+<p>Six weeks later, the notebook tells Theo something:</p>
+<ul>
+<li>Line 1: the $60 cargo bike (Ricky)</li>
+<li>Lines 2–7: <strong>the same buyer six times</strong> — a parent buying a safe first commuter bike for a middle schooler</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>Six lines of ledger told Theo <strong>who to serve, what to rebuild, and who his listings should speak to.</strong></div>
+<p>That's the power of customer data — and today you learn to read it.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What is marketing?</h2>
+<div class="def"><div class="term">Marketing</div><div class="text">all the activities a business undertakes to <strong>identify customers' problems, needs, and wants</strong>, and to <strong>promote, sell, and deliver products</strong> that meet them.</div></div>
+<ul>
+<li>Marketing ≠ advertising — advertising is <strong>one piece</strong> of marketing</li>
+<li>Theo studying local listings to see which bikes sell fast → <strong>marketing</strong></li>
+<li>Pricing a finished bike, posting it, handing it over with the seat adjusted → <strong>marketing</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>Marketing covers the <strong>entire journey</strong> from understanding the customer to delivering the product.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What marketing is — in the examples</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Activity</th><th>Why it's marketing</th></tr></thead><tbody>
+<tr><td>Theo reads marketplace listings to see which bike styles sell fastest</td><td><strong>Identifying</strong> what customers want</td></tr>
+<tr><td>He writes a listing that says "21-point safety inspection"</td><td><strong>Promoting</strong> to the right audience</td></tr>
+<tr><td>He adjusts the seat height before handoff</td><td><strong>Delivering</strong> a product that fits</td></tr>
+</tbody></table></div>
+<p>Every one of these is marketing — <strong>none of them are advertising.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why collect customer data?</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem">Customer data feeds <strong>three decisions:</strong></p>
+<div class="q-grid">
+    <div class="q-card who">
+        <div class="qword">Question 1</div>
+        <h4>WHO</h4>
+        <p>Which <strong>customers</strong> should we serve?</p>
+    </div>
+    <div class="q-card what">
+        <div class="qword">Question 2</div>
+        <h4>WHAT</h4>
+        <p>Which <strong>products</strong> should we produce?</p>
+    </div>
+    <div class="q-card how">
+        <div class="qword">Question 3</div>
+        <h4>HOW</h4>
+        <p>How should we market them effectively?</p>
+    </div>
+</div>
+<div class="callout key" style="margin-top:.8rem"><span class="tag">Theo's notebook answered all three</span><strong>Who:</strong> parents of middle schoolers (6/6 sales) · <strong>What:</strong> safe commuter bikes ($95 range) · <strong>How:</strong> listings with safety inspection + tune-up promise.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why collect customer data — in the examples</h2>
+<p><strong>Riverbend Suds</strong> — Dana Whitfield's small-batch soap business:</p>
+<ul>
+<li>Saturday farmers market stall + small online store</li>
+<li>Stall shoppers who join her <strong>email list</strong> get a free sample</li>
+<li>The online store <strong>logs what each account browses and buys</strong></li>
+<li>A <strong>checkout survey</strong> asks age range, zip code, and what matters most</li>
+</ul>
+<p>Reading the results → Dana sees <strong>two clusters</strong> and decides which one to serve next.</p>
+<div class="callout key"><span class="tag">Key Point</span>Data answered: who buys, what they buy, and what they care about.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two kinds of customer data</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Demographic</th><th>Psychographic</th></tr></thead><tbody>
+<tr><td><strong>Definition</strong></td><td><strong>Measurable qualities</strong> describing a population</td><td><strong>Cognitive and behavioral factors</strong> within a population</td></tr>
+<tr><td><strong>Examples</strong></td><td>age, sex, race, ethnicity, income, location</td><td>interests, activities, values, lifestyles</td></tr>
+<tr><td><strong>Sorting test</strong></td><td>Could a <strong>census form</strong> record it? → demographic</td><td>Does it describe <strong>what a person cares about</strong> or how they spend time? → psychographic</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Traits of the person = demographic · Contents of the mind = psychographic</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two kinds of data — in the examples</h2>
+<p><strong>Theo's notebook:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Data point</th><th>Type</th><th>Why</th></tr></thead><tbody>
+<tr><td>Buyers in their late 30s–40s</td><td>Demographic</td><td>age — census records it</td></tr>
+<tr><td>Budgets near $90</td><td>Demographic</td><td>income — census records it</td></tr>
+<tr><td>Homes near the Saturday flea market</td><td>Demographic</td><td>location — census records it</td></tr>
+<tr><td>Value <strong>safety over price</strong></td><td>Psychographic</td><td>values — what they care about</td></tr>
+<tr><td>Want to <strong>watch their kid ride</strong> before paying</td><td>Psychographic</td><td>behavior — how they spend time</td></tr>
+<tr><td>Respond to the <strong>30-day tune-up promise</strong> more than a discount</td><td>Psychographic</td><td>preferences — contents of the mind</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — classify the data</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Riverbend Suds</strong> checkout survey asks three things: 1. Your age range 2. Your zip code 3. What matters most when choosing soap</div>
+<p>For each: <strong>demographic or psychographic?</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Where data comes from — digital tools</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Tool</th><th>What it does</th></tr></thead><tbody>
+<tr><td><strong>Subscriber list</strong></td><td>Records who asked to hear from the business</td></tr>
+<tr><td><strong>Online accounts</strong></td><td>Store each customer's history</td></tr>
+<tr><td><strong>Click-tracking software</strong></td><td>Records what visitors tap/click</td></tr>
+<tr><td><strong>Tracking apps</strong></td><td>Log where and when customers show up</td></tr>
+<tr><td><strong>Social media monitoring</strong></td><td>Reading what people say publicly about a product</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>Theo runs none of these himself — the <strong>marketplace</strong> he lists on runs them and reports the data back.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Where data comes from — traditional + purchased</h2>
+<p><strong>Traditional tools:</strong></p>
+<div class="formula">- <strong>Survey</strong> = the same short questions put to many customers</div>
+<div class="formula">- <strong>Interview</strong> = a longer conversation with one customer</div>
+<ul>
+<li>Theo's version: <strong>two questions at every pickup</strong> — <em>"How did you find this bike?"</em> and <em>"What almost stopped you from buying it?"</em></li>
+</ul>
+<p><strong>Purchased data:</strong></p>
+<ul>
+<li>Businesses <strong>buy customer data</strong> from other businesses</li>
+<li>Example: a national parts retailer pays a race organizer for its rider mailing list</li>
+<li>Theo buys nothing — but his notebook is exactly the kind of asset the market trades</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Where data comes from — in the examples</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Dana's tool</th><th>Type</th><th>What it captures</th></tr></thead><tbody>
+<tr><td>Email list (free sample for sign-up)</td><td>Digital — subscriber list</td><td>Who wants to hear from her</td></tr>
+<tr><td>Online store software</td><td>Digital — online accounts + click-tracking</td><td>What each account browses and buys</td></tr>
+<tr><td>Checkout survey</td><td>Traditional — survey</td><td>Age range, zip code, what matters most</td></tr>
+<tr><td>Marketplace chat logs</td><td>Digital — social media monitoring</td><td>Questions every parent asks</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>One survey can collect <strong>both demographic and psychographic data</strong> — it depends on the <strong>question asked</strong>, never the tool.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Real-world case — Luckin Coffee 瑞幸咖啡</h2>
+<p><strong>Luckin Coffee</strong> — Chinese coffee chain, 9,000+ stores, competes with Starbucks with tech-driven affordable coffee.</p>
+<p><strong>No cash registers.</strong> Every order goes through the app or WeChat mini-program — capturing full behavioral data.</p>
+<div class="callout key"><span class="tag">Key Point</span>Marketing ≠ advertising. Luckin's entire business runs on <strong>data</strong>, not ads.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Luckin Coffee — data collection</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>What Luckin collects</th><th>Tool</th><th>2.1 concept</th></tr></thead><tbody>
+<tr><td>Order history, flavor preferences, frequency</td><td>App click-tracking + online accounts</td><td>Digital data tool</td></tr>
+<tr><td>User tags (1,000+ per user: gender, ice/hot, social energy, scenario)</td><td>Customer Data Platform (CDP)</td><td>Demographic + psychographic</td></tr>
+<tr><td>Location, visit patterns</td><td>Tracking app (LBS)</td><td>Digital data tool</td></tr>
+<tr><td>Community feedback, complaints</td><td>WeChat groups + social media monitoring</td><td>Traditional + digital</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Luckin Coffee — segmentation + CRM</h2>
+<p><strong>Target customer:</strong> 50% aged 20-29, 60%+ office workers, 30%+ in Beijing/Shanghai/Guangzhou</p>
+<p><strong>Relationship tactics:</strong></p>
+<ul>
+<li>"Invite a friend, both get free cup" → launch day: new users <strong>doubled</strong>, orders <strong>+40%</strong></li>
+<li>WeChat community groups: <strong>1.8 million</strong> users, <strong>35,000+</strong> direct orders/day</li>
+<li>After joining community: monthly frequency <strong>+30%</strong>, weekly repurchase <strong>+28%</strong></li>
+<li>Stores open 3+ months: repurchase rate <strong>>80%</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>Every data point feeds the <strong>who / what / how</strong> decisions — and every relationship tactic pushes <strong>CAC down</strong> and <strong>LTV up.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Market segmentation</h2>
+<div class="def"><div class="term">Market segmentation</div><div class="text">aggregating potential customers into groups — <strong>market segments</strong> — based on <strong>shared demographic and psychographic characteristics</strong> (EK 2.1.B.1)</div></div>
+<ul>
+<li>Helps businesses understand what each group <strong>needs</strong></li>
+<li>Shows how products might <strong>address</strong> those needs</li>
+</ul>
+<p>Theo's buyers sort into <strong>three segments:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Segment</th><th>Buys</th><th>Cares about</th></tr></thead><tbody>
+<tr><td>Parents of younger kids</td><td>$60 bikes</td><td>mostly working brakes</td></tr>
+<tr><td><strong>Parents of middle schoolers</strong></td><td><strong>$95 commuters</strong></td><td>safety, test ride, guarantee</td></tr>
+<tr><td>Adult hobbyists</td><td>$150 road bikes</td><td>parts list, negotiate hardest</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Market segmentation — in the examples</h2>
+<p><strong>Riverbend Suds — Dana's two clusters:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Segment</th><th>Demographic traits</th><th>Psychographic traits</th></tr></thead><tbody>
+<tr><td>Shoppers <strong>over 50</strong></td><td>age 50+</td><td>buy single unscented bars; rank <strong>sensitive-skin ingredients</strong> first</td></tr>
+<tr><td>Shoppers in their <strong>late 20s–30s</strong></td><td>age 25–39</td><td>buy <strong>gift sets</strong>; follow shop on social media; rank <strong>plastic-free packaging</strong> first</td></tr>
+</tbody></table></div>
+<p>Dana decides her next product line will serve the <strong>younger cluster.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>Segments are groups. But Dana needs to go <strong>one zoom level deeper.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Target customers</h2>
+<div class="def"><div class="term">Target customers</div><div class="text">the buyers <strong>most likely to purchase</strong> a specific product because their wants, needs, and preferences already point at it (EK 2.1.B.2)</div></div>
+<p>Theo's notebook makes the choice: <strong>6 of 6 sales</strong> sit in the commuter-parent segment.</p>
+<div class="callout key"><span class="tag">Key Point</span>That segment gets his rebuild hours, stall space, and listing wording.</div>
+<p><strong>Why narrow the aim?</strong></p>
+<p>Products, branding, pricing, and advertising designed for <strong>one target population</strong> usually work <strong>better</strong> and cost <strong>less</strong> than appeals to everyone.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Target customers — in the examples</h2>
+<p>Two listings that cost the same to post:</p>
+<p><strong>Broad:</strong> <em>"Used bikes for sale, all sizes, good prices."</em></p>
+<p><strong>Targeted:</strong> <em>"Inspected commuter bikes for middle schoolers, 21-point safety check on an orange tag, test rides Saturday, 30-day tune-up included."</em></p>
+<p>The second answers <strong>Renee's exact worries in order</strong> — and Renee is the one holding the money.</p>
+<div class="callout key"><span class="tag">Key Point</span>Targeting <strong>improves the odds</strong> — it never <strong>guarantees</strong> the sale.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Customer profile</h2>
+<div class="def"><div class="term">Customer profile</div><div class="text">a <strong>fictional description</strong> of a specific sample customer, combining demographic data, psychographic data, and that person's wants, needs, and preferences (EK 2.1.B.3)</div></div>
+<p>Theo's customer profile — written on an index card:</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Renee, 41.</strong> Wants a safe first commuter bike for her middle schooler. Budget: $90. Deadline: Saturday. Values the test ride and the tune-up promise more than the price.</div>
+<p>Renee is <strong>fictional</strong> — but every line on her card is backed by <strong>six real buyers</strong> in the notebook.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Customer profile — in the examples</h2>
+<p><strong>Dana's customer profile:</strong></p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Marisol, 31.</strong> Renter who hosts friends often. Follows zero-waste creators on social media. Buys gifts locally. Cares most about <strong>plastic-free packaging.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Profile element</th><th>Type</th></tr></thead><tbody>
+<tr><td>Age 31, renter</td><td>Demographic</td></tr>
+<tr><td>Hosts friends, follows zero-waste creators, buys locally</td><td>Psychographic</td></tr>
+<tr><td>Plastic-free packaging</td><td>Psychographic (values)</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Segment = the group · Profile = one invented person who stands for it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Real-world case — HEYTEA 喜茶</h2>
+<p><strong>HEYTEA</strong> — Chinese premium tea brand, 3,000+ stores, 63 million+ members, valued at ~$9 billion.</p>
+<p>Customers don't buy because they're thirsty — they buy for <strong>social check-in, lifestyle display, and aesthetic experience.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>A customer waits 30 minutes, takes a photo of the cup, posts on WeChat Moments — <strong>then</strong> drinks it. That's psychographic marketing.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>HEYTEA — demographic vs psychographic</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Data HEYTEA collects</th><th>Type</th><th>How it's used</th></tr></thead><tbody>
+<tr><td>20-30 years old, female, tier-1/2 cities</td><td>Demographic</td><td>Store location + product design</td></tr>
+<tr><td>Social check-in, trend-seeking, aesthetic-driven</td><td>Psychographic</td><td>Brand language + visual identity</td></tr>
+<tr><td>Order history, flavor preferences, visit time</td><td>Demographic + behavioral</td><td>Personalized recommendations via mini-program</td></tr>
+<tr><td>Willing to queue for limited editions</td><td>Psychographic (scarcity-driven)</td><td>Collaboration strategy</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Traits of the person = demographic · What they care about = psychographic</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>HEYTEA — Fendi × 喜茶 (2023)</h2>
+<p><strong>¥19 for your first Fendi.</strong></p>
+<ul>
+<li>HEYTEA × Fendi collaboration: a ¥19 drink with Fendi branding</li>
+<li>Not a single traditional ad was placed</li>
+<li>Result: first day <strong>sold out</strong> at many locations, <strong>massive</strong> WeChat / Xiaohongshu / Douyin coverage</li>
+<li>Every customer became a <strong>marketer</strong> — posting their ¥19 "Fendi" drink</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Marketing ≠ advertising.</strong> One collaboration created more reach than any ad campaign could — because customers <strong>shared it themselves.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — segment or profile?</h2>
+<div class="callout key"><span class="tag">Key Point</span>Dana sees two clusters in her data and writes a one-page description: <strong>"Marisol, 31, renter, hosts friends, follows zero-waste creators, buys gifts locally."</strong></div>
+<p>Is this a <strong>market segment</strong> or a <strong>customer profile</strong>?</p>
+<p>Think first, then we'll check.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Building customer relationships</h2>
+<p>A sale to Renee is worth more if the <strong>relationship outlives it</strong> (EK 2.1.C.1).</p>
+<p>Three standard tactics:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Tactic</th><th>What it does</th><th>Theo's version</th></tr></thead><tbody>
+<tr><td><strong>Personalized service</strong></td><td>Treats a customer as a known individual</td><td>30-day free tune-up — greets the kid by name</td></tr>
+<tr><td><strong>Rewards programs</strong></td><td>Gives repeat buyers a reason to return</td><td>$10 off a sibling's bike for any family in the notebook</td></tr>
+<tr><td><strong>Customer feedback opportunities</strong></td><td>Asks buyers what to fix</td><td>Two questions at every pickup</td></tr>
+</tbody></table></div>
+<p>Social media and the internet make all three <strong>cheaper to run.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Building relationships — in the examples</h2>
+<p><strong>Theo's 30-day tune-up:</strong></p>
+<ul>
+<li>Bike comes back within a month</li>
+<li>He trues the wheels free</li>
+<li>Greets the kid by name</li>
+<li>Every post on social media (with permission) reminds past buyers Trued Cycles is still open</li>
+</ul>
+<p><strong>Theo's sibling discount:</strong></p>
+<ul>
+<li>$10 off for any family already in the notebook</li>
+<li>Satisfied customers <strong>refer new customers</strong></li>
+<li>A referred buyer arrives at <strong>zero marketing cost</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>Strong relationships push acquisition cost <strong>down</strong> and lifetime value <strong>up.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Customer acquisition cost (CAC)</h2>
+<div class="def"><div class="term">CAC</div><div class="text">total marketing, advertising, and sales costs used to acquire customers <strong>÷</strong> number of customers acquired (EK 2.1.C.2)</div></div>
+<p><strong>Theo's first month at the flea market:</strong></p>
+<ul>
+<li>Spends <strong>$20</strong> (stall fees + photocopied flyers)</li>
+<li><strong>4 buyers</strong> come in through them</li>
+</ul>
+<p>$$\text{CAC} = \frac{\$20}{4} = \$5 \text{ per customer}$$</p>
+<div class="callout key"><span class="tag">Key Point</span>Satisfied customers <strong>refer</strong> new customers — and a referred buyer arrives at <strong>zero marketing cost</strong>, pushing CAC <strong>down.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>CAC — in the examples</h2>
+<p><strong>Cinder Peak Cocoa</strong> ran two campaigns:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Spring</th><th>Fall</th></tr></thead><tbody>
+<tr><td>Advertising costs</td><td>$6,000</td><td>$6,000</td></tr>
+<tr><td>Other marketing & sales costs</td><td>$2,000</td><td>$3,000</td></tr>
+<tr><td>New customers acquired</td><td>400</td><td>300</td></tr>
+</tbody></table></div>
+<p>$$\text{Spring CAC} = \frac{6000 + 2000}{400} = \frac{8000}{400} = \$20$$</p>
+<p>$$\text{Fall CAC} = \frac{6000 + 3000}{300} = \frac{9000}{300} = \$30$$</p>
+<div class="callout key"><span class="tag">Key Point</span>CAC uses <strong>ALL</strong> acquisition costs — marketing <strong>+</strong> advertising <strong>+</strong> sales. Never just advertising alone.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>CAC — the trap</h2>
+<p>Fall's CAC ($30) is <strong>higher</strong> than Spring's ($20).</p>
+<p>Does that mean Fall was worse?</p>
+<p><strong>Not necessarily.</strong> Watch what happens when we add lifetime value next.</p>
+<div class="callout key"><span class="tag">Key Point</span>Never judge CAC <strong>on its own</strong> — always compare it to LTV.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Lifetime value (LTV)</h2>
+<div class="def"><div class="term">LTV</div><div class="text">the estimated amount a customer will spend on the business's products <strong>over time</strong> (EK 2.1.C.3)</div></div>
+<p>Track LTV in <strong>margin</strong> (the part you keep) so value and cost stay in the same units.</p>
+<p><strong>Building Renee's LTV:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Step</th><th>Value</th></tr></thead><tbody>
+<tr><td>Margin on her first bike</td><td>$38</td></tr>
+<tr><td>Two paid tune-ups over the years ($12 margin each)</td><td>$24</td></tr>
+<tr><td>A sibling bike later (~$65), given a 40% chance → 0.40 × 65</td><td>$26</td></tr>
+</tbody></table></div>
+<p>$$\text{LTV (in margin)} = 38 + 24 + 26 = \$88$$</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>LTV vs. CAC — the business case</h2>
+<div class="formula">$$\text{Renee: } \$88 \text{ lifetime value} - \$5 \text{ acquisition cost} = \$83 \text{ net}$$</div>
+<p>That gap is the <strong>business case</strong> for the free tune-up, the sibling discount, and the pickup photos.</p>
+<div class="callout key"><span class="tag">Key Point</span>Satisfied customers <strong>widen the gap</strong> through brand loyalty and repeat purchases.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>LTV — in the examples</h2>
+<p>Back to <strong>Cinder Peak Cocoa:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Spring</th><th>Fall</th></tr></thead><tbody>
+<tr><td>CAC</td><td>$20</td><td>$30</td></tr>
+<tr><td>Average customer LTV</td><td>$60</td><td>$90</td></tr>
+<tr><td><strong>LTV − CAC</strong></td><td><strong>$40</strong></td><td><strong>$60</strong></td></tr>
+</tbody></table></div>
+<p>Fall paid <strong>$10 more</strong> per customer to <strong>gain $30 more</strong> in value.</p>
+<div class="callout key"><span class="tag">Key Point</span>A higher CAC can still be the <strong>better buy</strong> when LTV grows faster.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — CAC calculation</h2>
+<div class="callout key"><span class="tag">Key Point</span>A small bakery spends <strong>$1,200</strong> on flyers, social media ads, and a tasting event. It acquires <strong>80 new customers.</strong></div>
+<p>What is the CAC?</p>
+<p>$$\text{CAC} = \frac{\text{total marketing + advertising + sales costs}}{\text{customers acquired}}$$</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Data risks — privacy</h2>
+<p>Every tactic in this topic runs on collected data — and <strong>collection creates risk</strong> (EK 2.1.D.1).</p>
+<p><strong>Theo's problem:</strong> His notes app holds <strong>19 customer phone numbers.</strong> He never wrote down <strong>why</strong> he keeps them. Nothing on the form says <strong>how long</strong> a number stays or what else it might be used for.</p>
+<div class="callout key"><span class="tag">Key Point</span>Collecting, compiling, and storing customer data can violate customers' <strong>privacy</strong> — especially when people are <strong>unaware</strong> the collection is happening or <strong>uninformed</strong> about how the data may be used.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Data risks — breach, identity theft, fraud</h2>
+<p>Unsecured data adds a second layer of risk (EK 2.1.D.2):</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Risk</th><th>What it means</th></tr></thead><tbody>
+<tr><td><strong>Data breach</strong></td><td>Exposes stored information to outsiders</td></tr>
+<tr><td><strong>Identity theft</strong></td><td>Uses stolen personal details to impersonate a person</td></tr>
+<tr><td><strong>Fraud</strong></td><td>Uses deception (often powered by stolen data) to take money or property</td></tr>
+</tbody></table></div>
+<p>Theo's whole database is <strong>one phone carried through a flea market every Saturday.</strong> One stolen bag hands a stranger 19 families' names, numbers, and chat logs showing which kid rides which bike home.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Data risks — in the examples</h2>
+<p><strong>The neighborhood gym</strong> — advertises itself as a <strong>trusted community space</strong> but stores members' payment card numbers and check-in histories in an <strong>unsecured spreadsheet.</strong></p>
+<p>A breach could:</p>
+<ul>
+<li><strong>Drive members away</strong> — customers who no longer feel safe leave</li>
+<li><strong>Violate the gym's stated values</strong> — "trusted" becomes a broken promise</li>
+<li><strong>Damage its reputation</strong> — the story reaches people who never joined</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span>The three business-side risks: <strong>lost customers, violated values, damaged reputation.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Balancing data benefits and risks</h2>
+<p>Businesses must balance the <strong>benefits</strong> of using data against the <strong>potential risks</strong> (EK 2.1.D.3):</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Benefits</th><th>Risks</th></tr></thead><tbody>
+<tr><td>Better targeting</td><td>Privacy violations</td></tr>
+<tr><td>Higher LTV</td><td>Data breaches</td></tr>
+<tr><td>Lower CAC</td><td>Identity theft / fraud</td></tr>
+<tr><td>Better products</td><td>Loss of customers</td></tr>
+<tr><td></td><td>Violation of core values</td></tr>
+<tr><td></td><td>Harm to reputation</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Theo's fix — three steps</h2>
+<ol class="tick">
+<li><strong>Lock</strong> the phone</li>
+<li><strong>Delete</strong> every number that has no purpose</li>
+<li><strong>Add one line</strong> to the order form stating what gets kept and why</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span>Lock → Delete → Disclose. Simple, but most small businesses skip all three.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Exam points to remember</h2>
+<ul>
+<li><strong>Marketing ≠ advertising</strong> — it's identify + promote + sell + deliver; data feeds the who / what / how decisions</li>
+<li><strong>Demographic</strong> (measurable, census-recordable) vs. <strong>psychographic</strong> (cares about / how they spend time) — use the <strong>sorting test</strong></li>
+<li><strong>Segmentation → target customer → customer profile (Renee):</strong> narrow the aim because targeted appeals work better and cost less</li>
+<li><strong>Three relationship tactics:</strong> personalized service, rewards programs, customer feedback opportunities</li>
+</ul>
+<div class="formula">- <strong>CAC</strong> = ALL acquisition costs ÷ customers acquired (referrals push it toward zero)</div>
+<div class="formula">- <strong>LTV</strong> = estimated spending over time — track in margin to compare with cost</div>
+<ul>
+<li><strong>Data risks:</strong> privacy violation, data breach, identity theft, fraud — weigh benefits against trust / core values / reputation</li>
+<li><strong>Fix pattern:</strong> lock → delete → disclose</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p>> <strong>Riverbend Suds</strong>
+>
+> Dana Whitfield owns Riverbend Suds, a small-batch soap business with a Saturday farmers market stall and a small online store. Stall shoppers who <strong>join her email list</strong> get a free sample bar. The store requires an <strong>account</strong>, and its software <strong>logs what each account browses and buys.</strong> A short <strong>checkout survey</strong> asks each customer's <strong>age range, zip code, and what matters most</strong> when choosing soap.
+>
+> Reading the results, Dana sees <strong>two clusters:</strong>
+> - Shoppers <strong>over 50</strong> who buy single unscented bars and rank <strong>sensitive-skin ingredients</strong> first.
+> - Shoppers in their <strong>late 20s–30s</strong> who buy <strong>gift sets</strong>, follow the shop on social media, and rank <strong>plastic-free packaging</strong> first.
+>
+> Dana decides her next product line will serve the <strong>younger cluster</strong>, and drafts a one-page description of an imaginary shopper: <strong>Marisol, 31</strong>, a renter who hosts friends often, follows zero-waste creators, and buys gifts locally.</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Q1</div>
+<div class="opt"><span class="letter">A</span>Only demographic data, because survey answers can be counted</div>
+<div class="opt"><span class="letter">B</span><strong>Both</strong> demographic data (age + zip code) <strong>and</strong> psychographic data (what matters most)</div>
+<div class="opt"><span class="letter">C</span>Only psychographic data, because surveys record opinions</div>
+<div class="opt"><span class="letter">D</span>Neither type, because a survey is a traditional tool rather than a digital one</div>
+<div class="q-prompt">Which best describes the customer data the checkout survey collects?</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>Demographic = measurable qualities (age, income, location) → <strong>age range + zip code</strong></p>
+<p>Psychographic = interests, activities, values, lifestyles → <strong>"what matters most"</strong></p>
+<p>One survey can collect <strong>both at once.</strong></p>
+<div class="trap"><strong>A</strong> — "measurable" bait. Dana <em>can</em> count how many ranked plastic-free first, but <strong>counting never changes what the data describes.</strong></div>
+<div class="trap"><strong>D</strong> — <strong>confuses the tool with the data type.</strong> Type depends on the <strong>question asked</strong>, never the channel.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Traits of the person = demographic · Contents of the mind = psychographic.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Q2</div>
+<div class="opt"><span class="letter">A</span>She can design branding, pricing, and advertising that appeal to <strong>anyone who might ever buy</strong> soap</div>
+<div class="opt"><span class="letter">B</span>Serving one segment <strong>guarantees</strong> the new line outsells her current products</div>
+<div class="opt"><span class="letter">C</span>She can stop collecting data from customers outside the chosen segment</div>
+<div class="opt"><span class="letter">D</span>Focusing design, branding, pricing, and advertising on the buyers most likely to purchase is typically <strong>more effective and less costly</strong> than appealing to a wide audience</div>
+<div class="q-prompt">Which best explains the advantage Dana gains by designing the next product line for the younger cluster?</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
+<p><strong>Answer: D.</strong></p>
+<p>Target customer = buyer <strong>most likely to purchase</strong> because of wants/needs/preferences. Aiming at one group usually <strong>converts better and costs less.</strong></p>
+<div class="trap"><strong>A</strong> — <strong>the opposite strategy.</strong> Appealing to anyone who might ever buy is the expensive, unfocused path that targeting exists to replace.</div>
+<div class="trap"><strong>B</strong> — <strong>"guarantees"</strong> is the tell. Targeting <strong>improves the odds</strong> and promises nothing.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Targeting improves odds — never guarantees.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Q3</div>
+<div class="opt"><span class="letter">A</span>A <strong>customer profile</strong> — a fictional sample customer built from demographic and psychographic data</div>
+<div class="opt"><span class="letter">B</span>A <strong>market segment</strong> because it represents many customers who share traits</div>
+<div class="opt"><span class="letter">C</span>A record of Dana's single best <strong>real</strong> customer</div>
+<div class="opt"><span class="letter">D</span>A <strong>subscriber list</strong> entry generated by the online store</div>
+<div class="q-prompt">The one-page description of Marisol is best identified as which?</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<p><strong>Answer: A.</strong></p>
+<div class="formula">A customer profile <strong>personifies the target customer</strong> — one specific invented person. Marisol's age + renter = demographic; hosting, zero-waste creators, local gifting = psychographic.</div>
+<div class="trap"><strong>B</strong> — <strong>one zoom level too far out.</strong> The segment is the <strong>group</strong>; the profile is <strong>one imaginary member</strong> drawn from it.</div>
+<div class="trap"><strong>C</strong> — misses the word <strong>"fictional."</strong> A profile is invented; <strong>no single real shopper is its subject.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Segment = the group · Profile = the invented person who stands for it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Q4</div>
+<div class="opt"><span class="letter">A</span>It reduces the <strong>cost of manufacturing</strong> each unit sold</div>
+<div class="opt"><span class="letter">B</span>It <strong>guarantees</strong> members will keep making repeat purchases</div>
+<div class="opt"><span class="letter">C</span>It builds <strong>brand loyalty and repeat purchasing</strong>, which raises the <strong>lifetime value</strong> of each customer</div>
+<div class="opt"><span class="letter">D</span>It removes any need to attract new customers</div>
+<div class="q-prompt">Which best explains how a rewards program for frequent buyers can increase a business's profits?</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p><strong>Answer: C.</strong></p>
+<p>Relationship tactics (rewards, personalized service, feedback) <strong>raise LTV</strong> because loyal customers make repeat purchases. Satisfied customers also <strong>refer friends</strong>, pushing CAC <strong>down.</strong></p>
+<div class="trap"><strong>B</strong> — <strong>"guarantees"</strong> again. A rewards program <strong>raises the probability</strong> and promises nothing.</div>
+<div class="trap"><strong>A</strong> — <strong>borrows from operations.</strong> A punch card changes buying behavior and leaves manufacturing cost <strong>untouched.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Relationship tactics move LTV and CAC — never production cost.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Q5</div>
+<p><strong>Cinder Peak Cocoa</strong> ran one campaign in spring and one in fall:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Spring</th><th>Fall</th></tr></thead><tbody>
+<tr><td>Advertising costs</td><td>$6,000</td><td>$6,000</td></tr>
+<tr><td>Other marketing & sales costs</td><td>$2,000</td><td>$3,000</td></tr>
+<tr><td>New customers acquired</td><td>400</td><td>300</td></tr>
+<tr><td>Average customer lifetime value</td><td>$60</td><td>$90</td></tr>
+</tbody></table></div>
+<div class="q-prompt">Which conclusion is supported by the table?</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<p>$$\text{Spring CAC} = \frac{6000+2000}{400} = \$20 \qquad \text{Fall CAC} = \frac{6000+3000}{300} = \$30$$</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Spring</th><th>Fall</th></tr></thead><tbody>
+<tr><td>CAC</td><td>$20</td><td>$30</td></tr>
+<tr><td>LTV</td><td>$60</td><td>$90</td></tr>
+<tr><td><strong>LTV − CAC</strong></td><td><strong>$40</strong></td><td><strong>$60</strong></td></tr>
+</tbody></table></div>
+<p><strong>Answer: Fall produced more value per customer — LTV exceeds CAC by $60 vs. $40.</strong></p>
+<div class="formula">- <strong>"Spring CAC = $15"</strong> — divides advertising alone (6000÷400). CAC uses <strong>ALL</strong> costs.</div>
+<div class="trap"><strong>"Fall performed worse"</strong> — stops at cost. A higher CAC can still be the better buy when LTV grows faster.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Compute CAC from all costs, then judge it against LTV — never on its own.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Q6</div>
+<div class="opt"><span class="letter">A</span>None — a breach harms only the customers whose information is exposed</div>
+<div class="opt"><span class="letter">B</span>A breach could <strong>drive members away, violate the gym's stated values, and damage its reputation</strong></div>
+<div class="opt"><span class="letter">C</span><strong>Any</strong> collection of customer data violates the law</div>
+<div class="opt"><span class="letter">D</span>The risk ends once members accept the gym's terms of service</div>
+<div class="q-prompt">A neighborhood gym that advertises itself as a <strong>trusted community space</strong> stores members' payment card numbers and check-in histories in an <strong>unsecured spreadsheet.</strong> Which best explains the risk this creates <strong>for the gym itself?</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p><strong>Answer: B.</strong></p>
+<p>Unsecured data → breach → exposes members to fraud/identity theft → consequences <strong>rebound on the business.</strong> Customers leave; stated values become broken promises; the story reaches people who never joined.</p>
+<div class="trap"><strong>A</strong> — sends harm in <strong>only one direction.</strong> Customers face identity theft; <strong>the business faces exits, values violation, and reputation damage.</strong></div>
+<div class="trap"><strong>C</strong> — hardens a real concern into a <strong>false absolute.</strong> Collecting data is <strong>legal and routine</strong>; the issue is <strong>securing and disclosing it.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The three business-side risks: lost customers · violated values · damaged reputation.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap type</th><th>Where it appears</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>"Measurable/countable" bait</strong> — counting responses doesn't change data type; type = the <strong>question asked</strong>, never the tool</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>"Appeal to anyone"</strong> = abandoning the target; <strong>"guarantees"</strong> (targeting improves odds, promises nothing)</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>Segment vs. profile zoom level</strong> — segment = <em>group</em>; profile = one <em>invented</em> person</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>Relationship tactics move LTV and CAC — never production cost</strong></td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>CAC uses ALL acquisition costs</strong>, not just advertising; judge CAC <strong>against LTV</strong></td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Breach harm rebounds on the business</strong>; "any data collection is illegal" = false absolute</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Wrap-up</div><h2>Wrap-up — 2.1 Marketing to Customers</h2>
+<p><strong>What we covered:</strong></p>
+<ul>
+<li>Marketing ≠ advertising — it's the full identify → promote → sell → deliver chain</li>
+<li>Two data types: demographic (census traits) vs. psychographic (contents of the mind)</li>
+<li>Segmentation → target customer → customer profile (Renee / Marisol)</li>
+<li>Three relationship tactics raise LTV and lower CAC</li>
+</ul>
+<div class="formula">- CAC = all acquisition costs ÷ customers; LTV = spending over time</div>
+<ul>
+<li>Data risks: privacy, breach, identity theft, fraud → lock, delete, disclose</li>
+</ul>
+<p><strong>Coming up next:</strong> 2.2 Consumer Behavior — the notebook proves <strong>who</strong> buys, but it cannot explain <strong>why</strong> they say yes.</p></div>
+        </div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 2.1 Marketing to Customers</span>
+    <span>Slide <span id="sn">1</span> / 57</span>
+</div>
+<script>
+var cs = 0;
+var N = 57;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

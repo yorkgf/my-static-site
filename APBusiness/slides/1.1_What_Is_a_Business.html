@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.1 What Is a Business? — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg: #f3faf2;
+    --ink: #17301a;
+    --muted: #5f7361;
+    --green: #16a34a;
+    --green-l: #4ade80;
+    --green-d: #15803d;
+    --green-xd: #166534;
+    --amber: #d97706;
+    --amber-bg: #fff7e0;
+    --blue: #2563eb;
+    --blue-bg: #e8f1ff;
+    --coral: #dc2626;
+    --coral-bg: #ffeded;
+    --card: #ffffff;
+    --card2: #f4fbf4;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(22,101,52,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, rgba(34,197,94,.12), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, rgba(37,99,235,.07), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar {
+    position: fixed; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .55rem 1.3rem;
+    font-size: .72em; letter-spacing: .04em;
+    background: rgba(255,255,255,.9);
+    border-color: var(--border); border-style: solid;
+    box-shadow: 0 1px 6px rgba(22,101,52,.06);
+    backdrop-filter: blur(6px);
+}
+.bar.top    { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--green-d); font-weight: bold; }
+.bar a { color: var(--green-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--green-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column;
+    padding: 4.8rem 4vw 2.8rem;
+    overflow-y: auto;
+}
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: auto; }
+
+.kicker {
+    text-transform: uppercase; letter-spacing: .22em;
+    font-size: .72rem; color: var(--green-d); font-weight: 700;
+    display: flex; align-items: center; gap: .7rem;
+    margin-bottom: 1rem;
+}
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--green); }
+
+h1 { font-size: clamp(2.6rem,6vw,4.4rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.2rem,2.6vw,1.7rem); color: var(--green-d); font-weight: 700; margin-bottom: .6rem; }
+.subtitle { color: var(--muted); font-size: 1.05em; margin-bottom: 1rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; color: var(--ink); }
+strong { color: var(--green-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--green-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg,#166534 20%,#16a34a 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.15em; margin: .6rem 0 1.6rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg,var(--green),var(--green-l)); margin: 1.4rem auto; border: 0; }
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border); border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 1.15rem 1.4rem;
+}
+.card h4 { color: var(--green-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--green); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before {
+    content: counter(t);
+    position: absolute; left: 0; top: .08em;
+    width: 1.6em; height: 1.6em; border-radius: 50%;
+    background: linear-gradient(180deg,var(--green-l),var(--green));
+    border: 0; box-shadow: 0 2px 6px rgba(22,163,74,.35);
+    color: #fff; font-size: .74em; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+}
+
+/* Definition block */
+.def {
+    border: 2px solid var(--green-l); border-radius: 16px;
+    background: #eaf7ec;
+    padding: 1.5rem 1.8rem; margin: .6rem 0 1rem;
+    text-align: center;
+}
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.5em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--green-xd); }
+
+/* Formula */
+.formula {
+    font-family: var(--mono); text-align: center;
+    background: var(--card); border: 2px solid var(--green-l); border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 1.1rem; margin: .8rem 0; font-size: 1.4rem; color: var(--green-xd); font-weight: 700;
+}
+
+/* Callouts */
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--green);  background: #eaf7ec; }
+.callout.think { border-left: 4px solid var(--blue);   background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber);  background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral);  background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--green-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+/* Table */
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg,var(--green),var(--green-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; letter-spacing: .02em; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: #eaf7ec; }
+table .yes { color: var(--green-d); font-weight: 700; }
+table .no  { color: var(--coral); font-weight: 700; }
+
+/* Chips */
+.chip {
+    display: inline-block; padding: .35rem .95rem; border-radius: 100px;
+    background: var(--green-l); border: 0;
+    color: #14532d; font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0;
+    box-shadow: 0 2px 6px rgba(22,163,74,.18);
+}
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+/* Video */
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vid-cap { text-align: center; color: var(--muted); font-size: .85em; margin-top: .4rem; }
+
+/* Practice Q&A */
+.q-num {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: linear-gradient(135deg,var(--green),var(--green-d));
+    color: #fff; border-radius: 100px;
+    padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(22,163,74,.3);
+}
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.stimulus { background: #f0fdf4; border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--green-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--green-l); box-shadow: 0 0 0 3px rgba(74,222,128,.2); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--green-l); border: 0; color: #14532d; font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: linear-gradient(135deg,var(--green),var(--green-d));
+    color: #fff; font-weight: 800; font-size: 1.05em;
+    border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem;
+    box-shadow: 0 3px 10px rgba(22,163,74,.35);
+}
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+
+.answer-card { border: 1px solid rgba(22,163,74,.3); background: #eaf7ec; border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--green-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+
+.why { display: flex; gap: .8rem; margin: .6rem 0; }
+.why .ic { font-size: 1.1rem; color: var(--green-d); flex-shrink: 0; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+/* Nav */
+.nav-arrow {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    width: 50px; height: 50px; z-index: 150;
+    background: #fff; border: 1px solid var(--border); border-radius: 50%;
+    box-shadow: var(--shadow);
+    color: var(--green-d); font-size: 1.4rem; cursor: pointer;
+    transition: all .2s;
+}
+.nav-arrow:hover { background: var(--green); color: #fff; border-color: var(--green); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfe5d2; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #9fd4a4; }
+.nd.active { background: var(--green); transform: scale(1.25); box-shadow: 0 0 8px rgba(22,163,74,.5); }
+
+/* Inverted (practice) section divider */
+.invert { background: linear-gradient(135deg,#16a34a,#15803d 60%,#166534); }
+.invert .eyebrow, .invert .tag, .invert h1, .invert .divider { color: #fff; background: none; }
+.invert h1 { background: none; -webkit-text-fill-color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+    .grid.g2 { grid-template-columns: 1fr; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 1.1 What Is a Business?</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+
+<div class="stage">
+
+<!-- ══════════ 1 · Hero ══════════ -->
+<div class="slide active">
+    <div class="inner hero">
+        <div class="eyebrow">Unit 1 · Topic 1.1</div>
+        <h1>What Is a Business?</h1>
+        <hr class="divider">
+        <div class="tag">Lesson deck — <strong style="color:var(--green-l)">concepts + practice</strong></div>
+        <span class="chip">based on MAMAKO · 2026 Fall CED</span>
+    </div>
+</div>
+
+<!-- ══════════ 2 · Today's goals ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Today's Goals</div>
+        <h2>By the end of this lesson you can:</h2>
+        <ol class="tick" style="margin-top:1rem">
+            <li>Describe how businesses address customers' <strong>problems, needs, and wants</strong></li>
+            <li>Tell the difference between <strong>value creation</strong> and <strong>value capture</strong></li>
+        </ol>
+        <div class="callout key"><span class="tag">Running example all period</span>A student selling candy out of his backpack.</div>
+    </div>
+</div>
+
+<!-- ══════════ 3 · Real-world businesses ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Warm-up</div>
+        <h2>Real-world businesses — what do you notice?</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card" style="border-top:3px solid var(--blue)">
+                <h4>Bombas</h4>
+                <p>Premium socks &amp; apparel, <em>buy-one-give-one</em> mission.</p>
+                <div class="video-frame"><iframe src="https://www.youtube.com/embed/RlALuStBplY" frameborder="0" allowfullscreen></iframe></div>
+                <p style="font-size:.88em;color:var(--muted);margin:0"><em>Think:</em> Why will people pay a premium for a sock? What problem does it solve?</p>
+            </div>
+            <div class="card" style="border-top:3px solid var(--amber)">
+                <h4>凡客 (VANCL)</h4>
+                <p><em>"人民快时尚"</em> — affordable apparel e-commerce.</p>
+                <div class="video-frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV11r4y1A7ny&autoplay=0" frameborder="0" allowfullscreen></iframe></div>
+                <p style="font-size:.88em;color:var(--muted);margin:0"><em>Think:</em> How did a focused shirt seller become a giant — then collapse?</p>
+            </div>
+        </div>
+        <div class="callout key"><span class="tag">Keep both in mind</span>Every concept today connects back to one of them.</div>
+    </div>
+</div>
+
+<!-- ══════════ 4 · Meet the candy seller ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Our Running Example</div>
+        <h2>Meet the candy seller</h2>
+        <ul class="tick">
+            <li>Shows up Monday with a backpack <strong>half full of candy</strong></li>
+            <li>Bought in bulk over the weekend; sells bars for about <strong>3× what he paid</strong></li>
+            <li>By Friday the bag is empty → he restocks</li>
+        </ul>
+        <div class="callout key"><span class="tag">The claim</span>He meets the course's <strong>complete definition of a business</strong> — and we'll prove it today.</div>
+        <div class="callout think"><span class="tag">Think first</span>Is he a business? Most students say "no, too small." That's the misconception this topic fixes.</div>
+    </div>
+</div>
+
+<!-- ══════════ 5 · The operation ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Our Running Example</div>
+        <h2>The candy seller — the operation</h2>
+        <p class="subtitle">Every concept today — and across all of Unit 1 — maps onto <strong>one business</strong>.</p>
+        <div class="grid g2" style="margin-top:.4rem">
+            <div class="card"><h4>Source</h4><p>Buys a 20-bar box at the supermarket on weekends (bulk price).</p></div>
+            <div class="card"><h4>Sell</h4><p>Between classes, in the hallway, one bar at a time.</p></div>
+            <div class="card"><h4>Price</h4><p>About <strong>3× what he paid</strong> (≈ $1.50 a bar).</p></div>
+            <div class="card"><h4>Restock</h4><p>By Friday the bag is empty → the weekend run repeats.</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 6 · Why he's a real business ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Our Running Example</div>
+        <h2>Why he has customers — and why he's a real business</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card" style="border-top:3px solid var(--blue)">
+                <h4>Why he has customers</h4>
+                <p>Students want a snack mid-day, the vending machines are empty or off-limits, and leaving campus is against the rules → he solves a real problem <strong>at the moment it hits</strong>.</p>
+            </div>
+            <div class="card" style="border-top:3px solid var(--green)">
+                <h4>Why he's a full business</h4>
+                <p>He makes the decisions, keeps the profit, and carries the risk — we'll even name his legal form in <strong>1.7</strong>.</p>
+            </div>
+        </div>
+        <div class="callout key"><span class="tag">Watch for him</span>All period. Every definition lands on his backpack.</div>
+    </div>
+</div>
+
+<!-- ══════════ 7 · What is a business (definition) ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Core Definition</div>
+        <h2>What is a business?</h2>
+        <div class="def">
+            <div class="term">Definition</div>
+            <div class="text">A business is an organization or entity that <strong>produces and distributes products</strong>.</div>
+        </div>
+        <p class="subtitle" style="text-align:center">products = <strong>goods, services, or both</strong></p>
+        <div class="callout warn"><span class="tag">What the definition leaves out</span>size · buildings · employees · legal paperwork</div>
+        <div class="callout think"><span class="tag">Think first</span>A business can be <strong>any size</strong>, face-to-face or virtual. By this definition — are Bombas, 凡客, and the candy seller all businesses?</div>
+    </div>
+</div>
+
+<!-- ══════════ 8 · Definition in examples (table) ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>What is a business? — in the examples</h2>
+        <div class="tbl-wrap" style="margin-top:.8rem">
+            <table>
+                <thead><tr><th></th><th>Produces?</th><th>Distributes?</th><th>Business?</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Bombas</strong></td><td>socks (goods)</td><td>online + stores</td><td class="yes">✓</td></tr>
+                    <tr><td><strong>凡客 (VANCL)</strong></td><td>apparel (goods)</td><td>online store</td><td class="yes">✓</td></tr>
+                    <tr><td><strong>Candy seller</strong></td><td>— (resells)</td><td>buys bulk, sells one bar at a time</td><td class="yes">✓ <small>(a tiny retailer)</small></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout key"><span class="tag">Takeaway</span><strong>Producing / distributing products</strong> is what counts — not size, buildings, or paperwork.</div>
+    </div>
+</div>
+
+<!-- ══════════ 9 · Scale doesn't change the definition ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Scale doesn't change the definition</h2>
+        <div class="tbl-wrap" style="margin-top:.8rem">
+            <table>
+                <thead><tr><th>Example</th><th>Scale</th></tr></thead>
+                <tbody>
+                    <tr><td>The backpack kid</td><td><span class="chip">Smallest</span></td></tr>
+                    <tr><td>One ice cream shop</td><td><span class="chip">Small</span></td></tr>
+                    <tr><td>Mixue (蜜雪冰城) — ice cream under $1, tens of thousands of stores</td><td><span class="chip">Huge</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="subtitle" style="margin-top:.6rem">All three <strong>produce and distribute products</strong> → all three are businesses.</p>
+        <div class="callout danger"><span class="tag">Exam rule</span><strong>Scale changes the numbers, never the definition.</strong> ← the exam tests this.</div>
+    </div>
+</div>
+
+<!-- ══════════ 10 · Goods vs services ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Key Distinction</div>
+        <h2>Goods vs. services</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card" style="border-top:3px solid var(--green)">
+                <h4>Goods</h4>
+                <p><strong>Tangible items</strong> — a candy bar, a phone, a desk.</p>
+            </div>
+            <div class="card" style="border-top:3px solid var(--blue)">
+                <h4>Services</h4>
+                <p><strong>Work performed for compensation</strong> — a haircut, a tutoring session, a flight.</p>
+            </div>
+        </div>
+        <div class="callout warn"><span class="tag">How to classify</span>Classify by <strong>what the customer is primarily paying for</strong> in the scenario.</div>
+        <div class="callout think"><span class="tag">Think first</span>Does Bombas sell goods, services, or both? What about 凡客?</div>
+    </div>
+</div>
+
+<!-- ══════════ 11 · Goods vs services — in examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Goods vs. services — in the examples</h2>
+        <ul class="tick">
+            <li><strong>Bombas:</strong> socks = <strong>goods</strong>; customer support + easy returns = a <strong>service</strong> → sells <strong>both</strong></li>
+            <li><strong>凡客 (VANCL):</strong> the apparel = <strong>goods</strong> (its site + customer service = a <strong>service</strong>)</li>
+            <li><strong>Candy seller:</strong> the bar = a <strong>good</strong> (the convenience of hallway availability is the service wrapped around it)</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ══════════ 12 · Two money terms (formula) ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Two Money Terms</div>
+        <h2>Revenue &amp; Profit</h2>
+        <div class="grid g2" style="margin-top:.6rem">
+            <div class="card"><h4>Revenue</h4><p>Money earned from selling, <strong>before</strong> expenses.</p></div>
+            <div class="card"><h4>Profit</h4><p>What remains after <strong>all</strong> expenses are subtracted.</p></div>
+        </div>
+        <div class="formula">Profit = Revenue − Total Cost</div>
+        <div class="callout think"><span class="tag">Think first</span>How do 凡客 and Bombas each turn revenue into profit?</div>
+    </div>
+</div>
+
+<!-- ══════════ 13 · Revenue & Profit — examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Revenue &amp; Profit — two models, same formula</h2>
+        <ul class="tick">
+            <li><strong>凡客 (VANCL):</strong> low price × high volume (fast fashion) — until over-expansion broke the model</li>
+            <li><strong>Bombas:</strong> premium price × fewer units (makes <strong>2 pairs per sale</strong> — one sold, one donated)</li>
+            <li><strong>Candy seller:</strong> revenue = everything collected this week; profit = what's left after the supermarket run + restocking</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ══════════ 14 · Customer vs consumer ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Key Distinction</div>
+        <h2>Customer vs. consumer</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card" style="border-top:3px solid var(--green)">
+                <h4>Customer</h4>
+                <p>The individual or business that <strong>purchases</strong>.</p>
+            </div>
+            <div class="card" style="border-top:3px solid var(--blue)">
+                <h4>Consumer</h4>
+                <p>The individual who <strong>uses</strong> it (whether or not they bought it).</p>
+            </div>
+        </div>
+        <div class="callout key"><span class="tag">Both in one</span>Buy your own lunch → you're <strong>both</strong> in one transaction.</div>
+        <div class="callout think"><span class="tag">Think first</span>Where is the buyer NOT the user? <em>(Hint: a donated pair, or the candy seller's $3/two-bar sale.)</em></div>
+    </div>
+</div>
+
+<!-- ══════════ 15 · Customer vs consumer — examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Customer vs. consumer — in the examples</h2>
+        <ul class="tick">
+            <li><strong>Bombas buy-one-give-one:</strong> the buyer = <strong>customer</strong>; the donated pair is used by a shelter guest who never bought it = a different <strong>consumer</strong></li>
+            <li><strong>Candy seller:</strong> see the <strong>$3 / two-bar split</strong> (next slide) ↓</li>
+        </ul>
+        <div class="callout warn"><span class="tag">The rule</span><strong>Purchase defines the customer; use defines the consumer.</strong></div>
+    </div>
+</div>
+
+<!-- ══════════ 16 · The $3/two-bar split ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Example</div>
+        <h2>The $3 / two-bar split</h2>
+        <p class="subtitle">A student hands the candy seller <strong>$3 for two bars</strong> — one for himself, one for a friend in the next classroom.</p>
+        <div class="grid g2">
+            <div class="card" style="border-top:3px solid var(--green)">
+                <h4>The buyer</h4>
+                <p>= <strong>customer</strong> for both bars</p>
+            </div>
+            <div class="card" style="border-top:3px solid var(--blue)">
+                <h4>The friend</h4>
+                <p><strong>consumes a bar he never bought</strong> → he's the <strong>consumer</strong></p>
+            </div>
+        </div>
+        <div class="callout key"><span class="tag">Same split as Bombas</span>Purchase defines the customer; use defines the consumer.</div>
+    </div>
+</div>
+
+<!-- ══════════ 17 · Exam tip ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Exam Tip</div>
+        <h2>Who paid vs. who used</h2>
+        <div class="callout warn"><span class="tag">Strategy</span><strong>Underline who PAID and underline who USED.</strong> If they're different people → that difference is exactly what the question is testing.</div>
+        <div class="card"><h4>Bombas</h4><p>Who paid? the buyer. Who used? the wearer — <em>or the shelter guest</em>.</p></div>
+        <div class="callout think"><span class="tag">Business as customer</span>The customer can be a <strong>business</strong> too: a school buys software → school = <strong>customer</strong>, students = <strong>consumers</strong>.</div>
+    </div>
+</div>
+
+<!-- ══════════ 18 · Needs, wants, market opportunities ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Core Concept</div>
+        <h2>Needs, wants, market opportunities</h2>
+        <div class="grid g3" style="margin-top:1rem">
+            <div class="card"><h4>Need</h4><p>Essential for survival (food, water, shelter, basic healthcare).</p></div>
+            <div class="card"><h4>Want</h4><p>Improves life, not essential.</p></div>
+            <div class="card"><h4>Market opportunity</h4><p>A customer problem / need / want a business <em>might</em> address → <strong>every business starts at one of these</strong>.</p></div>
+        </div>
+        <div class="callout think"><span class="tag">Think first</span>Is a pair of socks a need or a want? What about a flavored drink?</div>
+    </div>
+</div>
+
+<!-- ══════════ 19 · Needs/wants — examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Needs, wants, opportunities — in the examples</h2>
+        <ul class="tick">
+            <li><strong>Socks</strong> are a <strong>need</strong> (basic clothing) — but a <strong>$12 seamless</strong> pair is a <strong>want</strong></li>
+            <li><strong>Clothing</strong> is a need — <strong>凡客's fast fashion</strong> is a <strong>want</strong></li>
+            <li><strong>Candy seller's opportunity:</strong> students want a snack mid-day → he addresses it</li>
+            <li><strong>Xiaohongshu (小红书):</strong> info gap on overseas shopping (2013) — a <strong>want</strong> tied to its <strong>era</strong> (outbound-travel boom + fear of fakes) → a market opportunity that barely existed a decade earlier</li>
+        </ul>
+        <div class="callout key"><span class="tag">Definition</span>A <strong>market opportunity</strong> = a need/want a business <em>might</em> address. Every business starts at one.</div>
+    </div>
+</div>
+
+<!-- ══════════ 20 · Problem-solution fit ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Core Concept</div>
+        <h2>Problem-solution fit</h2>
+        <div class="def">
+            <div class="term">Definition</div>
+            <div class="text">The <strong>match</strong> between a customer problem and a product built to solve it.</div>
+        </div>
+        <div class="callout think"><span class="tag">Think first</span>What problem does Bombas solve? 凡客? The candy seller?</div>
+    </div>
+</div>
+
+<!-- ══════════ 21 · Problem-solution fit — examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Problem-solution fit — in the examples</h2>
+        <div class="grid g2">
+            <div class="card"><h4>Bombas</h4><p>Problem = socks that hurt + shelters short on socks → a better sock <strong>and</strong> a donated pair.</p></div>
+            <div class="card"><h4>凡客 (VANCL)</h4><p>Problem = affordable, decent-quality fashion → "人民快时尚".</p></div>
+            <div class="card"><h4>Candy seller</h4><p>Snack want + empty/off-limits vending machines → candy in the hallway the moment it hits.</p></div>
+            <div class="card"><h4>Uber / DiDi</h4><p>Unpredictable taxis + unclear pricing → match riders to drivers with an upfront price.</p></div>
+        </div>
+        <div class="callout key"><span class="tag">Xiaohongshu (小红书)</span>Problem = "which overseas products are worth buying — and can I trust the seller?" → solution = <strong>real-user reviews</strong> (a trust/information fix, not a product fix).</div>
+    </div>
+</div>
+
+<!-- ══════════ 22 · You can't serve everyone ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Core Concept</div>
+        <h2>"You can't serve everyone"</h2>
+        <p class="lead-para">A business <strong>cannot</strong> satisfy all potential customers → it must <strong>select.</strong></p>
+        <div class="card" style="margin:1rem 0">
+            <h4>Selection questions</h4>
+            <p>Severity? · How many share it? · Can we solve it better? · Will they pay more than it costs? · Can we reach them?</p>
+        </div>
+        <div class="callout think"><span class="tag">Think first</span>Which customers did Bombas choose? What did 凡客 do instead?</div>
+        <div class="callout danger"><span class="tag">Warning</span>An answer choice that says <strong>"serve everyone"</strong> = the <strong>wrong answer.</strong></div>
+    </div>
+</div>
+
+<!-- ══════════ 23 · Selection — examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Selection — won vs. lost</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card" style="border-top:3px solid var(--green)">
+                <h4>Won by selecting</h4>
+                <ul style="margin-bottom:0">
+                    <li><strong>Bombas</strong> chose <strong>premium, mission-minded</strong> buyers — <em>not</em> the cheapest-sock market</li>
+                    <li><strong>Candy seller</strong> works only <strong>his own grade's hallway</strong> — a deliberate, narrow selection</li>
+                </ul>
+            </div>
+            <div class="card" style="border-top:3px solid var(--red)">
+                <h4>Lost by trying to serve everyone</h4>
+                <ul style="margin-bottom:0">
+                    <li><strong>凡客 (VANCL)</strong> — started with shirts, then sold <em>everything</em>; inventory blew up and the brand thinned out → collapsed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 24 · Value ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Core Concept</div>
+        <h2>Value</h2>
+        <div class="def">
+            <div class="term">Definition</div>
+            <div class="text">The <strong>worth or benefit</strong> of a product to customers = <strong>the highest price they'd willingly pay.</strong></div>
+        </div>
+        <div class="callout key"><span class="tag">Relationship</span>Value <strong>rises</strong> as problem-solution fit improves.</div>
+        <div class="callout think"><span class="tag">Think first</span>How much would a Bombas buyer willingly pay? A 凡客 buyer?</div>
+    </div>
+</div>
+
+<!-- ══════════ 25 · Value — examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Value — in the examples</h2>
+        <ul class="tick">
+            <li><strong>Bombas</strong> buyers willingly pay ~<strong>$12</strong> (comfort + mission = high perceived value)</li>
+            <li><strong>凡客 (VANCL)</strong> targeted price-sensitive buyers → value delivered via <strong>affordability</strong></li>
+            <li><strong>Candy seller:</strong> the same bar is worth more during <strong>3rd period</strong> than next to a supermarket checkout</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ══════════ 26 · Value creation vs capture (table) ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">The Topic's Core Pair</div>
+        <h2>Value creation vs. value capture</h2>
+        <div class="tbl-wrap" style="margin-top:.8rem">
+            <table>
+                <thead><tr><th></th><th>Value creation</th><th>Value capture</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Is about</strong></td><td>the <strong>customer</strong></td><td>the <strong>business</strong></td></tr>
+                    <tr><td><strong>Means</strong></td><td>provides a product that responds to a problem/need/want</td><td>charges a price <strong>higher than cost</strong></td></tr>
+                    <tr><td><strong>Flows</strong></td><td>benefit <strong>to</strong> the customer</td><td>profit <strong>to</strong> the business</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout warn"><span class="tag">Order matters</span><strong>Both required, in order:</strong> create first, <em>then</em> capture.</div>
+        <div class="callout think"><span class="tag">Think first</span>How does Bombas create AND capture? How did 凡客?</div>
+    </div>
+</div>
+
+<!-- ══════════ 27 · Creation vs capture — examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Creation vs. capture — in the examples</h2>
+        <ul class="tick">
+            <li><strong>Bombas:</strong> creates value (comfort + mission) and captures it (<strong>premium price</strong>)</li>
+            <li><strong>凡客 (VANCL):</strong> created value (affordable fashion) and captured it — until over-expansion eroded both</li>
+            <li><strong>Candy seller:</strong> creates (snack at the moment of want) and captures (<strong>$1.50 − $0.50 = $1.00/bar</strong>)</li>
+            <li><strong>MoviePass:</strong> created value but captured <strong>none</strong> → shut down (coming up)</li>
+        </ul>
+        <div class="callout warn"><span class="tag">Watch the trap</span>The most common exam trap = putting the <strong>capture</strong> definition inside a <strong>creation</strong> question (we'll see it in Q3).</div>
+    </div>
+</div>
+
+<!-- ══════════ 28 · The candy numbers (formula) ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Worked Example</div>
+        <h2>The candy numbers</h2>
+        <p class="subtitle">He buys a 20-bar box for <strong>$10</strong> → cost = <strong>$0.50 / bar</strong>. Sells each for <strong>$1.50</strong>.</p>
+        <div class="formula">Value captured = Price − Cost = $1.50 − $0.50 = <strong>$1.00 / bar</strong></div>
+        <div class="grid g2">
+            <div class="card" style="border-top:3px solid var(--blue)">
+                <h4>Customer side</h4>
+                <p>A student who'd have paid <strong>$2</strong> pays $1.50 → <strong>keeps $0.50 of benefit</strong>.</p>
+            </div>
+            <div class="card" style="border-top:3px solid var(--green)">
+                <h4>Why the trade happens</h4>
+                <p><strong>Both sides end up better off</strong> → that's why the trade happens voluntarily.</p>
+            </div>
+        </div>
+        <p style="font-size:.85em;color:var(--muted)">*Bombas's capture = price − the cost of making <strong>2</strong> pairs — one sold, one donated.</p>
+    </div>
+</div>
+
+<!-- ══════════ 29 · MoviePass ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Cautionary Tale</div>
+        <h2>When you create but don't capture — MoviePass</h2>
+        <ul class="tick">
+            <li>~<strong>$10 / month</strong> to see a movie in theaters <strong>every day</strong></li>
+            <li>MoviePass paid theaters <strong>near full price</strong> for the tickets members used</li>
+            <li>A member watching 4 movies/month cost the company <strong>several × $10</strong></li>
+            <li>Price − cost was <strong>negative</strong> → shut down <strong>2019</strong></li>
+        </ul>
+        <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.4rem">
+            <span class="chip">Value creation (people loved it) ✓</span>
+            <span class="chip red">Value capture (price &gt; cost) ✗</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 30 · ofo ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Cautionary Tale</div>
+        <h2>When you create but don't capture — ofo</h2>
+        <p class="subtitle">ofo 小黄车 (China) — <strong>same failure, different country</strong>:</p>
+        <ul class="tick">
+            <li>Bikes on every corner, dirt cheap; users loved it</li>
+            <li>But each bike's wear + upkeep cost more than the revenue → burned through billions, collapsed <strong>2018–19</strong></li>
+        </ul>
+        <div class="video-frame" style="max-width:520px">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV19V41177rV&autoplay=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="callout danger"><span class="tag">Warning</span><strong>Popularity + price below cost = value creation WITHOUT value capture.</strong></div>
+    </div>
+</div>
+
+<!-- ══════════ 31 · Value proposition ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Core Concept</div>
+        <h2>Value proposition</h2>
+        <div class="def">
+            <div class="term">Definition</div>
+            <div class="text">A clear statement of how a product solves a problem and <strong>why choose it over alternatives</strong>.</div>
+        </div>
+        <div class="formula" style="font-size:1.1em;font-family:var(--serif)">For <strong>[target customer]</strong> who has <strong>[problem]</strong>, our product delivers <strong>[benefit]</strong>. Unlike <strong>[the alternative]</strong>…</div>
+        <div class="callout think"><span class="tag">Think first</span>Fill in the template for Bombas. Then for the candy seller.</div>
+    </div>
+</div>
+
+<!-- ══════════ 32 · Value proposition — examples ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Applying It</div>
+        <h2>Value proposition — in the examples</h2>
+        <div class="card" style="margin-top:.8rem;border-top:3px solid var(--blue)">
+            <h4>Bombas</h4>
+            <p><em>"For people who want comfortable socks, a premium seamless pair — and for every pair you buy, we donate a pair to someone in need."</em></p>
+        </div>
+        <div class="card" style="margin-top:.8rem;border-top:3px solid var(--green)">
+            <h4>Candy seller</h4>
+            <p><em>"For students stuck on campus who want a snack now, a candy bar in the hallway for $1.50. Unlike an empty vending machine or a store they can't go to."</em></p>
+        </div>
+        <div class="callout key"><span class="tag">Recipe</span>One sentence naming the <strong>customer, the problem, the solution, and the edge.</strong></div>
+    </div>
+</div>
+
+<!-- ══════════ 33 · Exam points to remember ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Review</div>
+        <h2>Exam points to remember</h2>
+        <div class="grid g2" style="margin-top:1rem">
+            <div class="card"><p>Business = <strong>what it does</strong>, not its size</p></div>
+            <div class="card"><p>Classify goods/services by <strong>what's primarily paid for</strong></p></div>
+            <div class="card"><p>Customer vs consumer → <strong>underline paid vs used</strong></p></div>
+            <div class="card"><p>Value capture = <strong>Price − Cost</strong></p></div>
+            <div class="card" style="border-top:3px solid var(--red)"><p><strong>"Serve everyone"</strong> = wrong answer</p></div>
+            <div class="card" style="border-top:3px solid var(--red)"><p>Popularity + price below cost = <strong>creation without capture</strong></p></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════ 34 · Practice divider (invert) ══════════ -->
+<div class="slide invert">
+    <div class="inner hero">
+        <div class="eyebrow">Check Yourself</div>
+        <h1>Practice — 6 questions</h1>
+        <hr class="divider">
+        <div style="display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap">
+            <span class="chip">3 on one stimulus (LumiDesk)</span>
+            <span class="chip blue">3 standalone</span>
+        </div>
+        <div class="tag" style="margin-top:1.2rem">Read → pause → <strong style="color:var(--green-l)">commit to an answer</strong> → then reveal.</div>
+    </div>
+</div>
+
+<!-- ══════════ 35 · Stimulus: LumiDesk ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Stimulus</div>
+        <h2>LumiDesk</h2>
+        <div class="stimulus">
+            <h4>Scenario</h4>
+            <p>LumiDesk makes height-adjustable study desks for students in <strong>small apartments</strong>.</p>
+            <ul style="margin-bottom:.4rem">
+                <li>Cost to manufacture: <strong>$90</strong></li>
+                <li>Customers value it at: <strong>$260</strong> (sits ↔ stands, folds flat)</li>
+                <li>Sells for: <strong>$180</strong></li>
+                <li>Tutoring centers now buy desks → students use them in lessons</li>
+            </ul>
+        </div>
+        <div style="display:flex; gap:.6rem; flex-wrap:wrap">
+            <span class="chip">C = $90</span>
+            <span class="chip">value = $260</span>
+            <span class="chip">P = $180</span>
+        </div>
+        <div class="callout think"><span class="tag">Keep these three numbers</span>They power all three LumiDesk questions.</div>
+    </div>
+</div>
+
+<!-- ══════════ 36 · Q1 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="q-num"><span class="n">Q1</span> Who is the consumer?</div>
+        <p class="lead-para">For desks bought by <strong>tutoring centers</strong>, which best identifies the <strong>consumer</strong>?</p>
+        <div class="opt"><span class="letter">A</span>the tutoring centers</div>
+        <div class="opt"><span class="letter">B</span>LumiDesk</div>
+        <div class="opt"><span class="letter">C</span>the students who use the desks during lessons</div>
+        <div class="opt"><span class="letter">D</span>the parents who pay tuition to the tutoring centers</div>
+        <div class="callout think" style="margin-top:.8rem"><span class="tag">Pause</span>Point at "who paid" and "who used" in the scenario before answering.</div>
+    </div>
+</div>
+
+<!-- ══════════ 37 · Q1 answer ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="answer-badge">Answer <span class="a">C</span></div>
+        <div class="answer-card">
+            <h4>Why</h4>
+            <p style="margin-bottom:.5rem">The consumer is the one who <strong>uses</strong> it. The centers <strong>bought</strong> (customer); the students <strong>use</strong> them (consumers).</p>
+        </div>
+        <div class="trap"><b>Traps:</b> A = the <strong>customer</strong> placed in a consumer question. D = a <strong>real but different transaction</strong> (parents paying tuition).</div>
+        <div class="callout warn"><span class="tag">Rule</span>Answer the transaction the question points at.</div>
+    </div>
+</div>
+
+<!-- ══════════ 38 · Q2 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="q-num"><span class="n">Q2</span> Compute value captured</div>
+        <p class="lead-para">What is the <strong>value captured</strong> by LumiDesk per desk at the current price?</p>
+        <div class="opt"><span class="letter">A</span>$80</div>
+        <div class="opt"><span class="letter">B</span>$90</div>
+        <div class="opt"><span class="letter">C</span>$170</div>
+        <div class="opt"><span class="letter">D</span>$260</div>
+    </div>
+</div>
+
+<!-- ══════════ 39 · Q2 answer ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="answer-badge">Answer <span class="a">B ($90)</span></div>
+        <div class="formula" style="font-size:1.3rem">Value captured = Price − Cost = $180 − $90 = <strong>$90</strong></div>
+        <div class="trap"><b>Trap: A ($80)</b> = $260 − $180 (value − price) → that's the <strong>customer's</strong> kept benefit, built from the <strong>same three numbers</strong> — which is exactly why it's there.</div>
+        <div class="callout warn"><span class="tag">Strategy</span>In a capture question, <strong>write price − cost before you look at the choices.</strong></div>
+    </div>
+</div>
+
+<!-- ══════════ 40 · Q3 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="q-num"><span class="n">Q3</span> Why is it value creation?</div>
+        <p class="lead-para">Which best explains why LumiDesk demonstrates <strong>value creation</strong>?</p>
+        <div class="opt"><span class="letter">A</span>sold at a price higher than manufacturing cost</div>
+        <div class="opt"><span class="letter">B</span>responds to the space problem faced by students in small apartments</div>
+        <div class="opt"><span class="letter">C</span>generates revenue from individuals and tutoring centers</div>
+        <div class="opt"><span class="letter">D</span>manufacturing cost is low relative to competitors</div>
+    </div>
+</div>
+
+<!-- ══════════ 41 · Q3 answer ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="answer-badge">Answer <span class="a">B</span></div>
+        <div class="answer-card">
+            <h4>Why</h4>
+            <p style="margin-bottom:.5rem">Value creation = responds to a customer's <strong>problem / need / want</strong>. The small-apartment space problem is what the product was built for.</p>
+        </div>
+        <div class="trap"><b>Trap: A</b> = the <strong>value-capture definition</strong> placed inside a creation question — <strong>the most common trap in this topic.</strong></div>
+        <div class="callout warn"><span class="tag">Rule</span>Creation → the <strong>customer's problem</strong>; capture → <strong>price &amp; cost.</strong></div>
+    </div>
+</div>
+
+<!-- ══════════ 42 · Q4 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="q-num"><span class="n">Q4</span> Problem-solution fit</div>
+        <p class="lead-para">A snack company sees gym members want <strong>high-protein food right after workouts</strong>, and develops a <strong>refrigerated protein snack in gym vending machines</strong>. Which concept does this best illustrate?</p>
+        <div class="opt"><span class="letter">A</span>value capture</div>
+        <div class="opt"><span class="letter">B</span>barrier to entry</div>
+        <div class="opt"><span class="letter">C</span>problem-solution fit</div>
+        <div class="opt"><span class="letter">D</span>a need converted into a want</div>
+    </div>
+</div>
+
+<!-- ══════════ 43 · Q4 answer ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="answer-badge">Answer <span class="a">C</span></div>
+        <div class="answer-card">
+            <h4>Why</h4>
+            <p style="margin-bottom:.5rem">A want was identified, a matching product built, placed at the point the want occurs.</p>
+        </div>
+        <div class="trap"><b>Trap: B</b> — a real <strong>Topic 1.2</strong> term used too early. <em>Recognizing a word isn't enough — it must match the scenario.</em></div>
+    </div>
+</div>
+
+<!-- ══════════ 44 · Q5 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="q-num"><span class="n">Q5</span> Goods vs. services</div>
+        <p class="lead-para">HomeGuard: a one-time price for a <strong>camera + doorbell</strong> plus a monthly fee for <strong>24-hour monitoring</strong> through an app. Which best describes its products?</p>
+        <div class="opt"><span class="letter">A</span>goods only</div>
+        <div class="opt"><span class="letter">B</span>services only</div>
+        <div class="opt"><span class="letter">C</span>both goods and services</div>
+        <div class="opt"><span class="letter">D</span>neither</div>
+    </div>
+</div>
+
+<!-- ══════════ 45 · Q5 answer ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="answer-badge">Answer <span class="a">C</span></div>
+        <div class="answer-card">
+            <h4>Why</h4>
+            <p style="margin-bottom:.5rem">Camera = good; monitoring = service.</p>
+        </div>
+        <div class="trap"><b>Trap: D</b> mixes two vocabulary sets. <em>Needs/wants = why buy; goods/services = what's sold.</em></div>
+    </div>
+</div>
+
+<!-- ══════════ 46 · Q6 ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="q-num"><span class="n">Q6</span> Choosing customers</div>
+        <p class="lead-para">A new meal-delivery startup has limited funding. Which best reflects how businesses address market opportunities?</p>
+        <div class="opt"><span class="letter">A</span>serve every possible customer in the city</div>
+        <div class="opt"><span class="letter">B</span>select a specific group whose problem you can solve better than competitors</div>
+        <div class="opt"><span class="letter">C</span>target the customers with the mildest problems</div>
+        <div class="opt"><span class="letter">D</span>delay choosing customers until the product is perfected</div>
+    </div>
+</div>
+
+<!-- ══════════ 47 · Q6 answer ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="answer-badge">Answer <span class="a">B</span></div>
+        <div class="answer-card">
+            <h4>Why</h4>
+            <p style="margin-bottom:.5rem">A business <strong>cannot satisfy all</strong> customers → it selects.</p>
+        </div>
+        <div class="trap"><b>Trap: A</b> — "serve everyone" reads as ambition but is the <strong>wrong answer</strong> (and <em>will</em> appear on the real exam).</div>
+    </div>
+</div>
+
+<!-- ══════════ 48 · Trap patterns ══════════ -->
+<div class="slide">
+    <div class="inner">
+        <div class="kicker">Debrief</div>
+        <h2>Trap patterns to watch</h2>
+        <div class="tbl-wrap" style="margin-top:.8rem">
+            <table>
+                <thead><tr><th style="width:56px">#</th><th>Trap</th><th>Where</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td><strong>Customer ↔ consumer</strong> swap</td><td>Q1</td></tr>
+                    <tr><td>2</td><td><strong>Value − price</strong> ($80) vs <strong>price − cost</strong> ($90)</td><td>Q2</td></tr>
+                    <tr><td>3</td><td><strong>Capture definition inside a creation question</strong> ← most common</td><td>Q3</td></tr>
+                    <tr><td>4</td><td>A real term from a <strong>neighboring topic</strong> as a distractor</td><td>Q4</td></tr>
+                    <tr><td>5</td><td><strong>Needs/wants</strong> vs <strong>goods/services</strong></td><td>Q5</td></tr>
+                    <tr><td>6</td><td><strong>"Serve everyone"</strong> as the wrong answer</td><td>Q6</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout warn"><span class="tag">Pattern</span>The exam repeats the <strong>same trap patterns</strong> — know the pattern, beat the question.</div>
+    </div>
+</div>
+
+<!-- ══════════ 49 · Wrap-up ══════════ -->
+<div class="slide">
+    <div class="inner hero">
+        <div class="eyebrow">Wrap-up</div>
+        <h1 style="font-size:clamp(2rem,5vw,3.4rem)">What we covered</h1>
+        <hr class="divider">
+        <ul style="text-align:left; max-width:640px; margin:0 auto 1.2rem; font-size:1.08em; list-style:none">
+            <li style="padding-left:1.5em; position:relative">A business <strong>produces &amp; distributes</strong> products — <strong>any size</strong><span style="position:absolute;left:0">✓</span></li>
+            <li style="padding-left:1.5em; position:relative"><strong>Customer</strong> pays · <strong>Consumer</strong> uses<span style="position:absolute;left:0">✓</span></li>
+            <li style="padding-left:1.5em; position:relative"><strong>Create</strong> value (solve a real problem), <strong>then capture</strong> it (price &gt; cost)<span style="position:absolute;left:0">✓</span></li>
+            <li style="padding-left:1.5em; position:relative"><strong>You can't serve everyone</strong> — select<span style="position:absolute;left:0">✓</span></li>
+        </ul>
+        <div class="callout key" style="text-align:left; max-width:640px; margin:0 auto">
+            <span class="tag">Next up</span><strong>1.2 Markets and Competitive Advantage</strong><br><em>What happens when a second kid shows up Monday with cheaper candy?</em>
+        </div>
+    </div>
+</div>
+
+</div><!-- /stage -->
+
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 1.1 What Is a Business?</span>
+    <span>Slide <span id="sn">1</span> / 49</span>
+</div>
+
+<script>
+var cs = 0;
+var N = 49;
+
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.2 Consumer Behavior — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #f43f5e;
+    --accent-d: #e11d48;
+    --accent-l: #fda4af;
+    --accent-xd: #be123c;
+    --tint: #fff1f2;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 2.2-specific design — tiebreakers + Cialdini ─────────── */
+:root {
+    --c-price: #16a34a;
+    --c-feat: #6366f1;
+    --c-avail: #f59e0b;
+    --c-ad: #ec4899;
+}
+
+/* Four tiebreakers */
+.tb-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .8rem;
+    max-width: 1000px;
+    margin: 1rem auto;
+}
+.tb-card {
+    border-radius: 14px;
+    padding: 1rem .9rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+.tb-card .emoji { font-size: 1.5rem; display: block; margin-bottom: .3rem; }
+.tb-card h4 { font-size: .95rem; margin-bottom: .3rem; color: var(--ink); }
+.tb-card p { font-size: .82em; color: var(--muted); margin: 0; line-height: 1.4; }
+.tb-card.price { border-color: var(--c-price); background: #f0fdf4; }
+.tb-card.feat { border-color: var(--c-feat); background: #eef2ff; }
+.tb-card.avail { border-color: var(--c-avail); background: #fffbeb; }
+.tb-card.ad { border-color: var(--c-ad); background: #fdf2f8; }
+
+/* Rational vs habitual */
+.rh-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.rh-card {
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.rh-card h3 { font-size: 1.05rem; margin-bottom: .5rem; color: var(--ink); }
+.rh-card p { font-size: .92em; margin: 0; }
+.rh-card.rational { border-color: #2563eb; background: #eff6ff; }
+.rh-card.habit { border-color: #d97706; background: #fffbeb; }
+
+/* Case study */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 2.2 Consumer Behavior</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 2</div>
+<h1>2.2 Consumer Behavior</h1>
+<hr class="divider">
+<div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<p>By the end of this lesson you can:</p>
+<ol class="tick">
+<li>Explain <strong>why and how</strong> consumers make purchasing decisions, including the four families of influence <strong>(LO 2.2.A)</strong></li>
+<li>Describe how <strong>laws and technology</strong> reshape purchasing patterns <strong>(LO 2.2.B)</strong></li>
+<li>Evaluate sales tactics built on <strong>Cialdini's seven principles of influence</strong> — and design one you can defend <strong>(LO 2.2.C)</strong></li>
+</ol>
+<p><strong>Running example continues:</strong> Theo / Trued Cycles — the sales lie he refused to tell.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The line Theo refused</h2>
+<p>Saturday at the flea market. A father circles a <strong>$95 commuter bike</strong> for the third time without reaching for his wallet.</p>
+<p>The vendor two racks over leans in and offers Theo the oldest trick in used sales:</p>
+<div class="callout warn"><span class="tag">Exam Note</span><em>"Tell him three other people are coming to see it this afternoon."</em></div>
+<p>Nobody else is coming — and Theo knows it.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>What Theo does instead</h2>
+<p>He flips up the <strong>orange tag</strong> zip-tied to the handlebars and reads the man all <strong>21 points</strong> of the inspection (brakes to bottom bracket), then taps the <strong>30-day tune-up promise</strong> printed at the bottom.</p>
+<p><strong>The father buys the bike.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>This topic explains <strong>why</strong> he said yes — and why the honest version <strong>outsold</strong> the lie.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>LO 2.2.A — Why consumers buy</h2>
+<h3>EK 2.2.A.1</h3>
+<p>Consumers buy goods and services to <strong>meet basic needs and wants.</strong></p>
+<p>The father <em>needs</em> his kid transported to school and <em>wants</em> that on a bike the kid will actually ride.</p>
+<p>Most needs have <strong>rival goods</strong> circling them — multiple products that can meet the same need.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Four tiebreakers</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem">When rivals exist, <strong>four things break the tie:</strong></p>
+<div class="tb-grid">
+    <div class="tb-card price">
+        <span class="emoji">💲</span>
+        <h4>Price</h4>
+        <p>A comparable new bike costs about <strong>twice</strong> Theo's price.</p>
+    </div>
+    <div class="tb-card feat">
+        <span class="emoji">⭐</span>
+        <h4>Differentiated features</h4>
+        <p>The signed inspection tag + 30-day tune-up promise.</p>
+    </div>
+    <div class="tb-card avail">
+        <span class="emoji">⚡</span>
+        <h4>Availability</h4>
+        <p>His bike rolls home <strong>today</strong>; online order ships next week.</p>
+    </div>
+    <div class="tb-card ad">
+        <span class="emoji">📣</span>
+        <h4>Advertising</h4>
+        <p>The listing that brought him to the stall.</p>
+    </div>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Rational vs. habitual decisions</h2>
+<h3>EK 2.2.A.2</h3>
+<p>How carefully a consumer chooses depends on <strong>what a mistake would cost.</strong></p>
+<ul>
+<li><strong>Consequential purchases</strong> (a home, a car, a first bike for a kid riding to school in traffic): consumers use a <strong>rational decision-making process</strong> — list the alternatives, compare them systematically, pick the best fit</li>
+<li><strong>Small routine purchases</strong> (the coffee on the way to work, the same gum at the same register): run on <strong>habit</strong> with no comparison at all</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Worked example — true cost comparison</h2>
+<p>A parent spends three evenings on listings and finds an <strong>untagged $75 rival</strong> to Theo's <strong>$95</strong> commuter.</p>
+<p>The rival comes with <strong>no inspection</strong>, and a shop charges about <strong>$25</strong> to check the brakes.</p>
+<p>$$\$75 + \$25 = \$100$$</p>
+<p>The tagged bike <strong>wins by $5</strong> — even though the sticker price pointed the other way.</p>
+<div class="callout key"><span class="tag">Key Point</span>Three evenings of searching surfaced that reversal — a <strong>sane trade for a bike and an absurd one for gum.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Match depth to stakes</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Purchase type</th><th>Process</th><th>Cost of the process</th></tr></thead><tbody>
+<tr><td><strong>Consequential</strong> (bike, car, home)</td><td>Rational — compare alternatives systematically</td><td>Mostly <strong>time</strong> spent gathering information</td></tr>
+<tr><td><strong>Routine</strong> (coffee, gum)</td><td>Habitual — no comparison</td><td>Almost <strong>zero</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Match the depth of the process to the size of the decision.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Why rational matters — the search cost</h2>
+<p>The rational process "charges" for the search <strong>mostly in time spent gathering information.</strong></p>
+<p>Theo's buyer spent <strong>three evenings</strong> comparing listings to find the $75 rival. That time investment makes sense for a <strong>$95 bike</strong> — but would be absurd for a <strong>$1.50 pack of gum.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The search cost must be proportionate to the stakes.</strong> A rational process for every purchase would paralyze the buyer.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Four families of influence</h2>
+<h3>EK 2.2.A.3–2.2.A.6</h3>
+<p>Four families of factors shape buying decisions:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Family</th><th>Where it lives</th></tr></thead><tbody>
+<tr><td><strong>Personal</strong></td><td><strong>who</strong> the buyer is</td></tr>
+<tr><td><strong>Psychological</strong></td><td><strong>what</strong> the buyer thinks</td></tr>
+<tr><td><strong>Social & cultural</strong></td><td><strong>who surrounds</strong> the buyer</td></tr>
+<tr><td><strong>Situational</strong></td><td><strong>where and when</strong> the buying happens</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Personal factors</h2>
+<h3>EK 2.2.A.3</h3>
+<p>Facts of the buyer's own life:</p>
+<p><strong>Age, sex, education, occupation, income level, budget, lifestyle.</strong></p>
+<p>They set what a consumer needs, wants, and can afford.</p>
+<div class="callout key"><span class="tag">Key Point</span>Renee's profile card (from 2.1) is a stack of personal factors: 41 years old, a $90 budget, a middle schooler who needs to reach campus by bell time. Her <strong>income sets the ceiling</strong>; her <strong>kid's age sets the frame size.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Personal factors — examples at Theo's stall</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>How it applies</th></tr></thead><tbody>
+<tr><td><strong>Age</strong></td><td>Renee is 41 — old enough to have a middle schooler</td></tr>
+<tr><td><strong>Income / budget</strong></td><td>$90 ceiling — sets what she can spend</td></tr>
+<tr><td><strong>Occupation</strong></td><td>works near the school — needs the bike by Saturday</td></tr>
+<tr><td><strong>Lifestyle</strong></td><td>drives everywhere but wants her kid to ride</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Psychological factors</h2>
+<h3>EK 2.2.A.4</h3>
+<p>Inside the buyer's head:</p>
+<p><strong>Values and beliefs, perceptions, learning, individual motivations.</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>Meaning</th><th>Theo's stall</th></tr></thead><tbody>
+<tr><td><strong>Values</strong></td><td>what matters most</td><td>Renee values <strong>safety over speed</strong></td></tr>
+<tr><td><strong>Perception</strong></td><td>how a product reads <strong>before the facts arrive</strong></td><td>used bikes read as <strong>risky</strong> — the orange tag corrects that</td></tr>
+<tr><td><strong>Learning</strong></td><td>associations from <strong>prior experience</strong></td><td>a parent whose last secondhand bike snapped a chain arrives carrying an association Theo must outweigh</td></tr>
+<tr><td><strong>Motivation</strong></td><td>the <strong>push</strong> behind the purchase</td><td>hers is a <strong>Saturday deadline</strong></td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Social and cultural factors</h2>
+<h3>EK 2.2.A.5</h3>
+<p>From other people:</p>
+<p><strong>Peers, family, social status, cultural norms, media.</strong></p>
+<p>They define what feels acceptable, desirable, or appropriate to buy.</p>
+<div class="callout key"><span class="tag">Key Point</span>When three families at school pickup mention the same stall, buying there becomes the <strong>normal</strong> move. At the school bike rack, a clean rebuilt commuter carries a little <strong>status</strong> of its own. The pickup photos Theo posts (with permission) are <strong>media</strong> doing the same work at scale.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Situational influences</h2>
+<h3>EK 2.2.A.6</h3>
+<p>Temporary conditions around the moment of purchase:</p>
+<p><strong>Store design (noise, lighting, organization), timing, product availability.</strong></p>
+<div class="callout key"><span class="tag">Key Point</span>A flea market is loud and cluttered, so Theo's rack <strong>fights the setting</strong>: three tiers in a straight line, tags facing out, a clear lane for test rides. A sunny back-to-school Saturday encourages buying; a rainy one discourages it — <strong>the bikes are identical both days.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Situational — the exam warning</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Situational influences are temporary conditions around the purchase — not features of the product.</strong></div>
+<p>The candle shop plays quiet music and keeps the lighting warm → <strong>situational</strong> (surroundings change for 20 minutes).</p>
+<p>The candle is made of soy wax → <strong>not situational</strong> (that's a product feature).</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>If it changes when the shopper walks out the door, it's situational. If it travels home with the product, it isn't.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Exam signal — the four-family question</h2>
+<p>The exam will describe a scenario and ask: <strong>which family of influence?</strong></p>
+<p><strong>Method:</strong></p>
+<ol class="tick">
+<li><strong>Read the scenario</strong> — find the factor acting on the buyer</li>
+<li><strong>Ask the sorting question</strong> — census trait? contents of mind? other people? temporary surroundings?</li>
+<li><strong>Eliminate</strong> — if it's not a census trait, it's not personal; if other people aren't involved, it's not social</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>"Store design" and "lighting" always point to situational. "Values" and "beliefs" always point to psychological. Don't overthink it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — sort the four families</h2>
+<p>A shopper at Theo's stall:</p>
+<ol class="tick">
+<li>Is a 41-year-old parent with a $90 budget → <strong>?</strong></li>
+<li>Values safety over price → <strong>?</strong></li>
+<li>Heard from three other parents at pickup that the stall is good → <strong>?</strong></li>
+<li>Arrives on a sunny Saturday with the stall well-organized → <strong>?</strong></li>
+</ol>
+<p><em>Sort each into: personal, psychological, social/cultural, or situational.</em></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<ol class="tick">
+<li>41 years old, $90 budget → <strong>Personal</strong> (who the buyer is)</li>
+<li>Values safety over price → <strong>Psychological</strong> (what the buyer thinks)</li>
+<li>Three parents at pickup → <strong>Social & cultural</strong> (who surrounds the buyer)</li>
+<li>Sunny Saturday, organized stall → <strong>Situational</strong> (where and when — temporary)</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Four-family sorting key — exam reference</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Family</th><th>Where it lives</th><th>Sorting question</th></tr></thead><tbody>
+<tr><td><strong>Personal</strong></td><td><strong>who</strong> the buyer is (age, income, budget, occupation, lifestyle)</td><td>Could a <strong>census form</strong> record it?</td></tr>
+<tr><td><strong>Psychological</strong></td><td><strong>what</strong> the buyer thinks (values, beliefs, perceptions, learning, motivation)</td><td>Does it describe <strong>what a person cares about</strong>?</td></tr>
+<tr><td><strong>Social & cultural</strong></td><td><strong>who surrounds</strong> the buyer (peers, family, status, norms, media)</td><td>Does the influence come from <strong>other people</strong>?</td></tr>
+<tr><td><strong>Situational</strong></td><td><strong>where and when</strong> the buying happens (store design, timing, availability)</td><td>Is it <strong>temporary</strong> — does it change when the shopper leaves?</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The four-family sort lives on the real exam. Memorize the "where it lives" column.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>LO 2.2.B — Purchasing patterns</h2>
+<h3>EK 2.2.B.1</h3>
+<p>A <strong>purchasing pattern</strong> = a consumer's typical routine for buying, described by:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Dimension</th><th>What it measures</th></tr></thead><tbody>
+<tr><td><strong>Timing</strong></td><td>when the purchase happens</td></tr>
+<tr><td><strong>Frequency</strong></td><td>how often</td></tr>
+<tr><td><strong>Quantity</strong></td><td>how much per purchase</td></tr>
+</tbody></table></div>
+<p>Where a person lives/works, income level, and the patterns of family/friends all help set it.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Purchasing patterns — Theo's ledger</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Dimension</th><th>What Theo's ledger shows</th></tr></thead><tbody>
+<tr><td><strong>Timing</strong></td><td>clustered in <strong>late August</strong> (back to school)</td></tr>
+<tr><td><strong>Frequency</strong></td><td>every <strong>few years per kid</strong> (one bike per growth spurt)</td></tr>
+<tr><td><strong>Quantity</strong></td><td><strong>one bike at a time</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>Local families buy one bike at a time, every few years per kid, clustered in late August, from a stall a short drive from home.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Purchasing patterns — the exam method</h2>
+<p>When the exam gives you a <strong>data table</strong> and asks about purchasing patterns:</p>
+<ol class="tick">
+<li><strong>Check timing</strong> — when do purchases happen? (same time each day? seasonal?)</li>
+<li><strong>Check frequency</strong> — how often? (daily? weekly? yearly?)</li>
+<li><strong>Check quantity</strong> — how much per purchase? (one item? bulk?)</li>
+<li><strong>If all three are steady</strong> → habitual pattern</li>
+<li><strong>If any vary</strong> → not habitual; possibly rational</li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>A table that shows consistent timing + frequency + quantity = habitual. Don't add what the table doesn't show.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Laws bend patterns</h2>
+<h3>EK 2.2.B.2</h3>
+<p>Laws regulate <strong>what</strong> consumers can buy and <strong>when/where</strong> they can buy it:</p>
+<ul>
+<li>Many places require <strong>helmets</strong> for young riders → a kids' bike sale tends to pull a helmet sale along behind it</li>
+<li><strong>Consumer protection laws</strong> help people avoid fraudulent or unsafe products → reselling a recalled children's product can break the law, so checking recall lists is the <strong>first point</strong> on Theo's 21-point inspection</li>
+<li>Legal factors also give rise to <strong>substitutes</strong> — when a product gets harder to obtain, consumers find another way to meet the need</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Laws create substitutes</h2>
+<p>When a law makes a product harder to obtain, <strong>the need persists</strong> and substitutes appear:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Law</th><th>Substitutes that appeared</th></tr></thead><tbody>
+<tr><td>Cities restrict rental scooters</td><td>some riders <strong>substitute bicycles</strong></td></tr>
+<tr><td>Single-use plastic straw ban</td><td>paper and metal straws fill the gap</td></tr>
+<tr><td>Helmet requirement for young riders</td><td>helmet sales rise alongside bike sales</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The law changes availability. The need stays the same. Businesses arrive to serve it with something else.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Technology rewrites patterns</h2>
+<h3>EK 2.2.B.3</h3>
+<p>Innovation keeps making new products accessible:</p>
+<ul>
+<li>The <strong>internet</strong> reaching homes in the <strong>1990s</strong> moved shopping, information, and entertainment online</li>
+<li><strong>Smartphones</strong> spreading in the <strong>2010s</strong> put all three in every pocket</li>
+<li><strong>Trued Cycles only exists inside that shift</strong> — Theo learned repairs from free videos, sells through a marketplace app, and watches parents check his price against new-bike prices on their phones</li>
+</ul></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Technology — both sides of the sale</h2>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Technology changes patterns on both sides of the sale.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Side</th><th>How technology changed it</th></tr></thead><tbody>
+<tr><td><strong>Seller reach</strong></td><td>Theo lists on a marketplace app → reaches buyers he'd never meet at the flea market</td></tr>
+<tr><td><strong>Buyer information</strong></td><td>parents compare Theo's price to new-bike prices on their phones <strong>while standing at his stall</strong></td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Exam point:</strong> a question about technology affecting "how consumers shop" and "how businesses reach customers" is testing <strong>both sides</strong> — don't name only one.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Technology — Theo's stall</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Technology</th><th>Effect on Theo's business</th></tr></thead><tbody>
+<tr><td><strong>Marketplace app</strong></td><td>reaches buyers he'd never meet at the flea market</td></tr>
+<tr><td><strong>Free repair videos</strong></td><td>taught him the skills — no trade school needed</td></tr>
+<tr><td><strong>Smartphone price checks</strong></td><td>parents verify his price vs. new bikes <strong>in real time</strong></td></tr>
+<tr><td><strong>Messaging apps</strong></td><td>30-day tune-up reminders sent with one tap</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>Every row is technology changing <strong>seller reach</strong>, <strong>buyer information</strong>, or <strong>both.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Real-world case — Keep 运动 App</h2>
+<p><strong>Keep</strong> — Chinese fitness app, 300M+ users, IPO in Hong Kong 2023.</p>
+<div class="formula">Before Keep: fitness = gym membership ($50-100/month) + commute + fixed schedule</div>
+<p>After Keep: fitness = free workouts at home, any time, any place</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Technology changed both sides of the sale.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Keep — technology + Cialdini</h2>
+<p><strong>Technology rewrites patterns</strong> (EK 2.2.B.3):</p>
+<ul>
+<li>Smartphone penetration → fitness accessible to millions who never went to gyms</li>
+<li>Online fitness users in China: ~100M (2015) → ~400M (2023)</li>
+</ul>
+<p><strong>Cialdini principles in the app:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Principle</th><th>How Keep uses it</th></tr></thead><tbody>
+<tr><td><strong>Consistency</strong></td><td>"自律给我自由" (Self-discipline gives me freedom) — appeals to self-image; streak counters reinforce identity</td></tr>
+<tr><td><strong>Unity</strong></td><td>Training camps, running clubs, shared goals → "I'm part of the Keep community"</td></tr>
+<tr><td><strong>Consensus</strong></td><td>"100万人已跟练" (1M people completed this workout) — social proof</td></tr>
+<tr><td><strong>Reciprocity</strong></td><td>Free content → users feel value → more likely to subscribe</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Keep — habitual vs rational</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Decision</th><th>Type</th><th>Why</th></tr></thead><tbody>
+<tr><td>Daily workout on the app</td><td><strong>Habitual</strong></td><td>Same time, same routine, no comparison needed</td></tr>
+<tr><td>Premium subscription ($19/month)</td><td><strong>Rational</strong></td><td>Compare with gym cost, other apps, features</td></tr>
+<tr><td>Buying a yoga mat</td><td><strong>Rational</strong></td><td>Compare price, quality, reviews</td></tr>
+<tr><td>Opening the app each morning</td><td><strong>Habitual</strong></td><td>Reminder + streak counter → automatic</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The app is designed to make fitness <strong>habitual</strong> — reminders, streaks, daily plans. But the purchase of premium is <strong>rational</strong> — a consequential decision.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>LO 2.2.C — Seven principles of influence</h2>
+<h3>EK 2.2.C.1–8</h3>
+<p>Psychologist <strong>Robert Cialdini</strong> cataloged the principles of influence — psychological factors that lead people to comply with a request. Marketers build sales tactics on them.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Every principle has an honest application and a manipulative one.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The seven principles — table</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Principle</th><th>What it is</th></tr></thead><tbody>
+<tr><td><strong>Scarcity</strong></td><td>the rarer an item seems, the more people want it</td></tr>
+<tr><td><strong>Authority</strong></td><td>people follow authority figures and credentials</td></tr>
+<tr><td><strong>Consensus</strong> (social proof)</td><td>people follow the norms of their group</td></tr>
+<tr><td><strong>Liking</strong></td><td>people are more easily influenced by someone they like</td></tr>
+<tr><td><strong>Reciprocity</strong></td><td>people feel obliged to give back after receiving value</td></tr>
+<tr><td><strong>Consistency</strong></td><td>people repeat behavior that matches their self-image</td></tr>
+<tr><td><strong>Unity</strong></td><td>when people feel part of a group, the group's influence grows</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>How to sort the seven principles</h2>
+<p>The exam gives you a scenario and asks <strong>which principle.</strong> Sort by the <strong>mechanism</strong>, not the keyword:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Principle</th><th>Mechanism</th><th>Sorting question</th></tr></thead><tbody>
+<tr><td><strong>Scarcity</strong></td><td>perceived rarity</td><td>Is the item presented as <strong>limited or one-of-a-kind</strong>?</td></tr>
+<tr><td><strong>Authority</strong></td><td>expert credentials</td><td>Does an <strong>expert or credential</strong> endorse it?</td></tr>
+<tr><td><strong>Consensus</strong></td><td>many buyers' behavior</td><td>Do <strong>many other people</strong> already buy or approve?</td></tr>
+<tr><td><strong>Liking</strong></td><td>rapport / relatability</td><td>Does the seller feel <strong>friendly or relatable</strong>?</td></tr>
+<tr><td><strong>Reciprocity</strong></td><td>obligation from receiving</td><td>Did the buyer <strong>receive something free</strong> first?</td></tr>
+<tr><td><strong>Consistency</strong></td><td>self-image match</td><td>Does the tactic appeal to <strong>who the buyer believes they are</strong>?</td></tr>
+<tr><td><strong>Unity</strong></td><td>group membership</td><td>Does the buyer feel like <strong>part of a group</strong>?</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The word in the answer choice is unreliable. The engine decides.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scarcity — Theo's honest version</h2>
+<div class="def"><div class="term">Scarcity</div><div class="text">the rarer an item seems, the more people want it.</div></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Honest version</th><th>Manipulative version</th></tr></thead><tbody>
+<tr><td>every used bike really <strong>is</strong> one of one — no invention needed</td><td>the vendor's <em>"three other buyers"</em> line is scarcity <strong>faked</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>True scarcity costs nothing when checked. Faked scarcity dies the moment a buyer asks <em>"who?"</em></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Authority — Theo's honest version</h2>
+<div class="def"><div class="term">Authority</div><div class="text">people follow authority figures, expert spokespeople, and credentials.</div></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Honest version</th><th>Manipulative version</th></tr></thead><tbody>
+<tr><td>the <strong>signed orange tag</strong> — a documented 21-point inspection is a credential you can hold</td><td>a paid "expert" who isn't really an expert</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The tag is a credential the buyer can <strong>physically hold and read.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Consensus — Theo's honest version</h2>
+<p><strong>Consensus</strong> (social proof) = people follow the norms of their group; promote positive feedback until a product feels widely liked.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Honest version</th><th>Manipulative version</th></tr></thead><tbody>
+<tr><td>the <strong>permission-based pickup photos</strong> — a wall of local kids the next family can join</td><td>fake reviews</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span>Two dozen photos of real local kids tell a browsing parent: <strong>people like you already chose here.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Liking — Theo's honest version</h2>
+<div class="def"><div class="term">Liking</div><div class="text">people are more easily influenced by someone they like or relate to.</div></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Honest version</th><th>Manipulative version</th></tr></thead><tbody>
+<tr><td>Theo is a <strong>local teenager</strong> who remembers each kid and explains brake pads in plain language</td><td>manufactured false rapport</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>He doesn't pretend to be something he isn't — he <strong>is</strong> the neighbor kid who fixes bikes.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Reciprocity — Theo's honest version</h2>
+<div class="def"><div class="term">Reciprocity</div><div class="text">people feel obliged to give back after receiving value (free trials, samples, gifts).</div></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Honest version</th><th>Manipulative version</th></tr></thead><tbody>
+<tr><td>he <strong>airs up tires and lubes the chain</strong> of whatever bike a browser rode in on — no charge</td><td>a "gift" that creates hidden obligation</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The visitor leaves with a better bike than they arrived with — <strong>whether or not they buy.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Consistency — Theo's honest version</h2>
+<div class="formula"><strong>Consistency</strong> = people repeat behavior that matches their <strong>self-image</strong>; appeal to identity.</div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Honest version</th><th>Manipulative version</th></tr></thead><tbody>
+<tr><td>a listing that opens <em>"for parents who put safety first"</em> invites Renee to act like the person she believes she is</td><td>getting a small commitment, then exploiting it</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The listing doesn't create a new identity — it <strong>names the one Renee already has.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Unity — Theo's honest version</h2>
+<div class="formula"><strong>Unity</strong> = when people feel part of a group, the group's influence grows; build community, invite co-creation.</div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Honest version</th><th>Manipulative version</th></tr></thead><tbody>
+<tr><td>each kid <strong>picks the handlebar tape color</strong>; a fall <strong>group ride for "Trued Families"</strong> turns customers into members</td><td>manufactured in-group vs. out-group pressure</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>Customization + community event = customers become <strong>members.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Real-world case — 茶颜悦色 Tea Yan Yue Se</h2>
+<p><strong>Tea Yan Yue Se</strong> — Chinese tea brand, 500+ stores, founded 2013 in Changsha.</p>
+<p>For <strong>7 years</strong> available ONLY in Changsha — tourists literally planned trips around getting a cup.</p>
+<div class="callout key"><span class="tag">Key Point</span>Every Cialdini principle, applied honestly — and each one <strong>passes the face test.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>茶颜悦色 — Cialdini in action</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Principle</th><th>How 茶颜悦色 uses it</th><th>Face test</th></tr></thead><tbody>
+<tr><td><strong>Scarcity</strong></td><td>Only in Changsha; seasonal limited flavors rotate and disappear</td><td>✅ "This flavor ends this season" — true</td></tr>
+<tr><td><strong>Authority</strong></td><td>Founder writes product copy; each cup has classical poetry; "authentic Chinese tea culture"</td><td>✅ Real cultural references, not fake credentials</td></tr>
+<tr><td><strong>Consensus</strong></td><td>1M+ Xiaohongshu posts; "Changsha travel must-do"</td><td>✅ Real posts from real customers</td></tr>
+<tr><td><strong>Liking</strong></td><td>Chinese-style cup design, playful product names, friendly staff</td><td>✅ Genuine brand personality</td></tr>
+<tr><td><strong>Reciprocity</strong></td><td>Buy 6 get 1 free stamp card; free festival gifts</td><td>✅ Real value given</td></tr>
+<tr><td><strong>Consistency</strong></td><td>"I'm a 茶颜 fan" identity drives repeat choice</td><td>✅ Identity is self-chosen</td></tr>
+<tr><td><strong>Unity</strong></td><td>Changsha locals feel ownership; online fan communities with millions</td><td>✅ Real community, not manufactured</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Seven principles, all honest. That's why the brand survived 10+ years.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>茶颜悦色 — purchasing patterns</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Customer type</th><th>Timing</th><th>Frequency</th><th>Quantity</th></tr></thead><tbody>
+<tr><td><strong>Tourists</strong></td><td>During Changsha trip</td><td>3-4 cups in 2-3 days</td><td>1 cup per visit</td></tr>
+<tr><td><strong>Locals</strong></td><td>After work, weekends</td><td>1-2 times per week</td><td>1-2 cups per visit</td></tr>
+<tr><td><strong>Holiday spike</strong></td><td>Spring Festival, National Day</td><td>Daily during holiday</td><td>Higher (gifts for friends)</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span>Same product, <strong>different purchasing patterns</strong> based on personal factors (where you live) and situational factors (when you visit).</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The Face Test</h2>
+<h3>EK 2.2.C.8</h3>
+<p>The exam creators will ask you to <strong>judge</strong> a tactic and <strong>build</strong> one.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>A tactic is worth keeping when the principle still works after full disclosure.</strong></div>
+<p>Theo's test: <strong>say the tactic to the customer's face and see if it survives.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Face Test — why it works</h2>
+<p>The face test separates <strong>honest persuasion</strong> from <strong>deception:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Honest tactic</th><th>Manipulative tactic</th></tr></thead><tbody>
+<tr><td><strong>Disclosure</strong></td><td>survives when the buyer knows how it works</td><td><strong>collapses</strong> when the buyer knows how it works</td></tr>
+<tr><td><strong>Trust</strong></td><td>builds over time — returning shoppers come back</td><td><strong>erodes</strong> — one caught lie undoes months of goodwill</td></tr>
+<tr><td><strong>Principle</strong></td><td>works because the underlying psychology is <strong>real</strong></td><td>works only because the buyer is <strong>misinformed</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>If the principle needs secrecy to function, it's manipulation. If it works in the open, it's persuasion.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Face Test — three examples</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Tactic</th><th>Face test</th></tr></thead><tbody>
+<tr><td>"This tag lists everything I checked"</td><td><strong>survives</strong> — the buyer can read every point</td></tr>
+<tr><td>"Come back within 30 days and the tune-up is free"</td><td><strong>survives</strong> — and reverses the risk that keeps used-bike buyers from saying yes</td></tr>
+<tr><td>"Three other people are coming this afternoon"</td><td><strong>dies</strong> the moment a buyer asks <em>"who?"</em></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>One caught lie undoes the trust the signed checklist was built to earn — and <strong>trust is what converts these buyers.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — design a tactic + face test</h2>
+<p>Design a sales tactic for Theo's stall:</p>
+<ol class="tick">
+<li><strong>Name the principle</strong> it draws on (scarcity, authority, consensus, liking, reciprocity, consistency, or unity)</li>
+<li><strong>Describe the tactic</strong> — what does Theo actually do or say?</li>
+<li><strong>Run the face test</strong> — can he say it to the buyer's face? Does the principle still work after full disclosure?</li>
+</ol>
+<p><em>Write your answer before moving on.</em></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Your turn — sample answer</h2>
+<p><strong>Principle:</strong> Reciprocity</p>
+<p><strong>Tactic:</strong> Theo keeps a pump and chain lube at the stall. Any visitor who rode a bike there gets the tires aired up and the chain lubed — <strong>free, no purchase required.</strong></p>
+<p><strong>Face test:</strong> "I'm going to air up your tires and lube your chain before you go. No charge, whether you buy or not." The visitor <strong>still feels the obligation</strong> — the principle works in the open.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>The obligation is real, the value is real, and the disclosure changes nothing.</strong> That's a tactic that passes the face test.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Exam points to remember</h2>
+<ul>
+<li><strong>Needs/wants + rival goods</strong> broken by four tiebreakers: price, features, availability, advertising</li>
+</ul>
+<div class="formula">- <strong>Rational vs. habitual:</strong> match depth to stakes; add the <strong>true cost of a cheaper rival</strong> ($75 + $25 = $100)</div>
+<ul>
+<li><strong>Four families:</strong> personal, psychological, social/cultural, situational</li>
+</ul>
+<div class="formula">- <strong>Situational = temporary conditions around the purchase, NOT product features</strong></div>
+<div class="formula">- <strong>Purchasing pattern</strong> = timing, frequency, quantity</div>
+<ul>
+<li><strong>Laws</strong> regulate what/when/where → create <strong>substitutes</strong>; the need persists</li>
+<li><strong>Technology reshapes both sides</strong> — seller reach and buyer information</li>
+<li><strong>Seven Cialdini principles:</strong> each has an <strong>honest</strong> and a <strong>manipulative</strong> application</li>
+<li><strong>Face test:</strong> a tactic is worth keeping if the principle <strong>still works after full disclosure</strong></li>
+</ul></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Practice — 6 questions</h1>
+<hr class="divider">
+<div class="tag">Read → pause → <strong>commit to an answer</strong> → then reveal.</div>
+<span class="chip"><strong>3 on one stimulus (Cobalt Finch Ceramics)</strong>· <strong>3 standalone</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Ivy Santos</strong>, a high school senior, runs <strong>Cobalt Finch Ceramics</strong>, a stall selling handmade mugs at a monthly craft fair. <strong>Three other stalls sell mugs</strong>, so shoppers can meet the same want <strong>four ways</strong> and weigh price, glaze, and feel before choosing.</p><p>Behind her table Ivy pins a <strong>corkboard of short notes from past buyers</strong> describing their mugs in daily use (<strong>two dozen</strong> so far). At the front edge sits a <strong>dish of small glazed clay magnets, free</strong> to anyone who stops.</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p>The vendor at the next stall urges her to tell shoppers <strong>each design is the last one available</strong> — including designs with <strong>duplicates boxed under the table.</strong></p><p>Ivy declines the line, and letters a small card reading <strong>"one of a kind"</strong> for the three mugs whose copper glaze she cannot repeat.</p><p><em>Watch for: consensus (the corkboard), reciprocity (the free magnets), and scarcity (the honest card vs. the faked line).</em></p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>The corkboard of buyer notes</div>
+<p>The corkboard of buyer notes is best identified as a sales tactic built on which principle of influence?</p>
+<div class="opt"><span class="letter">A</span><strong>Authority</strong>, because the notes come from experienced mug owners</div>
+<div class="opt"><span class="letter">B</span><strong>Liking</strong>, because the notes make the stall feel friendly</div>
+<div class="opt"><span class="letter">C</span><strong>Consensus</strong>, because displayed customer feedback signals that many buyers like the product</div>
+<div class="opt"><span class="letter">D</span><strong>Unity</strong>, because reading the notes makes shoppers part of a group</div>
+<p>Pause. Ask: what is the mechanism — expertise, rapport, many-buyers, or membership?</p>
+<p>--></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Consensus = individuals <strong>follow the norms of their social group</strong> → promoting positive customer feedback creates the sense that <strong>most buyers like the product.</strong> Two dozen notes from satisfied strangers tell a browsing shopper that <strong>people like her already chose these mugs.</strong></p>
+</div>
+<div class="trap"><strong>A</strong> — the test is <strong>expertise.</strong> Authority persuades through <strong>experts and credentials</strong>; Ivy's note writers <strong>claim nothing beyond owning a mug.</strong></div>
+<div class="trap"><strong>D</strong> — overreads <strong>membership.</strong> Unity works when customers feel <strong>part of a group</strong>; reading strangers' notes <strong>confers no membership.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Consensus = what many buyers did. Authority = what a credentialed expert says. Unity = makes the buyer a member.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>The dish of free magnets</div>
+<p>Which best explains how the dish of free magnets can increase mug sales?</p>
+<div class="opt"><span class="letter">A</span>Receiving an item of value makes shoppers feel <strong>obligated to give something back</strong>, often a purchase</div>
+<div class="opt"><span class="letter">B</span>The magnets make shoppers <strong>like Ivy</strong>, and people buy from sellers they like</div>
+<div class="opt"><span class="letter">C</span>The magnets appeal to shoppers' <strong>self-image</strong> as supporters of young artists</div>
+<div class="opt"><span class="letter">D</span>The magnets make the mugs seem <strong>rarer</strong> than the rival stalls' mugs</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p><strong>Reciprocity</strong> = individuals feel obligated to reciprocate when given something of value (why marketers offer free samples, trials, gifts). A shopper who pockets a free magnet carries a small felt debt to the stall — <strong>buying a mug settles it.</strong></p>
+</div>
+<div class="trap"><strong>B</strong> names a real <strong>side effect</strong> but the <strong>wrong engine</strong>: liking persuades through <strong>rapport/relatability</strong>; a giveaway's tested mechanism is the <strong>obligation</strong> it plants.</div>
+<div class="trap"><strong>C</strong> describes <strong>consistency</strong> (people repeat behavior matching their self-image); a magnet in a dish makes <strong>no identity claim.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A free item persuades through the obligation it creates = reciprocity.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Refuse the line, keep the cards</div>
+<p>Which best explains Ivy's decision to refuse the vendor's line while keeping the one-of-a-kind cards?</p>
+<div class="opt"><span class="letter">A</span>Scarcity persuades <strong>only</strong> when the seller invents the shortage, so the cards cannot motivate buyers</div>
+<div class="opt"><span class="letter">B</span>Refusing the line means Ivy has <strong>given up</strong> the scarcity principle entirely</div>
+<div class="opt"><span class="letter">C</span>Scarcity claims are <strong>prohibited</strong> at in-person markets</div>
+<div class="opt"><span class="letter">D</span>A <strong>true claim of rarity</strong> applies the scarcity principle honestly, while the false line risks deception and lost trust</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Scarcity runs on <strong>perceived rarity</strong>; <strong>real rarity produces that perception honestly</strong> — so the card on an unrepeatable glaze keeps the persuasive pull <strong>and</strong> keeps the claim true. The false version invites the deception <strong>consumer protection laws exist to catch</strong>, and at a monthly fair with returning shoppers, <strong>one duplicate spotted in a box undoes months of corkboard trust.</strong></p>
+</div>
+<div class="trap"><strong>A</strong> — the tell is the <strong>absolute.</strong> Nothing in the principle requires <strong>invention</strong>; a genuine shortage is the <strong>cleanest</strong> source of perceived rarity.</div>
+<div class="trap"><strong>B</strong> — fails on the stimulus: Ivy <strong>still labels</strong> the three unrepeatable mugs, so the principle stays in use <strong>where it is true.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A true rarity claim applies the same principle as a false one — and costs nothing when checked.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Purchasing-pattern table</div>
+<p><strong>Bluestem Coffee</strong> (drive-through) pulls one member's loyalty-app records:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Week 1</th><th>Weeks 2–4</th></tr></thead><tbody>
+<tr><td>Visits</td><td>5</td><td>5 each</td></tr>
+<tr><td>Window</td><td>7:10–7:25 am</td><td><strong>same</strong></td></tr>
+<tr><td>Order</td><td>1 medium coffee</td><td><strong>same</strong></td></tr>
+<tr><td>Price</td><td>$4 each</td><td><strong>same</strong></td></tr>
+</tbody></table></div>
+<p>Which conclusion is supported by the table?</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<div class="opt"><span class="letter">A</span>The member <strong>systematically evaluates</strong> rival coffee options before each visit</div>
+<div class="opt"><span class="letter">B</span>The purchases form a <strong>habitual purchasing pattern</strong> — consistent in timing, frequency, and quantity — totaling <strong>$80</strong> across the four weeks</div>
+<div class="opt"><span class="letter">C</span>The member's <strong>lifetime value</strong> to Bluestem is <strong>$80</strong></div>
+<div class="opt"><span class="letter">D</span>The app <strong>guarantees</strong> the member will keep buying five coffees a week</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>A purchasing pattern is a consumer's typical routine, read through <strong>timing, frequency, quantity</strong> — all three steady here:</p>
+</div>
+<p>$$5 \text{ visits} \times 4 \text{ weeks} = 20 \quad\Rightarrow\quad 20 \times \$4 = \$80$$</p>
+<p>Small routine buys run on <strong>habit</strong>; a rational process of comparing alternatives fits <strong>consequential</strong> purchases.</p>
+<div class="trap"><strong>A</strong> claims <strong>deliberation</strong> the table contradicts — a shopper comparing rivals would show <strong>varied stops and varied orders.</strong></div>
+<div class="trap"><strong>C</strong> borrows last topic's vocabulary: LTV estimates total spending across the <strong>whole</strong> customer relationship; this table shows <strong>one month.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A conclusion the table cannot compute is never supported.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>The straw ordinance</div>
+<p>A city ordinance bars restaurants from handing out single-use plastic straws. Within a year, local stores stock <strong>paper and metal straws</strong>, and reusable-straw sales climb. Which best explains the change in purchasing patterns?</p>
+<div class="opt"><span class="letter">A</span><strong>Legal restrictions can give rise to substitute products</strong> as consumers find new ways to meet an existing need</div>
+<div class="opt"><span class="letter">B</span>The ordinance <strong>eliminated the need</strong> the product served, so demand disappeared</div>
+<div class="opt"><span class="letter">C</span>The change is a <strong>situational influence</strong>, because store layouts shifted</div>
+<div class="opt"><span class="letter">D</span><strong>Consumer protection laws require</strong> every banned product to be replaced by a licensed alternative</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>When a law makes a product <strong>harder to obtain, the want it served survives</strong> → consumers find <strong>substitutes</strong> and businesses arrive to sell them. (The straw leaves, the drink stays; paper and metal fill the gap.)</p>
+</div>
+<div class="trap"><strong>B</strong> breaks the chain at the <strong>wrong link</strong>: the ordinance changed <strong>availability</strong>, and the underlying want persisted <strong>untouched.</strong></div>
+<div class="trap"><strong>C</strong> borrows a <strong>neighboring factor family</strong>: situational influences are <strong>temporary</strong> (noise, lighting, timing); an ordinance is a <strong>legal factor</strong> that <strong>holds until repealed.</strong></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>When the law removes a product, the need remains, and substitutes appear to serve it.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>The candle shop</div>
+<p>A candle shop plays <strong>quiet music</strong>, keeps the <strong>lighting warm</strong>, and sets <strong>open testers</strong> by the entrance so shoppers smell the candles immediately. Shoppers who came in to browse frequently leave with a purchase. Which best identifies the factor influencing these purchases?</p>
+<div class="opt"><span class="letter">A</span>A <strong>personal</strong> factor (occupation and budget)</div>
+<div class="opt"><span class="letter">B</span>A <strong>social and cultural</strong> factor (peers set the norm)</div>
+<div class="opt"><span class="letter">C</span>A <strong>situational influence</strong> (store design creates temporary conditions that encourage buying)</div>
+<div class="opt"><span class="letter">D</span>A <strong>psychological</strong> factor (the store changes each shopper's values and beliefs)</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Situational influences = <strong>temporary conditions</strong> that encourage/discourage buying, created by <strong>store design</strong> (noise, lighting, organization), timing, and product availability. The music, warmth, and testers work on the shopper <strong>only while she stands inside them.</strong></p>
+</div>
+<div class="trap">D<strong> — the test is </strong>what changed:<strong> the store adjusted the shopper's </strong>surroundings for twenty minutes<strong>, and her </strong>values and beliefs walked out the same as they walked in.**</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>If it changes when the shopper walks out the door, it's situational. If it travels home with the product, it isn't.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead><tbody>
+<tr><td>1</td><td>Sort principles by <strong>mechanism</strong>: authority = expert/credentials, consensus = many buyers' behavior, unity = membership</td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>Reciprocity vs. liking vs. consistency</strong> — the engine is the <strong>obligation</strong> planted, not rapport or identity</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>Same principle, honest vs. manipulative</strong> — true rarity = scarcity too; "only when invented" = absolute tell</td><td>Q3</td></tr>
+<tr><td>4</td><td>Data table = <strong>habitual pattern</strong> (timing/frequency/quantity); one month ≠ <strong>lifetime value</strong></td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Laws create substitutes; the need persists;</strong> an ordinance is <strong>legal</strong>, not <strong>situational</strong></td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Situational vs. psychological</strong> — what <em>changed</em>? surroundings for 20 min ≠ values/beliefs</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">Next: 2.3 Market Research</div>
+<h1>Wrap-up</h1>
+<hr class="divider">
+<div class="tag">- <strong>Why consumers buy:</strong> needs/wants + four tiebreakers (price, features, availability, advertising)</div></div></div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 2.2 Consumer Behavior</span>
+    <span>Slide <span id="sn">1</span> / 69</span>
+</div>
+<script>
+var cs = 0;
+var N = 69;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>

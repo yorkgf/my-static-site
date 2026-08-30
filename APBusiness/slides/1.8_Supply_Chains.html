@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.8 Supply Chains — AP Business Slides</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #ea580c;
+    --accent-d: #c2410c;
+    --accent-l: #fdba74;
+    --accent-xd: #9a3412;
+    --tint: #fff7ed;
+    --bg: #f6faf6;
+    --ink: #1b2b1d;
+    --muted: #5f7361;
+    --amber: #d97706; --amber-bg: #fff7e0;
+    --blue: #2563eb;  --blue-bg: #e8f1ff;
+    --coral: #dc2626; --coral-bg: #ffeded;
+    --card: #ffffff;
+    --border: #d7e9d9;
+    --shadow: 0 3px 14px rgba(30,41,59,.08);
+    --serif: 'Georgia','Times New Roman',serif;
+    --mono: 'Courier New',monospace;
+}
+
+body {
+    font-family: var(--serif);
+    background:
+        radial-gradient(900px 500px at 92% -8%, var(--tint), transparent 60%),
+        radial-gradient(700px 420px at -5% 108%, var(--tint), transparent 60%),
+        var(--bg);
+    color: var(--ink);
+    font-size: calc(17px + .4vw);
+    line-height: 1.55;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.bar { position: fixed; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: .55rem 1.3rem; font-size: .72em; letter-spacing: .04em; background: rgba(255,255,255,.9); border-color: var(--border); border-style: solid; box-shadow: 0 1px 6px rgba(30,41,59,.06); backdrop-filter: blur(6px); }
+.bar.top { top: 0; border-bottom-width: 1px; }
+.bar.bottom { bottom: 0; border-top-width: 1px; color: var(--muted); }
+.bar .course { color: var(--accent-d); font-weight: bold; }
+.bar a { color: var(--accent-d); text-decoration: none; font-weight: 600; }
+.bar a:hover { text-decoration: underline; }
+#sn { color: var(--accent-d); font-weight: bold; }
+
+.stage { position: relative; height: 100vh; padding: 3rem 2.5rem 2.6rem; overflow: hidden; }
+.slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: safe center; padding: 4.8rem 4vw 2.8rem; overflow-y: auto; }
+.slide.active { display: flex; animation: fade .45s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+.kicker { text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; color: var(--accent-d); font-weight: 700; display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.kicker::before { content: ''; width: 2.4rem; height: 3px; border-radius: 2px; background: var(--accent); }
+
+h1 { font-size: clamp(2.4rem,6vw,4.2rem); line-height: 1.05; color: var(--ink); font-weight: 800; margin-bottom: .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.7rem,4vw,2.7rem); line-height: 1.12; color: var(--ink); font-weight: 800; margin-bottom: .4rem; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.15rem,2.5vw,1.6rem); color: var(--accent-d); font-weight: 700; margin-bottom: .5rem; }
+h4 { font-size: clamp(1rem,2.2vw,1.3rem); color: var(--accent-d); font-weight: 700; margin-bottom: .4rem; }
+p { margin-bottom: .85em; }
+.lead-para { font-size: 1.12em; }
+strong { color: var(--accent-xd); font-weight: 700; }
+em { color: #40543f; }
+
+.hero { text-align: center; }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: .8rem; color: var(--accent-d); font-weight: 700; margin-bottom: 1.2rem; }
+.hero h1 { background: linear-gradient(120deg, var(--accent-xd) 20%, var(--accent) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .tag { color: var(--muted); font-size: 1.12em; margin: .6rem 0 1.4rem; }
+.hero .divider { width: 70px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-l)); margin: 1.3rem auto; border: 0; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 1.15rem 1.4rem; }
+.card h4 { color: var(--accent-d); font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .5rem; font-weight: 700; }
+.card p, .card li { font-size: .96em; }
+.grid { display: grid; gap: 1rem; }
+.grid.g2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+.grid.g3 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+ul, ol { margin: 0 0 1rem 1.25em; }
+li { margin-bottom: .5em; }
+li::marker { color: var(--accent); }
+ol.tick { list-style: none; margin-left: 0; counter-reset: t; }
+ol.tick li { counter-increment: t; padding-left: 2.4rem; position: relative; margin-bottom: .75rem; }
+ol.tick li::before { content: counter(t); position: absolute; left: 0; top: .08em; width: 1.6em; height: 1.6em; border-radius: 50%; background: linear-gradient(180deg, var(--accent-l), var(--accent)); border: 0; box-shadow: 0 2px 6px rgba(0,0,0,.12); color: #fff; font-size: .74em; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+
+.def { border: 2px solid var(--accent-l); border-radius: 16px; background: var(--tint); padding: 1.4rem 1.8rem; margin: .6rem 0 1rem; text-align: center; }
+.def .term { font-size: .72rem; text-transform: uppercase; letter-spacing: .24em; color: var(--muted); margin-bottom: .5rem; }
+.def .text { font-size: 1.45em; line-height: 1.3; color: var(--ink); }
+.def .text strong { color: var(--accent-xd); }
+
+.formula { font-family: var(--mono); text-align: center; background: var(--card); border: 2px solid var(--accent-l); border-radius: 14px; box-shadow: var(--shadow); padding: 1.1rem; margin: .8rem 0; font-size: 1.35rem; color: var(--accent-xd); font-weight: 700; }
+
+.callout { border-radius: 12px; padding: .85rem 1.15rem; margin: .9rem 0; font-size: .98em; }
+.callout.key   { border-left: 4px solid var(--accent); background: var(--tint); }
+.callout.think { border-left: 4px solid var(--blue);  background: var(--blue-bg); }
+.callout.warn  { border-left: 4px solid var(--amber); background: var(--amber-bg); }
+.callout.danger{ border-left: 4px solid var(--coral); background: var(--coral-bg); }
+.callout .tag { font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: .68em; display: block; margin-bottom: .28rem; }
+.callout.key .tag   { color: var(--accent-d); }
+.callout.think .tag { color: var(--blue); }
+.callout.warn .tag  { color: var(--amber); }
+.callout.danger .tag{ color: var(--coral); }
+
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; font-size: .93em; }
+th { background: linear-gradient(180deg, var(--accent), var(--accent-d)); color: #fff; text-align: left; padding: .7rem .9rem; font-weight: 700; }
+td { padding: .62rem .9rem; border-top: 1px solid #eef4ef; vertical-align: top; }
+tbody tr:nth-child(even) { background: #f6fbf7; }
+tbody tr:hover { background: var(--tint); }
+
+.chip { display: inline-block; padding: .35rem .95rem; border-radius: 100px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-size: .85em; font-weight: 700; margin: .2rem .25rem .2rem 0; box-shadow: 0 2px 6px rgba(0,0,0,.08); }
+.chip.amber { background: #fcd34d; color: #78350f; }
+.chip.blue  { background: #bfdbfe; color: #1e40af; }
+.chip.red   { background: #fecaca; color: #991b1b; }
+
+.video-frame { position: relative; width: 100%; max-width: 620px; margin: 1rem auto; aspect-ratio: 16/9; }
+.video-frame iframe { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #fff; box-shadow: var(--shadow); }
+.vl a { color: var(--accent-d); font-weight: 600; }
+
+.q-num { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; border-radius: 100px; padding: .35rem 1.1rem .35rem .6rem; font-weight: 700; font-size: .9em; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.q-num .n { width: 1.7em; height: 1.7em; border-radius: 50%; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-family: var(--mono); }
+.q-prompt { font-size: 1.12em; border-radius: 12px; padding: .85rem 1.15rem; margin: .5rem 0 1rem; background: var(--tint); border-left: 4px solid var(--accent); }
+.stimulus { background: var(--tint); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin: .8rem 0; font-size: .95em; }
+.stimulus h4 { color: var(--accent-d); letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.opt { display: block; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: .7rem 1rem; margin-bottom: .5rem; cursor: default; transition: all .2s; }
+.opt:hover { border-color: var(--accent-l); box-shadow: 0 0 0 3px rgba(0,0,0,.06); }
+.opt .letter { display: inline-flex; width: 1.6em; height: 1.6em; border-radius: 8px; background: var(--accent-l); border: 0; color: var(--accent-xd); font-weight: 700; align-items: center; justify-content: center; margin-right: .7rem; font-family: var(--mono); font-size: .85em; }
+
+.answer-badge { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--accent), var(--accent-d)); color: #fff; font-weight: 800; font-size: 1.05em; border-radius: 100px; padding: .5rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.answer-badge .a { background: rgba(0,0,0,.18); color: #fff; border-radius: 100px; padding: .1rem .7rem; font-family: var(--mono); }
+.answer-card { border: 1px solid var(--border); background: var(--tint); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.answer-card h4 { color: var(--accent-d); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin-bottom: .4rem; }
+.trap { border-left: 4px solid var(--coral); background: var(--coral-bg); border-radius: 0 12px 12px 0; padding: .6rem .9rem; margin: .5rem 0; font-size: .92em; }
+.trap b { color: var(--coral); }
+
+.nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; z-index: 150; background: #fff; border: 1px solid var(--border); border-radius: 50%; box-shadow: var(--shadow); color: var(--accent-d); font-size: 1.4rem; cursor: pointer; transition: all .2s; }
+.nav-arrow:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.nav-arrow.prev { left: 1rem; }
+.nav-arrow.next { right: 1rem; }
+.dots { position: fixed; bottom: 2.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 150; max-width: 80vw; flex-wrap: wrap; justify-content: center; }
+.nd { width: 10px; height: 10px; border-radius: 50%; border: 0; background: #cfd6cf; cursor: pointer; transition: all .2s; }
+.nd:hover { background: #a9b4aa; }
+.nd.active { background: var(--accent); transform: scale(1.25); box-shadow: 0 0 8px rgba(0,0,0,.18); }
+
+.invert { background: linear-gradient(135deg, var(--accent), var(--accent-d) 60%, var(--accent-xd)); }
+.invert h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; }
+.invert .eyebrow, .invert .tag { color: #fff; }
+.invert .divider { background: #fff; }
+.invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
+
+/* ── 1.8-specific design — supply chain flow ────────────── */
+:root {
+    --c-artisan: #d97706;    --c-artisan-bg: #fffbeb;
+    --c-mass: #2563eb;       --c-mass-bg: #eff6ff;
+    --c-stage1: #6366f1;
+    --c-stage2: #06b6d4;
+    --c-stage3: #d97706;
+    --c-stage4: #16a34a;
+    --c-stage5: #ec4899;
+}
+
+/* Artisan vs Mass Production */
+.pair-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 1rem auto;
+}
+.pair-card {
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    background: var(--card);
+    border-top: 5px solid;
+    box-shadow: var(--shadow);
+}
+.pair-card .pair-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; opacity: .7; margin-bottom: .3rem; }
+.pair-card h3 { font-size: 1.15rem; margin-bottom: .5rem; color: var(--ink); }
+.pair-card p { font-size: .95em; margin: 0; }
+.pair-card.artisan { border-color: var(--c-artisan); background: var(--c-artisan-bg); }
+.pair-card.mass { border-color: var(--c-mass); background: var(--c-mass-bg); }
+
+/* Supply chain flow diagram */
+.sc-flow {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+    max-width: 1000px;
+    margin: 1.2rem auto;
+    flex-wrap: wrap;
+}
+.sc-stage {
+    flex: 1 1 0;
+    min-width: 130px;
+    padding: 1rem .7rem;
+    border-radius: 12px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,.15);
+    position: relative;
+    margin: .3rem;
+}
+.sc-stage .num {
+    position: absolute;
+    top: -10px; left: 50%; transform: translateX(-50%);
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,.95);
+    color: var(--ink);
+    font-weight: 800;
+    font-size: .85em;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    font-family: var(--mono);
+}
+.sc-stage h4 { color: #fff; font-size: .92rem; margin: .3rem 0 .3rem; }
+.sc-stage p { font-size: .78em; opacity: .92; margin: 0; line-height: 1.35; }
+.sc-stage.s1 { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+.sc-stage.s2 { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.sc-stage.s3 { background: linear-gradient(135deg, #d97706, #b45309); }
+.sc-stage.s4 { background: linear-gradient(135deg, #16a34a, #15803d); }
+.sc-stage.s5 { background: linear-gradient(135deg, #ec4899, #be185d); }
+.sc-arrow {
+    align-self: center;
+    font-size: 1.6rem;
+    color: var(--accent);
+    font-weight: 800;
+    margin: 0 -.15rem;
+}
+
+/* Three inputs visualization */
+.three-inputs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 880px;
+    margin: 1.2rem auto;
+}
+.input-card {
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    background: var(--card);
+    border-top: 4px solid var(--accent);
+    box-shadow: var(--shadow);
+    text-align: center;
+    position: relative;
+}
+.input-card .rank { position: absolute; top: -.7rem; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: .2em .8em; border-radius: 100px; font-size: .7em; font-weight: 800; letter-spacing: .1em; }
+.input-card h4 { margin: .3rem 0 .4rem; color: var(--ink); }
+.input-card p { font-size: .88em; margin: 0; color: var(--muted); }
+
+/* Case study card */
+.case-study {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.case-study::before {
+    content: '📌 CASE STUDY';
+    position: absolute; top: -.7em; left: 1.5rem;
+    background: var(--amber); color: #fff;
+    padding: .3em 1em; border-radius: 100px;
+    font-size: .7em; font-weight: 800; letter-spacing: .12em;
+    box-shadow: 0 2px 6px rgba(217,119,6,.3);
+}
+
+@media (max-width: 820px) {
+    .nav-arrow { display: none; }
+    .slide { padding: 4.2rem 1.2rem 2.2rem; }
+}
+@media print {
+    body { overflow: visible; }
+    .slide { display: block; position: relative; page-break-after: always; height: 100vh; }
+    .bar, .nav-arrow, .dots { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="bar top">
+    <span>AP Business with Personal Finance <span style="color:var(--muted)">· 1.8 Supply Chains</span></span>
+    <span><a href="../curriculum.html">← Curriculum</a></span>
+</div>
+<div class="stage">
+<div class="slide active"><div class="inner hero"><div class="eyebrow">AP Business with Personal Finance · Unit 1</div>
+<h1>1.8 Supply Chains</h1>
+<hr class="divider">
+<div class="tag">---</div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>By the end of this lesson you can…</th><th>CED reference</th></tr></thead><tbody>
+<tr><td>Distinguish <strong>artisan</strong> from <strong>mass production</strong> and explain the factors that determine the choice</td><td>LO 1.8.A</td></tr>
+<tr><td>Describe the stages of a <strong>supply chain</strong> for a good and for a service</td><td>LO 1.8.B</td></tr>
+<tr><td>Explain how a business's <strong>competitive advantage strategy</strong> shapes its supply chain</td><td>LO 1.8.C</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Opening question</h2>
+<p>You know who owns the business (1.7), who does what, and how the departments work.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>But where does the product <em>actually come from</em> — and how does it get to the customer?</strong></div>
+<p>Sunday-night inventory count. The candy seller flips a chocolate bar over and suddenly realizes <strong>he has no idea where it comes from.</strong> Cocoa grew on a farm in another hemisphere. A factory melted, molded, and wrapped it. A warehouse held it. A truck moved it.</p>
+<p><strong>Only then did his backpack enter the story.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Artisan or mass production — definition</h2>
+<p style="text-align:center;color:var(--muted);margin-bottom:.5rem">Before anything moves through a chain, somebody has to make it. <strong>Two poles:</strong></p>
+<div class="pair-compare">
+    <div class="pair-card artisan">
+        <div class="pair-label">🤲 Hand &amp; skill</div>
+        <h3>Artisan</h3>
+        <p>Relies on <strong>skilled labor</strong> + close attention to detail.</p>
+        <p style="margin-top:.5rem"><strong>Output:</strong> smaller quantities.</p>
+    </div>
+    <div class="pair-card mass">
+        <div class="pair-label">🏭 Machine &amp; scale</div>
+        <h3>Mass production</h3>
+        <p>Relies on <strong>technology, assembly lines, machinery</strong>.</p>
+        <p style="margin-top:.5rem"><strong>Output:</strong> far larger quantities.</p>
+    </div>
+</div>
+<div class="callout key" style="margin-top:1rem"><span class="tag">Key Point</span><strong>Quality can come from either pole.</strong> Artisan does not mean better; mass-produced does not mean worse.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Artisan or mass production — in the examples</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Artisan</th><th>Mass production</th></tr></thead><tbody>
+<tr><td>At the park</td><td>The <strong>cookie parent</strong> — hours of skilled piping per batch, two dozen cookies, premium price</td><td>The <strong>chocolate bars</strong> — machines poured thousands of identical bars in the same time</td></tr>
+<tr><td>What drives it</td><td>Hand skill, attention to detail, small batches</td><td>Technology, assembly lines, sheer volume</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The cookie parent and the chocolate bar sit at <strong>opposite poles</strong> of the same question: how do you make the product?</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Three inputs determine the choice — definition</h2>
+<p><strong>Which pole a business chooses depends on three inputs:</strong></p>
+<ol class="tick">
+<li><strong>Customer priorities</strong> (first) — buyers who prize <strong>customization</strong> lean toward artisan; buyers who prize <strong>low price</strong> lean toward mass production</li>
+<li><strong>Core competencies</strong> (second, from 1.5) — a business built on handcraft skill should not suddenly pretend to be a factory</li>
+<li><strong>Competitive landscape</strong> (third, from 1.2) — entering a market of cheap mass-produced rivals with a mid-priced product satisfies nobody</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Three inputs determine the choice — in the examples</h2>
+<p>The cookie parent read all three correctly:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Input</th><th>Her read</th></tr></thead><tbody>
+<tr><td><strong>Customer priorities</strong></td><td>Parents at the park pay extra for birthday-worthy cookies — customization wins</td></tr>
+<tr><td><strong>Core competencies</strong> (1.5)</td><td>Her skill is decoration, not factory logistics — stay artisan</td></tr>
+<tr><td><strong>Competitive landscape</strong> (1.2)</td><td>No rival at the park can copy her piping — she owns the niche</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>All three pointed the same direction.</strong> That's why artisan was the right call — not because artisan is "better," but because it matched her customers, her skills, and her market.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The supply chain for a good — definition</h2>
+<p>A <strong>supply chain</strong> connects all of the individuals and businesses involved at <strong>each stage of producing and distributing a product</strong> — from raw materials to final customer delivery.</p>
+<div class="sc-flow">
+    <div class="sc-stage s1"><span class="num">1</span><h4>Raw materials</h4><p>Cocoa, sugar, milk, wrappers</p></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-stage s2"><span class="num">2</span><h4>Manufacturing</h4><p>Workers + equipment turn materials into finished goods</p></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-stage s3"><span class="num">3</span><h4>Storage</h4><p>Finished goods wait in warehouse</p></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-stage s4"><span class="num">4</span><h4>Distribution / retail</h4><p>Goods put in front of customers</p></div>
+    <div class="sc-arrow">→</div>
+    <div class="sc-stage s5"><span class="num">5</span><h4>Customer</h4><p>The last link in the chain</p></div>
+</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The supply chain for a good — in the examples</h2>
+<p>The chocolate bar's journey — from a farm on another continent to the candy seller's backpack:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Stage</th><th>What happened</th></tr></thead><tbody>
+<tr><td><strong>Raw materials</strong></td><td>Cocoa farm, sugar plantation, dairy, wrapper manufacturer</td></tr>
+<tr><td><strong>Manufacturing</strong></td><td>Factory melted, molded, wrapped — thousands of identical bars</td></tr>
+<tr><td><strong>Warehouse</strong></td><td>Finished bars waited on pallets in a regional storage facility</td></tr>
+<tr><td><strong>Distribution / retail</strong></td><td>Truck delivered to the supermarket shelf</td></tr>
+<tr><td><strong>Customer</strong></td><td>The candy seller bought it, dropped it in his backpack</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>A chain can be <strong>local, regional, or global.</strong> The chocolate bar's chain is global by necessity — cocoa will not grow near the school.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Local, regional, or global — in the examples</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Chain type</th><th>At the park</th><th>Why</th></tr></thead><tbody>
+<tr><td><strong>Local</strong></td><td>The cookie parent — flour from the neighborhood bakery, baked at home, sold 500 meters away</td><td>Everything happens within one community</td></tr>
+<tr><td><strong>Regional</strong></td><td>The snack box — chips from a regional distributor, delivered by truck across the metro area</td><td>Multiple cities, same country</td></tr>
+<tr><td><strong>Global</strong></td><td>The chocolate bar — cocoa from West Africa, factory in Europe, sold at a school in the US</td><td>Multiple continents, many links</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The longer the chain, the more links can break.</strong> A local chain has few failure points; a global chain has many — and every one of them is a risk.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Chain length and risk</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>The longer the chain, the more links can break.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Chain length</th><th>Failure points</th><th>Risk level</th></tr></thead><tbody>
+<tr><td><strong>Local</strong></td><td>Few — a single supplier, a short drive</td><td>Lower</td></tr>
+<tr><td><strong>Regional</strong></td><td>Moderate — multiple suppliers, regional trucking</td><td>Medium</td></tr>
+<tr><td><strong>Global</strong></td><td>Many — overseas suppliers, shipping, customs, currency</td><td>Higher</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Risk is the factor that hides</strong> — and it hides in the <strong>length</strong> of the chain itself. Every additional stage adds a link that can fail.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two facilities to keep separate — definition</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Warehouse</th><th>Distribution center</th></tr></thead><tbody>
+<tr><td>Primary function</td><td><strong>Storage</strong></td><td><strong>Stores and moves onward</strong></td></tr>
+<tr><td>Goods leave…</td><td>When someone comes to collect</td><td>On their way to stores and customers</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>A warehouse waits. A distribution center relays.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two facilities to keep separate — in the examples</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Facility</th><th>At the park</th></tr></thead><tbody>
+<tr><td><strong>Warehouse</strong></td><td>The supermarket stores pallets of chocolate bars in its back room — they sit until a shelf needs restocking</td></tr>
+<tr><td><strong>Distribution center</strong></td><td>A regional distributor receives pallets from the factory and <strong>forwards</strong> them to multiple supermarket locations across the city</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The supermarket <strong>stores.</strong> The distributor <strong>stores and forwards.</strong> Keep them separate.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two intermediaries to keep separate — definition</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Supplier</th><th>Distributor</th></tr></thead><tbody>
+<tr><td>What it moves</td><td>Materials/goods from one business to another</td><td><strong>Finished products</strong> from manufacturers to retail stores</td></tr>
+<tr><td>Sits where</td><td>Early in the chain</td><td>Between manufacturing and retail</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>A <strong>supplier</strong> feeds the production process. A <strong>distributor</strong> feeds the retail shelf.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two intermediaries to keep separate — in the examples</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Intermediary</th><th>In the chocolate bar chain</th></tr></thead><tbody>
+<tr><td><strong>Supplier</strong></td><td>The cocoa farm — supplies raw materials to the factory</td></tr>
+<tr><td><strong>Distributor</strong></td><td>The logistics company — moves finished bars from the factory warehouse to supermarket shelves</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>The factory cannot make chocolate bars without a <strong>supplier</strong> (cocoa). The supermarket cannot stock them without a <strong>distributor</strong> (trucks + logistics). Each sits at a different stage.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The supply chain for a service — definition</h2>
+<p>Services run chains too — and the <strong>parts list differs.</strong> A service business acquires the <strong>employees, the resources, and the delivery systems</strong> needed to provide the service.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Example</th><th>People</th><th>Resources</th><th>Delivery system</th></tr></thead><tbody>
+<tr><td>Tutoring company (virtual)</td><td>Tutors</td><td>Lesson materials</td><td>Video platform</td></tr>
+<tr><td>Lawn-care crew (in-person)</td><td>Trained workers</td><td>Mowers + trimmers</td><td>Scheduling app that routes trucks</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>When a scenario describes <strong>hiring, equipping, and delivering — with no factory in sight</strong> — it is a <strong>service supply chain.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The supply chain for a service — in the examples</h2>
+<p>The snack box itself is a service supply chain — two workers, coolers, and a group-chat order form:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Part</th><th>The snack box</th></tr></thead><tbody>
+<tr><td><strong>People</strong></td><td>The candy seller + his cousin</td></tr>
+<tr><td><strong>Resources</strong></td><td>Coolers, ice, snack inventory, a cash box</td></tr>
+<tr><td><strong>Delivery system</strong></td><td>The group-chat order form + the halftime handoff route</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>No factory. No warehouse. No truck. <strong>People + resources + delivery system</strong> — that is the service chain.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Five supplier factors — definition</h2>
+<p>Every link in a chain is a choice. Businesses weigh <strong>five factors</strong> when choosing suppliers:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>Visible?</th></tr></thead><tbody>
+<tr><td><strong>Cost</strong></td><td>On the price sheet</td></tr>
+<tr><td><strong>Quality</strong></td><td>On the price sheet / specs</td></tr>
+<tr><td><strong>Efficiency</strong></td><td>On the delivery schedule</td></tr>
+<tr><td><strong>Convenience</strong></td><td>On the delivery schedule</td></tr>
+<tr><td><strong>Risk</strong></td><td><strong>Hides</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Risk is the factor that hides.</strong> Natural disasters, political instability, resource shortages, production errors, and supplier reputation can all delay delivery or raise costs.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Five supplier factors — in the examples</h2>
+<p>The candy seller has two sourcing options — each trades off different factors:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Option</th><th>Cost</th><th>Quality</th><th>Efficiency</th><th>Convenience</th><th>Risk</th></tr></thead><tbody>
+<tr><td><strong>Supermarket</strong></td><td>Pricier</td><td>Same bars</td><td>Always stocked</td><td>Down the street</td><td><strong>Never misses</strong></td></tr>
+<tr><td><strong>Wholesale parent</strong></td><td>Cheaper (bulk)</td><td>Same bars</td><td>Larger quantities</td><td>Needs a ride</td><td>Van <strong>broke down twice</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>Cheap + unreliable vs. pricier + certain — and a Saturday with an <strong>empty cooler earns nothing.</strong></div>
+<p><strong>He splits the order:</strong> the wholesaler carries the bulk, and a supermarket run on Friday night <strong>backstops the risk.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Supplier decisions — the exam habit</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>Every one of the five factors, plus a backup plan, belongs in a supplier answer.</strong></div>
+<p>The exam loves to offer a <strong>cheap option with hidden risk</strong> and ask you to choose. The strong answer:</p>
+<ol class="tick">
+<li>Names <strong>all five factors</strong> — not just cost</li>
+<li>Prices in the <strong>risk</strong> — the factor that hides</li>
+<li>Mentions a <strong>backup plan</strong></li>
+</ol>
+<div class="callout key"><span class="tag">Key Point</span><strong>Buying inputs is not outsourcing.</strong> Every producer buys raw materials. The question is always <strong>which</strong> supplier, <strong>why</strong>, and <strong>what happens if they fail.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Strategy shapes the chain — definition</h2>
+<div class="callout warn"><span class="tag">Exam Note</span>A business's <strong>competitive advantage strategy decides what kind of chain it builds.</strong></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Strategy</th><th>Chain design</th><th>Mechanism</th></tr></thead><tbody>
+<tr><td><strong>Low prices</strong></td><td>Mass production + cost-cutting (plus or minus scaling)</td><td>Cheaper resources, more efficient processes</td></tr>
+<tr><td><strong>High quality</strong></td><td>High-quality resources + methods</td><td>Better inputs, artisan or mass</td></tr>
+<tr><td><strong>Barriers to entry</strong></td><td>Exclusive/restrictive agreements</td><td>Lock up suppliers or shelf space</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The chain itself becomes the source of competitive advantage.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Strategy shapes the chain — in the examples</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Strategy</th><th>At the park</th><th>Chain choice</th></tr></thead><tbody>
+<tr><td><strong>Cost-tuned</strong></td><td>The candy seller buying in bulk from the wholesale parent</td><td>Cheaper input, pass savings to buyers</td></tr>
+<tr><td><strong>Quality-tuned</strong></td><td>The cookie parent using premium wax for decorating</td><td>Better input, commands higher price</td></tr>
+<tr><td><strong>Exclusivity-tuned</strong></td><td>The only-vendor permit at the park on Saturdays</td><td>Locks out rivals from the same location</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Name the strategy first, then show how a particular chain choice — a cheaper input, a better input, or a locked-up input — serves exactly that strategy.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The chain becomes the advantage</h2>
+<p>Read the three strategies together:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Chain type</th><th>Advantage it creates</th></tr></thead><tbody>
+<tr><td><strong>Cost-tuned</strong></td><td>Can support prices rivals struggle to <strong>match</strong></td></tr>
+<tr><td><strong>Quality-tuned</strong></td><td>Can produce goods rivals struggle to <strong>imitate</strong></td></tr>
+<tr><td><strong>Exclusivity-tuned</strong></td><td>Can leave rivals hunting for <strong>suppliers and shelf space</strong></td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>On the exam, be specific about the mechanism:</strong> name which strategy the business runs, then show how a particular chain choice serves exactly that strategy.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scaling — definition</h2>
+<p>Some cost-focused businesses go further and <strong>scale:</strong> build higher-capacity chains so that <strong>revenue increases outrun cost increases.</strong></p>
+<p><strong>The mechanism:</strong> the second batch reuses the same oven, permits, and order system — the <strong>fixed costs get spread across twice the units</strong> while every unit still sells at full price.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Before scaling</th><th>After scaling</th></tr></thead><tbody>
+<tr><td>Units</td><td>20,000</td><td>40,000</td></tr>
+<tr><td>Revenue</td><td>$80,000</td><td>$160,000 (+100%)</td></tr>
+<tr><td>Total costs</td><td>$60,000</td><td>$96,000 (+60%)</td></tr>
+<tr><td><strong>Profit</strong></td><td><strong>$20,000</strong></td><td><strong>$64,000</strong></td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span>Revenue grew <strong>100%</strong>; costs grew only <strong>60%</strong>. That gap is the entire point of scaling.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scaling — in the examples</h2>
+<p>If the snack box <strong>doubled batches</strong> for the same Saturday:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>What changes</th><th>What stays fixed</th></tr></thead><tbody>
+<tr><td>Inventory cost doubles</td><td>The oven (same one, second batch)</td></tr>
+<tr><td>Prep time roughly doubles</td><td>The permits (already paid)</td></tr>
+<tr><td></td><td>The order system (same group chat)</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Fixed costs (oven, permits, order system) spread across twice the units.</strong> Each unit still sells at full price — so revenue grows faster than costs.</div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>That is the scaling mechanism the exam tests.</strong> Know it as a formula: fixed costs spread, revenue outpaces costs, profit accelerates.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Three question shapes</h2>
+<p>Chain questions arrive in three shapes:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Shape</th><th>What it asks</th><th>How to answer</th></tr></thead><tbody>
+<tr><td><strong>1. Order the stages</strong></td><td>Raw materials to customer</td><td>Warehouse comes <strong>after manufacturing, before distribution</strong></td></tr>
+<tr><td><strong>2. Choose a supplier</strong></td><td>Weigh the options</td><td>Weigh <strong>all five factors</strong>, with <strong>risk priced in</strong></td></tr>
+<tr><td><strong>3. Match strategy to chain</strong></td><td>Which design fits</td><td>Low price to cost-cutting; quality to better inputs; barriers to exclusive agreements</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Name the shape first, and the question mostly solves itself.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Exam points to remember</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Concept</th><th>Rule</th></tr></thead><tbody>
+<tr><td><strong>Production</strong></td><td>Artisan (skilled, small) vs. mass production (tech, large) — chosen by customer priorities, competencies, landscape</td></tr>
+<tr><td><strong>Good's chain</strong></td><td>Raw materials to manufacturing to warehouse to distribution/retail to customer</td></tr>
+<tr><td><strong>Service chain</strong></td><td>People + resources + delivery system (no factory)</td></tr>
+<tr><td><strong>Supplier factors</strong></td><td>Cost, quality, efficiency, convenience, <strong>risk</strong> (the one that hides) + backup plan</td></tr>
+<tr><td><strong>Strategy to chain</strong></td><td>Low price to cost-cutting; quality to better inputs; barriers to exclusive agreements</td></tr>
+<tr><td><strong>Scaling</strong></td><td>Revenue growth outpaces cost growth because fixed costs spread across more units</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two facilities — exam distinction</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>A warehouse stores. A distribution center stores and forwards.</strong></div>
+<p>The exam will offer both terms in the same question. Sort by <strong>what happens to the goods next:</strong></p>
+<div class="formula">- Goods sit until collected = <strong>warehouse</strong></div>
+<div class="formula">- Goods move onward to stores and customers = <strong>distribution center</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Two intermediaries — exam distinction</h2>
+<div class="callout key"><span class="tag">Key Point</span><strong>A supplier feeds production. A distributor feeds retail.</strong></div>
+<p>Sort by <strong>where they sit in the chain:</strong></p>
+<div class="formula">- Early in the chain, materials between businesses = <strong>supplier</strong></div>
+<div class="formula">- Between manufacturing and retail, finished products = <strong>distributor</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Service vs. goods chains — exam habit</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Signal in the scenario</th><th>It is…</th></tr></thead><tbody>
+<tr><td>Factory, raw materials, warehouse, truck</td><td><strong>Goods</strong> supply chain</td></tr>
+<tr><td>Hiring people, acquiring resources, building a delivery system — no factory</td><td><strong>Service</strong> supply chain</td></tr>
+<tr><td>"Services cannot have supply chains"</td><td><strong>Trap answer</strong> — services absolutely run supply chains</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>The answer to a service supply chain question names three parts: people, resources, and a delivery system.</strong></div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Your turn — classify the chain</h1>
+<hr class="divider">
+<div class="tag"><em>Read each scenario. Decide: goods chain or service chain? Then name the stages or parts.</em></div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scenario A — a bakery</h2>
+<p>A bakery buys flour, sugar, and butter from suppliers. Bakers mix and bake in the factory kitchen. Finished loaves cool in a storage room. A delivery truck drops them at grocery stores by 6 AM.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Goods chain or service chain?</strong> Name the stages or parts.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Scenario B — a dog-walking company</h2>
+<p>A dog-walking company hires trained walkers, equips them with leashes, waste bags, and GPS trackers, and uses a scheduling app to assign routes and send owners live updates.</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Goods chain or service chain?</strong> Name the stages or parts.**</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer</div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Scenario</th><th>Chain type</th><th>Stages or parts</th></tr></thead><tbody>
+<tr><td><strong>A — Bakery</strong></td><td><strong>Goods</strong></td><td>Raw materials (flour, sugar, butter) to manufacturing (baking) to warehouse (storage room) to distribution (truck to grocery stores) to customer</td></tr>
+<tr><td><strong>B — Dog-walking</strong></td><td><strong>Service</strong></td><td>People (trained walkers) + resources (leashes, waste bags, GPS trackers) + delivery system (scheduling app with live updates)</td></tr>
+</tbody></table></div>
+<div class="callout key"><span class="tag">Key Point</span><strong>If you see a factory or warehouse, it's a goods chain. If you see hiring, equipping, and delivering with no factory, it's a service chain.</strong></div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Case study — 百年供应链进化史</h1>
+<hr class="divider">
+<div class="tag">A 100-year history of how supply chains evolved — from Ford's first assembly line to today's global, disruption-prone networks.</div>
+<span class="chip"><strong>小Lin说</strong>· 3.6M views · <a href="https://www.bilibili.com/video/BV1gAHseeEDT/" target="_blank">B站 link</a></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>The timeline — six turning points</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Year</th><th>Milestone</th><th>1.8 concept</th></tr></thead><tbody>
+<tr><td><strong>1913</strong></td><td>Ford's assembly line — 12 hrs to 93 min per car</td><td><strong>Mass production + scaling</strong></td></tr>
+<tr><td><strong>1950s</strong></td><td>Toyota's just-in-time — no excess inventory</td><td><strong>Supplier reliability + efficiency</strong></td></tr>
+<tr><td><strong>1962</strong></td><td>Walmart's distribution centers</td><td><strong>Warehouse to distribution center</strong></td></tr>
+<tr><td><strong>1990s</strong></td><td>Globalization — chains stretch across oceans</td><td><strong>Global supply chain + risk</strong></td></tr>
+<tr><td><strong>2000s</strong></td><td>Amazon + e-commerce — same-day delivery</td><td><strong>Service supply chain</strong></td></tr>
+<tr><td><strong>2020s</strong></td><td>COVID + chip shortage — chains break</td><td><strong>Risk — the factor that hides</strong></td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Ford (1913) — mass production and scaling</h2>
+<p><strong>Ford's assembly line</strong> turned artisan car-making into mass production.</p>
+<ul>
+<li>Before: one skilled team built an entire car — <strong>12 hours per vehicle</strong></li>
+<li>After: each worker performed one task on a moving line — <strong>93 minutes per car</strong></li>
+<li>Price dropped from <strong>$850 to $260</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Customer priority shifted</strong> from customization (artisan) to <strong>low price</strong> (mass production). The chain was built entirely around <strong>cost-cutting through scale.</strong></div>
+<p><strong>AP connection:</strong> the three inputs (1.8.A) — Ford read customer priorities, matched its competencies to factory production, and exploited a landscape where no rival could match the price.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Toyota (1950s) — just-in-time</h2>
+<p><strong>Toyota's JIT system</strong> synchronized suppliers so precisely that a late part shut down the whole factory.</p>
+<ul>
+<li>Not bigger — <strong>tighter</strong></li>
+<li>Supplier selection prioritized <strong>reliability over cost</strong></li>
+<li>The factory held almost no inventory — parts arrived exactly when needed</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Which of the five supplier factors</strong> did Toyota prioritize? <strong>Efficiency and reliability</strong> — and when that factor failed, the entire line stopped.</div>
+<p><strong>AP connection:</strong> risk (the factor that hides) plus the need for a <strong>backup plan.</strong> A single late shipment could halt production for a day.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Walmart (1962) — distribution centers</h2>
+<p><strong>Walmart</strong> turned warehouses into distribution centers.</p>
+<ul>
+<li>A warehouse <strong>stores.</strong> A distribution center <strong>stores and forwards.</strong></li>
+<li>This one change cut delivery from <strong>days to hours</strong></li>
+<li>Created competitive advantage through <strong>faster delivery at lower cost</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The warehouse-to-distribution-center distinction</strong> is not just vocabulary — it is a <strong>strategic choice</strong> that reshapes the entire chain.</div>
+<p><strong>AP connection:</strong> two facilities (1.8.B) — the exam tests whether you can tell them apart. Walmart's advantage came from choosing the right one.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Globalization (1990s) — chains stretch</h2>
+<p>Supply chains went <strong>global</strong> — raw materials from one country, manufacturing in another, assembly in a third, sale in a fourth.</p>
+<ul>
+<li><strong>Cost advantage:</strong> labor and materials cheaper overseas</li>
+<li><strong>New risk:</strong> one disruption halfway around the world could stop your entire chain</li>
+<li>The longer the chain, the <strong>more links can break</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The risk was hiding in the length of the chain itself.</strong></div>
+<p><strong>AP connection:</strong> global supply chains are longer and more complex — each stage adds a link that can fail. The five supplier factors apply globally, with <strong>risk amplified by distance.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Amazon (2000s) — the service supply chain</h2>
+<p><strong>Amazon</strong> turned distribution into a service — and then sold the service itself.</p>
+<ul>
+<li>Fulfillment centers, delivery fleets, same-day logistics</li>
+<li>AWS: the infrastructure <strong>became the product</strong></li>
+<li>The supply chain was no longer about <strong>goods</strong> — it was about <strong>people, resources, and a delivery system</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The service supply chain</strong> — tutors, lawn-care crews, and now Amazon — runs on the same three parts: people, resources, delivery system.</div>
+<p><strong>AP connection:</strong> service supply chains (1.8.B) — when the scenario describes hiring, equipping, and delivering with no factory, name the three parts.</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>COVID (2020s) — risk materializes</h2>
+<p><strong>COVID-19</strong> exposed every hidden risk at once:</p>
+<div class="formula">- Single-source suppliers in one country = <strong>no backup</strong></div>
+<ul>
+<li>Chip shortages halted car production worldwide</li>
+<li>Shipping containers sat in the wrong ports</li>
+<li>The risk had been hiding <strong>for decades</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>Every supplier decision should include a backup plan.</strong> The factor that hides eventually shows up — and when it does, chains without a backup stop.</div>
+<p><strong>AP connection:</strong> risk is the factor that hides (1.8.C). COVID was the exam question nobody wanted: "What happens when the risk actually materializes?"</p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Case — discussion questions</h2>
+<ol class="tick">
+<li>Ford scaled production and dropped the price. <strong>Explain the scaling mechanism</strong> — why did revenue growth outpace cost growth?</li>
+</ol>
+<ol class="tick">
+<li>Toyota chose suppliers based on reliability, not just cost. <strong>Which of the five supplier factors</strong> did Toyota prioritize, and what happens when that factor fails?</li>
+</ol>
+<ol class="tick">
+<li>Walmart turned warehouses into distribution centers. <strong>What is the difference</strong>, and how did it create competitive advantage?</li>
+</ol>
+<ol class="tick">
+<li>COVID exposed single-source dependencies. <strong>How is this an example of "the factor that hides"</strong> — and what should businesses have done differently?</li>
+</ol></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Case study — Zara's supply chain</h1>
+<hr class="divider">
+<div class="tag">---</div></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Zara — the strategy: speed</h2>
+<p>Zara's competitive advantage is <strong>speed</strong> — getting new designs to stores faster than any rival.</p>
+<ul>
+<li><strong>2 weeks</strong> from design to store shelf (industry: 6 months)</li>
+<li><strong>Small batches</strong> — if a style doesn't sell, it's gone in weeks</li>
+<li><strong>Frequent refresh</strong> — stores receive new inventory <strong>twice a week</strong></li>
+</ul>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The strategy decided the chain.</strong> Every link — design, manufacturing, distribution, retail — was built to serve one goal: <strong>faster than everyone else.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Zara — the chain: every stage built for speed</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Stage</th><th>What Zara does differently</th><th>AP 1.8 concept</th></tr></thead><tbody>
+<tr><td><strong>Design</strong></td><td>In-house design team in Spain — no outsourcing</td><td>Core competency (1.5) kept in-house</td></tr>
+<tr><td><strong>Raw materials</strong></td><td>Fabric purchased in advance (undyed) — color decided later</td><td>Pre-positioned materials cut lead time</td></tr>
+<tr><td><strong>Manufacturing</strong></td><td><strong>Own factories</strong> in Spain + nearby countries — not outsourced to Asia</td><td>Supplier control for speed, not cost</td></tr>
+<tr><td><strong>Distribution</strong></td><td>One <strong>central distribution center</strong> in Spain — all products flow through it</td><td>Warehouse vs. distribution center (1.8.B)</td></tr>
+<tr><td><strong>Retail</strong></td><td>6,000+ stores worldwide, inventory refreshed <strong>twice a week</strong></td><td>Short chain = less risk</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Zara — the distribution center is the advantage</h2>
+<p>Zara built one massive <strong>central distribution center</strong> in Arteixo, Spain.</p>
+<ul>
+<li>Every garment — whether destined for Tokyo, New York, or São Paulo — passes through <strong>this one facility</strong></li>
+<li>A warehouse <strong>stores.</strong> Zara's center <strong>stores and forwards</strong> — garments arrive and ship within <strong>hours</strong></li>
+<li>The entire chain is designed so that a design sketch on Monday can be <strong>on a store shelf by Friday</strong></li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>This is the warehouse vs. distribution center distinction made real.</strong> Zara doesn't store inventory — it <strong>moves</strong> inventory. The center is a relay, not a warehouse.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Zara — supplier selection: speed over cost</h2>
+<p>Zara's supplier choices break the "cheapest wins" rule:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Factor</th><th>Zara's choice</th><th>Why</th></tr></thead><tbody>
+<tr><td><strong>Cost</strong></td><td><strong>Higher</strong> — own factories in Spain cost more than outsourcing to Asia</td><td>Accepted as the price of speed</td></tr>
+<tr><td><strong>Quality</strong></td><td><strong>High</strong> — in-house control over every step</td><td>Reputation depends on it</td></tr>
+<tr><td><strong>Efficiency</strong></td><td><strong>Maximum</strong> — 2-week turnaround is the #1 priority</td><td>The whole chain exists for this</td></tr>
+<tr><td><strong>Convenience</strong></td><td><strong>Centralized</strong> — one distribution center for the world</td><td>Simplifies coordination</td></tr>
+<tr><td><strong>Risk</strong></td><td><strong>Lower</strong> — short chain, fewer borders, fewer links</td><td>Less distance = fewer things can break</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>Zara traded cost for speed.</strong> The five supplier factors don't all point the same direction — a business must <strong>choose which factor to prioritize</strong> based on its strategy.</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Zara — barriers to entry</h2>
+<p>Zara's supply chain is <strong>nearly impossible to copy:</strong></p>
+<ul>
+<li><strong>Own factories</strong> — competitors outsource and lose control</li>
+<li><strong>One central distribution center</strong> — requires massive investment</li>
+<li><strong>2-week turnaround</strong> — built over decades, not overnight</li>
+<li><strong>Small-batch, high-refresh model</strong> — requires a completely different chain than traditional fashion</li>
+</ul>
+<div class="callout key"><span class="tag">Key Point</span><strong>The supply chain itself is the barrier to entry.</strong> Rivals can copy a dress design in days — but they can't copy the <strong>chain that delivers it in 2 weeks.</strong></div>
+<p><strong>AP connection:</strong> this is the <strong>exclusivity-tuned</strong> chain strategy (EK 1.8.C.3) — not through a legal agreement, but through a chain so specialized that competitors <strong>can't replicate it.</strong></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Zara — AP 1.8 connections</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>1.8 concept</th><th>Zara example</th></tr></thead><tbody>
+<tr><td><strong>Strategy → chain design</strong></td><td>Speed strategy → own factories + centralized distribution + short chain</td></tr>
+<tr><td><strong>Supply chain stages</strong></td><td>Design → raw materials → manufacturing (own) → distribution center → stores → customer</td></tr>
+<tr><td><strong>Warehouse vs. distribution center</strong></td><td>One central facility that <strong>stores and forwards</strong> — not a warehouse</td></tr>
+<tr><td><strong>Supplier selection</strong></td><td>Traded cost for speed + efficiency + quality — five factors, different priority</td></tr>
+<tr><td><strong>Barriers to entry</strong></td><td>The chain itself is the barrier — rivals can't replicate 2-week turnaround</td></tr>
+<tr><td><strong>Risk</strong></td><td>Short chain + own factories = fewer links that can break vs. global outsourcing</td></tr>
+</tbody></table></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Zara — discussion questions</h2>
+<ol class="tick">
+<li>Zara's strategy is <strong>speed</strong>, not low price. How did this strategy <strong>shape every stage</strong> of its supply chain? (Connect to EK 1.8.C.1, 1.8.C.2)</li>
+</ol>
+<ol class="tick">
+<li>Zara built <strong>own factories in Spain</strong> instead of outsourcing to cheaper countries. Which of the five supplier factors did Zara <strong>sacrifice</strong>, and which did it <strong>prioritize</strong>? Why?</li>
+</ol>
+<ol class="tick">
+<li>Zara's central distribution center in Arteixo handles <strong>every garment for the entire world.</strong> Explain the difference between a warehouse and a distribution center — and why Zara's facility is the latter.</li>
+</ol>
+<ol class="tick">
+<li>Zara's supply chain is described as a <strong>barrier to entry.</strong> How is this different from a legal barrier (like an exclusive agreement)? What makes it <strong>harder to copy</strong>?</li>
+</ol></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Lesson</div><h2>Case — connecting to the candy seller</h2>
+<p>Every milestone in the video maps onto the candy seller's Saturday:</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Milestone</th><th>The candy seller's version</th></tr></thead><tbody>
+<tr><td><strong>Ford</strong> (mass production)</td><td>The chocolate bars — machines poured thousands</td></tr>
+<tr><td><strong>Toyota</strong> (JIT / supplier reliability)</td><td>The supermarket vs. wholesale parent — reliability vs. cost</td></tr>
+<tr><td><strong>Walmart</strong> (distribution centers)</td><td>The truck that delivers bars to the supermarket shelf</td></tr>
+<tr><td><strong>Globalization</strong> (global chain + risk)</td><td>Cocoa from another hemisphere — the chain is global</td></tr>
+<tr><td><strong>Amazon</strong> (service supply chain)</td><td>The snack box itself — people + coolers + order form</td></tr>
+<tr><td><strong>COVID</strong> (risk materializes)</td><td>The wholesale parent's van breaking down — twice</td></tr>
+</tbody></table></div>
+<div class="callout warn"><span class="tag">Exam Note</span><strong>The video tells the 100-year version. The candy seller lives the Saturday version.</strong> Same concepts, different scale.</div></div>
+        </div>
+<div class="slide invert"><div class="inner hero"><h1>Practice — 6 questions</h1>
+<hr class="divider">
+<div class="tag">Read to yourself, pause, <strong>commit to an answer</strong> — then advance.</div>
+<span class="chip"><strong>4 on one stimulus (Copper Kettle Candles)</strong>· <strong>2 standalone</strong></span></div></div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Nadia Farouk</strong> owns <strong>Copper Kettle Candles</strong>, pouring small batches by hand with premium wax and charging approximately <strong>twice what machine-made candles cost.</strong> Customers praise the quality and custom scents.</p><p>Nadia buys wax from an <strong>overseas supplier</strong> at a price <strong>20% below local</strong> — but <strong>2 of the last 6 shipments arrived weeks late</strong>, and one contained <strong>the wrong blend.</strong></p><p>A boutique chain offers a deal: <strong>feature Copper Kettle in 12 stores</strong> if Nadia signs an <strong>exclusive retail rights agreement.</strong></p><p>> <strong>Watch for three decision points:</strong> production approach, supplier choice, and the exclusive agreement.</p></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Classify production approach</div>
+<p>Nadia's method of pouring small batches by hand with premium wax is best described as which?</p>
+<div class="opt"><span class="letter">A</span>Mass production, because she sells in multiple locations</div>
+<div class="opt"><span class="letter">B</span>Artisan production, because she relies on skilled labor and attention to detail in smaller quantities</div>
+<div class="opt"><span class="letter">C</span>Outsourcing, because she buys wax from an overseas supplier</div>
+<div class="opt"><span class="letter">D</span>A service supply chain, because she provides custom scents</div>
+<p>Pause. Ask: does she use machinery and assembly lines to produce large quantities, or skilled hands and careful attention in small batches?</p>
+<p>--></p></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>Artisan production relies on <strong>skilled labor</strong> and close attention to detail, producing <strong>smaller quantities.</strong> Nadia pours by hand, uses premium materials, and makes small batches — every marker points to artisan.</p>
+</div>
+<div class="trap">C<strong> — </strong>buying inputs is not outsourcing.** Every producer buys raw materials. Nadia makes the candles herself; she buys wax the same way a baker buys flour.</div>
+<div class="trap">A<strong> — selling in multiple locations does not change the </strong>production method.** She could sell in 100 stores and still be artisan if she pours every candle by hand.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Classify by how the product is made, not by how many places it is sold.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>Supplier decision</div>
+<p>Nadia's overseas wax supplier offers a price 20% below local, but 2 of 6 recent shipments arrived late and one had the wrong blend. Which analysis <strong>best</strong> supports a sound supplier decision?</p>
+<div class="opt"><span class="letter">A</span>Choose the overseas supplier because lower cost always increases profit</div>
+<div class="opt"><span class="letter">B</span>Choose the local supplier because reliability is the only factor that matters</div>
+<div class="opt"><span class="letter">C</span>Weigh the lower cost against the risks — including late deliveries, wrong shipments, and potential damage to reputation — and consider a backup plan</div>
+<div class="opt"><span class="letter">D</span>Choose the overseas supplier because customers will never know about delivery problems</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>The five supplier factors are cost, quality, efficiency, convenience, and <strong>risk.</strong> The overseas supplier wins on cost but loses on reliability and risk (late deliveries, wrong blend). A sound decision <strong>weighs all five factors</strong> and includes a <strong>backup plan.</strong></p>
+</div>
+<div class="trap">A<strong> — </strong>"always" is an absolute.** Lower cost does not always increase profit if late deliveries cause stockouts and lost customers.</div>
+<div class="trap">B<strong> — reliability is one factor, not the </strong>only** factor. The question says "only" — that is as much of a trap as "always."</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Weigh all five factors, with risk priced in. Name the backup plan.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>Exclusive retail agreement</div>
+<p>The boutique chain offers to feature Copper Kettle in 12 stores if Nadia signs an exclusive retail rights agreement. This agreement would most directly create competitive advantage through which mechanism?</p>
+<div class="opt"><span class="letter">A</span>Barriers to entry — the exclusive agreement locks up retail shelf space, preventing competitors from accessing those stores</div>
+<div class="opt"><span class="letter">B</span>Cost leadership — selling in 12 stores reduces per-unit production costs</div>
+<div class="opt"><span class="letter">C</span>Economies of scale — more stores means Nadia can switch to mass production</div>
+<div class="opt"><span class="letter">D</span>Guaranteed long-term profits from the partnership</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
+<div class="answer-card"><h4>Why</h4>
+<p>An exclusive retail rights agreement is a <strong>barrier to entry</strong> — it locks up shelf space so competitors cannot access those 12 stores. That is one of the three strategy-to-chain mechanisms the exam tests.</p>
+</div>
+<div class="trap">D<strong> — </strong>"guaranteed" is an absolute.** The deal shifts the odds in Nadia's favor; it guarantees nothing. The boutique chain could drop her line, close stores, or renegotiate.</div>
+<div class="trap">C<strong> — selling in 12 stores does not automatically mean Nadia </strong>should<strong> switch to mass production. She is an artisan producer; the agreement gives her </strong>shelf space**, not a factory.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Exclusive agreements create barriers to entry. They do not guarantee profits.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Order the supply chain</div>
+<p>Which best identifies the order of the supply chain for a mass-produced good, from start to finish?</p>
+<div class="opt"><span class="letter">A</span>Manufacturing, raw materials, retail store, warehouse, customer</div>
+<div class="opt"><span class="letter">B</span>Raw materials, warehouse, manufacturing, customer, distribution center</div>
+<div class="opt"><span class="letter">C</span>Distribution center, raw materials, manufacturing, warehouse, customer</div>
+<div class="opt"><span class="letter">D</span>Raw materials, manufacturing, warehouse, distribution center or retail store, customer</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
+<p>The chain runs in one direction:</p>
+<div class="callout key"><span class="tag">Key Point</span><strong>Raw materials to manufacturing to warehouse to distribution/retail to customer</strong></div>
+<div class="trap">B<strong> fails twice — it puts the warehouse </strong>before<strong> manufacturing (the warehouse stores </strong>finished<strong> goods), and it ends with a distribution center </strong>after the customer.**</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Warehouse comes after manufacturing and before distribution. Never after the customer.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Scaling table</div>
+<p><strong>BatchBox Snacks doubled its production scale last year:</strong></p>
+<div class="tbl-wrap"><table>
+<thead><tr><th></th><th>Before scaling</th><th>After scaling</th></tr></thead><tbody>
+<tr><td>Units</td><td>20,000</td><td>40,000</td></tr>
+<tr><td>Revenue</td><td>$80,000</td><td>$160,000</td></tr>
+<tr><td>Total costs</td><td>$60,000</td><td>$96,000</td></tr>
+<tr><td><strong>Profit</strong></td><td><strong>$20,000</strong></td><td><strong>$64,000</strong></td></tr>
+</tbody></table></div>
+<p>Which conclusion is <strong>best supported</strong> by the table?</p>
+<div class="opt"><span class="letter">A</span>Scaling failed, because total costs increased by $36,000</div>
+<div class="opt"><span class="letter">B</span>Scaling succeeded, because revenue grew 100% while costs grew only 60%, raising profit from $20,000 to $64,000</div>
+<div class="opt"><span class="letter">C</span>Scaling guarantees higher profits every year going forward</div>
+<div class="opt"><span class="letter">D</span>The business should return to its original scale</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
+<p>Compute both growth rates:</p>
+<div class="formula">- <strong>Revenue:</strong> $80,000 to $160,000 = <strong>+100%</strong></div>
+<div class="formula">- <strong>Costs:</strong> $60,000 to $96,000 = <strong>+60%</strong></div>
+<ul>
+<li><strong>Profit:</strong> $20,000 to <strong>$64,000</strong> confirms it</li>
+</ul>
+<p>Revenue growth <strong>outran</strong> cost growth. That is the scaling mechanism.</p>
+<div class="trap">A<strong> reads one number and stops — costs rose (as they do when production doubles); the question is whether revenue rose </strong>faster.**</div>
+<div class="trap">C<strong> converts one good year into a permanent promise — the </strong>"guarantees" alarm** rings here as everywhere.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>Read both growth rates. Compare them. One number alone is never enough.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Service supply chain</div>
+<p>An <strong>online tutoring company</strong> hires tutors, develops lesson materials, and delivers sessions through a video platform. Which best describes this company's supply chain?</p>
+<div class="opt"><span class="letter">A</span>Raw materials flowing to a manufacturing facility for assembly</div>
+<div class="opt"><span class="letter">B</span>A warehouse storing finished lessons until customers order them</div>
+<div class="opt"><span class="letter">C</span>Acquiring tutors, learning resources, and a virtual delivery platform to provide the service</div>
+<div class="opt"><span class="letter">D</span>Services cannot have supply chains</div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
+<p>A service supply chain acquires the <strong>employees, the resources, and the delivery systems</strong> needed to provide the service — tutors, materials, and a video platform are those three parts.</p>
+<div class="trap">B<strong> borrows the goods chain — warehouses store </strong>physical products<strong>; a tutoring session is </strong>delivered live.**</div>
+<div class="trap">D<strong> is the misconception this topic exists to correct — </strong>services absolutely run supply chains**, built from people, resources, and delivery systems instead of trucks and pallets.</div>
+<div class="callout key"><span class="tag">Key Point</span><strong>When the scenario names hiring, equipping, and delivering — with no factory — it is a service supply chain. The answer names three parts.</strong></div></div>
+        </div>
+        <div class="slide">
+            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Buying inputs is not outsourcing</strong> — every producer buys raw materials; classify by how the product is <strong>made</strong></td><td>Q1</td></tr>
+<tr><td>2</td><td><strong>One factor as the whole answer</strong> (cost OR reliability) + <strong>"always"</strong> — weigh all five factors, with risk priced in</td><td>Q2</td></tr>
+<tr><td>3</td><td><strong>"Guarantee"</strong> in a favorable-deal scenario — deals shift odds, guarantee nothing</td><td>Q3</td></tr>
+<tr><td>4</td><td><strong>Out-of-order stages</strong> — warehouse after manufacturing, never after customer</td><td>Q4</td></tr>
+<tr><td>5</td><td><strong>Reading one number and stopping</strong> (costs rose so "failed") — must compare revenue vs. cost growth</td><td>Q5</td></tr>
+<tr><td>6</td><td><strong>Permanent promise from one good year</strong> ("guarantees") — one year is not a pattern</td><td>Q5</td></tr>
+<tr><td>7</td><td><strong>Borrowing the goods chain for a service</strong> + "services cannot have supply chains" misconception</td><td>Q6</td></tr>
+</tbody></table></div></div>
+        </div>
+<div class="slide"><div class="inner hero"><div class="eyebrow">Next: Unit 2 — Marketing</div>
+<h1>Wrap-up</h1>
+<hr class="divider">
+<div class="tag">- <strong>Artisan</strong> (skilled, small) vs. <strong>mass production</strong> (tech, large) — chosen by customer priorities, competencies, and competitive landscape</div></div></div>
+
+</div>
+<button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
+<button class="nav-arrow next" onclick="chg(1)">&#8250;</button>
+<div class="dots" id="ndc"></div>
+<div class="bar bottom">
+    <span>AP Business with Personal Finance · 1.8 Supply Chains</span>
+    <span>Slide <span id="sn">1</span> / 68</span>
+</div>
+<script>
+var cs = 0;
+var N = 68;
+function show(n) {
+    if (n < 0) n = N - 1;
+    if (n >= N) n = 0;
+    document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.nd').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.slide')[n].classList.add('active');
+    document.querySelectorAll('.nd')[n].classList.add('active');
+    cs = n;
+    document.getElementById('sn').textContent = n + 1;
+}
+function chg(dir) { show(cs + dir); }
+function go(n) { show(n); }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  chg(-1);
+    if (e.key === 'ArrowRight') chg(1);
+    if (e.key === ' ') { e.preventDefault(); chg(1); }
+});
+var tsx = 0;
+document.addEventListener('touchstart', function(e){ tsx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e){
+    var diff = e.changedTouches[0].screenX - tsx;
+    if (diff < -50) chg(1);
+    if (diff > 50)  chg(-1);
+});
+(function(){
+    var c = document.getElementById('ndc');
+    for (var i = 0; i < N; i++) {
+        var b = document.createElement('button');
+        b.className = 'nd' + (i === 0 ? ' active' : '');
+        b.onclick = (function(idx){ return function(){ go(idx); }; })(i);
+        b.title = 'Slide ' + (i+1);
+        c.appendChild(b);
+    }
+})();
+
+</script>
+</body>
+</html>
