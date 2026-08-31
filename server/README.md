@@ -119,6 +119,7 @@ localStorage.setItem('apbApiBase', 'http://127.0.0.1:9000')
 
 | 方法 | 路径 | 权限 | 说明 |
 |---|---|---|---|
+| GET | `/api/groups` | 公开 | 小组榜：所有组的组名、成员、项目标题与截止日期（不含分数） |
 | POST | `/api/groups` | 公开（限流） | 创建小组 |
 | POST | `/api/groups/login` | 公开（限流） | 小组登录 |
 | GET | `/api/groups/me` | 学生令牌 | 本组信息 + 项目 + 个人成绩 |

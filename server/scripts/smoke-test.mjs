@@ -213,6 +213,25 @@ try {
     assert.equal(zhangsan.score, 90);
   });
 
+  await check('公开小组榜：含组名/成员/项目/截止日期，但不含分数等私密信息', async () => {
+    const { status, json } = await call('GET', '/api/groups');
+    assert.equal(status, 200);
+    assert.equal(json.groups.length, 1);
+    const pub = json.groups[0];
+    assert.equal(pub.name, '火星咖啡');
+    assert.deepEqual(pub.members, ['张三', '李四']);
+    assert.equal(pub.assignments.length, 1);
+    assert.equal(pub.assignments[0].title, 'Business Canvas 初稿');
+    assert.ok(pub.assignments[0].dueDate);
+    // 私密字段不得出现
+    const raw = JSON.stringify(pub);
+    assert.ok(!raw.includes('score'), '不应包含分数');
+    assert.ok(!raw.includes('comment'), '不应包含评语');
+    assert.ok(!raw.includes('password'), '不应包含密码');
+    assert.ok(!raw.includes('canvasLink'), '不应包含 Canvas 链接');
+    assert.ok(!raw.includes('projectIdea'), '不应包含选题');
+  });
+
   await check('老师锁定小组后学生不能修改', async () => {
     const lockRes = await call(
       'PATCH',

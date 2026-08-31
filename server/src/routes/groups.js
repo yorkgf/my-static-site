@@ -8,11 +8,20 @@ import {
   validateGroupUpdate,
   cryptoRandomId,
 } from '../validation.js';
-import { buildGroupView } from '../views.js';
+import { buildGroupView, buildPublicGroupsView } from '../views.js';
 
 export const groupsRouter = Router();
 
 const BCRYPT_ROUNDS = 10;
+
+// GET /api/groups — 公开：所有小组的组名、成员、项目与截止日期（不含分数）
+groupsRouter.get('/', async (_req, res, next) => {
+  try {
+    return res.json({ groups: await buildPublicGroupsView() });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 async function findGroupByName(name) {
   return collections.groups.findOne({ nameKey: name.trim().toLowerCase() });

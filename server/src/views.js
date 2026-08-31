@@ -54,3 +54,30 @@ export async function buildAllGroupsView() {
   const groups = await collections.groups.find({}).sort({ createdAt: 1 }).toArray();
   return Promise.all(groups.map(buildGroupView));
 }
+
+/**
+ * 公开视图：所有学生可见的小组榜。
+ * 只含组名、成员姓名、项目标题与截止日期；
+ * 不含分数/评语、Canvas 链接、选题、密码等任何私密信息。
+ */
+export async function buildPublicGroupsView() {
+  const groups = await collections.groups.find({}).sort({ createdAt: 1 }).toArray();
+  const assignments = await collections.assignments
+    .find({})
+    .sort({ dueDate: 1, createdAt: 1 })
+    .toArray();
+
+  const assignmentsByGroup = new Map();
+  for (const a of assignments) {
+    const list = assignmentsByGroup.get(a.groupId.toString()) || [];
+    list.push({ title: a.title, dueDate: a.dueDate });
+    assignmentsByGroup.set(a.groupId.toString(), list);
+  }
+
+  return groups.map((g) => ({
+    id: g._id.toString(),
+    name: g.name,
+    members: g.members.map((m) => m.name),
+    assignments: assignmentsByGroup.get(g._id.toString()) || [],
+  }));
+}

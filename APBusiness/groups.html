@@ -106,6 +106,16 @@
             <div id="assignments"></div>
         </div>
     </div>
+
+    <!-- ═══ 公开小组榜（登录与否都可见） ═══ -->
+    <div class="card" id="boardCard">
+        <div class="assignment-head" style="margin-bottom:0.6rem;">
+            <h2 style="margin:0;">🏆 各组项目一览</h2>
+            <button class="btn btn-ghost btn-sm" id="boardRefreshBtn" type="button">🔄 刷新</button>
+        </div>
+        <p class="hint">这里可以看到所有小组的组名、成员、分配的项目和截止日期；<strong>分数和评语仅本组成员登录后可见</strong>。</p>
+        <div id="boardBox"></div>
+    </div>
 </div>
 
 <script src="js/groups-common.js"></script>
@@ -176,6 +186,7 @@
         setToken('student', data.token);
         toast('小组创建成功！');
         showDashboard(data.group);
+        loadBoard();
       } catch (err) {
         toast(err.message, 'error');
       }
@@ -322,14 +333,51 @@
         });
         toast('已保存');
         showDashboard(data.group);
+        loadBoard();
       } catch (err) {
         if (err.expired) { setToken('student', ''); location.reload(); }
         toast(err.message, 'error');
       }
     });
 
-    // ── 启动：已有令牌则自动登录 ──
+    // ── 公开小组榜（无需登录） ──
+    async function loadBoard() {
+      const box = document.getElementById('boardBox');
+      try {
+        const data = await api('/api/groups');
+        if (!data.groups.length) {
+          box.innerHTML = '<p class="empty-note">还没有小组创建，快来创建第一个小组吧！</p>';
+          return;
+        }
+        box.innerHTML = data.groups.map((g) => {
+          const members = g.members
+            .map((n) => '<span class="chip">' + esc(n) + '</span>').join('');
+          const tasks = g.assignments.length
+            ? g.assignments.map((a) => {
+                const due = dueStatus(a.dueDate);
+                const badge = due
+                  ? '<span class="badge ' + due.cls + '">' + esc(due.label) + '</span>'
+                  : '';
+                return '<div class="info-line" style="margin:0.3rem 0;">📌 ' +
+                  esc(a.title) + ' <span class="due">· 截止 ' + fmtDate(a.dueDate) + '</span> ' +
+                  badge + '</div>';
+              }).join('')
+            : '<p class="empty-note">暂未分配项目</p>';
+          return '<div class="assignment">' +
+            '<div class="assignment-title" style="margin-bottom:0.3rem;">' + esc(g.name) + '</div>' +
+            '<div class="member-chips">' + members + '</div>' +
+            tasks +
+          '</div>';
+        }).join('');
+      } catch (err) {
+        box.innerHTML = '<p class="empty-note">小组榜加载失败：' + esc(err.message) + '</p>';
+      }
+    }
+    document.getElementById('boardRefreshBtn').addEventListener('click', loadBoard);
+
+    // ── 启动：已有令牌则自动登录；同时加载公开小组榜 ──
     (async function init() {
+      loadBoard();
       const token = getToken('student');
       if (!token) return;
       try {
