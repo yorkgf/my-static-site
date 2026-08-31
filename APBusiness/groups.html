@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Business · 项目小组</title>
+    <link rel="stylesheet" href="css/groups.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar">
+        <div>
+            <h1>👥 项目小组 · Project Groups</h1>
+            <p class="subtitle">AP Business with Personal Finance — 小组报名、项目任务与个人成绩</p>
+        </div>
+        <a class="back-link" href="syllabus.html">← 返回 Syllabus</a>
+    </div>
+
+    <!-- ═══ 未登录：创建 / 登录 ═══ -->
+    <div id="authView">
+        <div class="grid-2">
+            <div class="card">
+                <h2>登录我的小组</h2>
+                <p class="hint">组长创建小组后，组员用<strong>组名 + 组密码</strong>登录，查看被分配的项目、截止日期和个人成绩。</p>
+                <form id="loginForm">
+                    <label>组名</label>
+                    <input type="text" id="loginName" autocomplete="organization" required>
+                    <label>组密码</label>
+                    <input type="password" id="loginPassword" autocomplete="off" required>
+                    <button class="btn" type="submit">登录</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>创建新小组</h2>
+                <p class="hint">每组 <strong>1–3 人</strong>。由组长设置组密码，请把组名和密码告诉组员。</p>
+                <form id="createForm">
+                    <label>组名 <span class="req">*</span></label>
+                    <input type="text" id="createName" maxlength="40" placeholder="例如：火星咖啡队" required>
+
+                    <label>组密码 <span class="req">*</span></label>
+                    <input type="password" id="createPassword" minlength="4" maxlength="64" placeholder="至少 4 位，组长设定" required>
+                    <label>确认组密码 <span class="req">*</span></label>
+                    <input type="password" id="createPassword2" minlength="4" maxlength="64" required>
+
+                    <label>成员姓名 <span class="req">*</span>（1–3 人）</label>
+                    <div id="createMembers"></div>
+                    <button type="button" class="btn btn-ghost btn-sm" id="addMemberBtn">+ 添加成员</button>
+
+                    <label>项目选题 / 商业想法（可稍后补充）</label>
+                    <textarea id="createIdea" maxlength="500" placeholder="一句话描述你们想做的生意或商业项目…"></textarea>
+
+                    <label>Business Canvas 链接（可稍后补充）</label>
+                    <input type="url" id="createCanvas" maxlength="300" placeholder="boardmix / 腾讯文档等分享链接">
+
+                    <button class="btn" type="submit">创建小组</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ 已登录：小组面板 ═══ -->
+    <div id="dashView" hidden>
+        <div class="topbar">
+            <h1 id="groupTitle"></h1>
+            <div class="btn-row">
+                <button class="btn btn-ghost btn-sm" id="editToggleBtn">✏️ 编辑小组信息</button>
+                <button class="btn btn-danger btn-sm" id="logoutBtn">退出登录</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>小组信息</h2>
+            <div class="member-chips" id="memberChips"></div>
+            <p class="info-line"><span class="label">项目选题：</span><span id="infoIdea"></span></p>
+            <p class="info-line"><span class="label">Canvas：</span><span id="infoCanvas"></span></p>
+        </div>
+
+        <div class="card" id="editCard" hidden>
+            <h2>编辑小组信息</h2>
+            <p class="hint" id="lockHint" hidden>🔒 小组信息已被老师锁定，如需修改请联系老师。</p>
+            <form id="editForm">
+                <label>成员姓名（1–3 人）</label>
+                <div id="editMembers"></div>
+                <button type="button" class="btn btn-ghost btn-sm" id="editAddMemberBtn">+ 添加成员</button>
+
+                <label>项目选题 / 商业想法</label>
+                <textarea id="editIdea" maxlength="500"></textarea>
+
+                <label>Business Canvas 链接</label>
+                <input type="url" id="editCanvas" maxlength="300" placeholder="留空表示暂未提交">
+
+                <label>修改组密码（留空则不修改）</label>
+                <input type="password" id="editNewPassword" minlength="4" maxlength="64" placeholder="新密码（至少 4 位）">
+
+                <div class="btn-row">
+                    <button class="btn" type="submit">保存</button>
+                    <button class="btn btn-ghost" type="button" id="editCancelBtn">取消</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>📋 项目任务与成绩</h2>
+            <p class="hint">老师分配的项目、要求和截止日期会显示在这里；项目完成后，每位成员可以看到<strong>自己的个人分数和评语</strong>。</p>
+            <div id="assignments"></div>
+        </div>
+    </div>
+</div>
+
+<script src="js/groups-common.js"></script>
+<script>
+(function () {
+    const { api, getToken, setToken, esc, fmtDate, dueStatus, toast } = window.APB;
+    const MAX_MEMBERS = 3;
+
+    const authView = document.getElementById('authView');
+    const dashView = document.getElementById('dashView');
+    let currentGroup = null;
+
+    // ── 动态成员输入行 ──
+    function makeMemberRow(container, name = '', id = '') {
+      const rows = container.querySelectorAll('.member-row');
+      if (rows.length >= MAX_MEMBERS) {
+        toast('每组最多 ' + MAX_MEMBERS + ' 人');
+        return;
+      }
+      const row = document.createElement('div');
+      row.className = 'member-row';
+      row.innerHTML =
+        '<input type="text" class="member-name" maxlength="30" placeholder="成员姓名" value="' + esc(name) + '" required>' +
+        (id ? '<input type="hidden" class="member-id" value="' + esc(id) + '">' : '') +
+        '<button type="button" class="remove" title="移除" aria-label="移除成员">✕</button>';
+      row.querySelector('.remove').addEventListener('click', () => {
+        if (container.querySelectorAll('.member-row').length > 1) row.remove();
+        else toast('小组至少需要 1 名成员');
+      });
+      container.appendChild(row);
+    }
+
+    function collectMembers(container) {
+      return Array.from(container.querySelectorAll('.member-row')).map((row) => ({
+        id: row.querySelector('.member-id')?.value || '',
+        name: row.querySelector('.member-name').value.trim(),
+      })).filter((m) => m.name);
+    }
+
+    // ── 创建小组 ──
+    const createMembers = document.getElementById('createMembers');
+    makeMemberRow(createMembers);
+    document.getElementById('addMemberBtn').addEventListener('click', () => makeMemberRow(createMembers));
+
+    document.getElementById('createForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('createName').value.trim();
+      const password = document.getElementById('createPassword').value;
+      const password2 = document.getElementById('createPassword2').value;
+      const members = collectMembers(createMembers);
+      const projectIdea = document.getElementById('createIdea').value.trim();
+      const canvasLink = document.getElementById('createCanvas').value.trim();
+
+      if (password !== password2) return toast('两次输入的组密码不一致', 'error');
+      if (members.length < 1 || members.length > MAX_MEMBERS) {
+        return toast('成员人数需为 1–3 人', 'error');
+      }
+
+      try {
+        const data = await api('/api/groups', {
+          method: 'POST',
+          body: {
+            name, password,
+            members: members.map((m) => m.name),
+            projectIdea, canvasLink,
+          },
+        });
+        setToken('student', data.token);
+        toast('小组创建成功！');
+        showDashboard(data.group);
+      } catch (err) {
+        toast(err.message, 'error');
+      }
+    });
+
+    // ── 登录 ──
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const data = await api('/api/groups/login', {
+          method: 'POST',
+          body: {
+            name: document.getElementById('loginName').value.trim(),
+            password: document.getElementById('loginPassword').value,
+          },
+        });
+        setToken('student', data.token);
+        toast('登录成功');
+        showDashboard(data.group);
+      } catch (err) {
+        toast(err.message, 'error');
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      setToken('student', '');
+      currentGroup = null;
+      dashView.hidden = true;
+      authView.hidden = false;
+      window.scrollTo(0, 0);
+    });
+
+    // ── 渲染小组面板 ──
+    function showDashboard(group) {
+      currentGroup = group;
+      authView.hidden = true;
+      dashView.hidden = false;
+
+      document.getElementById('groupTitle').textContent =
+        '👥 ' + group.name + (group.locked ? ' 🔒' : '');
+
+      document.getElementById('memberChips').innerHTML = group.members
+        .map((m) => '<span class="chip">' + esc(m.name) + '</span>').join('');
+
+      document.getElementById('infoIdea').textContent = group.projectIdea || '（暂未填写）';
+      const canvasEl = document.getElementById('infoCanvas');
+      if (group.canvasLink) {
+        canvasEl.innerHTML = '<a href="' + esc(group.canvasLink) + '" target="_blank" rel="noopener">' +
+          esc(group.canvasLink) + ' ↗</a>';
+      } else {
+        canvasEl.textContent = '（暂未提交）';
+      }
+
+      renderAssignments(group.assignments);
+
+      // 编辑表单同步
+      const editCard = document.getElementById('editCard');
+      editCard.hidden = true;
+      document.getElementById('lockHint').hidden = !group.locked;
+      document.getElementById('editForm').style.display = group.locked ? 'none' : '';
+      document.getElementById('editIdea').value = group.projectIdea || '';
+      document.getElementById('editCanvas').value = group.canvasLink || '';
+      document.getElementById('editNewPassword').value = '';
+      const editMembers = document.getElementById('editMembers');
+      editMembers.innerHTML = '';
+      group.members.forEach((m) => makeMemberRow(editMembers, m.name, m.id));
+
+      window.scrollTo(0, 0);
+    }
+
+    function renderAssignments(assignments) {
+      const box = document.getElementById('assignments');
+      if (!assignments.length) {
+        box.innerHTML = '<p class="empty-note">老师还没有分配项目任务，请稍后再来查看。</p>';
+        return;
+      }
+      box.innerHTML = assignments.map((a) => {
+        const due = dueStatus(a.dueDate);
+        const badge = due
+          ? '<span class="badge ' + due.cls + '">' + esc(due.label) + '</span>'
+          : '';
+        const desc = a.description
+          ? '<p class="assignment-desc">' + esc(a.description) + '</p>'
+          : '';
+
+        let scoreBlock;
+        if (!a.scores.length) {
+          scoreBlock = '<p class="empty-note">老师尚未发布本项目成绩。</p>';
+        } else {
+          const rows = a.scores
+            .slice()
+            .sort((x, y) => x.memberName.localeCompare(y.memberName, 'zh'))
+            .map((s) =>
+              '<tr class="score-row-has">' +
+              '<td>' + esc(s.memberName) + '</td>' +
+              '<td><span class="score-value">' + esc(String(s.score)) + '</span></td>' +
+              '<td class="score-comment">' + esc(s.comment || '—') + '</td>' +
+              '</tr>').join('');
+          scoreBlock =
+            '<table><thead><tr><th>成员</th><th>分数</th><th>评语</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody></table>';
+        }
+
+        return '<div class="assignment">' +
+          '<div class="assignment-head">' +
+            '<span class="assignment-title">' + esc(a.title) + '</span>' +
+            '<span class="due">📅 截止：' + fmtDate(a.dueDate) + badge + '</span>' +
+          '</div>' +
+          desc + scoreBlock +
+        '</div>';
+      }).join('');
+    }
+
+    // ── 编辑小组 ──
+    const editMembers = document.getElementById('editMembers');
+    document.getElementById('editAddMemberBtn').addEventListener('click', () => makeMemberRow(editMembers));
+    document.getElementById('editToggleBtn').addEventListener('click', () => {
+      document.getElementById('editCard').hidden = false;
+      document.getElementById('editCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    document.getElementById('editCancelBtn').addEventListener('click', () => {
+      document.getElementById('editCard').hidden = true;
+    });
+
+    document.getElementById('editForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const members = collectMembers(editMembers);
+      if (members.length < 1 || members.length > MAX_MEMBERS) {
+        return toast('成员人数需为 1–3 人', 'error');
+      }
+      const body = {
+        members,
+        projectIdea: document.getElementById('editIdea').value.trim(),
+        canvasLink: document.getElementById('editCanvas').value.trim(),
+      };
+      const newPassword = document.getElementById('editNewPassword').value;
+      if (newPassword) body.newPassword = newPassword;
+
+      try {
+        const data = await api('/api/groups/me', {
+          method: 'PATCH',
+          body,
+          token: getToken('student'),
+        });
+        toast('已保存');
+        showDashboard(data.group);
+      } catch (err) {
+        if (err.expired) { setToken('student', ''); location.reload(); }
+        toast(err.message, 'error');
+      }
+    });
+
+    // ── 启动：已有令牌则自动登录 ──
+    (async function init() {
+      const token = getToken('student');
+      if (!token) return;
+      try {
+        const data = await api('/api/groups/me', { token });
+        showDashboard(data.group);
+      } catch (err) {
+        setToken('student', '');
+      }
+    })();
+})();
+</script>
+</body>
+</html>

@@ -4,6 +4,9 @@ quartz-gh/
 # Obsidian markdown source files (already built in knowledge-graph/)
 APPhysicsC/knowlege graph/
 
+# Backend API (deployed separately to the Lighthouse server, not EdgeOne Pages)
+server/
+
 # Development files
 .claude/
 .git/

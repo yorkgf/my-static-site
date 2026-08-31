@@ -1,0 +1,5 @@
+node_modules/
+.env
+npm-debug.log*
+# SCF 部署包（scripts/pack-scf.sh 随时可重新生成）
+apbusiness-scf.zip

@@ -1,0 +1,9 @@
+#!/bin/bash
+# Web函数启动文件（与 FADsys 相同方式）
+
+# 监听端口（云函数默认 9000）
+export PORT=${PORT:-9000}
+export NODE_ENV=production
+
+# 启动服务器
+node src/index.js

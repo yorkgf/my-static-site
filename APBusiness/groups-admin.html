@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Business · 老师管理台</title>
+    <link rel="stylesheet" href="css/groups.css">
+    <meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar">
+        <div>
+            <h1>🛠️ 项目小组 · 老师管理台</h1>
+            <p class="subtitle">分配项目、设定截止日期、按项目给每位成员打分</p>
+        </div>
+        <a class="back-link" href="groups.html">← 学生端页面</a>
+    </div>
+
+    <!-- 登录 -->
+    <div class="card" id="loginCard" style="max-width:420px;margin:3rem auto;">
+        <h2>老师登录</h2>
+        <form id="loginForm">
+            <label>老师密码</label>
+            <input type="password" id="teacherPassword" autocomplete="off" required>
+            <button class="btn" type="submit">登录</button>
+        </form>
+    </div>
+
+    <!-- 管理面板 -->
+    <div id="adminView" hidden>
+        <div class="btn-row" style="margin-bottom:1rem;">
+            <button class="btn btn-ghost btn-sm" id="refreshBtn">🔄 刷新</button>
+            <button class="btn btn-danger btn-sm" id="logoutBtn">退出登录</button>
+            <span class="hint" id="groupCount"></span>
+        </div>
+        <div id="groupsBox"></div>
+    </div>
+</div>
+
+<script src="js/groups-common.js"></script>
+<script>
+(function () {
+    const { api, getToken, setToken, esc, fmtDate, toast } = window.APB;
+
+    const loginCard = document.getElementById('loginCard');
+    const adminView = document.getElementById('adminView');
+    const groupsBox = document.getElementById('groupsBox');
+    let groups = [];
+    const expanded = new Set();
+
+    // ── 登录 ──
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const data = await api('/api/teacher/login', {
+          method: 'POST',
+          body: { password: document.getElementById('teacherPassword').value },
+        });
+        setToken('teacher', data.token);
+        toast('登录成功');
+        enterAdmin();
+      } catch (err) {
+        toast(err.message, 'error');
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      setToken('teacher', '');
+      location.reload();
+    });
+    document.getElementById('refreshBtn').addEventListener('click', loadGroups);
+
+    async function enterAdmin() {
+      loginCard.hidden = true;
+      adminView.hidden = false;
+      await loadGroups();
+    }
+
+    async function loadGroups() {
+      try {
+        const data = await api('/api/teacher/groups', { token: getToken('teacher') });
+        groups = data.groups;
+        document.getElementById('groupCount').textContent = '共 ' + groups.length + ' 个小组';
+        render();
+      } catch (err) {
+        if (err.expired) { setToken('teacher', ''); location.reload(); }
+        toast(err.message, 'error');
+      }
+    }
+
+    // ── 渲染 ──
+    function render() {
+      if (!groups.length) {
+        groupsBox.innerHTML = '<div class="card"><p class="empty-note">还没有学生创建小组。</p></div>';
+        return;
+      }
+      groupsBox.innerHTML = groups.map((g) => {
+        const isOpen = expanded.has(g.id);
+        const lockBadge = g.locked ? '<span class="badge badge-locked">🔒 已锁定</span>' : '';
+        const head =
+          '<div class="group-item-head">' +
+            '<span><span class="group-item-name">' + esc(g.name) + '</span>' + lockBadge + '</span>' +
+            '<span class="group-item-meta">' + g.members.length + ' 人 · ' +
+              g.assignments.length + ' 个项目 · ' +
+              (isOpen ? '收起 ▲' : '展开 ▼') + '</span>' +
+          '</div>';
+
+        const detail = isOpen ? '<div class="group-detail">' + renderDetail(g) + '</div>' : '';
+        return '<div class="group-item" data-group="' + g.id + '">' + head + detail + '</div>';
+      }).join('');
+
+      groupsBox.querySelectorAll('.group-item').forEach((item) => {
+        const gid = item.dataset.group;
+        item.querySelector('.group-item-head').addEventListener('click', (e) => {
+          if (e.target.closest('button, input, a, textarea, label')) return;
+          if (expanded.has(gid)) expanded.delete(gid); else expanded.add(gid);
+          render();
+        });
+      });
+      bindDetailActions();
+    }
+
+    function renderDetail(g) {
+      const members = g.members.map((m) => '<span class="chip">' + esc(m.name) + '</span>').join('');
+      const canvas = g.canvasLink
+        ? '<a href="' + esc(g.canvasLink) + '" target="_blank" rel="noopener">' + esc(g.canvasLink) + ' ↗</a>'
+        : '（暂未提交）';
+
+      const assignments = g.assignments.length
+        ? g.assignments.map((a) => renderAssignment(g, a)).join('')
+        : '<p class="empty-note">尚未分配项目。</p>';
+
+      return (
+        '<p class="info-line"><span class="label">成员：</span></p>' +
+        '<div class="member-chips">' + members + '</div>' +
+        '<p class="info-line"><span class="label">选题：</span>' + esc(g.projectIdea || '（暂未填写）') + '</p>' +
+        '<p class="info-line"><span class="label">Canvas：</span>' + canvas + '</p>' +
+        '<div class="btn-row" style="margin:0.6rem 0 1rem;">' +
+          '<button class="btn btn-ghost btn-sm" data-action="toggle-lock" data-group="' + g.id + '">' +
+            (g.locked ? '🔓 解锁（允许学生修改）' : '🔒 锁定小组信息') + '</button>' +
+        '</div>' +
+        '<h3>已分配的项目</h3>' +
+        assignments +
+        '<h3>分配新项目</h3>' +
+        '<form data-action="assign" data-group="' + g.id + '">' +
+          '<label>项目标题 <span style="color:var(--warning)">*</span></label>' +
+          '<input type="text" name="title" maxlength="100" required placeholder="例如：Business Canvas 初稿">' +
+          '<label>项目要求</label>' +
+          '<textarea name="description" maxlength="2000" placeholder="需要完成的内容、提交方式等"></textarea>' +
+          '<label>截止日期</label>' +
+          '<input type="date" name="dueDate">' +
+          '<button class="btn btn-sm" type="submit">分配项目</button>' +
+        '</form>'
+      );
+    }
+
+    function renderAssignment(g, a) {
+      const scoreById = new Map(a.scores.map((s) => [s.memberId, s]));
+      const rows = g.members.map((m) => {
+        const s = scoreById.get(m.id);
+        return (
+          '<tr>' +
+          '<td style="white-space:nowrap;">' + esc(m.name) + '</td>' +
+          '<td><input type="number" min="0" max="100" step="0.5" name="score-' + esc(m.id) + '"' +
+            ' value="' + (s ? esc(String(s.score)) : '') + '" placeholder="0–100"></td>' +
+          '<td><input type="text" name="comment-' + esc(m.id) + '" maxlength="500"' +
+            ' value="' + (s ? esc(s.comment) : '') + '" placeholder="评语（可留空）"></td>' +
+          '</tr>'
+        );
+      }).join('');
+
+      return (
+        '<div class="assignment">' +
+          '<div class="assignment-head">' +
+            '<span class="assignment-title">' + esc(a.title) + '</span>' +
+            '<span class="due">📅 截止：' + fmtDate(a.dueDate) + '</span>' +
+          '</div>' +
+          (a.description ? '<p class="assignment-desc">' + esc(a.description) + '</p>' : '') +
+          '<form data-action="scores" data-assignment="' + a.id + '" data-group="' + g.id + '">' +
+            '<table><thead><tr><th>成员</th><th>分数</th><th>评语</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody></table>' +
+            '<button class="btn btn-sm" type="submit">保存成绩</button>' +
+          '</form>' +
+        '</div>'
+      );
+    }
+
+    // ── 事件绑定（每次 render 后重新绑定） ──
+    function bindDetailActions() {
+      groupsBox.querySelectorAll('[data-action="toggle-lock"]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const gid = btn.dataset.group;
+          const g = groups.find((x) => x.id === gid);
+          try {
+            const data = await api('/api/teacher/groups/' + gid, {
+              method: 'PATCH',
+              body: { locked: !g.locked },
+              token: getToken('teacher'),
+            });
+            replaceGroup(data.group);
+            toast(g.locked ? '已解锁' : '已锁定');
+          } catch (err) { toast(err.message, 'error'); }
+        });
+      });
+
+      groupsBox.querySelectorAll('form[data-action="assign"]').forEach((form) => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const fd = new FormData(form);
+          try {
+            const data = await api('/api/teacher/groups/' + form.dataset.group + '/assignments', {
+              method: 'POST',
+              body: {
+                title: String(fd.get('title') || '').trim(),
+                description: String(fd.get('description') || '').trim(),
+                dueDate: fd.get('dueDate') ? String(fd.get('dueDate')) + 'T23:59:00' : '',
+              },
+              token: getToken('teacher'),
+            });
+            replaceGroup(data.group);
+            expanded.add(data.group.id);
+            toast('项目已分配');
+          } catch (err) { toast(err.message, 'error'); }
+        });
+      });
+
+      groupsBox.querySelectorAll('form[data-action="scores"]').forEach((form) => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const gid = form.dataset.group;
+          const group = groups.find((x) => x.id === gid);
+          const scores = group.members.map((m) => ({
+            memberId: m.id,
+            score: form.elements['score-' + m.id].value,
+            comment: form.elements['comment-' + m.id].value.trim(),
+          })).filter((s) => s.score !== '');
+
+          if (!scores.length) return toast('请至少为一位成员填写分数', 'error');
+
+          try {
+            const data = await api('/api/teacher/assignments/' + form.dataset.assignment + '/scores', {
+              method: 'POST',
+              body: { scores },
+              token: getToken('teacher'),
+            });
+            replaceGroup(data.group);
+            toast('成绩已保存');
+          } catch (err) { toast(err.message, 'error'); }
+        });
+      });
+    }
+
+    function replaceGroup(updated) {
+      groups = groups.map((g) => (g.id === updated.id ? updated : g));
+      render();
+    }
+
+    // ── 启动 ──
+    (async function init() {
+      if (!getToken('teacher')) return;
+      try {
+        await enterAdmin();
+      } catch (err) {
+        setToken('teacher', '');
+      }
+    })();
+})();
+</script>
+</body>
+</html>
