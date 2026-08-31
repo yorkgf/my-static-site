@@ -6,135 +6,219 @@
     <title>课堂词云 · Word Cloud</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            background-image:
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
-            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
-            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
-            color: #fff;
-            min-height: 100vh;
+
+        :root {
+            --blue: #4da6ff;
+            --blue-l: #7cc4ff;
+            --blue-d: #1d4ed8;
+            --amber: #ffb347;
+            --bg: #050914;
+            --ink: #e8f0ff;
+            --muted: rgba(232, 240, 255, .62);
+            --glass: linear-gradient(160deg, rgba(22, 38, 74, .68), rgba(8, 15, 34, .78));
+            --glass-border: rgba(124, 196, 255, .22);
+            --shadow: 0 12px 44px rgba(0, 0, 0, .5);
         }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(1100px 560px at 85% -10%, rgba(77, 166, 255, .16), transparent 60%),
+                radial-gradient(900px 520px at -12% 112%, rgba(124, 196, 255, .10), transparent 60%),
+                radial-gradient(620px 420px at 50% 55%, rgba(255, 179, 71, .05), transparent 70%),
+                radial-gradient(white, rgba(255, 255, 255, .14) 1.6px, transparent 2.4px),
+                radial-gradient(white, rgba(255, 255, 255, .10) 1px, transparent 1.6px);
+            background-size: auto, auto, auto, 420px 420px, 260px 260px;
+            background-position: 0 0, 0 0, 0 0, 30px 40px, 180px 120px;
+            color: var(--ink);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
         .wrap {
             width: 92%;
-            max-width: 900px;
+            max-width: 920px;
             margin: 0 auto;
             padding: clamp(1.5rem, 5vh, 3rem) 0;
         }
-        h1 {
-            text-align: center;
-            font-size: clamp(1.6rem, 5vw, 2.6rem);
-            text-shadow: 0 0 18px rgba(77, 166, 255, 0.7);
-            color: #7cc4ff;
-        }
-        .subtitle { text-align: center; opacity: 0.75; margin: 0.5rem 0 2rem; font-size: clamp(0.9rem, 2.5vw, 1.1rem); }
 
+        /* ── Header ─────────────────────────────── */
+        .head { text-align: center; margin-bottom: 2rem; }
+        h1 {
+            font-size: clamp(1.7rem, 5vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: .02em;
+            background: linear-gradient(120deg, #ffffff 10%, var(--blue-l) 55%, var(--blue) 90%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 22px rgba(77, 166, 255, .35));
+        }
+        .subtitle { color: var(--muted); margin-top: .5rem; font-size: clamp(.92rem, 2.5vw, 1.08rem); }
+
+        /* ── Panel ──────────────────────────────── */
         .panel {
-            background: rgba(0, 0, 0, 0.72);
-            border: 1px solid rgba(77, 166, 255, 0.35);
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(77, 166, 255, 0.15);
-            padding: clamp(1.2rem, 4vw, 2.2rem);
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .06);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            padding: clamp(1.3rem, 4vw, 2.2rem);
             margin-bottom: 1.5rem;
         }
 
-        /* 加入页 */
+        /* ── 加入页 ─────────────────────────────── */
+        .join-view { text-align: center; }
+        .join-cloud { font-size: clamp(3rem, 9vw, 4.4rem); display: inline-block; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 8px 22px rgba(77,166,255,.4)); }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .join-code {
-            display: flex;
-            gap: 0.7rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1.2rem;
+            display: flex; gap: .7rem; justify-content: center;
+            flex-wrap: wrap; margin-top: 1.4rem;
         }
         .join-code input {
             width: min(100%, 260px);
             text-align: center;
             font-size: 1.6rem;
-            letter-spacing: 0.4em;
+            letter-spacing: .45em;
             text-transform: uppercase;
             font-family: 'Courier New', monospace;
-            padding: 0.7rem 1rem;
+            padding: .7rem 1rem;
         }
-        input, button {
-            font-family: inherit;
-            font-size: 1rem;
-            border-radius: 8px;
-        }
+        .hint { color: var(--muted); font-size: .85rem; margin-top: .9rem; }
+
+        /* ── 表单控件 ───────────────────────────── */
+        input, button { font-family: inherit; font-size: 1rem; border-radius: 12px; }
         input[type="text"] {
-            background: rgba(10, 20, 40, 0.8);
-            border: 1px solid rgba(77, 166, 255, 0.4);
+            background: rgba(6, 12, 28, .72);
+            border: 1px solid rgba(124, 196, 255, .35);
             color: #fff;
-            padding: 0.7rem 1rem;
+            padding: .7rem 1rem;
+            transition: border-color .2s, box-shadow .2s;
         }
-        input:focus { outline: none; border-color: #4da6ff; box-shadow: 0 0 0 2px rgba(77,166,255,.25); }
+        input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(77, 166, 255, .22), 0 0 18px rgba(77, 166, 255, .18); }
+        input::placeholder { color: rgba(232, 240, 255, .35); }
+
         .btn {
-            background: #4da6ff;
-            color: #001020;
+            background: linear-gradient(135deg, var(--blue-l), var(--blue) 60%, var(--blue-d));
+            color: #04101f;
             border: none;
-            font-weight: bold;
-            padding: 0.75rem 1.8rem;
+            font-weight: 700;
+            padding: .75rem 1.8rem;
             cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 6px 20px rgba(77, 166, 255, .35);
+            transition: transform .12s, box-shadow .2s, filter .2s;
         }
-        .btn:hover { background: #7cc4ff; }
-        .btn:active { transform: scale(0.98); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn:hover { filter: brightness(1.08); box-shadow: 0 8px 26px rgba(77, 166, 255, .5); }
+        .btn:active { transform: scale(.97); }
+        .btn:disabled { opacity: .5; cursor: not-allowed; filter: none; box-shadow: none; }
         .btn-ghost {
             background: transparent;
-            color: #7cc4ff;
-            border: 1px solid rgba(77, 166, 255, 0.4);
-            font-weight: normal;
-            padding: 0.5rem 1.1rem;
-            font-size: 0.9rem;
+            color: var(--blue-l);
+            border: 1px solid rgba(124, 196, 255, .35);
+            font-weight: 500;
+            padding: .5rem 1.1rem;
+            font-size: .9rem;
+            box-shadow: none;
         }
-        .btn-ghost:hover { background: rgba(77, 166, 255, 0.12); }
+        .btn-ghost:hover { background: rgba(77, 166, 255, .12); filter: none; box-shadow: none; }
 
-        /* 词云页 */
-        .wc-title { font-size: clamp(1.3rem, 4vw, 1.9rem); color: #7cc4ff; text-align: center; text-shadow: 0 0 12px rgba(77,166,255,.6); }
-        .wc-prompt { text-align: center; opacity: 0.9; margin: 0.6rem 0 0.2rem; font-size: clamp(1rem, 3vw, 1.25rem); }
-        .wc-code-line { text-align: center; font-family: 'Courier New', monospace; opacity: 0.6; font-size: 0.9rem; }
-        .wc-code-line b { color: #ffb347; letter-spacing: 0.2em; }
+        /* ── 词云页 ─────────────────────────────── */
+        .wc-code-line { text-align: center; font-family: 'Courier New', monospace; color: var(--muted); font-size: .88rem; }
+        .wc-code-line b { color: var(--amber); letter-spacing: .2em; text-shadow: 0 0 12px rgba(255, 179, 71, .45); }
+        .wc-title {
+            font-size: clamp(1.3rem, 4vw, 1.9rem);
+            color: var(--ink);
+            text-align: center;
+            margin: .3rem 0 .1rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, #fff, var(--blue-l));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .wc-prompt { text-align: center; color: var(--muted); margin: .3rem 0 .6rem; font-size: clamp(.98rem, 3vw, 1.18rem); }
+
         #cloudBox {
+            position: relative;
             width: 100%;
-            height: clamp(280px, 48vh, 480px);
-            margin: 0.5rem 0;
+            height: clamp(300px, 50vh, 540px);
+            margin: .6rem 0;
+            background:
+                radial-gradient(120% 100% at 50% 0%, rgba(77, 166, 255, .08), transparent 60%),
+                rgba(4, 9, 22, .5);
+            border: 1px dashed rgba(124, 196, 255, .22);
+            border-radius: 16px;
+            overflow: hidden;
         }
         #cloud { width: 100%; height: 100%; display: block; }
-        .wc-empty { text-align: center; opacity: 0.5; padding-top: 20vh; font-size: 1.05rem; }
-        .submit-row { display: flex; gap: 0.7rem; margin-top: 0.8rem; flex-wrap: wrap; }
+
+        .wc-empty {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted); font-size: 1.05rem;
+        }
+        .wc-empty .empty-inner { text-align: center; }
+        .wc-empty .empty-emoji { font-size: 2.6rem; display: block; margin-bottom: .4rem; animation: float 3.6s ease-in-out infinite; }
+
+        .hot-row { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: center; margin-top: .8rem; min-height: 2rem; }
+        .hot-chip {
+            display: inline-flex; align-items: center; gap: .4rem;
+            padding: .32rem .85rem; border-radius: 100px;
+            font-size: .9rem; font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, .14);
+            background: rgba(10, 20, 44, .7);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
+        }
+        .hot-chip b { font-weight: 800; }
+        .hot-chip .flame { font-size: .85em; }
+        .hot-chip.r1 { color: #fff; border-color: rgba(255, 179, 71, .5); background: linear-gradient(135deg, rgba(255, 179, 71, .22), rgba(255, 138, 101, .12)); }
+        .hot-chip.r1 b { color: var(--amber); }
+        .hot-chip.r2 { color: #dbeafe; }
+        .hot-chip.r2 b { color: var(--blue-l); }
+        .hot-chip.r3 { color: #d1d5db; }
+        .hot-chip.r3 b { color: #93c5fd; }
+
+        .submit-row { display: flex; gap: .7rem; margin-top: .8rem; flex-wrap: wrap; }
         .submit-row input { flex: 1; min-width: 200px; }
-        .meta-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem; flex-wrap: wrap; gap: 0.5rem; opacity: 0.8; font-size: 0.9rem; }
-        .hint { text-align: center; opacity: 0.6; font-size: 0.85rem; margin-top: 0.8rem; }
+        .meta-row { display: flex; justify-content: space-between; align-items: center; margin-top: .9rem; flex-wrap: wrap; gap: .5rem; color: var(--muted); font-size: .9rem; }
+        .meta-row .total { color: var(--ink); font-weight: 600; }
 
         .footer-links { text-align: center; margin-top: 2rem; }
-        .footer-links a { color: rgba(255,255,255,0.5); font-size: 0.85rem; text-decoration: none; }
-        .footer-links a:hover { color: #7cc4ff; }
+        .footer-links a { color: rgba(232, 240, 255, .45); font-size: .85rem; text-decoration: none; transition: color .2s; }
+        .footer-links a:hover { color: var(--blue-l); }
 
+        /* ── Toast ──────────────────────────────── */
         #toast {
             position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-            z-index: 100; display: flex; flex-direction: column; gap: 0.5rem; align-items: center;
+            z-index: 100; display: flex; flex-direction: column; gap: .5rem; align-items: center;
             width: min(92vw, 460px);
         }
         .toast-msg {
-            padding: 0.7rem 1.2rem; border-radius: 8px; font-size: 0.95rem;
-            background: rgba(10, 25, 50, 0.95); border: 1px solid rgba(77,166,255,0.5);
-            box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+            padding: .7rem 1.3rem; border-radius: 12px; font-size: .95rem;
+            background: rgba(10, 25, 50, .95); border: 1px solid rgba(124, 196, 255, .45);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, .6);
         }
-        .toast-msg.error { border-color: rgba(255, 95, 95, 0.7); color: #ffcdd2; }
+        .toast-msg.error { border-color: rgba(255, 95, 95, .7); color: #ffcdd2; }
+        .toast-msg.success { border-color: rgba(102, 187, 106, .7); color: #c8e6c9; }
         [hidden] { display: none !important; }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
     </style>
 </head>
 <body>
 <div class="wrap">
-    <h1>☁️ 课堂词云</h1>
-    <p class="subtitle">输入老师给的邀请码，提交你的词 —— 同一个词提交的人越多，显示得越大</p>
+    <div class="head">
+        <h1>☁️ 课堂词云</h1>
+        <p class="subtitle">输入老师给的邀请码，提交你的词 —— 同一个词提交的人越多，显示得越大</p>
+    </div>
 
     <!-- 加入页 -->
-    <div class="panel" id="joinView">
+    <div class="panel join-view" id="joinView">
+        <span class="join-cloud">☁️</span>
         <div class="join-code">
             <input type="text" id="codeInput" maxlength="6" placeholder="邀请码" autocomplete="off" autofocus>
             <button class="btn" id="joinBtn">进入词云</button>
@@ -150,14 +234,20 @@
             <p class="wc-prompt" id="wcPrompt"></p>
             <div id="cloudBox">
                 <canvas id="cloud"></canvas>
-                <div class="wc-empty" id="cloudEmpty">还没有词，快来提交第一个吧！</div>
+                <div class="wc-empty" id="cloudEmpty">
+                    <div class="empty-inner">
+                        <span class="empty-emoji">☁️</span>
+                        <p>还没有词，快来提交第一个吧！</p>
+                    </div>
+                </div>
             </div>
+            <div class="hot-row" id="hotRow"></div>
             <div class="submit-row">
                 <input type="text" id="wordInput" maxlength="20" placeholder="输入一个词，回车提交" autocomplete="off">
                 <button class="btn" id="submitBtn">提交</button>
             </div>
             <div class="meta-row">
-                <span id="totalLabel">共 0 个词</span>
+                <span class="total" id="totalLabel">共 0 次提交</span>
                 <button class="btn-ghost" id="leaveBtn">← 换一个词云</button>
             </div>
         </div>
@@ -181,7 +271,32 @@
     let pollTimer = null;
     let lastSignature = '';
 
-    const PALETTE = ['#ffffff', '#7cc4ff', '#4da6ff', '#ffb347', '#66bb6a', '#4db6ac', '#ff8a80', '#ce93d8', '#ffd54f'];
+    // 字体大小：随热度从 16px 拉到 96px，差异明显
+    const MIN_PX = 16, MAX_PX = 96;
+
+    // 热度配色：冷色（少）→ 暖色 → 白色（最多）
+    const COLOR_STOPS = [
+        [96, 165, 250],   // #60a5fa 冷蓝
+        [56, 189, 248],   // #38bdf8 天蓝
+        [125, 211, 252],  // #7dd3fc 亮蓝
+        [251, 191, 36],   // #fbbf24 琥珀
+        [251, 113, 133],  // #fb7185 玫红
+        [255, 255, 255],  // #ffffff 白
+    ];
+
+    function heatOf(count, minCount, range) {
+        if (range === 0) return 0.55;               // 全部相同 → 中间色
+        return Math.max(0, Math.min(1, (count - minCount) / range));
+    }
+    function colorFor(count, minCount, range) {
+        const t = heatOf(count, minCount, range);
+        const pos = t * (COLOR_STOPS.length - 1);
+        const i = Math.min(Math.floor(pos), COLOR_STOPS.length - 2);
+        const f = pos - i;
+        const a = COLOR_STOPS[i], b = COLOR_STOPS[i + 1];
+        const rgb = a.map((v, k) => Math.round(v + (b[k] - v) * f));
+        return 'rgb(' + rgb.join(',') + ')';
+    }
 
     function enterSession(c) {
       code = c.toUpperCase();
@@ -199,6 +314,8 @@
       sessionView.hidden = true;
       joinView.hidden = false;
       code = '';
+      lastSignature = '';
+      document.getElementById('hotRow').innerHTML = '';
       history.replaceState(null, '', window.location.pathname);
       document.getElementById('codeInput').value = '';
       document.getElementById('codeInput').focus();
@@ -224,6 +341,7 @@
         const signature = data.words.map((w) => w.word + ':' + w.count).join('|');
         if (signature !== lastSignature) {
           lastSignature = signature;
+          renderHot(data.words);
           drawCloud(data.words);
         }
       } catch (err) {
@@ -234,10 +352,22 @@
       }
     }
 
+    // 顶部热词条：Top 3
+    function renderHot(words) {
+      const box = document.getElementById('hotRow');
+      if (!words.length) { box.innerHTML = ''; return; }
+      const FLAMES = ['🔥', '⭐', '✨'];
+      box.innerHTML = words.slice(0, 3).map((w, i) =>
+        '<span class="hot-chip r' + (i + 1) + '"><span class="flame">' + FLAMES[i] + '</span>' +
+        esc(w.word) + ' <b>×' + w.count + '</b></span>'
+      ).join('');
+    }
+
     function drawCloud(words) {
       cloudEmpty.hidden = words.length > 0;
       if (!words.length) {
-        cloudCanvas.getContext('2d').clearRect(0, 0, cloudCanvas.width, cloudCanvas.height);
+        const ctx = cloudCanvas.getContext('2d');
+        ctx.clearRect(0, 0, cloudCanvas.width, cloudCanvas.height);
         return;
       }
       const box = document.getElementById('cloudBox');
@@ -248,17 +378,28 @@
       cloudCanvas.height = h * dpr;
 
       const maxCount = words[0].count;
-      const scale = Math.min(w / 600, 1.1);
+      const minCount = words[words.length - 1].count;
+      const range = maxCount - minCount;          // 0 → 全部相同
+      const scale = Math.min(w / 620, 1.15);
+
+      const sizeFor = (c) =>
+        range === 0 ? 34 : MIN_PX + heatOf(c, minCount, range) * (MAX_PX - MIN_PX);
+
+      cloudCanvas.style.opacity = '0';
       WordCloud(cloudCanvas, {
         list: words.map((x) => [x.word, x.count]),
-        gridSize: Math.round(12 * scale),
-        weightFactor: (weight) => (16 + (weight / maxCount) * 46) * scale * dpr,
-        fontFamily: 'Arial, "Microsoft YaHei", sans-serif',
-        color: () => PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        gridSize: Math.round(13 * scale),
+        weightFactor: (weight) => sizeFor(weight) * scale * dpr,
+        fontFamily: '"PingFang SC", "Microsoft YaHei", "Noto Sans SC", Arial, sans-serif',
+        color: (word, weight) => colorFor(weight, minCount, range),
         backgroundColor: 'transparent',
-        rotateRatio: 0.15,
-        minSize: 8,
+        rotateRatio: 0.12,
+        minSize: 10,
         shuffle: false,
+        done: () => {
+          cloudCanvas.style.transition = 'opacity .55s ease';
+          cloudCanvas.style.opacity = '1';
+        },
       });
     }
 
@@ -267,16 +408,21 @@
       const word = input.value.trim();
       if (!word) return;
       const btn = document.getElementById('submitBtn');
+      const original = btn.textContent;
       btn.disabled = true;
+      btn.textContent = '提交中…';
       try {
         await api('/api/wordcloud/sessions/' + code + '/words', {
           method: 'POST',
           body: { word },
         });
         input.value = '';
+        btn.textContent = '✓ 已提交';
         poll();
+        setTimeout(() => { btn.textContent = original; }, 1200);
       } catch (err) {
         toast(err.message, 'error');
+        btn.textContent = original;
       } finally {
         btn.disabled = false;
         input.focus();
