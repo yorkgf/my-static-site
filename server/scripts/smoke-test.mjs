@@ -251,6 +251,63 @@ try {
     assert.equal(patchRes.status, 403);
   });
 
+  // ── 词云 ──
+  let wcCode;
+  await check('词云：学生不能创建词云（需老师权限）', async () => {
+    const { status } = await call('POST', '/api/wordcloud/sessions', { title: 'test' }, studentToken);
+    assert.equal(status, 403);
+  });
+
+  await check('词云：老师创建词云', async () => {
+    const { status, json } = await call('POST', '/api/wordcloud/sessions', {
+      title: '用一个词形容创业',
+      prompt: '想到什么就提交什么',
+    }, teacherToken);
+    assert.equal(status, 201);
+    assert.match(json.session.code, /^[A-Z0-9]{6}$/);
+    wcCode = json.session.code;
+  });
+
+  await check('词云：错误邀请码返回 404', async () => {
+    const { status } = await call('GET', '/api/wordcloud/sessions/ZZZZZZ');
+    assert.equal(status, 404);
+  });
+
+  await check('词云：学生提交词语，重复词计数累加', async () => {
+    const url = `/api/wordcloud/sessions/${wcCode}/words`;
+    let r = await call('POST', url, { word: ' 创新 ' });
+    assert.equal(r.status, 201);
+    r = await call('POST', url, { word: '创新' });
+    assert.equal(r.status, 201);
+    r = await call('POST', url, { word: '冒险' });
+    assert.equal(r.status, 201);
+    r = await call('POST', url, { word: '   ' });
+    assert.equal(r.status, 400);
+  });
+
+  await check('词云：公开查询返回按次数排序的词', async () => {
+    const { status, json } = await call('GET', `/api/wordcloud/sessions/${wcCode}`);
+    assert.equal(status, 200);
+    assert.equal(json.session.title, '用一个词形容创业');
+    assert.equal(json.total, 3);
+    assert.equal(json.words[0].word, '创新');
+    assert.equal(json.words[0].count, 2);
+  });
+
+  await check('词云：老师清空词语', async () => {
+    const { status } = await call('POST', `/api/wordcloud/sessions/${wcCode}/reset`, {}, teacherToken);
+    assert.equal(status, 200);
+    const r = await call('GET', `/api/wordcloud/sessions/${wcCode}`);
+    assert.equal(r.json.total, 0);
+  });
+
+  await check('词云：老师删除词云', async () => {
+    const del = await call('DELETE', `/api/wordcloud/sessions/${wcCode}`, null, teacherToken);
+    assert.equal(del.status, 200);
+    const get = await call('GET', `/api/wordcloud/sessions/${wcCode}`);
+    assert.equal(get.status, 404);
+  });
+
   console.log(`\n全部 ${passed} 项冒烟测试通过 ✅`);
 } catch (err) {
   console.error('❌ 冒烟测试失败:', err);

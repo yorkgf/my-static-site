@@ -47,6 +47,12 @@ export const collections = {
   get scores() {
     return db().collection('scores');
   },
+  get wcSessions() {
+    return db().collection('wc_sessions');
+  },
+  get wcWords() {
+    return db().collection('wc_words');
+  },
 };
 
 async function ensureIndexes() {
@@ -57,6 +63,8 @@ async function ensureIndexes() {
     { unique: true }
   );
   await collections.scores.createIndex({ groupId: 1 });
+  await collections.wcSessions.createIndex({ code: 1 }, { unique: true });
+  await collections.wcWords.createIndex({ code: 1, key: 1 }, { unique: true });
 }
 
 export async function closeDb() {

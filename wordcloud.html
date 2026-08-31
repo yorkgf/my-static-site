@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课堂词云 · Word Cloud</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            background-image:
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .wrap {
+            width: 92%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: clamp(1.5rem, 5vh, 3rem) 0;
+        }
+        h1 {
+            text-align: center;
+            font-size: clamp(1.6rem, 5vw, 2.6rem);
+            text-shadow: 0 0 18px rgba(77, 166, 255, 0.7);
+            color: #7cc4ff;
+        }
+        .subtitle { text-align: center; opacity: 0.75; margin: 0.5rem 0 2rem; font-size: clamp(0.9rem, 2.5vw, 1.1rem); }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.72);
+            border: 1px solid rgba(77, 166, 255, 0.35);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(77, 166, 255, 0.15);
+            padding: clamp(1.2rem, 4vw, 2.2rem);
+            margin-bottom: 1.5rem;
+        }
+
+        /* 加入页 */
+        .join-code {
+            display: flex;
+            gap: 0.7rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.2rem;
+        }
+        .join-code input {
+            width: min(100%, 260px);
+            text-align: center;
+            font-size: 1.6rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+            padding: 0.7rem 1rem;
+        }
+        input, button {
+            font-family: inherit;
+            font-size: 1rem;
+            border-radius: 8px;
+        }
+        input[type="text"] {
+            background: rgba(10, 20, 40, 0.8);
+            border: 1px solid rgba(77, 166, 255, 0.4);
+            color: #fff;
+            padding: 0.7rem 1rem;
+        }
+        input:focus { outline: none; border-color: #4da6ff; box-shadow: 0 0 0 2px rgba(77,166,255,.25); }
+        .btn {
+            background: #4da6ff;
+            color: #001020;
+            border: none;
+            font-weight: bold;
+            padding: 0.75rem 1.8rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn:hover { background: #7cc4ff; }
+        .btn:active { transform: scale(0.98); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-ghost {
+            background: transparent;
+            color: #7cc4ff;
+            border: 1px solid rgba(77, 166, 255, 0.4);
+            font-weight: normal;
+            padding: 0.5rem 1.1rem;
+            font-size: 0.9rem;
+        }
+        .btn-ghost:hover { background: rgba(77, 166, 255, 0.12); }
+
+        /* 词云页 */
+        .wc-title { font-size: clamp(1.3rem, 4vw, 1.9rem); color: #7cc4ff; text-align: center; text-shadow: 0 0 12px rgba(77,166,255,.6); }
+        .wc-prompt { text-align: center; opacity: 0.9; margin: 0.6rem 0 0.2rem; font-size: clamp(1rem, 3vw, 1.25rem); }
+        .wc-code-line { text-align: center; font-family: 'Courier New', monospace; opacity: 0.6; font-size: 0.9rem; }
+        .wc-code-line b { color: #ffb347; letter-spacing: 0.2em; }
+        #cloudBox {
+            width: 100%;
+            height: clamp(280px, 48vh, 480px);
+            margin: 0.5rem 0;
+        }
+        #cloud { width: 100%; height: 100%; display: block; }
+        .wc-empty { text-align: center; opacity: 0.5; padding-top: 20vh; font-size: 1.05rem; }
+        .submit-row { display: flex; gap: 0.7rem; margin-top: 0.8rem; flex-wrap: wrap; }
+        .submit-row input { flex: 1; min-width: 200px; }
+        .meta-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem; flex-wrap: wrap; gap: 0.5rem; opacity: 0.8; font-size: 0.9rem; }
+        .hint { text-align: center; opacity: 0.6; font-size: 0.85rem; margin-top: 0.8rem; }
+
+        .footer-links { text-align: center; margin-top: 2rem; }
+        .footer-links a { color: rgba(255,255,255,0.5); font-size: 0.85rem; text-decoration: none; }
+        .footer-links a:hover { color: #7cc4ff; }
+
+        #toast {
+            position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+            z-index: 100; display: flex; flex-direction: column; gap: 0.5rem; align-items: center;
+            width: min(92vw, 460px);
+        }
+        .toast-msg {
+            padding: 0.7rem 1.2rem; border-radius: 8px; font-size: 0.95rem;
+            background: rgba(10, 25, 50, 0.95); border: 1px solid rgba(77,166,255,0.5);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+        }
+        .toast-msg.error { border-color: rgba(255, 95, 95, 0.7); color: #ffcdd2; }
+        [hidden] { display: none !important; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>☁️ 课堂词云</h1>
+    <p class="subtitle">输入老师给的邀请码，提交你的词 —— 同一个词提交的人越多，显示得越大</p>
+
+    <!-- 加入页 -->
+    <div class="panel" id="joinView">
+        <div class="join-code">
+            <input type="text" id="codeInput" maxlength="6" placeholder="邀请码" autocomplete="off" autofocus>
+            <button class="btn" id="joinBtn">进入词云</button>
+        </div>
+        <p class="hint">邀请码是 6 位字符，由老师在创建词云时提供</p>
+    </div>
+
+    <!-- 词云页 -->
+    <div id="sessionView" hidden>
+        <div class="panel">
+            <div class="wc-code-line">词云邀请码：<b id="codeDisplay"></b></div>
+            <h2 class="wc-title" id="wcTitle"></h2>
+            <p class="wc-prompt" id="wcPrompt"></p>
+            <div id="cloudBox">
+                <canvas id="cloud"></canvas>
+                <div class="wc-empty" id="cloudEmpty">还没有词，快来提交第一个吧！</div>
+            </div>
+            <div class="submit-row">
+                <input type="text" id="wordInput" maxlength="20" placeholder="输入一个词，回车提交" autocomplete="off">
+                <button class="btn" id="submitBtn">提交</button>
+            </div>
+            <div class="meta-row">
+                <span id="totalLabel">共 0 个词</span>
+                <button class="btn-ghost" id="leaveBtn">← 换一个词云</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-links">
+        <a href="index.html">← 返回首页</a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
+<script src="js/wordcloud-common.js"></script>
+<script>
+(function () {
+    const { api, esc, toast } = window.WC;
+    const joinView = document.getElementById('joinView');
+    const sessionView = document.getElementById('sessionView');
+    const cloudCanvas = document.getElementById('cloud');
+    const cloudEmpty = document.getElementById('cloudEmpty');
+    let code = '';
+    let pollTimer = null;
+    let lastSignature = '';
+
+    const PALETTE = ['#ffffff', '#7cc4ff', '#4da6ff', '#ffb347', '#66bb6a', '#4db6ac', '#ff8a80', '#ce93d8', '#ffd54f'];
+
+    function enterSession(c) {
+      code = c.toUpperCase();
+      joinView.hidden = true;
+      sessionView.hidden = false;
+      document.getElementById('codeDisplay').textContent = code;
+      history.replaceState(null, '', '?c=' + code);
+      poll();
+      pollTimer = setInterval(poll, 3000);
+      document.getElementById('wordInput').focus();
+    }
+
+    function leaveSession() {
+      clearInterval(pollTimer);
+      sessionView.hidden = true;
+      joinView.hidden = false;
+      code = '';
+      history.replaceState(null, '', window.location.pathname);
+      document.getElementById('codeInput').value = '';
+      document.getElementById('codeInput').focus();
+    }
+
+    async function join() {
+      const c = document.getElementById('codeInput').value.trim().toUpperCase();
+      if (c.length !== 6) return toast('请输入 6 位邀请码', 'error');
+      try {
+        await api('/api/wordcloud/sessions/' + c);
+        enterSession(c);
+      } catch (err) {
+        toast(err.message, 'error');
+      }
+    }
+
+    async function poll() {
+      try {
+        const data = await api('/api/wordcloud/sessions/' + code);
+        document.getElementById('wcTitle').textContent = data.session.title;
+        document.getElementById('wcPrompt').textContent = data.session.prompt || '';
+        document.getElementById('totalLabel').textContent = '共 ' + data.total + ' 次提交';
+        const signature = data.words.map((w) => w.word + ':' + w.count).join('|');
+        if (signature !== lastSignature) {
+          lastSignature = signature;
+          drawCloud(data.words);
+        }
+      } catch (err) {
+        if (err.message.includes('不存在') || err.message.includes('邀请码')) {
+          toast('词云已被老师关闭', 'error');
+          leaveSession();
+        }
+      }
+    }
+
+    function drawCloud(words) {
+      cloudEmpty.hidden = words.length > 0;
+      if (!words.length) {
+        cloudCanvas.getContext('2d').clearRect(0, 0, cloudCanvas.width, cloudCanvas.height);
+        return;
+      }
+      const box = document.getElementById('cloudBox');
+      const dpr = window.devicePixelRatio || 1;
+      const w = box.clientWidth;
+      const h = box.clientHeight;
+      cloudCanvas.width = w * dpr;
+      cloudCanvas.height = h * dpr;
+
+      const maxCount = words[0].count;
+      const scale = Math.min(w / 600, 1.1);
+      WordCloud(cloudCanvas, {
+        list: words.map((x) => [x.word, x.count]),
+        gridSize: Math.round(12 * scale),
+        weightFactor: (weight) => (16 + (weight / maxCount) * 46) * scale * dpr,
+        fontFamily: 'Arial, "Microsoft YaHei", sans-serif',
+        color: () => PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        backgroundColor: 'transparent',
+        rotateRatio: 0.15,
+        minSize: 8,
+        shuffle: false,
+      });
+    }
+
+    async function submitWord() {
+      const input = document.getElementById('wordInput');
+      const word = input.value.trim();
+      if (!word) return;
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      try {
+        await api('/api/wordcloud/sessions/' + code + '/words', {
+          method: 'POST',
+          body: { word },
+        });
+        input.value = '';
+        poll();
+      } catch (err) {
+        toast(err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        input.focus();
+      }
+    }
+
+    document.getElementById('joinBtn').addEventListener('click', join);
+    document.getElementById('codeInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') join();
+    });
+    document.getElementById('submitBtn').addEventListener('click', submitWord);
+    document.getElementById('wordInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitWord();
+    });
+    document.getElementById('leaveBtn').addEventListener('click', leaveSession);
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { lastSignature = ''; if (code) poll(); }, 300);
+    });
+
+    // 支持 ?c=邀请码 直接进入
+    const urlCode = new URLSearchParams(location.search).get('c');
+    if (urlCode && /^[A-Za-z0-9]{6}$/.test(urlCode)) {
+      document.getElementById('codeInput').value = urlCode.toUpperCase();
+      join();
+    }
+})();
+</script>
+</body>
+</html>

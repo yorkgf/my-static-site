@@ -226,6 +226,28 @@
             margin-top: 2rem;
         }
 
+        /* 课堂工具入口（欢迎页） */
+        .tool-link {
+            display: inline-block;
+            margin-top: 2.5rem;
+            padding: 0.8rem 2rem;
+            border: 1px solid rgba(77, 166, 255, 0.6);
+            border-radius: 999px;
+            color: #7cc4ff;
+            text-decoration: none;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            letter-spacing: 0.05em;
+            background: rgba(77, 166, 255, 0.08);
+            box-shadow: 0 0 20px rgba(77, 166, 255, 0.25);
+            transition: box-shadow 0.25s, background 0.25s, transform 0.25s;
+        }
+
+        .tool-link:hover {
+            background: rgba(77, 166, 255, 0.2);
+            box-shadow: 0 0 35px rgba(77, 166, 255, 0.55);
+            transform: translateY(-2px);
+        }
+
         .planet {
             width: 150px;
             height: 150px;
@@ -257,6 +279,7 @@
             <h1>Welcome to GHA</h1>
             <h3>Explore our courses</h3>
             <p style="font-style: italic; opacity: 0.8;">Begin your science adventure</p>
+            <a href="wordcloud.html" class="tool-link">☁️ 课堂词云 · Word Cloud</a>
         </div>
 
         <!-- Slide 2: Computer Science -->
