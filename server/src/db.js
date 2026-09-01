@@ -47,6 +47,9 @@ export const collections = {
   get scores() {
     return db().collection('scores');
   },
+  get tasks() {
+    return db().collection('tasks');
+  },
   get wcSessions() {
     return db().collection('wc_sessions');
   },
@@ -58,6 +61,7 @@ export const collections = {
 async function ensureIndexes() {
   await collections.groups.createIndex({ nameKey: 1 }, { unique: true });
   await collections.assignments.createIndex({ groupId: 1, createdAt: -1 });
+  await collections.assignments.createIndex({ taskId: 1 });
   await collections.scores.createIndex(
     { assignmentId: 1, memberId: 1 },
     { unique: true }

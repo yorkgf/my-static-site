@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { ObjectId } from 'mongodb';
 import { GROUP_RULES as R } from './config.js';
 
 const text = (value) => (typeof value === 'string' ? value.trim() : '');
@@ -147,6 +148,34 @@ export function validateAssignment(body) {
   }
 
   return { errors, value: { title, description, dueDate } };
+}
+
+/** 老师创建任务模板入参校验（与分配项目同结构，单独命名以便语义化） */
+export function validateTask(body) {
+  return validateAssignment(body);
+}
+
+/** 任务分配入参校验：groupIds = 一个或多个小组 ObjectId 字符串 */
+export function validateGroupIds(body) {
+  const errors = [];
+  if (!body || !Array.isArray(body.groupIds) || body.groupIds.length === 0) {
+    errors.push('请至少选择一个小组成员组');
+    return { errors, groupIds: null };
+  }
+  const seen = new Set();
+  const groupIds = [];
+  for (const raw of body.groupIds) {
+    const id = typeof raw === 'string' ? raw.trim() : '';
+    if (!ObjectId.isValid(id)) {
+      errors.push('小组 ID 不正确');
+      continue;
+    }
+    if (seen.has(id)) continue;
+    seen.add(id);
+    groupIds.push(new ObjectId(id));
+  }
+  if (!groupIds.length) errors.push('请至少选择一个小组成员组');
+  return { errors, groupIds: errors.length ? null : groupIds };
 }
 
 /** 老师打分入参校验：scores = [{ memberId, score, comment }] */

@@ -238,6 +238,24 @@ tr.score-row-has { background: rgba(76, 175, 80, 0.06); }
 .score-input-row input[type="number"] { width: 90px; }
 .score-input-row input[type="text"] { flex: 1; min-width: 160px; }
 
+/* 任务分配多选框 */
+.task-group-check { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin: 0.4rem 0; }
+.task-group-check label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0.25rem 0.7rem;
+  background: var(--primary-soft);
+  border: 1px solid var(--primary-border);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  color: var(--text);
+  cursor: pointer;
+}
+.task-group-check label:hover { background: rgba(76, 175, 80, 0.25); }
+.task-group-check input[type="checkbox"] { accent-color: var(--primary); width: auto; }
+
 /* ── 小组列表（老师端） ── */
 .group-item {
   border: 1px solid var(--primary-border);

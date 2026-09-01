@@ -56,6 +56,39 @@ export async function buildAllGroupsView() {
 }
 
 /**
+ * 任务模板视图：每个任务 + 已分配到的小组列表。
+ * 通过 assignments 集合中 taskId 字段反查已分配的小组。
+ */
+export async function buildTasksView() {
+  const [tasks, assignments, groups] = await Promise.all([
+    collections.tasks.find({}).sort({ createdAt: -1 }).toArray(),
+    collections.assignments.find({ taskId: { $exists: true } }).toArray(),
+    collections.groups.find({}).toArray(),
+  ]);
+
+  const groupNameById = new Map(groups.map((g) => [g._id.toString(), g.name]));
+  const assignedByTask = new Map();
+  for (const a of assignments) {
+    const key = a.taskId.toString();
+    const list = assignedByTask.get(key) || [];
+    list.push({
+      groupId: a.groupId.toString(),
+      groupName: groupNameById.get(a.groupId.toString()) || '（已删除小组）',
+    });
+    assignedByTask.set(key, list);
+  }
+
+  return tasks.map((t) => ({
+    id: t._id.toString(),
+    title: t.title,
+    description: t.description || '',
+    dueDate: t.dueDate,
+    createdAt: t.createdAt,
+    assignedGroups: assignedByTask.get(t._id.toString()) || [],
+  }));
+}
+
+/**
  * 公开视图：所有学生可见的小组榜。
  * 只含组名、成员姓名、项目标题与截止日期；
  * 不含分数/评语、Canvas 链接、选题、密码等任何私密信息。

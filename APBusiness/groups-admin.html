@@ -34,6 +34,33 @@
             <button class="btn btn-danger btn-sm" id="logoutBtn">退出登录</button>
             <span class="hint" id="groupCount"></span>
         </div>
+
+        <!-- ═══ 新建任务 ═══ -->
+        <div class="card" id="taskCreateCard">
+            <h2>📋 新建任务</h2>
+            <p class="hint">先建立任务（内容 + 截止日期），再选择要分配的小组；也可以稍后在任务列表中继续分配。</p>
+            <form id="taskCreateForm">
+                <label>任务标题 <span style="color:var(--warning)">*</span></label>
+                <input type="text" name="title" maxlength="100" required placeholder="例如：Business Canvas 初稿">
+                <label>任务内容 / 要求</label>
+                <textarea name="description" maxlength="2000" placeholder="需要完成的内容、提交方式等"></textarea>
+                <label>截止日期</label>
+                <input type="date" name="dueDate">
+                <label>分配到小组（可多选，也可稍后再分配）</label>
+                <div id="taskAssignGroups" class="member-chips"></div>
+                <button class="btn" type="submit">创建任务</button>
+            </form>
+        </div>
+
+        <!-- ═══ 任务列表 ═══ -->
+        <div class="card" id="taskListCard" hidden>
+            <div class="assignment-head" style="margin-bottom:0.6rem;">
+                <h2 style="margin:0;">🗂️ 任务列表</h2>
+                <button class="btn btn-ghost btn-sm" id="tasksRefreshBtn" type="button">🔄 刷新</button>
+            </div>
+            <div id="tasksBox"></div>
+        </div>
+
         <div id="groupsBox"></div>
     </div>
 </div>
@@ -46,7 +73,13 @@
     const loginCard = document.getElementById('loginCard');
     const adminView = document.getElementById('adminView');
     const groupsBox = document.getElementById('groupsBox');
+    const taskCreateCard = document.getElementById('taskCreateCard');
+    const taskCreateForm = document.getElementById('taskCreateForm');
+    const taskAssignGroups = document.getElementById('taskAssignGroups');
+    const taskListCard = document.getElementById('taskListCard');
+    const tasksBox = document.getElementById('tasksBox');
     let groups = [];
+    let tasks = [];
     const expanded = new Set();
 
     // ── 登录 ──
@@ -70,11 +103,148 @@
       location.reload();
     });
     document.getElementById('refreshBtn').addEventListener('click', loadGroups);
+    document.getElementById('tasksRefreshBtn').addEventListener('click', loadTasks);
 
     async function enterAdmin() {
       loginCard.hidden = true;
       adminView.hidden = false;
-      await loadGroups();
+      await Promise.all([loadGroups(), loadTasks()]);
+    }
+
+    async function loadTasks() {
+      try {
+        const data = await api('/api/teacher/tasks', { token: getToken('teacher') });
+        tasks = data.tasks;
+        renderTaskCreateGroups();
+        renderTasks();
+      } catch (err) {
+        if (err.expired) { setToken('teacher', ''); location.reload(); }
+        toast(err.message, 'error');
+      }
+    }
+
+    // ── 新建任务：小组多选框 ──
+    function renderTaskCreateGroups() {
+      if (!groups.length) {
+        taskAssignGroups.innerHTML = '<span class="empty-note">还没有学生创建小组，可先创建任务，稍后再分配。</span>';
+        return;
+      }
+      taskAssignGroups.innerHTML = groups.map((g) =>
+        '<label class="task-group-check">' +
+          '<input type="checkbox" name="taskGroups" value="' + esc(g.id) + '"> ' + esc(g.name) +
+        '</label>'
+      ).join('');
+    }
+
+    // ── 新建任务表单 ──
+    taskCreateForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(taskCreateForm);
+      const groupIds = Array.from(
+        taskAssignGroups.querySelectorAll('input[name="taskGroups"]:checked')
+      ).map((c) => c.value);
+      try {
+        const data = await api('/api/teacher/tasks', {
+          method: 'POST',
+          body: {
+            title: String(fd.get('title') || '').trim(),
+            description: String(fd.get('description') || '').trim(),
+            dueDate: fd.get('dueDate') ? String(fd.get('dueDate')) + 'T23:59:00' : '',
+            groupIds,
+          },
+          token: getToken('teacher'),
+        });
+        toast(groupIds.length ? '任务已创建并分配给 ' + groupIds.length + ' 个小组' : '任务已创建');
+        taskCreateForm.reset();
+        await Promise.all([loadTasks(), loadGroups()]);
+      } catch (err) {
+        toast(err.message, 'error');
+      }
+    });
+
+    // ── 任务列表 ──
+    function renderTasks() {
+      if (!tasks.length) {
+        taskListCard.hidden = true;
+        tasksBox.innerHTML = '';
+        return;
+      }
+      taskListCard.hidden = false;
+      tasksBox.innerHTML = tasks.map((t) => {
+        const due = t.dueDate ? fmtDate(t.dueDate) : '无截止日期';
+        const desc = t.description
+          ? '<p class="assignment-desc">' + esc(t.description) + '</p>'
+          : '';
+        const assigned = t.assignedGroups.length
+          ? t.assignedGroups.map((g) => '<span class="chip">' + esc(g.groupName) + '</span>').join('')
+          : '<span class="empty-note">尚未分配给任何小组</span>';
+        const unassigned = groups.filter(
+          (g) => !t.assignedGroups.some((ag) => ag.groupId === g.id)
+        );
+        const picker = unassigned.length
+          ? '<div class="task-group-check">' +
+              unassigned.map((g) =>
+                '<label><input type="checkbox" name="taskGroups" value="' + esc(g.id) + '"> ' + esc(g.name) + '</label>'
+              ).join('') +
+            '</div>' +
+            '<button class="btn btn-ghost btn-sm" data-action="assign-task" data-task="' + esc(t.id) + '">分配选中小组</button>'
+          : '<span class="empty-note">所有小组都已分配 ✅</span>';
+        return (
+          '<div class="assignment" data-task="' + esc(t.id) + '">' +
+            '<div class="assignment-head">' +
+              '<span class="assignment-title">' + esc(t.title) + '</span>' +
+              '<span class="due">📅 截止：' + due + '</span>' +
+            '</div>' +
+            desc +
+            '<p class="info-line"><span class="label">已分配：</span></p>' +
+            '<div class="member-chips">' + assigned + '</div>' +
+            '<p class="info-line"><span class="label">继续分配：</span></p>' +
+            picker +
+            '<div class="btn-row" style="margin-top:0.8rem;">' +
+              '<button class="btn btn-danger btn-sm" data-action="delete-task" data-task="' + esc(t.id) + '">🗑 删除任务</button>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+
+      tasksBox.querySelectorAll('[data-action="assign-task"]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const taskId = btn.dataset.task;
+          const card = tasksBox.querySelector('[data-task="' + taskId + '"]');
+          const groupIds = Array.from(
+            card.querySelectorAll('input[name="taskGroups"]:checked')
+          ).map((c) => c.value);
+          if (!groupIds.length) return toast('请先勾选要分配的小组', 'error');
+          try {
+            const data = await api('/api/teacher/tasks/' + taskId + '/assign', {
+              method: 'POST',
+              body: { groupIds },
+              token: getToken('teacher'),
+            });
+            toast('已分配 ' + data.assignedCount + ' 个小组' + (data.skipped ? '，跳过 ' + data.skipped + ' 个已分配' : ''));
+            await Promise.all([loadTasks(), loadGroups()]);
+          } catch (err) {
+            toast(err.message, 'error');
+          }
+        });
+      });
+
+      tasksBox.querySelectorAll('[data-action="delete-task"]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const taskId = btn.dataset.task;
+          if (!confirm('确定删除该任务吗？将同时移除所有小组收到的这个任务（已有成绩不会被删除）。')) return;
+          try {
+            await api('/api/teacher/tasks/' + taskId, {
+              method: 'DELETE',
+              token: getToken('teacher'),
+            });
+            toast('任务已删除');
+            await Promise.all([loadTasks(), loadGroups()]);
+          } catch (err) {
+            toast(err.message, 'error');
+          }
+        });
+      });
     }
 
     async function loadGroups() {
@@ -83,6 +253,7 @@
         groups = data.groups;
         document.getElementById('groupCount').textContent = '共 ' + groups.length + ' 个小组';
         render();
+        renderTaskCreateGroups(); // 任务表单的小组勾选同步
       } catch (err) {
         if (err.expired) { setToken('teacher', ''); location.reload(); }
         toast(err.message, 'error');

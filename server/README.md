@@ -1,7 +1,7 @@
 # AP Business 小组系统 — 后端 API
 
 为 AP Business 课程的项目小组提供：学生创建/加入小组（1–3 人）、提交 Business Canvas 链接、
-老师分配项目与截止日期、老师按项目给**每位成员分别打分**、学生查看本人成绩。
+老师创建任务模板并批量分配给多个小组、设定截止日期、按项目给**每位成员分别打分**、学生查看本人成绩。
 
 - 技术栈：Node.js + Express + MongoDB（纯 API，无构建步骤）
 - 前端页面：`APBusiness/groups.html`（学生端）、`APBusiness/groups-admin.html`（老师端，不挂公开链接）
@@ -129,3 +129,7 @@ localStorage.setItem('apbApiBase', 'http://127.0.0.1:9000')
 | POST | `/api/teacher/groups/:id/assignments` | 老师令牌 | 分配项目（标题/要求/截止日期） |
 | POST | `/api/teacher/assignments/:id/scores` | 老师令牌 | 按项目给每位成员打分 + 评语 |
 | PATCH | `/api/teacher/groups/:id` | 老师令牌 | 锁定/解锁小组信息 |
+| GET | `/api/teacher/tasks` | 老师令牌 | 任务模板列表（含已分配小组） |
+| POST | `/api/teacher/tasks` | 老师令牌 | 创建任务模板（内容+截止日期，可同时分配小组） |
+| POST | `/api/teacher/tasks/:id/assign` | 老师令牌 | 把任务分配给一个或多个小组（自动去重跳过已分配） |
+| DELETE | `/api/teacher/tasks/:id` | 老师令牌 | 删除任务模板及其分配记录（保留分数） |

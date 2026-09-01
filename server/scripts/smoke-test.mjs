@@ -251,6 +251,99 @@ try {
     assert.equal(patchRes.status, 403);
   });
 
+  // ── 任务模板 ──
+  let taskId;
+  await check('任务：无标题被拒绝', async () => {
+    const { status } = await call('POST', '/api/teacher/tasks', {
+      title: '   ',
+      description: '',
+      dueDate: '',
+    }, teacherToken);
+    assert.equal(status, 400);
+  });
+
+  await check('任务：创建任务模板（不分配小组）', async () => {
+    const { status, json } = await call('POST', '/api/teacher/tasks', {
+      title: '最终报告',
+      description: '提交完整的商业计划书',
+      dueDate: '2026-10-15T23:59:00',
+    }, teacherToken);
+    assert.equal(status, 201);
+    taskId = json.task.id;
+    assert.equal(json.task.title, '最终报告');
+    assert.equal(json.task.assignedGroups.length, 0);
+  });
+
+  await check('任务：创建并同时分配到小组', async () => {
+    const { status, json } = await call('POST', '/api/teacher/tasks', {
+      title: '演示日演讲',
+      description: '5 分钟路演',
+      dueDate: '2026-11-01T23:59:00',
+      groupIds: [groupId],
+    }, teacherToken);
+    assert.equal(status, 201);
+    assert.equal(json.task.assignedGroups.length, 1);
+    assert.equal(json.task.assignedGroups[0].groupName, '火星咖啡');
+  });
+
+  await check('任务：任务列表含分配信息', async () => {
+    const { status, json } = await call('GET', '/api/teacher/tasks', null, teacherToken);
+    assert.equal(status, 200);
+    assert.ok(json.tasks.length >= 2);
+    const demo = json.tasks.find((t) => t.title === '演示日演讲');
+    assert.equal(demo.assignedGroups.length, 1);
+  });
+
+  await check('任务：分配任务给小组（重复 ID 去重）', async () => {
+    // 再建一个小组用于验证多组分配
+    const g2 = await call('POST', '/api/groups', {
+      name: '深海科技',
+      password: 'pass1234',
+      members: ['王五'],
+    });
+    assert.equal(g2.status, 201);
+    const g2Id = g2.json.group.id;
+
+    const { status, json } = await call(
+      'POST',
+      `/api/teacher/tasks/${taskId}/assign`,
+      { groupIds: [g2Id, g2Id, groupId] }, // 重复 g2Id 去重，两个小组都是新分配
+      teacherToken
+    );
+    assert.equal(status, 200);
+    assert.equal(json.assignedCount, 2);
+  });
+
+  await check('任务：重复分配同一小组自动跳过', async () => {
+    const { status, json } = await call(
+      'POST',
+      `/api/teacher/tasks/${taskId}/assign`,
+      { groupIds: [groupId] },
+      teacherToken
+    );
+    assert.equal(status, 200);
+    assert.equal(json.assignedCount, 0);
+    assert.equal(json.skipped, 1);
+  });
+
+  await check('任务：学生能看到来自任务模板的分配', async () => {
+    const { status, json } = await call('GET', '/api/groups/me', null, studentToken);
+    assert.equal(status, 200);
+    assert.ok(json.group.assignments.some((a) => a.title === '演示日演讲'));
+  });
+
+  await check('任务：删除任务模板', async () => {
+    const { status } = await call('DELETE', `/api/teacher/tasks/${taskId}`, null, teacherToken);
+    assert.equal(status, 200);
+    const list = await call('GET', '/api/teacher/tasks', null, teacherToken);
+    assert.ok(!list.json.tasks.some((t) => t.id === taskId));
+  });
+
+  await check('任务：学生不能访问任务接口', async () => {
+    const { status } = await call('GET', '/api/teacher/tasks', null, studentToken);
+    assert.equal(status, 403);
+  });
+
   // ── 词云 ──
   let wcCode;
   await check('词云：学生不能创建词云（需老师权限）', async () => {
