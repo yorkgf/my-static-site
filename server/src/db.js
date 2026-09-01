@@ -50,6 +50,9 @@ export const collections = {
   get tasks() {
     return db().collection('tasks');
   },
+  get likes() {
+    return db().collection('likes');
+  },
   get wcSessions() {
     return db().collection('wc_sessions');
   },
@@ -62,6 +65,12 @@ async function ensureIndexes() {
   await collections.groups.createIndex({ nameKey: 1 }, { unique: true });
   await collections.assignments.createIndex({ groupId: 1, createdAt: -1 });
   await collections.assignments.createIndex({ taskId: 1 });
+  // 每组对同一小组项目只能点赞一次
+  await collections.likes.createIndex(
+    { fromGroupId: 1, toGroupId: 1 },
+    { unique: true }
+  );
+  await collections.likes.createIndex({ toGroupId: 1 });
   await collections.scores.createIndex(
     { assignmentId: 1, memberId: 1 },
     { unique: true }

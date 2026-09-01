@@ -2,7 +2,7 @@ import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import { ObjectId } from 'mongodb';
 import { collections } from '../db.js';
-import { signStudentToken, requireRole } from '../auth.js';
+import { signStudentToken, requireRole, optionalStudentGroupId } from '../auth.js';
 import {
   validateGroupCreate,
   validateGroupUpdate,
@@ -14,10 +14,11 @@ export const groupsRouter = Router();
 
 const BCRYPT_ROUNDS = 10;
 
-// GET /api/groups — 公开：所有小组的组名、成员、项目与截止日期（不含分数）
-groupsRouter.get('/', async (_req, res, next) => {
+// GET /api/groups — 公开：所有小组的组名、成员、项目与截止日期、点赞信息（不含分数）
+groupsRouter.get('/', async (req, res, next) => {
   try {
-    return res.json({ groups: await buildPublicGroupsView() });
+    const viewerGroupId = optionalStudentGroupId(req);
+    return res.json({ groups: await buildPublicGroupsView(viewerGroupId) });
   } catch (err) {
     return next(err);
   }

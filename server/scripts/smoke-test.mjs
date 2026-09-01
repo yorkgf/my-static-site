@@ -135,6 +135,7 @@ try {
   });
 
   let teacherToken;
+  let g2Token;
   await check('老师登录成功', async () => {
     const { status, json } = await call('POST', '/api/teacher/login', {
       password: 'teacher-pass-123',
@@ -341,6 +342,71 @@ try {
 
   await check('任务：学生不能访问任务接口', async () => {
     const { status } = await call('GET', '/api/teacher/tasks', null, studentToken);
+    assert.equal(status, 403);
+  });
+
+  // ── 点赞 ──
+  await check('点赞：未登录不能点赞', async () => {
+    const { status } = await call('POST', '/api/likes', { toGroupId: groupId });
+    assert.equal(status, 401);
+  });
+
+  await check('点赞：不能给自己的小组点赞', async () => {
+    const { status } = await call('POST', '/api/likes', { toGroupId: groupId }, studentToken);
+    assert.equal(status, 400);
+  });
+
+  await check('点赞：登录的小组给另一个小组点赞', async () => {
+    const g2 = await call('POST', '/api/groups/login', {
+      name: '深海科技',
+      password: 'pass1234',
+    });
+    assert.equal(g2.status, 200);
+    g2Token = g2.json.token;
+    const { status, json } = await call('POST', '/api/likes', { toGroupId: groupId }, g2Token);
+    assert.equal(status, 201);
+    assert.equal(json.likes, 1);
+  });
+
+  await check('点赞：同一小组对同一项目只能点一次', async () => {
+    const { status } = await call('POST', '/api/likes', { toGroupId: groupId }, g2Token);
+    assert.equal(status, 409);
+  });
+
+  await check('点赞：公开榜含点赞数并可按点赞数排序', async () => {
+    const { status, json } = await call('GET', '/api/groups');
+    assert.equal(status, 200);
+    const target = json.groups.find((g) => g.id === groupId);
+    assert.equal(target.likes, 1);
+    assert.equal(target.likedBy.length, 1);
+    assert.equal(target.likedBy[0].groupName, '深海科技');
+    // 被点赞的小组应排在前面（火星咖啡 > 深海科技）
+    assert.ok(json.groups[0].likes >= json.groups[1].likes);
+    assert.equal(json.groups[0].id, groupId);
+  });
+
+  await check('点赞：公开榜不泄露点赞者之外的私密信息', async () => {
+    const { json } = await call('GET', '/api/groups');
+    const raw = JSON.stringify(json.groups[0]);
+    assert.ok(!raw.includes('score'), '不应包含分数');
+    assert.ok(!raw.includes('comment'), '不应包含评语');
+    assert.ok(!raw.includes('password'), '不应包含密码');
+  });
+
+  await check('点赞：取消点赞后计数归零', async () => {
+    const { status } = await call('DELETE', '/api/likes/' + groupId, null, g2Token);
+    assert.equal(status, 200);
+    const { json } = await call('GET', '/api/groups');
+    assert.equal(json.groups.find((g) => g.id === groupId).likes, 0);
+  });
+
+  await check('点赞：取消未点过赞的小组返回 404', async () => {
+    const { status } = await call('DELETE', '/api/likes/' + groupId, null, g2Token);
+    assert.equal(status, 404);
+  });
+
+  await check('点赞：老师令牌不能点赞（需要学生令牌）', async () => {
+    const { status } = await call('POST', '/api/likes', { toGroupId: groupId }, teacherToken);
     assert.equal(status, 403);
   });
 

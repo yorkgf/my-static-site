@@ -90,15 +90,20 @@ export async function buildTasksView() {
 
 /**
  * 公开视图：所有学生可见的小组榜。
- * 只含组名、成员姓名、项目标题与截止日期；
+ * 只含组名、成员姓名、项目标题与截止日期、点赞信息；
  * 不含分数/评语、Canvas 链接、选题、密码等任何私密信息。
+ * 排序：按累计点赞数降序，并列时按创建时间升序。
+ * @param {string|null} viewerGroupId 当前登录小组 id（可选），用于返回 likedByMe
  */
-export async function buildPublicGroupsView() {
-  const groups = await collections.groups.find({}).sort({ createdAt: 1 }).toArray();
-  const assignments = await collections.assignments
-    .find({})
-    .sort({ dueDate: 1, createdAt: 1 })
-    .toArray();
+export async function buildPublicGroupsView(viewerGroupId = null) {
+  const [groups, assignments, likes] = await Promise.all([
+    collections.groups.find({}).sort({ createdAt: 1 }).toArray(),
+    collections.assignments
+      .find({})
+      .sort({ dueDate: 1, createdAt: 1 })
+      .toArray(),
+    collections.likes.find({}).toArray(),
+  ]);
 
   const assignmentsByGroup = new Map();
   for (const a of assignments) {
@@ -107,10 +112,39 @@ export async function buildPublicGroupsView() {
     assignmentsByGroup.set(a.groupId.toString(), list);
   }
 
-  return groups.map((g) => ({
-    id: g._id.toString(),
-    name: g.name,
-    members: g.members.map((m) => m.name),
-    assignments: assignmentsByGroup.get(g._id.toString()) || [],
-  }));
+  const groupNameById = new Map(groups.map((g) => [g._id.toString(), g.name]));
+  const likesByGroup = new Map();
+  for (const l of likes) {
+    const key = l.toGroupId.toString();
+    const list = likesByGroup.get(key) || [];
+    list.push({
+      groupId: l.fromGroupId.toString(),
+      groupName: groupNameById.get(l.fromGroupId.toString()) || '（已删除小组）',
+    });
+    likesByGroup.set(key, list);
+  }
+
+  const rows = groups
+    .map((g) => {
+      const likedBy = likesByGroup.get(g._id.toString()) || [];
+      return {
+        id: g._id.toString(),
+        name: g.name,
+        members: g.members.map((m) => m.name),
+        assignments: assignmentsByGroup.get(g._id.toString()) || [],
+        likes: likedBy.length,
+        likedBy,
+        likedByMe: viewerGroupId
+          ? likedBy.some((l) => l.groupId === viewerGroupId)
+          : false,
+        createdAt: g.createdAt,
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.likes - a.likes ||
+        new Date(a.createdAt) - new Date(b.createdAt)
+    );
+
+  return rows.map(({ createdAt, ...rest }) => rest);
 }

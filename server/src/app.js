@@ -7,6 +7,7 @@ import { requireOriginSecret } from './auth.js';
 import { connectDb } from './db.js';
 import { groupsRouter } from './routes/groups.js';
 import { teacherRouter } from './routes/teacher.js';
+import { likesRouter } from './routes/likes.js';
 import { wordcloudRouter } from './routes/wordcloud.js';
 
 export function createApp() {
@@ -82,10 +83,12 @@ export function createApp() {
   app.post('/api/groups', classroomLimiter);
   app.post('/api/groups/login', classroomLimiter);
   app.post('/api/teacher/login', teacherAuthLimiter);
+  app.post('/api/likes', classroomLimiter);
   app.post('/api/wordcloud/sessions/:code/words', classroomLimiter);
 
   app.use('/api/groups', groupsRouter);
   app.use('/api/teacher', teacherRouter);
+  app.use('/api/likes', likesRouter);
   app.use('/api/wordcloud', wordcloudRouter);
 
   app.use('/api', (_req, res) => res.status(404).json({ error: '接口不存在' }));

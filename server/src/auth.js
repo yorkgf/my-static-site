@@ -38,6 +38,22 @@ export function requireRole(...roles) {
   };
 }
 
+/**
+ * 可选登录解析：公开接口也能识别“当前登录的小组”，便于返回个性化字段（如 likedByMe）。
+ * 未携带令牌 / 令牌无效 / 非学生角色时返回 null，不报错。
+ */
+export function optionalStudentGroupId(req) {
+  const token = bearerToken(req);
+  if (!token) return null;
+  try {
+    const payload = jwt.verify(token, config.jwtSecret);
+    if (payload.role !== 'student' || !payload.gid) return null;
+    return payload.gid;
+  } catch {
+    return null;
+  }
+}
+
 /** 校验 EdgeOne 回源密钥头；未配置密钥时放行（本地开发） */
 export function requireOriginSecret(req, res, next) {
   if (!config.originSecret) return next();

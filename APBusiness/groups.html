@@ -113,7 +113,7 @@
             <h2 style="margin:0;">🏆 各组项目一览</h2>
             <button class="btn btn-ghost btn-sm" id="boardRefreshBtn" type="button">🔄 刷新</button>
         </div>
-        <p class="hint">这里可以看到所有小组的组名、成员、分配的项目和截止日期；<strong>分数和评语仅本组成员登录后可见</strong>。</p>
+        <p class="hint">这里可以看到所有小组的组名、成员、分配的项目和截止日期；<strong>按累计点赞数排名</strong>。登录小组后可以给其他小组的项目点赞（每个小组对同一项目限赞一次）。<strong>分数和评语仅本组成员登录后可见</strong>。</p>
         <div id="boardBox"></div>
     </div>
 </div>
@@ -340,11 +340,12 @@
       }
     });
 
-    // ── 公开小组榜（无需登录） ──
+    // ── 公开小组榜（无需登录，点赞需登录） ──
     async function loadBoard() {
       const box = document.getElementById('boardBox');
+      const token = getToken('student');
       try {
-        const data = await api('/api/groups');
+        const data = await api('/api/groups', { token });
         if (!data.groups.length) {
           box.innerHTML = '<p class="empty-note">还没有小组创建，快来创建第一个小组吧！</p>';
           return;
@@ -363,12 +364,54 @@
                   badge + '</div>';
               }).join('')
             : '<p class="empty-note">暂未分配项目</p>';
+
+          // 点赞区
+          const likeCount = '<span class="badge">👍 ' + g.likes + '</span>';
+          const likedBy = g.likedBy.length
+            ? g.likedBy.map((l) => '<span class="chip">' + esc(l.groupName) + '</span>').join('')
+            : '<span class="empty-note">还没有小组点赞</span>';
+          const me = currentGroup && g.id === currentGroup.id;
+          let likeBtn = '';
+          if (!token) {
+            likeBtn = '<p class="hint" style="margin-top:0.5rem;">🔒 登录小组后可给其他小组点赞</p>';
+          } else if (!me) {
+            likeBtn = g.likedByMe
+              ? '<button class="btn btn-ghost btn-sm" data-action="unlike" data-group="' + esc(g.id) + '">👎 取消点赞</button>'
+              : '<button class="btn btn-ghost btn-sm" data-action="like" data-group="' + esc(g.id) + '">👍 点赞</button>';
+          }
+
           return '<div class="assignment">' +
-            '<div class="assignment-title" style="margin-bottom:0.3rem;">' + esc(g.name) + '</div>' +
+            '<div class="assignment-head">' +
+              '<span class="assignment-title">' + esc(g.name) + '</span>' +
+              '<span class="due">' + likeCount + '</span>' +
+            '</div>' +
             '<div class="member-chips">' + members + '</div>' +
             tasks +
+            '<p class="info-line" style="margin-top:0.6rem;"><span class="label">👍 点赞：</span></p>' +
+            '<div class="member-chips">' + likedBy + '</div>' +
+            likeBtn +
           '</div>';
         }).join('');
+
+        // 点赞 / 取消点赞
+        box.querySelectorAll('[data-action="like"], [data-action="unlike"]').forEach((btn) => {
+          btn.addEventListener('click', async () => {
+            const gid = btn.dataset.group;
+            const isLike = btn.dataset.action === 'like';
+            try {
+              if (isLike) {
+                await api('/api/likes', { method: 'POST', body: { toGroupId: gid }, token });
+                toast('点赞成功 👍');
+              } else {
+                await api('/api/likes/' + gid, { method: 'DELETE', token });
+                toast('已取消点赞');
+              }
+              loadBoard();
+            } catch (err) {
+              toast(err.message, 'error');
+            }
+          });
+        });
       } catch (err) {
         box.innerHTML = '<p class="empty-note">小组榜加载失败：' + esc(err.message) + '</p>';
       }
