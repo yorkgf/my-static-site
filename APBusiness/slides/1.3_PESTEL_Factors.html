@@ -150,7 +150,7 @@ tbody tr:hover { background: var(--tint); }
 .invert .divider { background: #fff; }
 .invert .chip { background: rgba(255,255,255,.22); color: #fff; box-shadow: none; }
 
-/* ── PESTEL-specific design system ──────────────────────────── */
+/* ── PESTEL-specific ──────────────────────────── */
 :root {
     --p-pol: #dc2626;  --p-pol-bg: #fef2f2;
     --e-eco: #2563eb;  --e-eco-bg: #eff6ff;
@@ -177,7 +177,6 @@ tbody tr:hover { background: var(--tint); }
 
 h2 .factor-badge { width: 1.2em; height: 1.2em; font-size: .75em; margin-right: .45em; }
 
-/* PESTEL hex grid: 6 colored cards showing all factors at a glance */
 .pestel-hex {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -211,7 +210,6 @@ h2 .factor-badge { width: 1.2em; height: 1.2em; font-size: .75em; margin-right: 
 .pestel-hex .hex-cell.e2 { background: linear-gradient(135deg, #16a34a, #15803d); }
 .pestel-hex .hex-cell.l  { background: linear-gradient(135deg, #d97706, #b45309); }
 
-/* Factor definition card — colored left bar + tinted bg */
 .factor-card {
     border-radius: 14px;
     padding: 1.1rem 1.4rem;
@@ -226,7 +224,6 @@ h2 .factor-badge { width: 1.2em; height: 1.2em; font-size: .75em; margin-right: 
 .factor-card.e2 { border-color: var(--e-env); background: var(--e-env-bg); }
 .factor-card.l  { border-color: var(--l-leg); background: var(--l-leg-bg); }
 
-/* Inside vs outside diagram */
 .io-wrap {
     display: grid;
     grid-template-columns: 1fr 1.3fr;
@@ -261,7 +258,6 @@ h2 .factor-badge { width: 1.2em; height: 1.2em; font-size: .75em; margin-right: 
     box-shadow: 0 2px 8px rgba(0,0,0,.1);
 }
 
-/* Case study card — special highlight for China double reduction, Labubu */
 .case-study {
     background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
     border: 2px solid var(--amber);
@@ -286,7 +282,6 @@ h2 .factor-badge { width: 1.2em; height: 1.2em; font-size: .75em; margin-right: 
 }
 .case-study h3 { margin-top: .6rem; color: #92400e; }
 
-/* PESTEL letter badge inside tables */
 .ltr {
     display: inline-flex; align-items: center; justify-content: center;
     width: 1.55em; height: 1.55em; border-radius: 50%;
@@ -322,471 +317,423 @@ h2 .factor-badge { width: 1.2em; height: 1.2em; font-size: .75em; margin-right: 
 <h1>1.3 PESTEL Factors</h1>
 <hr class="divider">
 <div class="tag">Lesson deck — <strong>concepts + practice</strong></div></div></div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Today's goals</h2>
-<p>By the end of this lesson you can:</p>
-<ol class="tick">
-<li>Describe the <strong>six PESTEL factors</strong> that shape every market</li>
-<li>Apply the PESTEL framework to judge how <strong>attractive</strong> — and how <strong>risky</strong> — a market really is</li>
-</ol>
-<p><strong>Running story continues:</strong> the hallway price war is about to become irrelevant.</p></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>The memo</h2>
-<p>Monday morning — but this time the problem isn't a competitor.</p>
-<p>A memo goes up in the hallway:</p>
-<div class="callout key"><span class="tag">Key Point</span><strong>"Starting next week, no food sales anywhere on campus, by order of the new principal."</strong></div>
-<p>Two backpacks, one price war, one cold-drink sideline — and <strong>none of it matters</strong>, because a force <strong>outside the market</strong> just rewrote the rules for both kids at once.</p>
-<div class="callout key"><span class="tag">Key Point</span>Neither seller did anything wrong. <strong>The environment moved.</strong></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>The PESTEL framework</h2>
-<div class="def"><div class="term">PESTEL</div><div class="text">six kinds of <strong>outside forces</strong> that shape the business landscape.</div></div>
-<div class="pestel-hex">
-    <div class="hex-cell p"><span class="letter">P</span><span class="name">Political</span></div>
-    <div class="hex-cell e1"><span class="letter">E</span><span class="name">Economic</span></div>
-    <div class="hex-cell s"><span class="letter">S</span><span class="name">Social</span></div>
-    <div class="hex-cell t"><span class="letter">T</span><span class="name">Technological</span></div>
-    <div class="hex-cell e2"><span class="letter">E</span><span class="name">Environmental</span></div>
-    <div class="hex-cell l"><span class="letter">L</span><span class="name">Legal</span></div>
-</div>
-<p style="text-align:center;color:var(--muted);margin-top:.5rem;font-size:.92em">Each letter = a category of force that can appear, disappear, or reshape any market overnight.</p></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>What PESTEL does</h2>
-<p>These six factors decide which types of businesses are <strong>viable</strong> in a market.</p>
-<div class="callout key"><span class="tag">Key Point</span><strong>Viability</strong> = the ability to <strong>survive and stay successful</strong> in a market over time.</div>
-<p>The two kids never thought about any of this while undercutting each other — and that's the point.</p></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Inside vs. outside</h2>
-<p><strong>Rivals</strong> live <strong>inside</strong> the market. <strong>PESTEL factors</strong> press on it from the <strong>outside</strong>.</p>
-<div class="io-wrap">
-    <div class="io-market">
-        <div class="icon">🏪</div>
-        <div class="label">THE MARKET</div>
-        <div class="sub">where rivals compete</div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>Today's goals</h2>
+    <ol class="tick">
+        <li>Describe the <strong>six PESTEL factors</strong></li>
+        <li>Apply PESTEL to judge a market's <strong>attractiveness</strong> and <strong>risks</strong></li>
+    </ol>
+    <div class="callout key"><span class="tag">Running story</span>The hallway price war is about to become irrelevant.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>The memo</h2>
+    <div class="callout key"><span class="tag">Key Point</span><strong>"Starting next week, no food sales anywhere on campus."</strong></div>
+    <p>Two backpacks, one price war — and <strong>none of it matters</strong>. A force <strong>outside the market</strong> just rewrote the rules for both kids.</p>
+    <div class="callout key"><span class="tag">Key Point</span>Neither seller did anything wrong. <strong>The environment moved.</strong></div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>The PESTEL framework</h2>
+    <div class="def"><div class="term">PESTEL</div><div class="text">Six kinds of <strong>outside forces</strong> that shape the business landscape.</div></div>
+    <div class="pestel-hex">
+        <div class="hex-cell p"><span class="letter">P</span><span class="name">Political</span></div>
+        <div class="hex-cell e1"><span class="letter">E</span><span class="name">Economic</span></div>
+        <div class="hex-cell s"><span class="letter">S</span><span class="name">Social</span></div>
+        <div class="hex-cell t"><span class="letter">T</span><span class="name">Technological</span></div>
+        <div class="hex-cell e2"><span class="letter">E</span><span class="name">Environmental</span></div>
+        <div class="hex-cell l"><span class="letter">L</span><span class="name">Legal</span></div>
     </div>
-    <div class="io-forces">
-        <div class="force" style="background:#dc2626">P · Political</div>
-        <div class="force" style="background:#2563eb">E · Economic</div>
-        <div class="force" style="background:#7c3aed">S · Social</div>
-        <div class="force" style="background:#0891b2">T · Technological</div>
-        <div class="force" style="background:#16a34a">E · Environmental</div>
-        <div class="force" style="background:#d97706">L · Legal</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>What PESTEL does</h2>
+    <p>These six factors decide which types of businesses are <strong>viable</strong>.</p>
+    <div class="def"><div class="term">Viability</div><div class="text">The ability to <strong>survive and stay successful</strong> in a market over time.</div></div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>Inside vs. outside</h2>
+    <div class="io-wrap">
+        <div class="io-market">
+            <div class="icon">🏪</div>
+            <div class="label">THE MARKET</div>
+            <div class="sub">where rivals compete</div>
+        </div>
+        <div class="io-forces">
+            <div class="force" style="background:#dc2626">P · Political</div>
+            <div class="force" style="background:#2563eb">E · Economic</div>
+            <div class="force" style="background:#7c3aed">S · Social</div>
+            <div class="force" style="background:#0891b2">T · Technological</div>
+            <div class="force" style="background:#16a34a">E · Environmental</div>
+            <div class="force" style="background:#d97706">L · Legal</div>
+        </div>
     </div>
-</div>
-<div class="callout warn"><span class="tag">Exam Note</span>The exam expects you to (1) <strong>identify</strong> each factor from a scenario, and (2) <strong>reason</strong> about what it does to a business.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge p">P</span>Political</h2>
-<p>Policies and political dynamics that affect market activity.</p>
-<p><strong>Key tools:</strong></p>
-<div class="tbl-wrap"><table>
-<thead><tr><th>Tool</th><th>What it does</th></tr></thead><tbody>
-<tr><td><strong>Tax</strong></td><td>Funds government; often discourages the activity being taxed</td></tr>
-<tr><td><strong>Subsidy</strong></td><td>Supports / incentivizes a specific activity</td></tr>
-<tr><td><strong>Mandate</strong></td><td>Requires a business to do something</td></tr>
-<tr><td><strong>Ban</strong></td><td>Prohibits an activity entirely</td></tr>
-<tr><td><strong>Tariff</strong></td><td>A tax on imported goods — raises costs for importers</td></tr>
-</tbody></table></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge p">P</span>Political (examples)</h2>
-<ul>
-<li>A country raising <strong>tariffs</strong> on imported chocolate → costs rise for every chocolate maker that buys abroad</li>
-<li>A <strong>mandate</strong> requiring seat belts in every new car → creates a market no automaker can skip</li>
-<li>A <strong>subsidy</strong> for solar panels → incentivizes businesses to install them</li>
-<li><strong>Political stability</strong> matters most where it is <em>missing</em> — businesses avoid markets where the rules might change with the next government</li>
-</ul></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge p">P</span>Case study: China's "double reduction" (2021)</h2>
-<div class="case-study">
-<p>One policy decision → <strong>an entire industry destroyed overnight.</strong></p>
-<ul>
-<li>Central government banned for-profit K-12 tutoring → 新东方, 好未来, 高途 stock crashed <strong>90%+</strong></li>
-<li>新东方 forced to pivot → 东方甄选 live-stream commerce, 俞敏洪 from educator to live-stream host</li>
-<li>The company survived — but the original business model is <strong>gone</strong></li>
-</ul>
-<div class="video-frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1cg411f7EQ&autoplay=0" frameborder="0" allowfullscreen></iframe></div>
-</div>
-<div class="callout warn"><span class="tag">Exam Note</span><strong>Political factors don't just nudge — they can rewrite the rules entirely.</strong> A ban, a mandate, a subsidy: one decision from authority, and markets appear or disappear.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge e1">E</span>Economic</h2>
-<p>Conditions of <strong>the economy itself</strong> — not any one company's choices.</p>
-<p><strong>Key indicators:</strong></p>
-<ul>
-<li>Household <strong>income</strong></li>
-<li><strong>Inflation</strong></li>
-<li><strong>Unemployment</strong></li>
-<li><strong>Interest rates</strong></li>
-<li>Economic <strong>stability</strong></li>
-</ul></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge e1">E</span>Economic (hallway examples)</h2>
-<ul>
-<li>When <strong>allowance money shrinks</strong>, fewer students have $1.50 to spend → the hallway market shrinks</li>
-<li>When <strong>inflation</strong> raises the supermarket price of a bulk candy box → the seller's cost rises before he sells a single bar</li>
-</ul>
-<div class="callout warn"><span class="tag">Exam Note</span><strong>Exam tip:</strong> income, inflation, unemployment, and interest rates all point to the same <strong>source</strong> — the condition of the economy itself — <strong>never</strong> to any single company's choices.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge s">S</span>Social</h2>
-<p>Trends in <strong>society and culture</strong> that affect consumers.</p>
-<p><strong>Key drivers:</strong></p>
-<ul>
-<li><strong>Demographics</strong> — age, income bracket, family size</li>
-<li><strong>Cultural norms</strong></li>
-<li><strong>Lifestyle trends</strong></li>
-<li><strong>Population growth</strong></li>
-</ul></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge s">S</span>Social (hallway examples)</h2>
-<ul>
-<li>A <strong>fitness trend</strong> sweeps the school → half the buyers switch to protein bars → demand for candy fades <strong>without any rival lifting a finger</strong></li>
-<li>A neighborhood filling with <strong>young families</strong> changes what sells there</li>
-<li>A town growing <strong>older</strong> buys differently than a town filling with students</li>
-</ul>
-<div class="callout key"><span class="tag">Key Point</span><strong>Demographics</strong> = the measurable traits of a population.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge s">S</span>Case study: Labubu goes global (2024)</h2>
-<div class="case-study">
-<p>A social trend created a <strong>new product category from nothing.</strong></p>
-<ul>
-<li>Gen Z collecting culture + "surprise" dopamine + social media unboxing → blind box craze</li>
-<li>泡泡玛特's Labubu character went viral in Southeast Asia → fans lining up, resale prices 5-10× retail</li>
-<li>The product is a toy — but the <strong>social trend</strong> (collecting, sharing, status signaling) is what created the market</li>
-</ul>
-<div class="video-frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1QtGczKEeM&autoplay=0" frameborder="0" allowfullscreen></iframe></div>
-</div>
-<div class="callout key"><span class="tag">Key Point</span><strong>Social factors don't respond to what you sell — they shape what people want to buy.</strong> A fitness trend doesn't care about your candy; a collecting trend doesn't care about your toy design. Read the culture first.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge t">T</span>Technological</h2>
-<p>Features of a market tied to the <strong>availability of technology</strong>.</p>
-<p><strong>Key drivers:</strong></p>
-<ul>
-<li><strong>Internet access</strong></li>
-<li><strong>Automation</strong> of production</li>
-<li><strong>Pace of innovation</strong></li>
-</ul></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge t">T</span>Technological (hallway examples)</h2>
-<ul>
-<li>The <strong>class group chat</strong> is technology acting on the hallway market — inventory posted online reaches buyers a backpack cannot</li>
-<li>A region without reliable internet <strong>cannot host</strong> an online store</li>
-<li>A factory that automates can produce at costs a manual rival struggles to match</li>
-</ul>
-<div class="callout key"><span class="tag">Key Point</span>The <strong>rate of innovation</strong> matters as much as any single tool — markets that adopt technology quickly <strong>punish businesses that move slowly</strong>.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge e2">E</span>Environmental</h2>
-<p>External environmental conditions that promote or limit market activity.</p>
-<p><strong>Key drivers:</strong></p>
-<ul>
-<li><strong>Geography</strong></li>
-<li>Access to <strong>renewable / non-renewable resources</strong></li>
-<li><strong>Waste rules</strong></li>
-<li>How customers think about <strong>the environment</strong></li>
-</ul></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge e2">E</span>Environmental (hallway examples)</h2>
-<ul>
-<li>The <strong>heat wave</strong> that made cold drinks valuable in 1.2 was an environmental factor <strong>doing the selling</strong></li>
-<li>A <strong>drought</strong> that ruins a strawberry harvest raises costs for every dessert stand</li>
-<li>Customers who care about <strong>packaging</strong> will pay for the business that listens</li>
-</ul>
-<div class="callout key"><span class="tag">Key Point</span><strong>Geography counts:</strong> a landlocked region cannot host a fishing fleet; a sunny one invites solar energy.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge l">L</span>Legal</h2>
-<p>Specific <strong>laws, rules, and regulations</strong> that impact market activity.</p>
-<p><strong>Key areas:</strong></p>
-<ul>
-<li><strong>Employment laws</strong></li>
-<li><strong>Consumer protection</strong> laws</li>
-<li><strong>Health and safety</strong> rules</li>
-<li><strong>Environmental regulations</strong></li>
-<li><strong>Intellectual property</strong> protection</li>
-<li><strong>Antitrust laws</strong></li>
-</ul></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2><span class="factor-badge l">L</span>Legal (hallway examples)</h2>
-<ul>
-<li>A <strong>food-handling certificate</strong> requirement is a legal factor</li>
-<li>The <strong>patent</strong> from 1.2 that protects a medicine is a legal factor</li>
-<li><strong>Antitrust laws</strong> (limit monopolies, block anti-competitive behavior) connect straight back to 1.2</li>
-</ul></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Political vs. Legal — the exam's favorite distinction</h2>
-<div class="tbl-wrap"><table>
-<thead><tr><th></th><th><span class="ltr p">P</span>Political</th><th><span class="ltr l">L</span>Legal</th></tr></thead><tbody>
-<tr><td>Is about</td><td>Broad policy <strong>choices</strong></td><td>Specific <strong>laws</strong> to comply with</td></tr>
-<tr><td>Examples</td><td>Tax, subsidy, mandate, ban</td><td>Safety code, licensing requirement, employment law</td></tr>
-<tr><td>Source</td><td>Government <strong>decision</strong></td><td>Codified <strong>rule</strong></td></tr>
-</tbody></table></div>
-<div class="formula">> A proposed <strong>tax</strong> on sugary food = political (policy choice). A <strong>law</strong> requiring a food-handler license = legal (specific rule).</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Overlap is real</h2>
-<p>A single new emissions law can carry political, environmental, <em>and</em> legal weight at once.</p>
-<div class="callout warn"><span class="tag">Exam Note</span>The exam asks for the <strong>best fit</strong> — and the <strong>source of the force</strong> decides it.</div>
-<p><strong>Classify by the source of the change</strong> — not by what it costs, what it touches, or its subject matter.</p></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Viability — definition</h2>
-<div class="def"><div class="term">Viability</div><div class="text">the ability to <strong>survive and stay successful</strong> in a market over time.</div></div>
-<p>The course uses this word constantly — learn it.</p>
-<div class="callout key"><span class="tag">Key Point</span>Put the six factors together and they answer one blunt question: <strong>what kind of business can survive in this market at all?</strong></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Viability — what each factor decides</h2>
-<div class="tbl-wrap"><table>
-<thead><tr><th>Factor</th><th>What it decides</th></tr></thead><tbody>
-<tr><td><span class="ltr p">P</span>Political</td><td>Which activities are incentivized vs. disincentivized</td></tr>
-<tr><td><span class="ltr e1">E</span>Economic</td><td>How much customers, businesses, and government can spend</td></tr>
-<tr><td><span class="ltr s">S</span>Social</td><td>What people <strong>want</strong> to buy</td></tr>
-<tr><td><span class="ltr t">T</span>Technological</td><td>What can be produced, distributed, communicated</td></tr>
-<tr><td><span class="ltr e2">E</span>Environmental</td><td>What resources are even available</td></tr>
-<tr><td><span class="ltr l">L</span>Legal</td><td>The cost of operating + the line around what's allowed</td></tr>
-</tbody></table></div>
-<div class="callout key"><span class="tag">Key Point</span>Most businesses need a strong economy, but <strong>some thrive in a weak one</strong> — like discount stores when incomes fall.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Applying the framework — the method</h2>
-<p>This is the skill the exam actually tests — <strong>using PESTEL to evaluate a market.</strong></p>
-<ol class="tick">
-<li><strong>Identify</strong> which factors are relevant to your product</li>
-<li><strong>Assess</strong> how each one affects the market's <strong>attractiveness</strong> <em>and</em> its <strong>risks</strong></li>
-<li>A business enters where the factors <strong>align</strong> with its model, resources, and customers</li>
-</ol>
-<div class="callout key"><span class="tag">Key Point</span>A <strong>tech company</strong> locates where internet and electricity are cheap. A <strong>farm-to-table restaurant</strong> opens where customers value local food. <strong>Same framework, opposite conclusions.</strong></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Applying the framework — the candy seller's next market</h2>
-<p>The hallway is closed. He's considering the <strong>weekend soccer league</strong>:</p>
-<div class="tbl-wrap"><table>
-<thead><tr><th>Factor</th><th>Reading for the soccer league</th></tr></thead><tbody>
-<tr><td><span class="ltr p">P</span>Political</td><td>No rule against food sales yet</td></tr>
-<tr><td><span class="ltr e1">E</span>Economic</td><td>Parents at games carry cash and buy freely</td></tr>
-<tr><td><span class="ltr s">S</span>Social</td><td>A captive crowd shows up every Saturday</td></tr>
-<tr><td><span class="ltr t">T</span>Technological</td><td>The group chat moves with him</td></tr>
-<tr><td><span class="ltr e2">E</span>Environmental</td><td>Games run outdoors; hot afternoons sell cold drinks</td></tr>
-<tr><td><span class="ltr l">L</span>Legal</td><td>The park requires a simple vendor permit</td></tr>
-</tbody></table></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>The verdict</h2>
-<p>Five factors align; one costs paperwork → <strong>an attractive market with known risk.</strong></p>
-<div class="callout warn"><span class="tag">Exam Note</span>This factor-by-factor reasoning is exactly what a strong exam answer looks like: <strong>name the factor, state its direction, and tie it to this specific business.</strong></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>How to write a strong exam answer</h2>
-<p><strong>Name the factor → state its direction → tie it to this specific business.</strong></p>
-<ul>
-<li>A factor that's <strong>good news</strong> for one model is <strong>bad news</strong> for another</li>
-<li>Cheap electricity attracts a data center; it does nothing for a tutoring service</li>
-<li>The fitness trend helps a protein bar seller; it hurts the candy seller</li>
-</ul></div>
-        </div>
+    <div class="callout warn"><span class="tag">Exam Note</span>(1) <strong>Identify</strong> each factor from a scenario, (2) <strong>reason</strong> about what it does.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge p">P</span>Political</h2>
+    <p>Policies and political dynamics affecting market activity.</p>
+    <div class="tbl-wrap"><table>
+        <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Tax</strong></td><td>Funds government; discourages taxed activity</td></tr>
+            <tr><td><strong>Subsidy</strong></td><td>Incentivizes a specific activity</td></tr>
+            <tr><td><strong>Mandate</strong></td><td>Requires a business to do something</td></tr>
+            <tr><td><strong>Ban</strong></td><td>Prohibits an activity</td></tr>
+            <tr><td><strong>Tariff</strong></td><td>Tax on imports — raises costs for importers</td></tr>
+        </tbody>
+    </table></div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge p">P</span>Examples</h2>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0">
+        <span class="chip">Tariff on imported chocolate → costs rise</span>
+        <span class="chip">Seat belt mandate → new market created</span>
+        <span class="chip">Solar panel subsidy → incentivizes installation</span>
+        <span class="chip amber">Political stability matters most where missing</span>
+    </div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge p">P</span>Case study: China's "double reduction" (2021)</h2>
+    <div class="case-study">
+        <p>One policy → <strong>an entire industry destroyed overnight.</strong></p>
+        <ul>
+            <li>Banned for-profit K-12 tutoring → 新东方, 好未来, 高途 stock crashed <strong>90%+</strong></li>
+            <li>新东方 pivoted → 东方甄选 live-stream commerce</li>
+        </ul>
+        <div class="video-frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1cg411f7EQ&autoplay=0" frameborder="0" allowfullscreen></iframe></div>
+    </div>
+    <div class="callout warn"><span class="tag">Exam Note</span><strong>Political factors can rewrite the rules entirely.</strong> One decision from authority → markets appear or disappear.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge e1">E</span>Economic</h2>
+    <p>Conditions of <strong>the economy itself</strong> — not any one company's choices.</p>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0">
+        <span class="chip">Household income</span>
+        <span class="chip">Inflation</span>
+        <span class="chip">Unemployment</span>
+        <span class="chip">Interest rates</span>
+        <span class="chip">Economic stability</span>
+    </div>
+    <div class="callout warn"><span class="tag">Exam tip</span>These all describe the <strong>condition of the economy itself</strong> — <strong>never</strong> one company's choices.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge s">S</span>Social</h2>
+    <p>Trends in <strong>society and culture</strong> affecting consumers.</p>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0">
+        <span class="chip">Demographics</span>
+        <span class="chip">Cultural norms</span>
+        <span class="chip">Lifestyle trends</span>
+        <span class="chip">Population growth</span>
+    </div>
+    <div class="callout key"><span class="tag">Key Point</span><strong>Demographics</strong> = measurable traits of a population.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge s">S</span>Case study: Labubu goes global (2024)</h2>
+    <div class="case-study">
+        <p>A social trend created a <strong>new product category from nothing.</strong></p>
+        <ul>
+            <li>Gen Z collecting culture + "surprise" dopamine + social media unboxing → blind box craze</li>
+            <li>泡泡玛特's Labubu → viral in Southeast Asia, resale 5-10× retail</li>
+        </ul>
+        <div class="video-frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1QtGczKEeM&autoplay=0" frameborder="0" allowfullscreen></iframe></div>
+    </div>
+    <div class="callout key"><span class="tag">Key Point</span><strong>Social factors shape what people want to buy.</strong> Read the culture first.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge t">T</span>Technological</h2>
+    <p>Features tied to <strong>availability of technology</strong>.</p>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0">
+        <span class="chip">Internet access</span>
+        <span class="chip">Automation</span>
+        <span class="chip">Pace of innovation</span>
+    </div>
+    <div class="callout key"><span class="tag">Key Point</span>The <strong>rate of innovation</strong> matters as much as any single tool — markets punish businesses that move slowly.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge e2">E</span>Environmental</h2>
+    <p>External environmental conditions promoting or limiting market activity.</p>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0">
+        <span class="chip">Geography</span>
+        <span class="chip">Renewable / non-renewable resources</span>
+        <span class="chip">Waste rules</span>
+        <span class="chip">Customer environmental attitudes</span>
+    </div>
+    <div class="callout key"><span class="tag">Key Point</span><strong>Geography counts:</strong> landlocked region can't host a fishing fleet; sunny one invites solar.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2><span class="factor-badge l">L</span>Legal</h2>
+    <p>Specific <strong>laws, rules, regulations</strong> impacting market activity.</p>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0">
+        <span class="chip">Employment laws</span>
+        <span class="chip">Consumer protection</span>
+        <span class="chip">Health &amp; safety</span>
+        <span class="chip">Environmental regulations</span>
+        <span class="chip">Intellectual property</span>
+        <span class="chip">Antitrust laws</span>
+    </div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>Political vs. Legal — the exam's favorite distinction</h2>
+    <div class="tbl-wrap"><table>
+        <thead><tr><th></th><th><span class="ltr p">P</span> Political</th><th><span class="ltr l">L</span> Legal</th></tr></thead>
+        <tbody>
+            <tr><td>Is about</td><td>Broad policy <strong>choices</strong></td><td>Specific <strong>laws</strong> to comply with</td></tr>
+            <tr><td>Source</td><td>Government <strong>decision</strong></td><td>Codified <strong>rule</strong></td></tr>
+        </tbody>
+    </table></div>
+    <div class="formula" style="font-size:1.1em;font-family:var(--serif)">Proposed <strong>tax</strong> on sugary food = political. A <strong>law</strong> requiring food-handler license = legal.</div>
+    <div class="callout warn"><span class="tag">Exam Note</span>Overlap is real — classify by the <strong>source of the force</strong>.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>Viability — what each factor decides</h2>
+    <div class="tbl-wrap"><table>
+        <thead><tr><th>Factor</th><th>What it decides</th></tr></thead>
+        <tbody>
+            <tr><td><span class="ltr p">P</span></td><td>Which activities are incentivized vs. disincentivized</td></tr>
+            <tr><td><span class="ltr e1">E</span></td><td>How much customers/government can spend</td></tr>
+            <tr><td><span class="ltr s">S</span></td><td>What people <strong>want</strong> to buy</td></tr>
+            <tr><td><span class="ltr t">T</span></td><td>What can be produced, distributed, communicated</td></tr>
+            <tr><td><span class="ltr e2">E</span></td><td>What resources are available</td></tr>
+            <tr><td><span class="ltr l">L</span></td><td>Cost of operating + the line around what's allowed</td></tr>
+        </tbody>
+    </table></div>
+    <div class="callout key"><span class="tag">Key Point</span>Most businesses need a strong economy, but <strong>some thrive in a weak one</strong> (discount stores).</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>Applying the framework — the method</h2>
+    <ol class="tick">
+        <li><strong>Identify</strong> which factors are relevant</li>
+        <li><strong>Assess</strong> how each affects <strong>attractiveness</strong> and <strong>risks</strong></li>
+        <li>Enter where factors <strong>align</strong> with your model</li>
+    </ol>
+    <div class="callout key"><span class="tag">Key Point</span>A <strong>tech company</strong> locates where internet is cheap. A <strong>farm-to-table restaurant</strong> opens where customers value local food. <strong>Same framework, opposite conclusions.</strong></div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>Applying — the candy seller's next market</h2>
+    <p>The hallway is closed. He's considering the <strong>weekend soccer league</strong>:</p>
+    <div class="tbl-wrap"><table>
+        <thead><tr><th>Factor</th><th>Reading</th></tr></thead>
+        <tbody>
+            <tr><td><span class="ltr p">P</span></td><td>No rule against food sales yet</td></tr>
+            <tr><td><span class="ltr e1">E</span></td><td>Parents carry cash and buy freely</td></tr>
+            <tr><td><span class="ltr s">S</span></td><td>Captive crowd every Saturday</td></tr>
+            <tr><td><span class="ltr t">T</span></td><td>Group chat moves with him</td></tr>
+            <tr><td><span class="ltr e2">E</span></td><td>Outdoor games; hot afternoons sell cold drinks</td></tr>
+            <tr><td><span class="ltr l">L</span></td><td>Park requires a simple vendor permit</td></tr>
+        </tbody>
+    </table></div>
+    <div class="callout warn"><span class="tag">Exam Note</span>Five align; one costs paperwork → <strong>attractive market with known risk.</strong></div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>How to write a strong exam answer</h2>
+    <p><strong>Name the factor → state its direction → tie it to this specific business.</strong></p>
+    <ul>
+        <li>A factor <strong>good for</strong> one model is <strong>bad for</strong> another</li>
+        <li>Cheap electricity → attracts data center; does nothing for tutoring</li>
+        <li>Fitness trend → helps protein bar seller; hurts candy seller</li>
+    </ul>
+</div></div>
+
 <div class="slide invert"><div class="inner hero"><h1>Your turn — apply the framework</h1>
 <hr class="divider">
 <span class="chip"><strong>Watch the video → fill in the PESTEL table → make a decision.</strong></span></div></div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>The case: Shein</h2>
-<p>Shein is a Chinese fast-fashion giant that sells ultra-cheap clothing to customers in <strong>150+ countries</strong>. It's one of the most downloaded shopping apps in the world — and one of the most controversial.</p>
-<div class="video-frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1yZKV6aEFx&autoplay=0" frameborder="0" allowfullscreen></iframe></div>
-<p><em>As you watch, look for PESTEL signals: what forces are helping Shein? What forces are threatening it?</em></p></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>PESTEL analysis — fill in as you watch</h2>
-<div class="tbl-wrap"><table>
-<thead><tr><th>Factor</th><th>Helping Shein? (opportunity)</th><th>Threatening Shein? (risk)</th></tr></thead><tbody>
-<tr><td><strong>Political</strong></td><td></td><td></td></tr>
-<tr><td><strong>Economic</strong></td><td></td><td></td></tr>
-<tr><td><strong>Social</strong></td><td></td><td></td></tr>
-<tr><td><strong>Technological</strong></td><td></td><td></td></tr>
-<tr><td><strong>Environmental</strong></td><td></td><td></td></tr>
-<tr><td><strong>Legal</strong></td><td></td><td></td></tr>
-</tbody></table></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>The decision</h2>
-<p>Based on your PESTEL analysis, what should Shein do?</p>
-<ul>
-<li><strong>A.</strong> Keep expanding aggressively — the opportunities outweigh the risks</li>
-<li><strong>B.</strong> Pull back from high-risk markets (US, EU) and focus on safer ones</li>
-<li><strong>C.</strong> Stay in all markets but invest heavily in compliance and sustainability</li>
-<li><strong>D.</strong> Some other strategy — explain using your PESTEL factors</li>
-</ul>
-<div class="callout warn"><span class="tag">Exam Note</span><strong>There is no single right answer.</strong> Defend your choice with <strong>specific factors</strong> — that's what the exam rewards.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>When factors change</h2>
-<p>PESTEL factors <strong>move</strong> — and when they move they can rewrite an existing market <strong>overnight</strong>.</p>
-<ul>
-<li><strong>Flu season</strong> empties the school → every hallway sale disappears for two weeks</li>
-<li>A <strong>new law</strong>, a <strong>downturn</strong>, a <strong>technology shift</strong> — each redraws the map for businesses already operating</li>
-<li>The memo that opened this video was <strong>one changed factor</strong>, and it ended a market two competitors had spent weeks fighting over</li>
-</ul>
-<div class="callout warn"><span class="tag">Exam Note</span><strong>Exam signal:</strong> when a question describes a market shifting after a new law, a downturn, or a technology jump, it's testing whether you can <strong>name which factor moved</strong> and <strong>what it did to viability.</strong></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Lesson</div><h2>Exam points to remember</h2>
-<ul>
-<li><strong>Rivals are inside the market; PESTEL factors press from outside</strong></li>
-</ul>
-<div class="formula">- <strong>Viability</strong> = survive and stay successful over time</div>
-<ul>
-<li><strong>Classify by the source</strong> of the change — not by what it costs or touches</li>
-<li><strong>Political vs. legal:</strong> broad policy choice vs. specific rule to follow</li>
-<li><strong>Overlap is real</strong> — pick the best fit by the source</li>
-<li><strong>Economic factors</strong> describe the whole economy, never one company</li>
-</ul>
-<div class="formula">- <strong>"All six equally important"</strong> = wrong answer</div></div>
-        </div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>The case: Shein</h2>
+    <p>Chinese fast-fashion giant selling ultra-cheap clothing in <strong>150+ countries</strong>. One of the most downloaded — and most controversial.</p>
+    <div class="video-frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1yZKV6aEFx&autoplay=0" frameborder="0" allowfullscreen></iframe></div>
+    <p><em>As you watch, look for PESTEL signals.</em></p>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>PESTEL analysis — fill in as you watch</h2>
+    <div class="tbl-wrap"><table>
+        <thead><tr><th>Factor</th><th>Helping? (opportunity)</th><th>Threatening? (risk)</th></tr></thead>
+        <tbody>
+            <tr><td>Political</td><td></td><td></td></tr>
+            <tr><td>Economic</td><td></td><td></td></tr>
+            <tr><td>Social</td><td></td><td></td></tr>
+            <tr><td>Technological</td><td></td><td></td></tr>
+            <tr><td>Environmental</td><td></td><td></td></tr>
+            <tr><td>Legal</td><td></td><td></td></tr>
+        </tbody>
+    </table></div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>The decision</h2>
+    <p>Based on your PESTEL analysis, what should Shein do?</p>
+    <ul>
+        <li><strong>A.</strong> Keep expanding — opportunities outweigh risks</li>
+        <li><strong>B.</strong> Pull back from high-risk markets (US, EU)</li>
+        <li><strong>C.</strong> Stay in all markets but invest in compliance and sustainability</li>
+        <li><strong>D.</strong> Some other strategy — explain using your PESTEL factors</li>
+    </ul>
+    <div class="callout warn"><span class="tag">Exam Note</span><strong>No single right answer.</strong> Defend with <strong>specific factors</strong>.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Lesson</div><h2>When factors change</h2>
+    <p>PESTEL factors <strong>move</strong> — when they do, they can rewrite a market <strong>overnight</strong>.</p>
+    <div class="callout warn"><span class="tag">Exam signal</span>A market shifting after a new law/downturn/tech jump → <strong>name which factor moved</strong> and <strong>what it did to viability.</strong></div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Review</div><h2>Exam points to remember</h2>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0">
+        <span class="chip">Rivals inside · PESTEL outside</span>
+        <span class="chip">Viability = survive and stay successful</span>
+        <span class="chip blue">Classify by source, not subject matter</span>
+        <span class="chip blue">Political vs legal: policy choice vs specific rule</span>
+        <span class="chip amber">Overlap → pick best fit by source</span>
+        <span class="chip red">"All six equally important" = wrong answer</span>
+    </div>
+</div></div>
+
 <div class="slide invert"><div class="inner hero"><h1>Practice — 6 questions</h1>
 <hr class="divider">
 <div class="tag">Read → pause → <strong>commit to an answer</strong> → then reveal.</div>
 <span class="chip"><strong>3 on one stimulus (GreenBox)</strong>· <strong>3 standalone</strong></span></div></div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Elena Reyes</strong> owns <strong>GreenBox</strong>, a meal-prep delivery service in a mid-size city. Three developments have her attention:</p><p>1. The city council is <strong>debating a proposal to tax sugary packaged foods</strong>
-2. A <strong>fitness lifestyle trend</strong> is growing among adults; <strong>gym memberships have risen for three straight years</strong>
-3. A new <strong>state law</strong> will require every food delivery business to hold a <strong>certified food-handler license</strong> within one year</p><p>Elena is deciding whether to <strong>expand GreenBox into two nearby towns</strong>.</p></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q1</span>Classify the fitness trend</div>
-<p>The growing fitness lifestyle trend and rising gym memberships are best classified as which type of PESTEL factor?</p>
-<div class="opt"><span class="letter">A</span>Economic</div>
-<div class="opt"><span class="letter">B</span>Social</div>
-<div class="opt"><span class="letter">C</span>Technological</div>
-<div class="opt"><span class="letter">D</span>Political</div>
-<p>Pause. Ask: what is the source of this change — the economy, or what people choose to value?</p>
-<p>--></p></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
-<div class="answer-card"><h4>Why</h4>
-<p>Social factors are trends in society and culture that affect consumers, including <strong>lifestyle trends</strong>. A fitness trend that changes what people want to eat is a lifestyle trend acting on consumer demand.</p>
-</div>
-<div class="trap">A.<strong> Rising gym memberships involve people </strong>spending money<strong>, and spending sounds economic. But economic factors describe the </strong>condition of the economy itself** (income, inflation, unemployment).</div>
-<div class="callout warn"><span class="tag">Exam Note</span><strong>Master rule:</strong> classify by the <strong>source</strong> of the change. A change in what people choose to value is <strong>social</strong>, even when the choice costs money.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q2</span>The paired-concept swap</div>
-<p>The proposed tax on sugary packaged foods and the new food-handler license requirement are best classified, <strong>respectively</strong>, as which two PESTEL factors?</p>
-<div class="opt"><span class="letter">A</span>Legal, then political</div>
-<div class="opt"><span class="letter">B</span>Political, then environmental</div>
-<div class="opt"><span class="letter">C</span>Economic, then legal</div>
-<div class="opt"><span class="letter">D</span>Political, then legal</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="answer-badge">Answer <span class="a">D</span></div>
-<div class="answer-card"><h4>Why</h4>
-<p>A proposed <strong>tax</strong> is a policy choice → <strong>political</strong>. A specific <strong>law</strong> requiring a license → <strong>legal</strong>.</p>
-</div>
-<div class="trap">A<strong> — </strong>swaps the pair.** The sorting rule: political = broad policy choice (tax/ban); legal = specific rule to follow (license/safety code).</div>
-<div class="trap">C<strong> — a tax affects money, but </strong>its source is a government policy decision**, and source decides the classification.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q3</span>How to use the framework</div>
-<p>Which best describes how Elena should use the PESTEL framework in her expansion decision?</p>
-<div class="opt"><span class="letter">A</span>Adopt the framework only after choosing which town to enter</div>
-<div class="opt"><span class="letter">B</span>Weigh only the factors that favor expansion</div>
-<div class="opt"><span class="letter">C</span>Identify the relevant factors and assess how each affects the attractiveness and risks of each town</div>
-<div class="opt"><span class="letter">D</span>Treat all six factors as equally important in every market</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
-<div class="answer-card"><h4>Why</h4>
-<p>The framework works by identifying factors <strong>relevant to the specific product and market</strong>, then assessing how each one impacts <strong>attractiveness and risk.</strong> The license law is a cost in every town; the fitness trend may be stronger in one town than another.</p>
-</div>
-<div class="trap">D.<strong> A scenario will rarely make all six matter </strong>equally** — relevance depends on the business. A delivery service cares about a licensing law; a candy stand doesn't care about internet speeds.</div>
-<div class="callout danger"><span class="tag">Warning</span><strong>"Treat every factor as equally weighted" sounds thorough and reads as a wrong answer.</strong></div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>Reading a data table</div>
-<p>The table shows two indicators for two regions:</p>
-<div class="tbl-wrap"><table>
-<thead><tr><th>Region</th><th>Median household income</th><th>Unemployment</th></tr></thead><tbody>
-<tr><td>North</td><td><strong>+8%</strong> over 3 years</td><td>7% → <strong>4%</strong></td></tr>
-<tr><td>South</td><td><strong>−3%</strong> over the same period</td><td>5% → <strong>9%</strong></td></tr>
-</tbody></table></div>
-<p><em>Study the numbers. What moved? What didn't?</em></p></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q4</span>What does the data support?</div>
-<p>A business selling <strong>premium home fitness equipment</strong> is comparing the two regions. Based on the economic factors shown, which conclusion is <strong>supported by the table</strong>?</p>
-<div class="opt"><span class="letter">A</span>Region North currently offers the more attractive economic conditions for a premium product</div>
-<div class="opt"><span class="letter">B</span>Region South's population is declining</div>
-<div class="opt"><span class="letter">C</span>Region North's residents value fitness more than Region South's residents</div>
-<div class="opt"><span class="letter">D</span>The business is <strong>guaranteed</strong> higher profits in Region North</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="answer-badge">Answer <span class="a">A</span></div>
-<div class="answer-card"><h4>Why</h4>
-<p>Rising incomes and falling unemployment mean more households can <strong>afford a premium product</strong> — exactly what the numbers show.</p>
-</div>
-<div class="trap"><strong>C</strong> <strong>invents a social factor</strong> — the table shows income and unemployment and says nothing about what anyone values</div>
-<div class="trap"><strong>D</strong> uses <strong>"guarantee"</strong> — the absolutes rule still applies: favorable conditions raise the odds, not certainty</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q5</span>Solar-panel subsidies</div>
-<p>A country's government begins offering large <strong>subsidies</strong> to businesses that install solar panels. Which statement best describes this in PESTEL terms?</p>
-<div class="opt"><span class="letter">A</span>A legal factor, because subsidies are written into law</div>
-<div class="opt"><span class="letter">B</span>An environmental factor, because solar panels affect the environment</div>
-<div class="opt"><span class="letter">C</span>A political factor that incentivizes a specific business activity</div>
-<div class="opt"><span class="letter">D</span>A technological factor, because solar panels are technology</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="answer-badge">Answer <span class="a">C</span></div>
-<div class="answer-card"><h4>Why</h4>
-<p>Subsidies are <strong>policy tools</strong> (alongside taxes, mandates, bans); their purpose is to <strong>incentivize</strong> an activity the government wants more of → <strong>political</strong>.</p>
-</div>
-<div class="trap">B<strong> — classify by the </strong>source of the force**, never by the subject matter it touches. The subsidy <em>concerns</em> solar panels, but the <em>force acting on the market</em> is a government policy choice.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Practice Question</div><div class="q-num"><span class="n">Q6</span>Fiber internet reaches rural areas</div>
-<p>A homework-help app operates where most households have high-speed internet. A new <strong>fiber network</strong> then brings fast internet to <strong>rural areas for the first time</strong>. Which statement best describes the effect?</p>
-<div class="opt"><span class="letter">A</span>It raises a barrier to entry that protects the app from rivals</div>
-<div class="opt"><span class="letter">B</span>A technological factor changed, expanding the app's viable market</div>
-<div class="opt"><span class="letter">C</span>It converts the app's service from a want into a need</div>
-<div class="opt"><span class="letter">D</span>It is a social factor, because more people can now join online communities</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="answer-badge">Answer <span class="a">B</span></div>
-<div class="answer-card"><h4>Why</h4>
-<p>Internet access is a <strong>technological</strong> factor. When it spreads, the set of customers a technology-dependent business can serve <strong>grows with it</strong> — a market that was out of reach becomes viable.</p>
-</div>
-<div class="trap">A<strong> — borrows Topic 1.2 vocabulary. A barrier to entry keeps </strong>new firms out<strong>, and wider internet access is the </strong>opposite<strong>: it opens the market to the app </strong>and to future rivals alike.**</div>
-<div class="callout key"><span class="tag">Key Point</span>Recognizing a term from a neighboring topic is never enough — the scenario has to match what the term means.</div></div>
-        </div>
-        <div class="slide">
-            <div class="inner"><div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
-<div class="tbl-wrap"><table>
-<thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead><tbody>
-<tr><td>1</td><td>Spending <strong>sounds economic</strong>, but classify by <strong>source</strong> — a lifestyle choice is <strong>social</strong></td><td>Q1</td></tr>
-<tr><td>2</td><td><strong>Paired-concept swap</strong> (political vs. legal)</td><td>Q2</td></tr>
-<tr><td>3</td><td><strong>"All six equally important"</strong> sounds thorough but is wrong</td><td>Q3</td></tr>
-<tr><td>4</td><td>Don't <strong>invent a factor</strong> the table doesn't show</td><td>Q4</td></tr>
-<tr><td>5</td><td><strong>"Guarantee"</strong> — absolutes still apply</td><td>Q4</td></tr>
-<tr><td>6</td><td>Classify by <strong>source</strong>, not <strong>subject matter</strong> (solar subsidy = political)</td><td>Q5</td></tr>
-<tr><td>7</td><td><strong>Borrowing neighboring-topic vocabulary</strong> — wider access ≠ a barrier</td><td>Q6</td></tr>
-</tbody></table></div></div>
-        </div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Stimulus</div><div class="stimulus"><h4>Scenario</h4><p><strong>Elena Reyes</strong> owns <strong>GreenBox</strong>, a meal-prep delivery service.</p><ul><li>City council <strong>debating a tax on sugary packaged foods</strong></li><li>A <strong>fitness lifestyle trend</strong> is growing; gym memberships rising 3 straight years</li><li>New <strong>state law</strong> requires every food delivery business to hold a <strong>certified food-handler license</strong> within one year</li></ul><p>Elena is deciding whether to <strong>expand into two nearby towns</strong>.</p></div></div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Practice</div><div class="q-num"><span class="n">Q1</span>Classify the fitness trend</div>
+    <div class="opt"><span class="letter">A</span>Economic</div>
+    <div class="opt"><span class="letter">B</span>Social</div>
+    <div class="opt"><span class="letter">C</span>Technological</div>
+    <div class="opt"><span class="letter">D</span>Political</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="answer-badge">Answer <span class="a">B</span></div>
+    <div class="answer-card"><h4>Why</h4><p>Social factors include <strong>lifestyle trends</strong>. A fitness trend changing what people eat = social.</p></div>
+    <div class="trap"><strong>A</strong> — gym memberships involve spending, but <strong>economic factors describe the condition of the economy itself</strong>.</div>
+    <div class="callout warn"><span class="tag">Master rule</span>Classify by the <strong>source</strong>. A change in what people choose to value is <strong>social</strong>, even when it costs money.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Practice</div><div class="q-num"><span class="n">Q2</span>The paired-concept swap</div>
+    <p>The proposed tax on sugary foods and the food-handler license requirement are best classified as:</p>
+    <div class="opt"><span class="letter">A</span>Legal, then political</div>
+    <div class="opt"><span class="letter">B</span>Political, then environmental</div>
+    <div class="opt"><span class="letter">C</span>Economic, then legal</div>
+    <div class="opt"><span class="letter">D</span>Political, then legal</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="answer-badge">Answer <span class="a">D</span></div>
+    <div class="answer-card"><h4>Why</h4><p>Proposed <strong>tax</strong> = policy choice → political. A specific <strong>law</strong> requiring a license → legal.</p></div>
+    <div class="trap"><strong>A</strong> — swaps the pair. <strong>C</strong> — a tax affects money, but <strong>its source is a government policy decision</strong>.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Practice</div><div class="q-num"><span class="n">Q3</span>How to use the framework</div>
+    <div class="opt"><span class="letter">A</span>Adopt only after choosing which town to enter</div>
+    <div class="opt"><span class="letter">B</span>Weigh only factors that favor expansion</div>
+    <div class="opt"><span class="letter">C</span>Identify relevant factors and assess how each affects attractiveness and risks</div>
+    <div class="opt"><span class="letter">D</span>Treat all six factors as equally important</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="answer-badge">Answer <span class="a">C</span></div>
+    <div class="answer-card"><h4>Why</h4><p>Identify factors <strong>relevant to the specific product and market</strong>, then assess <strong>attractiveness and risk</strong>.</p></div>
+    <div class="callout danger"><span class="tag">Warning</span><strong>"Treat every factor as equally weighted" sounds thorough — reads as a wrong answer.</strong></div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Practice</div><div class="q-num"><span class="n">Q4</span>Reading a data table</div>
+    <div class="tbl-wrap"><table>
+        <thead><tr><th>Region</th><th>Median household income</th><th>Unemployment</th></tr></thead>
+        <tbody>
+            <tr><td>North</td><td><strong>+8%</strong> over 3 years</td><td>7% → <strong>4%</strong></td></tr>
+            <tr><td>South</td><td><strong>−3%</strong> over same period</td><td>5% → <strong>9%</strong></td></tr>
+        </tbody>
+    </table></div>
+    <p>A business selling <strong>premium home fitness equipment</strong> is comparing the two regions.</p>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Practice</div><div class="q-num"><span class="n">Q4</span>What does the data support?</div>
+    <div class="opt"><span class="letter">A</span>Region North currently offers more attractive economic conditions for a premium product</div>
+    <div class="opt"><span class="letter">B</span>Region South's population is declining</div>
+    <div class="opt"><span class="letter">C</span>Region North's residents value fitness more</div>
+    <div class="opt"><span class="letter">D</span>The business is <strong>guaranteed</strong> higher profits in Region North</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="answer-badge">Answer <span class="a">A</span></div>
+    <div class="answer-card"><h4>Why</h4><p>Rising incomes + falling unemployment = more households can afford a premium product.</p></div>
+    <div class="trap"><strong>C</strong> invents a social factor — table says nothing about values. <strong>D</strong> uses "guarantee."</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Practice</div><div class="q-num"><span class="n">Q5</span>Solar-panel subsidies</div>
+    <p>A government offers large <strong>subsidies</strong> to businesses that install solar panels. Best describes this?</p>
+    <div class="opt"><span class="letter">A</span>Legal factor — subsidies are written into law</div>
+    <div class="opt"><span class="letter">B</span>Environmental factor — solar panels affect the environment</div>
+    <div class="opt"><span class="letter">C</span>Political factor that incentivizes a specific business activity</div>
+    <div class="opt"><span class="letter">D</span>Technological factor — solar panels are technology</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="answer-badge">Answer <span class="a">C</span></div>
+    <div class="answer-card"><h4>Why</h4><p>Subsidies are <strong>policy tools</strong> → <strong>political</strong>.</p></div>
+    <div class="trap"><strong>B</strong> — classify by <strong>source</strong>, not subject matter. The subsidy <em>concerns</em> solar panels, but the <em>force</em> is a government policy choice.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Practice</div><div class="q-num"><span class="n">Q6</span>Fiber internet reaches rural areas</div>
+    <p>A homework-help app operates where most households have high-speed internet. A new <strong>fiber network</strong> brings fast internet to <strong>rural areas for the first time</strong>. Best describes the effect?</p>
+    <div class="opt"><span class="letter">A</span>Raises a barrier to entry that protects the app from rivals</div>
+    <div class="opt"><span class="letter">B</span>A technological factor changed, expanding the app's viable market</div>
+    <div class="opt"><span class="letter">C</span>Converts the app's service from a want into a need</div>
+    <div class="opt"><span class="letter">D</span>A social factor — more people can now join online communities</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="answer-badge">Answer <span class="a">B</span></div>
+    <div class="answer-card"><h4>Why</h4><p>Internet access = <strong>technological</strong> factor. When it spreads, the viable market <strong>grows</strong>.</p></div>
+    <div class="trap"><strong>A</strong> — borrows Topic 1.2 vocabulary. Wider internet access <strong>opens</strong> the market — the opposite of a barrier.</div>
+</div></div>
+
+<div class="slide"><div class="inner">
+    <div class="kicker">Debrief</div><h2>Trap patterns to watch</h2>
+    <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Trap</th><th>Where</th></tr></thead>
+        <tbody>
+            <tr><td>1</td><td>Spending sounds economic → but classify by <strong>source</strong> (lifestyle = social)</td><td>Q1</td></tr>
+            <tr><td>2</td><td><strong>Paired-concept swap</strong> (political vs legal)</td><td>Q2</td></tr>
+            <tr><td>3</td><td><strong>"All six equally important"</strong> = wrong</td><td>Q3</td></tr>
+            <tr><td>4</td><td>Don't <strong>invent a factor</strong> the table doesn't show</td><td>Q4</td></tr>
+            <tr><td>5</td><td>Classify by <strong>source</strong>, not <strong>subject matter</strong></td><td>Q5</td></tr>
+            <tr><td>6</td><td><strong>Borrowing neighboring-topic vocabulary</strong></td><td>Q6</td></tr>
+        </tbody>
+    </table></div>
+</div></div>
+
 <div class="slide"><div class="inner hero"><div class="eyebrow">Next: 1.4 How Do Business Ideas Originate?</div>
 <h1>Wrap-up</h1>
 <hr class="divider">
-<div class="tag">- <strong>PESTEL</strong> = six outside forces: Political, Economic, Social, Technological, Environmental, Legal</div></div></div>
+<div class="tag"><strong>PESTEL</strong> = six outside forces shaping every market</div></div></div>
 
 </div>
 <button class="nav-arrow prev" onclick="chg(-1)">&#8249;</button>
@@ -794,11 +741,11 @@ h2 .factor-badge { width: 1.2em; height: 1.2em; font-size: .75em; margin-right: 
 <div class="dots" id="ndc"></div>
 <div class="bar bottom">
     <span>AP Business with Personal Finance · 1.3 PESTEL Factors</span>
-    <span>Slide <span id="sn">1</span> / 51</span>
+    <span>Slide <span id="sn">1</span> / 43</span>
 </div>
 <script>
 var cs = 0;
-var N = 51;
+var N = 43;
 function show(n) {
     if (n < 0) n = N - 1;
     if (n >= N) n = 0;
@@ -833,7 +780,6 @@ document.addEventListener('touchend', function(e){
         c.appendChild(b);
     }
 })();
-
 </script>
 </body>
 </html>
