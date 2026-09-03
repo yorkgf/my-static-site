@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>oh test</title></head>
 <body>
-<iframe id="f" src="../../officehour.html" style="width:1200px;height:900px"></iframe>
+<iframe id="f" src="../../officehour.html?api=" style="width:1200px;height:900px"></iframe>
 <pre id="out"></pre>
 <script>
 const out = [];
@@ -211,6 +211,10 @@ f.onload = async () => {
   const OH = w.OH;
   const SNAP = OH.snapshot;
   ok('页面暴露 OH 测试接口', !!OH && typeof OH.applyData === 'function');
+  // 下面这些用例全跑在离线快照上，靠的是 ?api= 能真的关掉后端——把这件事本身测住，
+  // 不然哪天优先级改坏了，测试会静默变成依赖生产网络的脆弱用例
+  ok('页面已内置正式后端地址', /^https:\/\/[a-z0-9-]+\.ap-[a-z]+\.tencentscf\.com$/.test(OH.apiDefault || ''), String(OH.apiDefault));
+  ok('?api= 空值能强制离线（测试不依赖网络）', OH.state().apiBase === '', 'apiBase=' + OH.state().apiBase);
   let st = OH.state();
   ok('默认为快照模式', st.mode === 'snapshot' && st.slots === 72 && st.classes.length === 9,
      JSON.stringify({ mode: st.mode, slots: st.slots, classes: st.classes.length }));
@@ -317,7 +321,7 @@ f.onload = async () => {
 
   log('\n=== 刷新后保留主题（防按钮文案不同步）===');
   try { w.localStorage.setItem('ohTheme', 'dark'); } catch (e) {}
-  await new Promise(res => { f.onload = res; f.src = '../../officehour.html?r=' + Date.now(); });
+  await new Promise(res => { f.onload = res; f.src = '../../officehour.html?r=' + Date.now() + '&api='; });
   const dd = f.contentDocument, ww = f.contentWindow;
   ok('重进页面自动为深色', dd.documentElement.dataset.theme === 'dark', dd.documentElement.dataset.theme);
   ok('按钮文案同步为“浅色”入口', /浅色/.test(dd.getElementById('themeBtn').textContent),

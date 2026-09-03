@@ -21,7 +21,7 @@ async function run() {
   log('\n████████  ' + page.replace('../../', '') + '  ████████');
   for (const s of SIZES) {
     f.style.width = s.w + 'px';
-    f.src = page + '?x=' + s.w;
+    f.src = page + '?x=' + s.w + '&api=';   // ?api= 空值：布局/对比度审计要跑在离线快照上，不依赖网络
     await new Promise(r => { f.onload = r; });
     await new Promise(r => setTimeout(r, 250));
     const d = f.contentDocument, w = f.contentWindow;

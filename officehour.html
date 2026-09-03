@@ -603,14 +603,21 @@ const META = {
 };
 
 /* ═══ 数据层 ═════════════════════════════════════════════
-   内嵌的 SNAPSHOT 是学期初快照（兵底）；配好 OH_API_BASE 后，
-   页面会用 GET /api/officehours 的实时数据覆盖它，后端挂了就退回快照。
-   ═════════════════════════════════════════════════════════ */
+   内嵌的 SNAPSHOT 是学期初快照（兜底）；配好后端地址后，页面会拉实时数据，
+   拉不到就退回快照，学生端永远不会白屏。
 
-// 云函数地址，部署完填一次（末尾不要加斜杠）。也可以临时用
-// localStorage.setItem('ohApiBase', 'https://...') 覆盖，便于本地测试。
-let OH_API_BASE = '';
-try { OH_API_BASE = localStorage.getItem('ohApiBase') || OH_API_BASE; } catch (e) { /* ignore */ }
+   地址优先级：?api=… ＞ localStorage['ohApiBase']（显式设空 = 强制只用快照）＞ 内置默认。
+   之所以要区分“没这个键”和“值为空”：测试/离线时必须能真的把后端关掉。
+   ════════════════════════════════════════════════════ */
+const OH_API_DEFAULT = 'https://1300190563-gvduixp9fg.ap-shanghai.tencentscf.com';
+let OH_API_BASE = OH_API_DEFAULT;
+try {
+    const qApi = new URLSearchParams(location.search).get('api');
+    const storedApi = localStorage.getItem('ohApiBase');
+    if (qApi !== null) OH_API_BASE = qApi.trim();
+    else if (storedApi !== null) OH_API_BASE = storedApi.trim();
+} catch (e) { /* 隐私模式下 localStorage 不可用，用内置默认 */ }
+OH_API_BASE = OH_API_BASE.replace(/\/$/, '');
 
 const PINYIN_MAP = new Map((SNAPSHOT.teachers || []).map(t => [t.name, t]));
 // 实时数据里没有拼音，沿用快照里的；新出现的老师拼音置空，姓名搜索仍可用
@@ -1050,6 +1057,7 @@ loadLive();
 window.OH = {
     applyData, loadLive, refresh, renderStatus, derive,
     snapshot: SNAPSHOT,                       // 供测试/诊断读取内嵌快照
+    apiDefault: OH_API_DEFAULT,               // 内置后端地址（测试要能验证离线开关有效）
     setApiBase(v) { OH_API_BASE = v; },
     state: () => ({ mode: DATA_MODE, stamp: DATA_STAMP, slots: SLOTS.length, teachers: TEACHERS.length,
                     classes: CLASSES.slice(), merged, canMerge, periods: PERIODS.slice(), apiBase: OH_API_BASE }),

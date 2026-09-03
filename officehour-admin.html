@@ -291,8 +291,9 @@
     <!-- 未配置后端 -->
     <div class="panel" id="noApi" hidden>
         <div class="panel-title">还没有连上后端</div>
-        <p class="panel-note">这个页面需要 Office Hour 云函数才能保存修改。部署好后，在浏览器控制台执行一次：</p>
-        <p class="hint"><code>localStorage.setItem('ohApiBase', 'https://你的函数URL')</code> 然后刷新本页面。</p>
+        <p class="panel-note">这个页面需要 Office Hour 云函数才能保存修改。正常情况下面这个提示不会出现（文件里已填好正式地址）；
+            要改指向或做离线调试，在浏览器控制台执行一次：</p>
+        <p class="hint"><code>localStorage.setItem('ohApiBase', 'https://…')</code>；只看内嵌快照则设为空串 <code>''</code>。刷新后生效。</p>
     </div>
 
     <!-- 登录 -->
@@ -392,7 +393,16 @@
    所有身份判断都在服务端：邮箱只取自 JWT，页面传什么都不算。
    ══════════════════════════════════════════════════════════════ */
 let API_BASE = '';
-try { API_BASE = localStorage.getItem('ohApiBase') || ''; } catch (e) { }
+// 与学生页同一套优先级（?api=… ＞ localStorage['ohApiBase']（显式设空=离线）＞ 内置默认），
+// 默认值也共用一个，不会配了这页漏了那页
+const OHA_API_DEFAULT = 'https://1300190563-gvduixp9fg.ap-shanghai.tencentscf.com';
+try {
+    const qApi = new URLSearchParams(location.search).get('api');
+    const storedApi = localStorage.getItem('ohApiBase');
+    if (qApi !== null) API_BASE = qApi.trim();
+    else if (storedApi !== null) API_BASE = storedApi.trim();
+    else API_BASE = OHA_API_DEFAULT;
+} catch (e) { API_BASE = OHA_API_DEFAULT; }
 API_BASE = API_BASE.replace(/\/$/, '');
 
 const TOKEN_KEY = 'ohTeacherToken';
@@ -760,6 +770,7 @@ applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
 // 供测试使用
 window.OHA = {
     setApi(v) { API_BASE = (v || '').replace(/\/$/, ''); },
+    apiDefault: OHA_API_DEFAULT,
     state: () => ({ apiBase: API_BASE, signedIn: !!ME, me: ME && { email: ME.email, name: ME.name, group: ME.group, isAdmin: ME.isAdmin } }),
     login: doLogin, enter, loadMine, loadAll,
     options: () => OPTIONS,
