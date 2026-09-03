@@ -235,6 +235,10 @@
         .move > summary { cursor: pointer; color: var(--muted); font-size: .86rem; }
         .move > summary:hover, .move[open] > summary { color: var(--ink); }
         .move-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: .7rem; margin-top: .6rem; }
+        .when-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: .7rem; }
+        /* 时间方式决定哪些字段可见：节次型填节次，自定型填起止 */
+        .when-box[data-mode="period"] [data-only="custom"] { display: none; }
+        .when-box[data-mode="custom"] [data-only="period"] { display: none; }
         .tag { font-size: .72rem; padding: .12rem .45rem; border-radius: 999px; background: var(--chip); color: var(--muted); }
         .card-top { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; margin-bottom: .5rem; }
         .day { font-weight: 800; color: var(--accent); }
@@ -334,15 +338,24 @@
 
             <div class="panel-title" style="margin-top:1.4rem">新增一条值班</div>
             <p class="panel-note">只会加在你自己的账号下。班级只能从现有班级里选，新开班级请找管理员。</p>
-            <div class="addform">
-                <div class="field"><label for="adDay">星期</label><select id="adDay"></select></div>
-                <div class="field"><label for="adPeriod">节次</label><select id="adPeriod"></select></div>
-                <div class="field"><label for="adCls">班级</label><select id="adCls"></select></div>
-                <div class="field"><label for="adRoom">教室</label>
+            <div class="addform when-box" data-mode="period" id="addBox">
+                <div class="field"><label for="adMode">时间方式</label>
+                    <select id="adMode">
+                        <option value="period">晚自习节次</option>
+                        <option value="custom">自定时间</option>
+                    </select>
+                </div>
+                <div class="field" data-only="both"><label for="adDay">星期</label><select id="adDay" data-f="day"></select></div>
+                <div class="field" data-only="period"><label for="adPeriod">节次</label><select id="adPeriod" data-f="period"></select></div>
+                <div class="field" data-only="custom"><label for="adStart">开始</label><input type="time" id="adStart" data-f="start" value="16:30" step="300"></div>
+                <div class="field" data-only="custom"><label for="adEnd">结束</label><input type="time" id="adEnd" data-f="end" value="17:30" step="300"></div>
+                <div class="field" data-only="both"><label for="adCls">班级</label><select id="adCls" data-f="cls"></select></div>
+                <div class="field" data-only="both"><label for="adRoom">教室</label>
                     <input type="text" id="adRoom" maxlength="40" placeholder="例如：文体 114"></div>
-                <div class="field"><label for="adNote">备注（可留空）</label>
+                <div class="field" data-only="both"><label for="adNote">备注（可留空）</label>
                     <input type="text" id="adNote" maxlength="200" placeholder="例如：本周改为线上答疑"></div>
                 <div class="addbtn"><button class="btn" id="adAdd" type="button">添加到我的值班</button></div>
+                <p class="hint" data-only="custom" style="grid-column:1/-1">自定时间不占课表节次；班级选“不指定”时只出现在你的老师卡片上。单次最长 <span id="adMax">4</span> 小时，<span id="adRange">06:00–23:00</span> 之内。</p>
             </div>
         </div>
 
@@ -476,6 +489,12 @@ function timeOf(period) {
 }
 
 /* ── 我的值班（完全自助）───────────────────────────── */
+/** 卡片的人读时间描述（删除确认、日志都用它） */
+function whenText(s) {
+    if (s.kind === 'custom') return s.day + ' ' + (s.time || (s.start + '–' + s.end)) + '（自定时间）';
+    return s.day + '第' + s.period + '节 ' + timeOf(s.period) + (s.cls ? ' ' + s.cls : '');
+}
+
 let OPTIONS = { classes: [], days: Object.keys(DAY_ORDER), periods: [], maxSlots: 0 };
 
 function fillSelect(sel, items, keep) {
@@ -488,7 +507,7 @@ function opts(items, current) {
 }
 const dayOpts = list => list.map(d => ({ v: d, t: d }));
 const periodOpts = list => list.map(p => ({ v: p.p, t: p.label + ' ' + p.time }));
-const clsOpts = list => list.map(c => ({ v: c, t: c }));
+const clsOpts = list => [{ v: '', t: '不指定（只当办公时间）' }].concat(list.map(c => ({ v: c, t: c })));
 
 // 可选班级/节次由后端给，前端不写死。拿不到也要能看现有数据，保存时后端仍会再校一遍
 async function loadOptions() {
@@ -498,6 +517,12 @@ async function loadOptions() {
         if (o.days) OPTIONS.days = o.days;
         if (o.periods && o.periods.length) { OPTIONS.periods = o.periods; PERIODS = o.periods; }
         OPTIONS.maxSlots = o.maxSlots || 0;
+        if (o.customTime) {                       // 时间边界也由后端说，前端不写死
+            const c = o.customTime, box = $('#addBox');
+            const max = $('#adMax'), rng = $('#adRange');
+            if (max) max.textContent = String(Math.round(c.maxMinutes / 6) / 10);
+            if (rng) rng.textContent = c.earliest + '–' + c.latest;
+        }
     } catch (e) { /* 忽略：降级用已有数据 */ }
     fillSelect('#adDay', dayOpts(OPTIONS.days), $('#adDay').value);
     fillSelect('#adPeriod', periodOpts(OPTIONS.periods), $('#adPeriod').value);
@@ -514,12 +539,12 @@ async function loadMine() {
     $('#mineLimit').textContent = OPTIONS.maxSlots
         ? `已排 ${slots.length} 条 · 自助上限 ${OPTIONS.maxSlots} 条` : '';
     $('#mineCards').innerHTML = slots.map(s => `
-        <div class="card" data-id="${esc(s.id)}" data-day="${esc(s.day)}" data-period="${esc(s.period)}" data-cls="${esc(s.cls)}">
+        <div class="card" data-id="${esc(s.id)}" data-day="${esc(s.day)}" data-period="${s.kind === 'custom' ? '' : esc(s.period)}" data-cls="${esc(s.cls || '')}" data-kind="${esc(s.kind || 'period')}" data-when="${esc(whenText(s))}">
             <div class="card-top">
                 <span class="day">${esc(s.day)}</span>
                 <span class="cls">${esc(s.cls)}</span>
-                <span class="time">第${esc(s.period)}节 ${esc(timeOf(s.period))}</span>
-                <span class="tag">${s.fromExcel === false ? '我自己加的' : '统一安排'}</span>
+                <span class="time">${s.kind === 'custom' ? esc(s.time || (s.start + '–' + s.end)) : '第' + esc(s.period) + '节 ' + esc(timeOf(s.period))}</span>
+                <span class="tag">${s.kind === 'custom' ? '自定时间' : (s.fromExcel === false ? '我自己加的' : '统一安排')}</span>
             </div>
             <div class="field">
                 <label>教室</label>
@@ -531,10 +556,19 @@ async function loadMine() {
             </div>
             <details class="move">
                 <summary>换时间 / 换班级</summary>
-                <div class="move-grid">
-                    <div class="field"><label>星期</label><select data-f="day">${opts(dayOpts(OPTIONS.days), s.day)}</select></div>
-                    <div class="field"><label>节次</label><select data-f="period">${opts(periodOpts(OPTIONS.periods), s.period)}</select></div>
-                    <div class="field"><label>班级</label><select data-f="cls">${opts(clsOpts(OPTIONS.classes), s.cls)}</select></div>
+                <div class="when-box" data-mode="${s.kind === 'custom' ? 'custom' : 'period'}">
+                    <div class="field"><label>时间方式</label>
+                        <select data-when="mode">
+                            <option value="period"${s.kind !== 'custom' ? ' selected' : ''}>晚自习节次</option>
+                            <option value="custom"${s.kind === 'custom' ? ' selected' : ''}>自定时间</option>
+                        </select>
+                    </div>
+                    <div class="field" data-only="both"><label>星期</label><select data-f="day">${opts(dayOpts(OPTIONS.days), s.day)}</select></div>
+                    <div class="field" data-only="period"><label>节次</label><select data-f="period">${opts(periodOpts(OPTIONS.periods), s.period)}</select></div>
+                    <div class="field" data-only="custom"><label>开始</label><input type="time" data-f="start" value="${esc(s.start || '16:30')}" step="300"></div>
+                    <div class="field" data-only="custom"><label>结束</label><input type="time" data-f="end" value="${esc(s.end || '17:30')}" step="300"></div>
+                    <div class="field" data-only="both"><label>班级</label><select data-f="cls">${opts(clsOpts(OPTIONS.classes), s.cls)}</select></div>
+                    <p class="hint" data-only="custom">自定时间不必绑课表节次；班级可留“不指定”，那就只作为你的办公时间显示在老师卡片上。</p>
                 </div>
             </details>
             <div class="card-actions">
@@ -552,13 +586,34 @@ const markDirty = e => {
 $('#mineCards').addEventListener('input', markDirty);
 $('#mineCards').addEventListener('change', markDirty);   // select 用 change
 
+// 时间方式切换：只决定哪些字段可见，不该算“未保存”
+$('#mineCards').addEventListener('change', e => {
+    const sel = e.target.closest('[data-when="mode"]');
+    if (!sel) return;
+    sel.closest('.when-box').dataset.mode = sel.value;
+});
+$('#adMode').addEventListener('change', e => { $('#addBox').dataset.mode = e.target.value; });
+
+/** 从卡片/表单里读出一份只含当前方式字段的提交体（同时交 period 和 start/end 会被后端拒） */
+function whenBody(box, extra) {
+    const sel = box.querySelector('[data-when="mode"]') || box.querySelector('#adMode');
+    const g = f => { const el = box.querySelector('[data-f="' + f + '"]'); return el ? String(el.value).trim() : ''; };
+    const out = Object.assign({}, extra);
+    if (sel && sel.value === 'custom') {
+        out.start = g('start'); out.end = g('end');
+    } else {
+        const p = Number(g('period'));
+        if (g('period') !== '' && Number.isFinite(p)) out.period = p;
+    }
+    return out;
+}
+
 $('#mineCards').addEventListener('click', async e => {
     const del = e.target.closest('[data-act="del"]');
     if (del) {
         const card = del.closest('.card');
-        const where = card.dataset.day + '第' + card.dataset.period + '节 ' + card.dataset.cls;
-        const fromSheet = card.querySelector('.tag') && /统一安排/.test(card.querySelector('.tag').textContent);
-        if (!confirm('确定删除「' + where + '」这条值班？学生端会立刻不再显示。'
+        const fromSheet = card.dataset.kind !== 'custom' && /统一安排/.test((card.querySelector('.tag') || {}).textContent || '');
+        if (!confirm('确定删除「' + (card.dataset.when || '这条值班') + '」？学生端会立刻不再显示。'
             + (fromSheet ? '\n\n这条来自统一安排，删掉之后重新导入排班表也不会自动恢复，需要时找管理员。' : ''))) return;
         del.disabled = true;
         try {
@@ -575,16 +630,25 @@ $('#mineCards').addEventListener('click', async e => {
     const btn = e.target.closest('[data-act="save"]');
     if (!btn) return;
     const card = btn.closest('.card');
-    const body = {};
-    card.querySelectorAll('[data-f]').forEach(i => { body[i.dataset.f] = i.value.trim(); });
-    body.period = Number(body.period);
+    const body = whenBody(card, {
+        day: (card.querySelector('[data-f="day"]') || {}).value || card.dataset.day,
+        cls: (card.querySelector('[data-f="cls"]') || {}).value.trim() || '',
+        room: card.querySelector('[data-f="room"]').value.trim(),
+        note: card.querySelector('[data-f="note"]').value.trim(),
+    });
+    if (body.cls === '' && body.period !== undefined) {
+        toast('选了晚自习节次就必须指定班级', 'bad'); return;
+    }
     btn.disabled = true;
     try {
         await api('/api/officehours/mine/' + encodeURIComponent(card.dataset.id), { method: 'PATCH', body });
-        const moved = body.day !== card.dataset.day || body.period !== Number(card.dataset.period) || body.cls !== card.dataset.cls;
-        if (moved) {                       // 换了时段/班级 → 卡片顺序要重排，整列重拉
+        const wentCustom = body.start !== undefined;
+        const sameKind = (card.dataset.kind === 'custom') === wentCustom;
+        const moved = !sameKind || body.day !== card.dataset.day || body.cls !== (card.dataset.cls || '')
+            || (body.period !== undefined && String(body.period) !== card.dataset.period);
+        if (moved) {                       // 换了时段/班级/时间方式 → 卡片顺序要重排，整列重拉
             await loadMine();
-            toast('已换班，学生端刷新即可看到', 'ok');
+            toast('已更新，学生端刷新即可看到', 'ok');
         } else {
             card.querySelector('[data-act="state"]').textContent = '';
             toast('已保存，学生端刷新即可看到', 'ok');
@@ -599,11 +663,15 @@ $('#mineCards').addEventListener('click', async e => {
 // 新增一条自己的值班
 $('#adAdd').addEventListener('click', async () => {
     const btn = $('#adAdd');
-    const body = {
-        day: $('#adDay').value, period: Number($('#adPeriod').value), cls: $('#adCls').value,
+    const base = {
+        day: $('#adDay').value, cls: $('#adCls').value.trim(),
         room: $('#adRoom').value.trim(), note: $('#adNote').value.trim(),
     };
-    if (!body.room) { toast('请先填教室', 'bad'); $('#adRoom').focus(); return; }
+    if (!base.room) { toast('请先填教室', 'bad'); $('#adRoom').focus(); return; }
+    const body = whenBody($('#addBox'), base);
+    if (body.cls === '' && body.period !== undefined) {
+        toast('选了晚自习节次就必须指定班级', 'bad'); return;
+    }
     btn.disabled = true;
     try {
         await api('/api/officehours/mine', { method: 'POST', body });
@@ -643,7 +711,8 @@ function renderAll() {
         <tbody>` + rows.map(s => `
         <tr data-id="${esc(s.id)}">
             <td>${esc(s.day)}</td>
-            <td class="num">第${esc(s.period)}节<br><span style="opacity:.7;font-size:.85em">${esc(timeOf(s.period))}</span></td>
+            <td class="num">${s.kind === 'custom' ? esc(s.time || (s.start + '–' + s.end)) + '<br><span style="opacity:.7;font-size:.85em">自定时间</span>'
+                : '第' + esc(s.period) + '节<br><span style="opacity:.7;font-size:.85em">' + esc(timeOf(s.period)) + '</span>'}</td>
             <td><input data-f="cls" value="${esc(s.cls)}" maxlength="20"></td>
             <td><input data-f="teacherEmail" value="${esc(s.teacherEmail || '')}" title="改归属要填教师表里存在的邮箱"></td>
             <td><input data-f="room" value="${esc(s.room)}" maxlength="40"></td>

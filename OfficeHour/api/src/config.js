@@ -53,7 +53,7 @@ export const config = {
 
   // 老师自助可改的字段。完全自助 = 连“哪天/哪节/哪个班”也能改（换班），
   // 但归属人永远取自 JWT，所以改不了“这是谁的值班”。
-  teacherEditableFields: ['day', 'period', 'cls', 'room', 'note'],
+  teacherEditableFields: ['day', 'period', 'cls', 'room', 'note', 'start', 'end'],
   // 任何情况下都不允许客户端提交的字段（改归属/伪造来源/绕时间戳）
   teacherForbiddenFields: [
     'teacherEmail', 'email', 'term', 'source', 'id', '_id',
@@ -67,6 +67,14 @@ export const config = {
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean),
+
+  // 自定时间答疑的约束：只限制在工作时间附近 + 单次时长上限。
+  // 不限制时长会有人把 18:00–22:00 整段圈成自己的，后面排不进去
+  timeRange: {
+    earliest: (process.env.OH_TIME_EARLIEST || '06:00').trim(),   // 最早开始
+    latest: (process.env.OH_TIME_LATEST || '23:00').trim(),       // 最晚结束
+    maxMinutes: Number(process.env.OH_TIME_MAX_MINUTES || 240),    // 单次最长 4 小时
+  },
 
   // 无排班日的展示
   days: ['周一', '周二', '周三', '周四', '周五'],

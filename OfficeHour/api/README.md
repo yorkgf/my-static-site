@@ -47,12 +47,19 @@ node OfficeHour/api/scripts/seed.mjs --apply
 
 | 动作 | 老师本人 | 管理员 (S/A) |
 |---|---|---|
-| 改自己记录的 教室 / 备注 / 星期 / 节次 / 班级 | ✓ | ✓（任意人的记录） |
+| 改自己记录的 教室 / 备注 | ✓ | ✓（任意记录） |
+| 改自己记录的 星期 / 节次 / 班级（换班） | ✓ | ✓ |
+| **改成交辨时间**（例 16:30–17:30，不占课表节次） | ✓ | ✓ |
 | 新增自己的值班 | ✓（上限 `OH_TEACHER_MAX_SLOTS`） | ✓ |
 | 删除自己的值班 | ✓ | ✓ |
 | 改归属（把值班挂到别人名下） | ✗ | ✓ |
 | 整表导入 / 看审计 | ✗ | ✓ |
 | 选一个从没见过的新班级 | ✗（防手滑造幽灵班） | ✓ |
+
+**两种时间形态。** 节次型（`period=10`，时间从课表反查，Excel/导入走的都是这条）和老师自定型
+（`start`/`end`，`period=null`）。冲突按**时间区间重叠**判定，所以 16:30–17:30 不会和 18:30–19:20 相冲；
+首尾相接（…–18:30 舆 18:30–…）算合法。自定时间可以**不选班级**，那就只作为老师自己
+的办公时间出现在老师卡片上，不会污染班级表。
 
 **教室不做任何冲突校验。** 同一时段多位老师填同一间屋子很常见（地点常常就是老师办公室），
 同时答疑互不影响，所以只校验“必填 + 长度”，不比对别人填了什么。
@@ -69,8 +76,8 @@ node OfficeHour/api/scripts/seed.mjs --apply
 | `GET` | `/api/officehours` | 公开 | 学生端读；**不返回教师邮箱**（管理员带 token 访问时才返回，便于改归属） |
 | `GET` | `/api/officehours/mine` | 教师 | 只看自己的记录 |
 | `GET` | `/api/officehours/mine/options` | 教师 | 自助表单的可选班级/星期/节次 + 已用条数 |
-| `POST` | `/api/officehours/mine` | 教师 | 给自己新增一条（归属强制为本人） |
-| `PATCH` | `/api/officehours/mine/:id` | 教师 | 改自己的 星期/节次/班级/教室/备注 |
+| `POST` | `/api/officehours/mine` | 教师 | 给自己新增一条（节次型或自定时间型；归属强制为本人） |
+| `PATCH` | `/api/officehours/mine/:id` | 教师 | 改自己的 星期/节次或起止/班级/教室/备注 |
 | `DELETE` | `/api/officehours/mine/:id` | 教师 | 删自己的一条 |
 | `POST`/`PUT`/`DELETE` | `/api/officehours[/:id]` | 管理员 | 完整增删改 |
 | `POST` | `/api/officehours/import` | 管理员 | 整表导入（页面里粘贴 data.json 也可） |
@@ -123,7 +130,8 @@ bash OfficeHour/api/scripts/pack-scf.sh
 
 ### 3. 环境变量
 必需：`MONGO_URI`、`DB_NAME=GHA`、`JWT_SECRET`
-可选：`OH_TERM`、`ADMIN_GROUPS`、`OH_TEACHER_MAX_SLOTS`、`OH_CLASSES`、`JWT_SECRET_OLD`、
+可选：`OH_TERM`、`ADMIN_GROUPS`、`OH_TEACHER_MAX_SLOTS`、`OH_CLASSES`、
+`OH_TIME_EARLIEST`、`OH_TIME_LATEST`、`OH_TIME_MAX_MINUTES`、`JWT_SECRET_OLD`、
 `TEACHER_DB_NAME`、各 `*_COLLECTION`、`*_RATE_MAX`（完整清单见 `.env.example`）
 
 ### 4. 前端指向后端

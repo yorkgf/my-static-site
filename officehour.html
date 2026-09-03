@@ -628,43 +628,70 @@ function teacherListFrom(slots) {
         .sort((a, b) => (a.py || a.name).localeCompare(b.py || b.name));
 }
 
-let SLOTS = SNAPSHOT.slots || [];      // 每行 [星期, 节次, 班级, 老师, 教室, 备注?]
+let SLOTS = SNAPSHOT.slots || [];      // 每行 [星期, 节次|null, 班级, 老师, 教室, 备注?, 时间?]
 let TEACHERS = SNAPSHOT.teachers || [];
 let PERIODS = SNAPSHOT.periods || [];
 
 let CLASSES = [], activeDays = [], offDays = [];
 let byKey = {}, merged = false, canMerge = false, teacherDay = {};
+let WINDOWS = [], WIN = {};            // 时间带：学校节次型 + 老师自定时间型
 let DATA_MODE = 'snapshot';                 // snapshot | live | stale
 let hadLive = false;                        // 本次会话是否成功拿到过后端数据
 let DATA_STAMP = SNAPSHOT.generatedAt || ''; // 展示用的时间文字
 
+/** '18:30–19:20' → 1110；解析不出来返回 null */
+function startMin(text) {
+    if (typeof text !== 'string') return null;
+    const m = text.split(/[–—-]/)[0].trim().match(/^([01]?\d|2[0-3]):([0-5]\d)$/);
+    return m ? Number(m[1]) * 60 + Number(m[2]) : null;
+}
+const noPeriod = s => s[1] === null || s[1] === undefined || s[1] === '';
+/** 一条记录属于哪个时间带：节次型用编号，自定型用起止时间 */
+const winKeyOf = s => noPeriod(s) ? ('t' + (s[6] || '')) : ('p' + s[1]);
+
 /** 从当前 SLOTS/PERIODS 重算所有派生结构 */
 function derive() {
     META.periods = PERIODS;
-    CLASSES = [...new Set(SLOTS.map(s => s[2]))];
+    // 自定时间型可以不绑班级（纯办公时间）→ 不能混进班级列表
+    CLASSES = [...new Set(SLOTS.map(s => s[2]).filter(Boolean))];
     activeDays = META.days.filter(d => SLOTS.some(s => s[0] === d));
     offDays = META.days.filter(d => !SLOTS.some(s => s[0] === d));
 
-    // key: "星期|节次|班级" -> {t, r, note}
-    byKey = {};
-    SLOTS.forEach(([d, p, c, t, r, note]) => { byKey[d + '|' + p + '|' + c] = { t, r, note }; });
-
-    // 各节次安排完全一致时，合并成一个连续时段展示
-    merged = SLOTS.every(([d, p, c, t, r]) => {
-        const other = PERIODS.find(x => x.p !== p);
-        const o = other && byKey[d + '|' + other.p + '|' + c];
-        return !o || (o.t === t && o.r === r);
+    // 时间带：节次按课表、自定按起止文字；排序用开始分钟，所以 16:30 会排在 18:30 前面
+    const map = {};
+    SLOTS.forEach(s => {
+        const k = winKeyOf(s);
+        if (map[k]) return;
+        const p = noPeriod(s) ? null : s[1];
+        const time = s[6] || (p !== null && (PERIODS.find(x => x.p === p) || {}).time) || '';
+        map[k] = { key: k, period: p, time,
+                   label: p === null ? '自定时间' : '第' + p + '节',
+                   start: startMin(time) ?? (p === null ? 1440 : p) };
     });
-    canMerge = merged && PERIODS.length > 1;
+    WINDOWS = Object.values(map).sort((a, b) => (a.start - b.start) || ((a.period ?? 99) - (b.period ?? 99)));
+    WIN = map;
 
-    // 每位老师：day -> [{cls, room, ps:[节次…], note}]
+    // key: "星期|时间带|班级" -> {t, r, note}
+    byKey = {};
+    SLOTS.forEach(s => { byKey[s[0] + '|' + winKeyOf(s) + '|' + s[2]] = { t: s[3], r: s[4], note: s[5] }; });
+
+    // 各节次安排完全一致时，合并成一个连续时段展示（自定时间带永不参与合并）
+    const periodWins = WINDOWS.filter(w => w.period !== null);
+    const sig = w => SLOTS.filter(s => winKeyOf(s) === w.key)
+        .map(s => s[0] + '|' + s[2] + '→' + s[3] + '|' + s[4]).sort().join(' ; ');
+    merged = periodWins.length > 1 && periodWins.every(w => sig(w) === sig(periodWins[0]));
+    canMerge = merged;
+
+    // 每位老师：day -> [{cls, room, ws:[时间带…], note}]
     teacherDay = {};
-    SLOTS.forEach(([d, p, c, t, r, note]) => {
+    SLOTS.forEach(s => {
+        const [d, , c, t, r, note] = s;
         const bucket = (teacherDay[t] = teacherDay[t] || {});
         const list = (bucket[d] = bucket[d] || []);
+        const k = winKeyOf(s);
         const item = list.find(x => x.c === c && x.r === r);
-        if (item) { if (!item.ps.includes(p)) item.ps.push(p); if (note && !item.note) item.note = note; }
-        else list.push({ c, r, ps: [p], note: note || '' });
+        if (item) { if (!item.ws.includes(k)) item.ws.push(k); if (note && !item.note) item.note = note; }
+        else list.push({ c, r, ws: [k], note: note || '' });
     });
 }
 
@@ -673,13 +700,16 @@ function applyData({ slots, teachers, periods, mode, stamp }) {
     // 运行时数据跟内嵌数据同格式，但可能来自手改/旧版后端：只收形状对的行，
     // 一行坏数据不该整页白屏。
     if (Array.isArray(slots) && slots.length) {
-        // period 必须保持数字：很多处用 s[1] === p 比较，转成字符串会静静地查空。
-        // 内嵌快照的行是 5 字段（note 可选），API 的行是 6 字段，两者都要能接。
+        // 节次可以为 null（老师自定时间型），但那样的行必须带时间文字，否则无法定位
         const norm = s => {
             if (!Array.isArray(s) || s.length < 5) return null;
-            const p = Number(s[1]);
-            if (!Number.isFinite(p)) return null;
-            return [String(s[0]), p, String(s[2]), String(s[3]), String(s[4]), s[5] == null ? '' : String(s[5])];
+            const hasP = s[1] !== null && s[1] !== undefined && s[1] !== '';
+            const p = hasP ? Number(s[1]) : null;
+            if (hasP && !Number.isFinite(p)) return null;
+            const time = s[6] == null ? '' : String(s[6]);
+            if (p === null && !/^\d{1,2}:\d{2}/.test(time)) return null;
+            return [String(s[0]), p, String(s[2]), String(s[3]), String(s[4]),
+                    s[5] == null ? '' : String(s[5]), time];
         };
         const clean = slots.map(norm).filter(Boolean);
         if (clean.length) SLOTS = clean;
@@ -721,7 +751,11 @@ function loadLive() {
             if (json.term && SNAPSHOT.term && String(json.term) !== String(SNAPSHOT.term))
                 throw new Error(`后端学期为 ${json.term}，与本页 ${SNAPSHOT.term} 不一致`);
             if (!Array.isArray(json.slots) || !json.slots.length) throw new Error('后端返回了空排班');
-            const slots = json.slots.map(s => [s.day, s.period, s.cls, s.teacherName, s.room, s.note || '']);
+            // 行格式：[星期, 节次|null, 班级, 老师, 教室, 备注, 时间文字]
+            // 自定时间型没有节次号，必须把 time 带下去，否则前端不知道归哪个时间带
+            const slots = json.slots.map(s => [s.day,
+                (s.period === null || s.period === undefined) ? null : s.period,
+                s.cls || '', s.teacherName, s.room, s.note || '', s.time || '']);
             applyData({
                 slots,
                 teachers: teacherListFrom(slots),
@@ -754,11 +788,11 @@ function loadLive() {
 const teacherSlots = t => Object.keys(teacherDay[t] || {})
     .sort((a, b) => META.days.indexOf(a) - META.days.indexOf(b))
     .map(d => ({ day: d, items: teacherDay[t][d] }));
-// 节次 <-> 时间
-const pOf = p => META.periods.find(x => x.p === p);
-// 把节次列表写成清楚的时间：18:30–19:20 ＋ 19:40–20:30
-const timesOf = ps => [...new Set(ps)].sort((a, b) => a - b).map(pOf).filter(Boolean)
-    .map(x => x.time).join(' <i>＋</i> ');
+// 时间带 -> 清楚的时间文字：节次型只写时间，自定型标出来免得以为是课表节次
+const timesOf = ws => [...new Set(ws)].map(k => WIN[k]).filter(Boolean)
+    .sort((a, b) => a.start - b.start)
+    .map(w => w.period === null ? esc(w.time) + '（自定）' : esc(w.time))
+    .join(' <i>＋</i> ');
 
 /* ── 搜索匹配 ───────────────────────────────────────────────── */
 function matchTeacher(name, q) {
@@ -798,6 +832,7 @@ function renderBadges() {
     document.getElementById('badges').innerHTML = [
         '<span class="badge">📅 <b>' + activeDays.join(' · ') + '</b>' + (offDays.length ? '（' + offDays.join('、') + '无安排）' : '') + '</span>',
         ...META.periods.map(p => '<span class="badge">🕑 ' + esc(p.label) + ' <b>' + esc(p.time) + '</b></span>'),
+        ...WINDOWS.filter(w => w.period === null).map(w => '<span class="badge">🕑 <b>' + esc(w.time) + '</b> 自定答疑</span>'),
         '<span class="badge">👩‍🏫 <b>' + TEACHERS.length + '</b> 位老师</span>',
         '<span class="badge">🏫 <b>' + CLASSES.length + '</b> 个班级</span>'
     ].join('');
@@ -819,8 +854,8 @@ function renderResults(q) {
         const slots = teacherSlots(t.name);
         const items = slots.flatMap(s => s.items.map(i =>
             '<li><span class="dtag">' + esc(s.day) + '</span><span class="tmeta">'
-            + '<span class="ttime">' + timesOf(i.ps) + '</span>'
-            + '<span class="tloc"><span class="tcls">' + esc(i.c) + '</span>'
+            + '<span class="ttime">' + timesOf(i.ws) + '</span>'
+            + '<span class="tloc"><span class="tcls">' + esc(i.c || '办公时间') + '</span>'
             + '<span class="troom"> @ ' + esc(i.r) + '</span></span>'
             + (i.note ? '<span class="tnote">📌 ' + esc(i.note) + '</span>' : '') + '</span></li>')).join('');
         return '<div class="tcard"><div class="tcard-head"><span class="tname">' + hl(t.name, q) +
@@ -839,35 +874,42 @@ function slotMatchesFilter(name, q) {
 let view = 'class';
 let split = false;                     // true = 逐节展开
 
-// 只有两节安排完全一致时才允许合并；否则强制逐节显示
+// 时间带分组：节次型全一致时合并成一个连续带，自定型永远单独一带；按开始时间排序
 function currentGroups() {
-    return (!canMerge || split) ? META.periods.map(x => [x.p]) : [META.periods.map(x => x.p)];
+    const periodWins = WINDOWS.filter(w => w.period !== null);
+    const customWins = WINDOWS.filter(w => w.period === null);
+    const groups = (!canMerge || split)
+        ? periodWins.map(w => [w.key])
+        : [periodWins.map(w => w.key)];
+    customWins.forEach(w => groups.push([w.key]));
+    return groups.sort((a, b) => ((WIN[a[0]] || {}).start || 0) - ((WIN[b[0]] || {}).start || 0));
 }
 
-function cellFor(periodNums, rowKey, day) {
+function cellFor(winKeys, rowKey, day) {
     // view === 'class' → rowKey 是班级, 输出老师
     // view === 'teacher' → rowKey 是老师, 输出班级
-    // 合并组里两个节次内容相同，去重，否则一个格子会写两遍
+    // 合并组里几个时间带内容相同，去重，否则一个格子会写两遍
     const out = [];
     const push = x => { if (!out.some(y => y.who === x.who && y.room === x.room)) out.push(x); };
-    periodNums.forEach(p => {
+    winKeys.forEach(k => {
         if (view === 'class') {
-            const v = byKey[day + '|' + p + '|' + rowKey];
-            if (v) push({ who: v.t, room: v.r, p });
+            const v = byKey[day + '|' + k + '|' + rowKey];
+            if (v) push({ who: v.t, room: v.r, k });
         } else {
-            SLOTS.filter(s => s[0] === day && s[1] === p && s[3] === rowKey)
-                .forEach(s => push({ who: s[2], room: s[4], p }));
+            SLOTS.filter(s => s[0] === day && winKeyOf(s) === k && s[3] === rowKey)
+                .forEach(s => push({ who: s[2], room: s[4], k }));
         }
     });
     return out;
 }
 
-// 每个区块开头的时间带：把节次号和起止时间写清楚
-function bandRow(periodNums) {
-    const l = periodNums.map(pOf);
+// 每个区块开头的时间带：把节次号（或“自定时间”）和起止时间写清楚
+function bandRow(winKeys) {
+    const l = winKeys.map(k => WIN[k]).filter(Boolean);
     const times = l.map(x => '<span class="btime">' + esc(x.time) + '</span>')
         .join('<span class="bplus"> ＋ </span>');
-    const note = l.length > 1 ? '<span class="bnote">两节由同一位老师连续坐班</span>' : '';
+    const note = l.length > 1 ? '<span class="bnote">两节由同一位老师连续坐班</span>'
+        : (l[0] && l[0].period === null ? '<span class="bnote">老师自定的答疑时间，不是课表节次</span>' : '');
     return '<tr class="band"><td colspan="' + (META.days.length + 1) + '">'
         + '<span class="blabel">🕑 ' + esc(l.map(x => x.label).join(' ＋ ')) + '</span>'
         + times + note + '</td></tr>';
@@ -897,7 +939,7 @@ function renderGrid(q) {
             const cells = cellFor(group, name, d);
             if (!cells.length) { html += '<td class="off">—</td>'; return; }
             html += '<td>' + cells.map(c =>
-                '<span class="who">' + hl(c.who, view === 'class' ? q : '') + '</span>' +
+                '<span class="who">' + hl(c.who || '办公时间', view === 'class' ? q : '') + '</span>' +
                 '<span class="rm">' + esc(c.room) + '</span>'
             ).join('') + '</td>';
         });
@@ -952,6 +994,7 @@ const qInput = document.getElementById('q');
 function refresh() {
     const q = qInput.value.trim().toLowerCase();
     perSeg.hidden = !canMerge;
+    renderBadges();          // 换数据（快照⇄实时）后顶部徐章必须跟着变，不然还写着旧节次
     renderChips(q);
     renderResults(q);
     renderGrid(q);

@@ -1,5 +1,6 @@
 import { collections } from './db.js';
 import { config } from './config.js';
+import { windowOf, overlaps, parseRange, toHHMM } from './timewindow.js';
 
 /**
  * 放开「老师完全自助增删改」之后，真正会出事的两件事都在这里拦：
@@ -8,33 +9,74 @@ import { config } from './config.js';
  *      等于老师的删除被静默撤销（以前只有管理员能改表，不存在这个问题）
  */
 
-const where = (d) => `${d.day}第${d.period}节 ${d.cls}`;
+/** 节次 → 时间窗口，从现有节次型记录里聚出来（课表里没有第二张时间表） */
+export async function periodTable(term) {
+  const docs = await collections.officeHours
+    .find({ term, period: { $ne: null } }, { projection: { period: 1, time: 1 } })
+    .toArray();
+  const table = new Map();
+  for (const d of docs) {
+    const w = parseRange(d.time);
+    const p = Number(d.period);
+    if (w && Number.isFinite(p) && !table.has(p)) table.set(p, w);
+  }
+  return table;
+}
+
+/** 给人看的时段描述：“周一第10节 18:30–19:20” / “周一 16:30–17:30（自定时间）” */
+export function describeSlot(d, table) {
+  const w = windowOf(d, table);
+  if (!w) return `${d.day}第${d.period}节 ${d.cls}`;
+  const range = `${toHHMM(w.start)}–${toHHMM(w.end)}`;
+  return w.kind === 'period' && w.period !== null
+    ? `${d.day}第${w.period}节 ${range}`
+    : `${d.day} ${range}（自定时间）`;
+}
 
 /**
- * 写入前查冲突。返回 null = 没问题；返回字符串 = 给用户看的中文原因。
- * excludeId：改自己这条时，不能把自己当成冲突。
- * subjectName：老师改自己的值班时用“你”；管理员给别人排班时要换成那人姓氏，
- *              否则会出现“你已在 X 值班”这种对着管理员说的话。
+ * 写入前查冲突，按**时间区间重叠**而不是节次编号。
+ * 返回 null = 没问题；字符串 = 给用户看的中文原因。
+ * @param when  候选时间（{period} 或 {start,end}）；也允许传整条记录
+ * @param table 可选预先拿好的节次表（批量导入时只查一次）
  */
-export async function findSlotConflict({ term, day, period, cls, teacherEmail, excludeId = null, subjectName = '' }) {
-  const docs = await collections.officeHours
-    .find({ term, day, period })
-    .toArray();
+export async function findSlotConflict({ term, day, cls, teacherEmail, when, excludeId = null, subjectName = '', table = null }) {
+  const periods = table || await periodTable(term);
+  const cand = windowOf(when || {}, periods);
+  const docs = await collections.officeHours.find({ term, day }).toArray();
   const who = subjectName || '你';
+  const mine = (d) => d.teacherEmail === teacherEmail;
+  const sameCls = (d) => cls && d.cls === cls;
 
-  // 两类冲突都要报，但“这个班已经有别人”更能指导行动（去找那个人协调），
-  // 所以先扫完这一类，再报“你自己同一时段已经排了别的班”。
+  // 时间解析不出来（老数据缺 time 之类）：退回旧的“同一节次”判定，
+  // 宁可保守也不能把人锁死
+  if (!cand) {
+    const p = when && when.period;
+    for (const d of docs) {
+      if (excludeId && String(d._id) === String(excludeId)) continue;
+      if (p != null && d.period === p && sameCls(d) && !mine(d)) {
+        return `「${describeSlot(d, periods)}」已由 ${d.teacherName || '其他老师'} 值班，换班请先与对方确认`;
+      }
+    }
+    return null;
+  }
+
+  // 优先报“这个班该时段已有别人”：去找那个人协调，比“你自己撞了”更可操作
   for (const d of docs) {
     if (excludeId && String(d._id) === String(excludeId)) continue;
-    if (d.cls === cls && d.teacherEmail !== teacherEmail) {
-      return `「${where(d)}」已由 ${d.teacherName || '其他老师'} 值班，换班请先与对方确认`;
+    if (!sameCls(d) || mine(d)) continue;
+    if (overlaps(cand, windowOf(d, periods))) {
+      return `「${describeSlot(d, periods)}」已由 ${d.teacherName || '其他老师'} 值班，换班请先与对方确认`;
     }
   }
   for (const d of docs) {
     if (excludeId && String(d._id) === String(excludeId)) continue;
-    if (d.teacherEmail !== teacherEmail) continue;
-    if (d.cls === cls) return `${who}已经有一条「${where(d)}」的值班，不用重复添加`;
-    return `${who}同一时段已经在「${where(d)}」值班，不能同时占两个班`;
+    if (!mine(d)) continue;
+    if (!overlaps(cand, windowOf(d, periods))) continue;   // 不重叠就合法：16:30 和 18:30 可以各占一小时
+    if (sameCls(d)) return `${who}已经有一条「${describeSlot(d, periods)}」的值班，不用重复添加`;
+    if (!cls || !d.cls) {
+      return `这条与${who}已有的「${describeSlot(d, periods)}」时间重叠，换一个时段或把班级填上`;
+    }
+    return `${who}同一时段已经在「${describeSlot(d, periods)}」值班，不能同时占两个班`;
   }
   return null;
 }

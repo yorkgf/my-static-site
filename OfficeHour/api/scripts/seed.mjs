@@ -147,6 +147,7 @@ for (const s of data.slots) {
     room: s.room,
     time: timeByPeriod[s.period] || '',
     source: 'excel',
+    anchored: true,     // 节次型记录（参与唯一索引）；老师自定时间的记录为 false
     fromExcel: true,     // 不可变标记：老师改了教室也不会把它变成“不是表里的”
     updatedAt: now,
     updatedBy: 'seed-script',
@@ -157,8 +158,9 @@ for (const s of data.slots) {
     const same =
       existing.teacherEmail === email &&
       existing.room === set.room &&
-      // fromExcel 也要参比较，否则存量数据补不上这个字段时会一直被当成“无变化”跳过
+      // fromExcel / anchored 也要参比较，否则存量数据补不上这些字段时会一直被当成“无变化”跳过
       existing.fromExcel === true &&
+      existing.anchored === true &&
       (existing.time || '') === set.time;
     // 老师自己写过的 note 默认保留
     if (existing.source === 'teacher' && existing.note && !FORCE) {
@@ -204,10 +206,25 @@ if (keys.length) {
 }
 
 if (APPLY) {
-  await coll.createIndex({ term: 1, day: 1, period: 1, cls: 1 }, { unique: true, name: 'uniq_term_day_period_cls' });
-  // 完全自助后必须有这条：一位老师同一时段只能在一个班
-  await coll.createIndex({ teacherEmail: 1, term: 1, day: 1, period: 1 }, { unique: true, name: 'uniq_teacher_term_day_period' });
-  await coll.createIndex({ teacherEmail: 1, term: 1 }, { name: 'teacher_term' });
+  // 与 src/db.js 保持同一套定义：两条唯一约束只管“节次型”记录（anchored=true），
+  // 自定时间型不参与——MongoDB 唯一索引把 null 当成一个值，不然两条自定记录会误撞。
+  // 旧库里的同名索引没有 partialFilterExpression，选项不同会报错 → 先删后建完成迁移。
+  const ensure = async (coll, keys, opts, label) => {
+    try { await coll.createIndex(keys, opts); }
+    catch (err) {
+      if (err.code === 85 || err.codeName === 'IndexOptionsConflict' || err.codeName === 'IndexKeySpecsConflict') {
+        try { await coll.dropIndex(opts.name); await coll.createIndex(keys, opts); console.log(`🔄 索引 ${opts.name} 已按新规则重建`); }
+        catch (e2) { console.log(`⚠️  ${label} 重建失败：${e2.message}`); }
+      } else { console.log(`⚠️  ${label} 创建失败（${err.code}）：${err.message}`); }
+    }
+  };
+  const A = { anchored: true };
+  await ensure(coll, { term: 1, day: 1, period: 1, cls: 1 },
+    { unique: true, name: 'uniq_term_day_period_cls', partialFilterExpression: A }, '班级唯一索引');
+  await ensure(coll, { teacherEmail: 1, term: 1, day: 1, period: 1 },
+    { unique: true, name: 'uniq_teacher_term_day_period', partialFilterExpression: A }, '教师时段唯一索引');
+  await coll.createIndex({ teacherEmail: 1, term: 1 }, { name: 'teacher_term' }).catch(() => {});
+  await coll.createIndex({ term: 1, day: 1 }, { name: 'term_day' }).catch(() => {});
   await delColl.createIndex({ term: 1, day: 1, period: 1, cls: 1 }, { unique: true, name: 'uniq_deleted_slot' });
   // 班级归档到注册表：某个班的最后一条值班被老师改走后，名字仍要能选到
   await db.collection(CLASS_REG).bulkWrite([...new Set(data.slots.map((s) => s.cls))].filter(Boolean).map((cls) => ({

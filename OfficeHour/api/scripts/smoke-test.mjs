@@ -15,7 +15,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
@@ -44,7 +44,7 @@ process.env.READ_RATE_MAX = '100000';
 process.env.LOGIN_RATE_MAX = '100000';
 process.env.WRITE_RATE_MAX = '100000';
 // 自助上限设小，让「加到上限被挡」这个用例跑得快
-process.env.OH_TEACHER_MAX_SLOTS = '6';
+process.env.OH_TEACHER_MAX_SLOTS = '10';
 
 const { createApp } = await import('../src/app.js');
 const { connectDb, closeDb, collections } = await import('../src/db.js');
@@ -68,7 +68,7 @@ await collections.teachers.insertMany(TEACHERS.map((t) => ({ ...t })));
 const SLOT_FIXTURE = {
   term: '26-27', day: '周一', period: 10, cls: 'G10-1',
   teacherEmail: 'teacher@ghedu.com', teacherName: '张老师',
-  room: '文体 114', time: '18:30–19:20', note: '', source: 'excel', fromExcel: true,
+  room: '文体 114', time: '18:30–19:20', note: '', source: 'excel', fromExcel: true, anchored: true,
   createdAt: new Date(), updatedAt: new Date(),
 };
 const slotId = (await collections.officeHours.insertOne({ ...SLOT_FIXTURE })).insertedId;
@@ -154,7 +154,7 @@ try {
     // 只有一节值班的老师也要拿到完整节次表，否则新增表单的下拉会缺项
     assert.equal(json.periods.length, 2, JSON.stringify(json.periods));
     // 完全自助：能改的是“什么时间在哪”，不能改的是“这是谁的”
-    assert.deepEqual(json.editableFields, ['day', 'period', 'cls', 'room', 'note']);
+    assert.deepEqual(json.editableFields, ['day', 'period', 'cls', 'room', 'note', 'start', 'end']);
   });
   await check('★ 管理员登录看公开接口才带邮箱，游客不带', async () => {
     const anon = await call('GET', '/api/officehours');
@@ -475,7 +475,7 @@ try {
     await assert.rejects(
       () => collections.officeHours.insertOne({
         term: '26-27', day: '周二', period: 10, cls: 'G12',
-        teacherEmail: 'teacher@ghedu.com', teacherName: '张老师', room: 'r', source: 'excel', fromExcel: false,
+        teacherEmail: 'teacher@ghedu.com', teacherName: '张老师', room: 'r', source: 'excel', fromExcel: false, anchored: true,
       }),
       (e) => { assert.equal(e.code, 11000, '应被 uniq_teacher_term_day_period 拦下'); return true; }
     );
@@ -535,6 +535,93 @@ try {
     assert.ok(acts.includes('teacher_delete'), '缺 teacher_delete');
     const del = json.entries.find((e) => e.action === 'teacher_delete');
     assert.ok(del.before && del.before.cls, '删除审计应留下被删记录的内容');
+  });
+
+  console.log('\n── 自定时间（不限晚自习节次）──');
+  let customId;
+  await check('★ 老师可以新增一条 16:30–17:30 的自定时间答疑', async () => {
+    const { status, json } = await call('POST', '/api/officehours/mine', {
+      body: { day: '周三', start: '16:30', end: '17:30', cls: 'G10-2', room: '高老师办公室', note: '不用预约' }, token,
+    });
+    assert.equal(status, 201, json.error);
+    assert.equal(json.slot.kind, 'custom');
+    assert.equal(json.slot.period, null, '自定时间不应占一个节次编号');
+    assert.equal(json.slot.time, '16:30–17:30', '时间文字应由起止生成');
+    customId = json.slot.id;
+  });
+  await check('★ 自定时间可以不带班级（纯办公时间）', async () => {
+    const { status, json } = await call('POST', '/api/officehours/mine', {
+      body: { day: '周四', start: '15:00', end: '16:00', room: '办公室' }, token,
+    });
+    assert.equal(status, 201, json.error);
+    assert.equal(json.slot.cls, '');
+    assert.ok(!('period' in json.slot) || json.slot.period === null);
+    await call('DELETE', '/api/officehours/mine/' + json.slot.id, { token });
+  });
+  await check('★ 与第10节（18:30–19:20）不重叠 → 16:30–17:30 不算抢位', async () => {
+    // 王校已有 周一/第10节 G11-2；张老师排在同一周的另一个班但时间不重叠，应该放行
+    const { status, json } = await call('POST', '/api/officehours/mine',
+      { body: { day: '周一', start: '16:30', end: '17:30', cls: 'G11-2', room: 'r' }, token });
+    assert.equal(status, 201, json.error);
+    await call('DELETE', '/api/officehours/mine/' + json.slot.id, { token });
+  });
+  await check('★ 与别人的值班时间真重叠 → 409 并说出是谁', async () => {
+    const { status, json } = await call('POST', '/api/officehours/mine',
+      { body: { day: '周一', start: '18:00', end: '19:00', cls: 'G11-2', room: 'r' }, token });
+    assert.equal(status, 409, '18:00–19:00 与王校的 18:30–19:20 重叠，应被挡');
+    assert.match(json.error, /王校/);
+  });
+  await check('★ 自己两条时间重叠 → 409（不重叠则放行）', async () => {
+    // 张老师有 周一第10节 18:30–19:20；18:00–18:45 与它重叠
+    const bad = await call('POST', '/api/officehours/mine',
+      { body: { day: '周一', start: '18:00', end: '18:45', cls: 'G10-2', room: 'r' }, token });
+    assert.equal(bad.status, 409, JSON.stringify(bad.json));
+    const good = await call('POST', '/api/officehours/mine',
+      { body: { day: '周一', start: '16:00', end: '18:30', cls: 'G10-2', room: 'r' }, token });
+    assert.equal(good.status, 201, '16:00–18:30 与 18:30 开始只是相接，不该算重叠：' + good.json.error);
+    await call('DELETE', '/api/officehours/mine/' + good.json.slot.id, { token });
+  });
+  await check('★ 改成节次型时必须带班级（400）', async () => {
+    const r = await call('PATCH', `/api/officehours/mine/${customId}`, { body: { period: 11, cls: '' }, token });
+    assert.equal(r.status, 400, JSON.stringify(r.json));
+    assert.match(r.json.error, /班级/);
+  });
+  await check('时间格式/区间非法 → 400', async () => {
+    for (const body of [
+      { day: '周三', start: '9:0', end: '10:00', cls: 'G10-2', room: 'r' },      // 不是 HH:MM
+      { day: '周三', start: '17:30', end: '16:30', cls: 'G10-2', room: 'r' },    // 结束早于开始
+      { day: '周三', start: '16:30', cls: 'G10-2', room: 'r' },                 // 只填了一半
+      { day: '周三', start: '05:00', end: '06:00', cls: 'G10-2', room: 'r' },   // 早于允许时段
+      { day: '周三', start: '16:00', end: '22:00', cls: 'G10-2', room: 'r' },   // 超时长上限
+      { day: '周三', period: 10, start: '16:00', end: '17:00', cls: 'G10-2', room: 'r' }, // 两种混报
+    ]) {
+      const r = await call('POST', '/api/officehours/mine', { body, token });
+      assert.equal(r.status, 400, JSON.stringify(body) + ' 应被拒：' + JSON.stringify(r.json));
+    }
+  });
+  await check('★ 节次型改成自定时间：另一套字段要清干净', async () => {
+    const up = await call('PATCH', `/api/officehours/mine/${customId}`, { body: { period: 11 }, token });
+    assert.equal(up.status, 200, up.json.error);
+    assert.equal(up.json.slot.kind, 'period');
+    assert.equal(up.json.slot.start, null, '改成节次后 start 应被清掉');
+    assert.equal(up.json.slot.time, '19:40–20:30', '时间应跟着节次走');
+    const back = await call('PATCH', `/api/officehours/mine/${customId}`,
+      { body: { start: '16:30', end: '17:30' }, token });
+    assert.equal(back.status, 200, back.json.error);
+    assert.equal(back.json.slot.period, null, '改回自定时间后 period 应被清掉');
+    assert.equal(back.json.slot.kind, 'custom');
+    const doc = await collections.officeHours.findOne({ _id: new ObjectId(customId) });
+    assert.equal(doc.anchored, false, 'anchored 没跟着形态切换，唯一索引会错');
+  });
+  await check('自定时间也受自助上限约束', async () => {
+    const { json } = await call('GET', '/api/officehours/mine/options', { token });
+    assert.ok(json.customTime && json.customTime.maxMinutes > 0, 'options 应告知时间边界，前端不写死');
+    assert.ok(json.customTime.earliest && json.customTime.latest);
+  });
+  await check('删除自定时间记录（不记碑）', async () => {
+    const r = await call('DELETE', '/api/officehours/mine/' + customId, { token });
+    assert.equal(r.status, 200, r.json.error);
+    assert.equal(r.json.ledgered, false);
   });
 
   console.log('\n── 审计 ──');

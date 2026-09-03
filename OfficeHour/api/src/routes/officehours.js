@@ -5,7 +5,8 @@ import { config } from '../config.js';
 import { requireAuth, requireAdmin, attachOptionalUser } from '../auth.js';
 import { validateTeacherSlot, validateSlot, validateImportList } from '../validation.js';
 import { toPublic, writeAudit } from '../views.js';
-import { findSlotConflict, recordDeletion, clearDeletion, deletedKeySet, slotKey, wasSeeded, knownClasses, rememberClasses } from '../conflicts.js';
+import { findSlotConflict, recordDeletion, clearDeletion, deletedKeySet, slotKey, wasSeeded, knownClasses, rememberClasses, periodTable } from '../conflicts.js';
+import { mergeWhen } from '../timewindow.js';
 
 export const officeHoursRouter = Router();
 
@@ -35,7 +36,11 @@ async function findTeacherByEmail(email) {
 /** 从记录里聚出「第N节 + 时间」，让前端不用自己硬编码时间 */
 function periodsFrom(docs) {
   const map = new Map();
-  docs.forEach((d) => { if (d.time && !map.has(d.period)) map.set(d.period, d.time); });
+  // 只收节次型：自定时间行的 period 是 null，混进来会变成“第 null 节”这种假节次
+  docs.forEach((d) => {
+    if (!d.time || d.period === null || d.period === undefined) return;
+    if (!map.has(d.period)) map.set(d.period, d.time);
+  });
   return [...map.keys()]
     .sort((a, b) => a - b)
     .map((p) => ({ p, label: `第${p}节`, time: map.get(p) }));
@@ -107,6 +112,8 @@ officeHoursRouter.get('/mine/options', requireAuth, async (req, res, next) => {
       periods,
       ownCount,
       maxSlots: config.teacherMaxSlots,
+      // 自定时间的边界也由后端说，前端不写死 06:00/23:00/4 小时
+      customTime: config.timeRange,
       // 班级只能选现有的；新开一个班属于排课，得管理员做
       canCreateClass: false,
     });
@@ -130,20 +137,23 @@ officeHoursRouter.post('/mine', requireAuth, async (req, res, next) => {
       });
     }
 
-    const clash = await findSlotConflict({ ...value, term, teacherEmail: req.user.email });
+    const table = await periodTable(term);
+    const when = mergeWhen(value, {}, table);          // {period, start, end, time}
+    const clash = await findSlotConflict({
+      term, day: value.day, cls: value.cls, teacherEmail: req.user.email, when, table,
+    });
     if (clash) return res.status(409).json({ error: clash });
 
     const now = new Date();
     const doc = {
       term,
       day: value.day,
-      period: value.period,
-      cls: value.cls,
+      ...when,
+      cls: value.cls || '',
       teacherEmail: req.user.email,          // 永远取自 JWT，不看 body
       teacherName: req.user.name || '',      // 姓名以教师表为准
       room: value.room,
       note: value.note || '',
-      time: (await termPeriods(term)).find((p) => p.p === value.period)?.time || '',
       source: 'teacher',
       fromExcel: false,          // 老师自己加的，不在排班表里 → 删了不用记碑
       createdAt: now,
@@ -154,15 +164,15 @@ officeHoursRouter.post('/mine', requireAuth, async (req, res, next) => {
     try {
       const r = await collections.officeHours.insertOne(doc);
       // 占回这个格子 → 之前老师删留下的碑要撤掉，不然以后 Excel 永远导不进来
-      await clearDeletion({ term, day: doc.day, period: doc.period, cls: doc.cls });
+      if (when.period !== null && doc.cls) await clearDeletion({ term, day: doc.day, period: when.period, cls: doc.cls });
       await rememberClasses([doc.cls], term);
       await writeAudit({ action: 'teacher_create', email: req.user.email, name: req.user.name, slotId: String(r.insertedId), after: doc });
       return res.status(201).json({ slot: toPublic({ ...doc, _id: r.insertedId }, { withEmail: true }) });
     } catch (err) {
       // 并发下两个老师同时抢同一个格子：唯一索引是最后的兵底
       if (err && err.code === 11000) {
-        const again = await findSlotConflict({ ...value, term, teacherEmail: req.user.email });
-        return res.status(409).json({ error: again || '该时段刚刚被人占用了，请换一个班级或节次' });
+        const again = await findSlotConflict({ term, day: value.day, cls: value.cls, teacherEmail: req.user.email, when, table });
+        return res.status(409).json({ error: again || '该时段刚刚被人占用了，请换一个班级或时间' });
       }
       throw err;
     }
@@ -189,22 +199,29 @@ officeHoursRouter.patch('/mine/:id', requireAuth, async (req, res, next) => {
     const { errors, value } = validateTeacherSlot(req.body, { partial: true, classes });
     if (errors.length) return res.status(400).json({ error: errors.join('；') });
 
-    // 换班/改节次也要查冲突，用“改完之后的最终位置”判定
+    // 换班/改节次/改时间都要查冲突，用“改完之后的最终位置”判定
+    const table = await periodTable(existing.term);
+    const when = mergeWhen(value, existing, table);
     const loc = {
       term: existing.term,
       day: value.day ?? existing.day,
-      period: value.period ?? existing.period,
       cls: value.cls ?? existing.cls,
+      ...when,
     };
-    const clash = await findSlotConflict({ ...loc, teacherEmail: req.user.email, excludeId: id });
+    const clash = await findSlotConflict({
+      term: loc.term, day: loc.day, cls: loc.cls, when: loc,
+      teacherEmail: req.user.email, excludeId: id, table,
+    });
     if (clash) return res.status(409).json({ error: clash });
+    // 节次型值班必须落到某个班上，否则学生端的班级表会出现空洞
+    if (when.period !== null && !loc.cls) {
+      return res.status(400).json({ error: '选了晚自习节次就必须指定班级；想不绑班级请改用“自定时间”' });
+    }
 
     const now = new Date();
-    const set = { ...value, source: 'teacher', updatedAt: now, updatedBy: req.user.email, updatedByName: req.user.name };
-    // 改了节次就得跟着换时间文字，否则卡片上会出现“第11节 18:30–19:20”
-    if (value.period && value.period !== existing.period) {
-      set.time = (await termPeriods(existing.term)).find((p) => p.p === value.period)?.time || existing.time || '';
-    }
+    // period/start/end/time 四个字段要一起显式写：形态切换（节次型⇄自定型）时
+    // 另一套得写成 null，$set 里不带就删不掉旧值，会留下“同时有两套时间”的脏记录
+    const set = { ...value, ...when, source: 'teacher', updatedAt: now, updatedBy: req.user.email, updatedByName: req.user.name };
 
     let result;
     try {
@@ -214,15 +231,20 @@ officeHoursRouter.patch('/mine/:id', requireAuth, async (req, res, next) => {
       );
     } catch (err) {
       if (err && err.code === 11000) {
-        const again = await findSlotConflict({ ...loc, teacherEmail: req.user.email, excludeId: id });
+        const again = await findSlotConflict({
+          term: loc.term, day: loc.day, cls: loc.cls, when: loc,
+          teacherEmail: req.user.email, excludeId: id, table,
+        });
         return res.status(409).json({ error: again || '该时段已被占用' });
       }
       throw err;
     }
     if (result.matchedCount === 0) return res.status(404).json({ error: '记录不存在' });
 
-    if (loc.day !== existing.day || loc.period !== existing.period || loc.cls !== existing.cls) {
-      await clearDeletion(loc);
+    const moved = loc.day !== existing.day || loc.cls !== existing.cls
+      || when.period !== (existing.period ?? null) || when.start !== (existing.start ?? null);
+    if (moved && when.period !== null && loc.cls) {
+      await clearDeletion({ term: loc.term, day: loc.day, period: when.period, cls: loc.cls });
     }
     if (value.cls) {
       // 连“被腾空的老班级”也要归档：否则某班最后一条被改走后，这个名字就再也选不到了
@@ -230,7 +252,10 @@ officeHoursRouter.patch('/mine/:id', requireAuth, async (req, res, next) => {
     }
 
     const doc = await collections.officeHours.findOne({ _id: id });
-    const picked = (d) => ({ day: d.day, period: d.period, cls: d.cls, room: d.room, note: d.note || '' });
+    const picked = (d) => ({
+      day: d.day, period: d.period ?? null, start: d.start || null, end: d.end || null,
+      time: d.time || '', cls: d.cls, room: d.room, note: d.note || '',
+    });
     await writeAudit({
       action: 'teacher_update',
       email: req.user.email,
@@ -285,16 +310,13 @@ officeHoursRouter.post('/', async (req, res, next) => {
     if (!displayName) return res.status(400).json({ error: '教师表里没有该邮箱的姓名，请先补全 Name 字段' });
 
     const dupTerm = value.term || config.term;
-    const dup = await collections.officeHours.findOne({
-      term: dupTerm, day: value.day, period: value.period, cls: value.cls,
-    });
-    if (dup) {
-      return res.status(409).json({ error: `「${value.day}第${value.period}节 ${value.cls}」已有记录（${dup.teacherName}），请直接编辑那条` });
-    }
-    // 管理员写表同样受“一位老师同一时段只能在一个班”约束，否则新唯一索引会抛 500
+    // 不再单独查“完全相同的键”：自定时间型 period 是 null，用 {period: null} 去查会
+    // 把当天所有自定记录都匹上。重叠判定已包含“同一格重复”与“已有别人”两种情况。
+    const table = await periodTable(dupTerm);
+    const when = mergeWhen(value, {}, table);
     const clash = await findSlotConflict({
-      term: dupTerm, day: value.day, period: value.period, cls: value.cls,
-      teacherEmail: teacher.email, subjectName: displayName || '该老师',
+      term: dupTerm, day: value.day, cls: value.cls,
+      when: { ...value, ...when }, teacherEmail: teacher.email, subjectName: displayName || '该老师', table,
     });
     if (clash) return res.status(409).json({ error: clash });
 
@@ -302,13 +324,12 @@ officeHoursRouter.post('/', async (req, res, next) => {
     const doc = {
       term: value.term || config.term,
       day: value.day,
-      period: value.period,
-      cls: value.cls,
+      ...when,
+      cls: value.cls || '',
       teacherEmail: teacher.email,
       teacherName: displayName,
       room: value.room,
       note: value.note || '',
-      time: value.time || '',
       source: 'admin',
       fromExcel: false,
       createdAt: now,
@@ -317,7 +338,7 @@ officeHoursRouter.post('/', async (req, res, next) => {
       updatedByName: req.user.name,
     };
     const r = await collections.officeHours.insertOne(doc);
-    await clearDeletion(doc);
+    if (when.period !== null && doc.cls) await clearDeletion({ term: doc.term, day: doc.day, period: when.period, cls: doc.cls });
     await rememberClasses([doc.cls], doc.term);
     await writeAudit({ action: 'admin_create', email: req.user.email, name: req.user.name, slotId: String(r.insertedId), after: doc });
     return res.status(201).json({ slot: toPublic({ ...doc, _id: r.insertedId }, { withEmail: true }) });
@@ -346,16 +367,19 @@ officeHoursRouter.put('/:id', async (req, res, next) => {
       if (!value.teacherName) value.teacherName = teacher.Name || '';
     }
 
-    // 换班/改节次/换老师都可能撞车，拿“改完后的最终位置”查一次
+    // 换班/改节次/换时间/换老师都可能撞车，拿“改完后的最终位置”查一次
+    const table = await periodTable(existing.term);
+    const when = mergeWhen(value, existing, table);
     const loc = {
       term: value.term || existing.term,
       day: value.day ?? existing.day,
-      period: value.period ?? existing.period,
       cls: value.cls ?? existing.cls,
+      ...when,
     };
     const owner = value.teacherEmail || existing.teacherEmail;
     const clash = await findSlotConflict({
-      ...loc, teacherEmail: owner, excludeId: id,
+      term: loc.term, day: loc.day, cls: loc.cls, when: loc,
+      teacherEmail: owner, excludeId: id,
       subjectName: value.teacherName || existing.teacherName || '该老师',
     });
     if (clash) return res.status(409).json({ error: clash });
@@ -364,16 +388,19 @@ officeHoursRouter.put('/:id', async (req, res, next) => {
     try {
       await collections.officeHours.updateOne(
         { _id: id },
-        { $set: { ...value, source: 'admin', updatedAt: now, updatedBy: req.user.email, updatedByName: req.user.name } }
+        { $set: { ...value, ...when, source: 'admin', updatedAt: now, updatedBy: req.user.email, updatedByName: req.user.name } }
       );
     } catch (err) {
       if (err && err.code === 11000) {
-        const again = await findSlotConflict({ ...loc, teacherEmail: owner, excludeId: id, subjectName: existing.teacherName || '该老师' });
+        const again = await findSlotConflict({
+          term: loc.term, day: loc.day, cls: loc.cls, when: loc,
+          teacherEmail: owner, excludeId: id, subjectName: existing.teacherName || '该老师', table,
+        });
         return res.status(409).json({ error: again || '该时段已被占用' });
       }
       throw err;
     }
-    await clearDeletion(loc);
+    if (when.period !== null && loc.cls) await clearDeletion({ term: loc.term, day: loc.day, period: when.period, cls: loc.cls });
     if (value.cls) await rememberClasses([existing.cls, value.cls], loc.term);
     const doc = await collections.officeHours.findOne({ _id: id });
     await writeAudit({
@@ -469,7 +496,7 @@ officeHoursRouter.post('/import', async (req, res, next) => {
 
       const existingRow = await collections.officeHours.findOne({ term: t, day: item.day, period: item.period, cls: item.cls });
       const c = await findSlotConflict({
-        term: t, day: item.day, period: item.period, cls: item.cls,
+        term: t, day: item.day, cls: item.cls, when: item,
         teacherEmail: item.teacherEmail,
         excludeId: existingRow ? String(existingRow._id) : null,
         subjectName: item.teacherName || '该老师',
@@ -494,6 +521,7 @@ officeHoursRouter.post('/import', async (req, res, next) => {
         room: item.room,
         time: item.time || (existing && existing.time) || '',
         source: 'excel',
+        anchored: true,          // 导入的都是节次型，参与唯一索引
         fromExcel: true,        // 不可变标记：以后谁改了都不影响“这行来自排班表”
         updatedAt: now,
         updatedBy: req.user.email,

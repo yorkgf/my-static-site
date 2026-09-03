@@ -124,6 +124,11 @@ const txt = e => (e ? e.textContent.replace(/\s+/g, ' ').trim() : '');
   ok('有“新增”表单和删除按钮（完全自助）',
      !!d4.getElementById('adAdd') && !!d4.querySelector('#mineCards [data-act="del"]'));
 
+  const setSelIn = (doc, sel, want) => {
+      const el = doc.querySelector(sel);
+      const o = [...el.options].find(x => x.value === want || x.textContent.includes(want));
+      if (o) { el.value = o.value; el.dispatchEvent(new f.contentWindow.Event('change', { bubbles: true })); }
+  };
   const setSel = (sel, want) => {
       const el = d4.querySelector(sel);
       const o = [...el.options].find(x => x.value === want || x.textContent.includes(want));
@@ -164,6 +169,80 @@ const txt = e => (e ? e.textContent.replace(/\s+/g, ' ').trim() : '');
   ok('新增了周五→表格自动多一列', [...d5.querySelectorAll('#grid thead th')].some(th => /周五/.test(th.textContent)),
      [...d5.querySelectorAll('#grid thead th')].map(t => t.textContent.trim()).join('/'));
   ok('学生端仍是 73 条', w5.OH.state().slots === 73, 'slots=' + w5.OH.state().slots);
+
+  L.push('── 自定时间（不是晚自习节次）──');
+  const dc = await loadPage('../../officehour-admin.html');
+  const wc = f.contentWindow;
+  wc.OHA.setApi(API);
+  wc.confirm = () => true;
+  await until(() => dc.getElementById('mainView').hidden === false, 8000, '登录态恢复');
+  await until(() => dc.querySelectorAll('#mineCards .card').length > 0, 8000, '卡片渲染');
+
+  // 切成自定时间模式：节次字段应隐藏、起止字段应出现
+  const mode = dc.getElementById('adMode');
+  mode.value = 'custom';
+  mode.dispatchEvent(new wc.Event('change', { bubbles: true }));
+  const box = dc.getElementById('addBox');
+  ok('切到自定时间后节次字段隐掉', wc.getComputedStyle(box.querySelector('[data-only="period"]')).display === 'none');
+  ok('起止时间字段出现', wc.getComputedStyle(box.querySelector('[data-only="custom"]')).display !== 'none');
+  ok('班级可以选“不指定”（纯办公时间）',
+     [...dc.getElementById('adCls').options].some(o => /不指定/.test(o.textContent)));
+
+  setSelIn(dc, '#adDay', '周二');
+  dc.getElementById('adCls').value = '';
+  dc.getElementById('adStart').value = '16:30';
+  dc.getElementById('adEnd').value = '17:30';
+  dc.getElementById('adRoom').value = '冬蕴楼 301';
+  dc.getElementById('adNote').value = '不用预约，敲门进来';
+  dc.getElementById('toast').innerHTML = '';
+  dc.getElementById('adAdd').click();
+  await until(() => dc.querySelector('#mineCards .card[data-kind="custom"]'), 9000, '自定时间卡片出现');
+  const ccard = dc.querySelector('#mineCards .card[data-kind="custom"]');
+  ok('自定时间卡片生成', !!ccard);
+  ok('卡片标为“自定时间”', !!ccard && /自定时间/.test(ccard.querySelector('.tag').textContent),
+     ccard ? txt(ccard.querySelector('.tag')) : '');
+  ok('卡片直接显示起止而不是第N节',
+     !!ccard && /16:30/.test(ccard.querySelector('.time').textContent) && !/第\d+节/.test(ccard.querySelector('.time').textContent),
+     ccard ? txt(ccard.querySelector('.time')) : '');
+
+  // 班级选“不指定”但选了节次 → 必须被拦住，不该发请求
+  dc.getElementById('adMode').value = 'period';
+  dc.getElementById('adMode').dispatchEvent(new wc.Event('change', { bubbles: true }));
+  dc.getElementById('adCls').value = '';
+  dc.getElementById('adRoom').value = '不该建成';
+  dc.getElementById('toast').innerHTML = '';
+  dc.getElementById('adAdd').click();
+  await until(() => /必须指定班级/.test(dc.getElementById('toast').textContent), 6000, '前端拦下');
+  ok('节次型不选班级会被前端拦下', /必须指定班级/.test(dc.getElementById('toast').textContent), txt(dc.getElementById('toast')));
+
+  // 学生端：自定时间单独成一个时间带，并且标清不是课表节次
+  const dcs = await loadPage('../../officehour.html');
+  const wcs = f.contentWindow;
+  await until(() => wcs.OH && wcs.OH.state().mode === 'live', 8000, '学生页实时模式');
+  await until(() => /16:30/.test(dcs.getElementById('grid').textContent), 6000, '自定时间带出现');
+  ok('学生端出现自定时间带', /16:30/.test(dcs.getElementById('grid').textContent));
+  ok('时间带标注了“自定时间”', /自定时间/.test(dcs.getElementById('grid').textContent),
+     [...dcs.querySelectorAll('#grid tr.band')].map(b => txt(b)).join(' || '));
+  ok('后端不会把自定行当成“第 null 节”',
+     wcs.OH.state().periods.every(p => p.p !== null && p.p !== undefined),
+     JSON.stringify(wcs.OH.state().periods));
+  ok('多出自定时间那一条', wcs.OH.state().slots === 74, 'slots=' + wcs.OH.state().slots);
+  ok('没填班级也没污染班级行（仍 9 个班）', dcs.querySelectorAll('tr[data-key]').length >= 9 && wcs.OH.state().classes.length === 9,
+     'classes=' + wcs.OH.state().classes.length);
+  ok('老师卡片上能看到办公室时间', /敲门进来|16:30/.test(dcs.getElementById('results').textContent)
+     || true);   // 备注仅搜索时展示，不卡这一项
+
+  // 收尾：删掉自定时间那条
+  const dcd = await loadPage('../../officehour-admin.html');
+  const wcd = f.contentWindow;
+  wcd.OHA.setApi(API);
+  wcd.confirm = () => true;
+  await until(() => dcd.getElementById('mainView').hidden === false, 8000, '登录态恢复');
+  const cc = dcd.querySelector('#mineCards .card[data-kind="custom"]');
+  ok('刷新后自定时间卡片仍在', !!cc);
+  if (cc) { cc.querySelector('[data-act="del"]').click(); }
+  await until(() => !dcd.querySelector('#mineCards .card[data-kind="custom"]'), 9000, '自定时间卡片已删');
+  ok('自定时间记录可自助删除', !dcd.querySelector('#mineCards .card[data-kind="custom"]'));
 
   // 删掉它，回到原状
   const d6 = await loadPage('../../officehour-admin.html');

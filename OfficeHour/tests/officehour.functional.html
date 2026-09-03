@@ -298,8 +298,13 @@ f.onload = async () => {
   OH.refresh();                     // applyData 只换数据，重绘要另外调（loadLive 里就是这么做的）
   st = OH.state();
   ok('坏形状行被丢弃、好行保留', st.slots === 2, 'slots=' + st.slots);
-  ok('坏行不会让页面白屏', d.querySelectorAll('tr[data-key]').length === 2 && /甲/.test(d.getElementById('grid').textContent),
-     String(d.querySelectorAll('tr[data-key]').length));
+  ok('坏行不会让页面白屏', /甲/.test(d.getElementById('grid').textContent) && d.querySelectorAll('tr[data-key]').length > 0,
+     d.querySelectorAll('tr[data-key]').length + ' 行');
+  // 两个节次的安排完全不同 → 不能合并成一个时间带（否则学生看不出“甲”到底在哪一节）
+  ok('两节安排不同 → 不合并、逐节分带', (() => {
+      const s = OH.state();
+      return s.merged === false && s.canMerge === false && d.querySelectorAll('#grid tr.band').length === 2;
+  })(), 'band=' + d.querySelectorAll('#grid tr.band').length);
 
   // 5 字段行（内嵌快照的形状，无 note）+ period 必须仍是数字，否则 s[1] === p 会静静失配
   OH.applyData({ slots: [['周一', 10, 'G10-1', '甲', 'R1'], ['周二', 11, 'G10-1', '乙', 'R2', '备注']] });
@@ -318,6 +323,53 @@ f.onload = async () => {
   OH.applyData({ slots: SNAP.slots, teachers: SNAP.teachers, periods: SNAP.periods });
   OH.refresh();
   ok('恢复全量 72 条', OH.state().slots === 72, 'slots=' + OH.state().slots);
+
+  log('\n=== 老师自定时间（非课表节次）的展示 ===');
+  // 课表两节 + 两条自定时间：一条给了 G10-1，一条没填班级（纯办公时间）
+  const mixed = SNAP.slots.concat([
+      ['周三', null, 'G10-1', '李楚翘', '冬蕴楼 301', '不用预约', '16:30–17:30'],
+      ['周三', null, '', '李楚翘', '冬蕴楼 301', '', '20:00–21:00'],
+  ]);
+  OH.applyData({ slots: mixed, teachers: SNAP.teachers, periods: SNAP.periods, mode: 'live', stamp: '' });
+  OH.refresh();
+  st = OH.state();
+  ok('自定时间的行被接受', st.slots === 74, 'slots=' + st.slots);
+  ok('没填班级的行不污染班级列表', st.classes.length === 9, st.classes.join(','));
+  ok('课表两节仍然可以合并（不受自定行影响）', st.canMerge === true && st.merged === true,
+     JSON.stringify({ merged: st.merged, canMerge: st.canMerge }));
+  const ohBands = [...d.querySelectorAll('#grid tr.band')].map(b => txt(b));
+  ok('自定时间单独成一个时间带', ohBands.length === 3, ohBands.join(' | '));
+  ok('时间带按开始时刻排序（16:30 排在 18:30 前面）',
+     /16:30/.test(ohBands[0]) && /18:30/.test(ohBands[1]) && /20:00/.test(ohBands[2]), ohBands.join(' | '));
+  ok('自定带标注“自定时间”', /自定时间/.test(ohBands[0]), ohBands[0]);
+  ok('自定带说明不是课表节次', /不是课表节次/.test(ohBands[0]), ohBands[0]);
+  ok('顶部徽章列出了自定答疑时段', /自定答疑/.test(txt(d.getElementById('badges'))), txt(d.getElementById('badges')));
+  ok('G10-1 周三格子里同时有坐班和自定答疑', (() => {
+      const rows = [...d.querySelectorAll('tr[data-key="G10-1"]')].map(r => r.textContent.replace(/\s+/g, ' '));
+      return rows.some(t => /16:30/.test(ohBands[0]) && /李楚翘/.test(t) && /冬蕴楼 301/.test(t));
+  })(), 'G10-1 行里没有自定时间那条');
+
+  setInput('李楚翘');
+  const card = d.querySelector('.tcard');
+  ok('老师卡片上能看到自定起止时间', /16:30–17:30/.test(card.textContent) && /20:00–21:00/.test(card.textContent),
+     txt(card.querySelector('.trows')));
+  ok('自定时间卡片行标了“自定”', /（自定）/.test(card.textContent));
+  ok('没班级的自定行显示为办公时间', /办公时间/.test(card.textContent), txt(card.querySelector('.trows')));
+  setInput('');
+
+  // 节次表变了徐章必须跟着变（renderBadges 以前只在初始化跑一次，接了实时数据就错）
+  OH.applyData({ slots: mixed, teachers: SNAP.teachers, mode: 'live', stamp: '',
+      periods: [{ p: 10, label: '第10节', time: '18:30–19:20' },
+                { p: 11, label: '第11节', time: '19:40–20:30' },
+                { p: 12, label: '第12节', time: '21:00–21:50' }] });
+  OH.refresh();
+  ok('节次表变化后徐章跟着更新', /第12节 21:00–21:50/.test(txt(d.getElementById('badges'))),
+     txt(d.getElementById('badges')));
+
+  OH.applyData({ slots: SNAP.slots, teachers: SNAP.teachers, periods: SNAP.periods });
+  OH.refresh();
+  ok('回到纯课表数据', OH.state().slots === 72 && d.querySelectorAll('#grid tr.band').length === 1,
+     OH.state().slots + ' 条 / ' + d.querySelectorAll('#grid tr.band').length + ' 个时间带');
 
   log('\n=== 刷新后保留主题（防按钮文案不同步）===');
   try { w.localStorage.setItem('ohTheme', 'dark'); } catch (e) {}

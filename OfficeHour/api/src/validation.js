@@ -1,4 +1,5 @@
 import { config } from './config.js';
+import { validateWhen } from './timewindow.js';
 
 const DAY_SET = new Set(config.days);
 
@@ -56,22 +57,35 @@ export function validateTeacherSlot(body, { partial = false, classes = null } = 
     if (d && !DAY_SET.has(d)) errors.push(`星期只能是 ${config.days.join('/')} 之一`);
     value.day = d;
   }
-  if (!partial || has('period')) {
-    const p = int(b.period, '节次', errors);
-    if (p !== null) value.period = p;
-  }
+
+  // 时间：节次 与 自定义起止 二选一
+  const when = {};
+  if (has('period')) { const p = int(b.period, '节次', errors); if (p !== null) when.period = p; }
+  if (has('start')) when.start = typeof b.start === 'string' ? b.start.trim() : b.start;
+  if (has('end')) when.end = typeof b.end === 'string' ? b.end.trim() : b.end;
+  Object.assign(value, validateWhen(when, errors, { requireOne: !partial }));
+
   if (!partial || has('cls')) {
-    const c = str(b.cls, config.limits.clsMax, '班级', errors);
+    const c = str(b.cls, config.limits.clsMax, '班级', errors, { required: value.period !== null && value.period !== undefined });
     if (c && Array.isArray(classes) && classes.length && !classes.includes(c)) {
       errors.push(`班级必须从这些里选：${classes.join('、')}`);
     }
     value.cls = c;
   }
+  // 节次型值班必须落到一个班上；自定时间答疑可以不指班（只作为老师的办公时间展示）
+  if (!partial && value.period !== null && value.period !== undefined && !value.cls) {
+    errors.push('选节次时必须填班级');
+  }
   if (!partial || has('room')) value.room = str(b.room, config.limits.roomMax, '教室', errors);
   if (has('note')) value.note = str(b.note, config.limits.noteMax, '备注', errors, { required: false });
 
   if (partial && !Object.keys(value).length) errors.push('没有任何要修改的内容');
-  for (const k of Object.keys(value)) if (value[k] === null || value[k] === undefined) delete value[k];
+  // 注意：period/start/end 的 null 是**有意义**的（表示“自定时间形态”），不能当脏数据丢掉；
+  // 其他字段的 null 是校验失败的残留，要清掉
+  for (const k of Object.keys(value)) {
+    if (k === 'period' || k === 'start' || k === 'end') continue;
+    if (value[k] === null || value[k] === undefined) delete value[k];
+  }
 
   return { errors, value };
 }
@@ -79,7 +93,7 @@ export function validateTeacherSlot(body, { partial = false, classes = null } = 
 /** 向后兼容旧名：老师改自己的记录 */
 export const validateTeacherEdit = (body, opts = {}) => validateTeacherSlot(body, { partial: true, ...opts });
 
-/** 管理员写入：一条完整的值班记录 */
+/** 管理员写入：一条完整的值班记录（节次型或自定时间型） */
 export function validateSlot(body, { partial = false } = {}) {
   const errors = [];
   const b = body || {};
@@ -91,8 +105,13 @@ export function validateSlot(body, { partial = false } = {}) {
     if (d && !DAY_SET.has(d)) errors.push(`星期只能是 ${config.days.join('/')} 之一`);
     value.day = d;
   }
-  if (!partial || has('period')) value.period = int(b.period, '节次', errors);
-  if (!partial || has('cls')) value.cls = str(b.cls, config.limits.clsMax, '班级', errors);
+  // 时间：节次 或 自定义起止，与老师自助同一套规则
+  const when = {};
+  if (has('period')) { const p = int(b.period, '节次', errors); if (p !== null) when.period = p; }
+  if (has('start')) when.start = typeof b.start === 'string' ? b.start.trim() : b.start;
+  if (has('end')) when.end = typeof b.end === 'string' ? b.end.trim() : b.end;
+  Object.assign(value, validateWhen(when, errors, { requireOne: !partial }));
+  if (!partial || has('cls')) value.cls = str(b.cls, config.limits.clsMax, '班级', errors, { required: value.period !== null });
   if (!partial || has('teacherEmail')) {
     const e = str(b.teacherEmail, 120, '教师邮箱', errors);
     // 只做形状校验，真实存在性由路由层查 Teachers 表
@@ -105,8 +124,11 @@ export function validateSlot(body, { partial = false } = {}) {
   if (has('time')) value.time = str(b.time, 24, '时间', errors, { required: false });
   if (has('term')) value.term = str(b.term, 16, '学期', errors);
 
-  // 丢掉 null（partial 更新时 int 校验失败已记错）
-  for (const k of Object.keys(value)) if (value[k] === null) delete value[k];
+  // 丢校验残留，但 period/start/end 的 null 是形态信号，得留着
+  for (const k of Object.keys(value)) {
+    if (k === 'period' || k === 'start' || k === 'end') continue;
+    if (value[k] === null) delete value[k];
+  }
 
   return { errors, value };
 }

@@ -6,11 +6,16 @@ import { collections } from './db.js';
  * 只有老师看自己 / 管理员看全部时才带上。
  */
 export function toPublic(doc, { withEmail = false } = {}) {
+  const hasPeriod = doc.period !== null && doc.period !== undefined;
   const out = {
     id: String(doc._id),
     day: doc.day,
-    period: doc.period,
-    cls: doc.cls,
+    period: hasPeriod ? Number(doc.period) : null,
+    // 时间形态：period=学校节次，custom=老师自定起止。前端据此决定归哪个时间带
+    kind: hasPeriod ? 'period' : (doc.start && doc.end ? 'custom' : 'unknown'),
+    start: doc.start || null,
+    end: doc.end || null,
+    cls: doc.cls || '',
     teacherName: doc.teacherName,
     room: doc.room,
     time: doc.time || '',

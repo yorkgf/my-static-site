@@ -58,7 +58,8 @@ Pages live at the repo root like other site pages: `officehour.html` (students) 
 | `officehour.html` | Student page. No framework, no build step. |
 | `officehour-admin.html` | Teacher login + edit. Not linked publicly. |
 | `OfficeHour/api/` | Tencent **SCF Web function** (Node/Express/MongoDB, ESM) |
-| `OfficeHour/api/src/conflicts.js` | The self-service safety net: conflict checks, deletion ledger, class registry |
+| `OfficeHour/api/src/conflicts.js` | The self-service safety net: overlap conflicts, deletion ledger, class registry |
+| `OfficeHour/api/src/timewindow.js` | Period vs custom-time windows, HH:MM validation, overlap math |
 | `OfficeHour/tests/` | Browser-driven test suites |
 
 ### Student page behaviour
@@ -112,22 +113,34 @@ day/period/class/room/note. What is locked is **ownership**: `teacherEmail` alwa
 so nobody can attach a shift to (or steal it from) another account. Admins (`Group` in `S,A`) can
 additionally reassign ownership and bulk-import.
 
-Four guards make full self-service safe (all tested):
-1. unique index `{teacherEmail, term, day, period}` — one teacher can't hold two classes in one period
-2. `findSlotConflict()` before every write — a class already assigned to someone else returns 409
-   **naming that teacher**, because "go talk to them" beats "you conflicted with yourself"
-3. deleting a `fromExcel` row writes a tombstone into `Office_Hour_Deletions`, so `seed.mjs` and the
-   admin import **won't resurrect it**; use `fromExcel`, never `source`, to know a row's origin —
-   `source` means "last writer" and flips to `teacher` the moment someone edits the room
-4. class options come from the persistent `Office_Hour_Classes` registry (incl. classes being vacated),
+Five guards make full self-service safe (all tested):
+1. **time windows, not period numbers**: a shift is either period-anchored (`period=10`, clock time
+   derived from the timetable — what Excel/`seed.mjs` writes) or teacher-custom (`start`/`end`, e.g.
+   16:30–17:30, with `period=null`). Conflicts are decided by **interval overlap**, so a 16:30–17:30
+   office hour never collides with the 18:30–19:20 duty; touching edges (…–18:30 vs 18:30–…) are legal.
+   Custom times are bounded by `OH_TIME_EARLIEST` / `OH_TIME_LATEST` / `OH_TIME_MAX_MINUTES`.
+2. partial unique indexes `{term,day,period,cls}` and `{teacherEmail,term,day,period}` with
+   `partialFilterExpression: {anchored: true}` — only period-anchored rows participate. MongoDB treats
+   `null` as a value inside a unique index, so without the partial filter two custom-time rows (both
+   `period: null`) would falsely collide. `anchored` exists purely for this and is written with `period`.
+3. `findSlotConflict()` before every write — a class already covered by someone in an overlapping
+   window returns 409 **naming that teacher**, because "go talk to them" beats "you conflicted with
+   yourself". When a row's clock time can't be parsed it degrades to the old period-equality check
+   instead of locking people out.
+4. deleting a `fromExcel` row writes a tombstone into `Office_Hour_Deletions`, so `seed.mjs` and the
+   admin import **won't resurrect it**; origin is tracked by the immutable `fromExcel`, never by
+   `source` (that means "last writer" and flips to `teacher` the moment someone edits the room)
+5. class options come from the persistent `Office_Hour_Classes` registry (incl. classes being vacated),
    **not** `distinct('cls')` over live rows — that silently deletes a class from the picker as soon as
-   its last row is moved, locking the teacher out
+   its last row is moved, locking the teacher out. A custom-time row may also leave `cls` empty, which
+   means "my office hours, not tied to a class" (shows on teacher cards only, never in the class grid).
 
-**Room is never validated for collisions.** Several teachers sharing one room in the same period is
-normal — the location is often a teacher's office, and simultaneous consultations don't interfere. The
-only conflicts the system enforces are (a) a class already assigned to another teacher for that period
-and (b) one teacher holding two classes in the same period. `smoke-test.mjs` has two assertions pinned
-to this rule so it doesn't creep back in.
+**Room is never validated for collisions.** Several teachers sharing one room at the same time is
+normal — the location is often a teacher's office, and simultaneous consultations don't interfere.
+`smoke-test.mjs` has assertions pinning this rule so it doesn't creep back in.
+
+Bulk imports are **pre-flighted in one pass** (including within-batch duplicates) so a conflict can
+never leave the schedule half-written.
 
 Set `JWT_SECRET` equal to FADsys's for passwordless SSO (token payload `{email, name}` is compatible).
 Admin gate uses `ADMIN_GROUPS=S,A` (mirrors FADsys `userGroups.js` `isAdmin()`, which is wider than its

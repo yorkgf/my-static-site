@@ -29,15 +29,25 @@ try {
 
   const idx = await db.collection(COLL).indexes();
   const names = idx.map(i => i.name);
+  const partialOk = (n) => {
+    const i = idx.find(x => x.name === n);
+    return !!i && i.unique === true && !!i.partialFilterExpression && i.partialFilterExpression.anchored === true;
+  };
   say('班级唯一约束 uniq_term_day_period_cls', names.includes('uniq_term_day_period_cls'));
   say('教师时段唯一约束 uniq_teacher_term_day_period',
       idx.some(i => i.name === 'uniq_teacher_term_day_period' && i.unique === true),
       '自助新增防撞车的关键索引');
+  // 两条唯一约束都必须是 partial（只管 anchored=true 的节次型），否则自定时间记录会被误撞
+  say('两条唯一约束都是部分索引（不管自定时间行）',
+      partialOk('uniq_term_day_period_cls') && partialOk('uniq_teacher_term_day_period'));
+  say('重叠判定用的 term_day 索引存在', names.includes('term_day'));
 
   const total = await db.collection(COLL).countDocuments();
   const flagged = await db.collection(COLL).countDocuments({ fromExcel: true });
+  const anchored = await db.collection(COLL).countDocuments({ anchored: true });
   say('排班记录都在', total > 0, `${total} 条`);
   say('fromExcel 已回填（删除防复活依赖它）', total > 0 && flagged === total, `${flagged}/${total}`);
+  say('anchored 已回填（否则节次型记录不受唯一约束保护）', total > 0 && anchored === total, `${anchored}/${total}`);
 
   const classes = await db.collection('Office_Hour_Classes').countDocuments();
   say('班级注册表已建立', classes > 0, `${classes} 个班级`);

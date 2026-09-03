@@ -45,12 +45,15 @@ export async function connectDb() {
  */
 async function ensureIndexes() {
   // 注意：必须在连上库之后才取 collection（collections.* 是依赖 client 的 getter）
+  const ANCHORED = { anchored: true };   // 只管节次型记录；自定时间型不参与下面两条唯一约束
   const want = [
     [collections.officeHours, { term: 1, day: 1, period: 1, cls: 1 },
-      { unique: true, name: 'uniq_term_day_period_cls' }, '同一班同一节出现了两条值班'],
+      { unique: true, name: 'uniq_term_day_period_cls', partialFilterExpression: ANCHORED }, '同一班同一节出现了两条值班'],
     [collections.officeHours, { teacherEmail: 1, term: 1, day: 1, period: 1 },
-      { unique: true, name: 'uniq_teacher_term_day_period' }, '有老师在相同时段被排进了两个班'],
+      { unique: true, name: 'uniq_teacher_term_day_period', partialFilterExpression: ANCHORED }, '有老师在相同时段被排进了两个班'],
     [collections.officeHours, { teacherEmail: 1, term: 1 }, { name: 'teacher_term' }, ''],
+    // 重叠判定要按天拉全部记录，没这个索引会随数据量变慢
+    [collections.officeHours, { term: 1, day: 1 }, { name: 'term_day' }, ''],
     [collections.deletions, { term: 1, day: 1, period: 1, cls: 1 },
       { unique: true, name: 'uniq_deleted_slot' }, ''],
     [collections.classes, { cls: 1 }, { unique: true, name: 'uniq_class' }, ''],
@@ -60,6 +63,19 @@ async function ensureIndexes() {
     try {
       await coll.createIndex(keys, opts);
     } catch (err) {
+      // 索引已存在但选项不同（比如本次新加了 partialFilterExpression）：
+      // 先删后建完成迁移，不能因此报错退出
+      if (err.code === 85 || err.codeName === 'IndexOptionsConflict' || err.codeName === 'IndexKeySpecsConflict') {
+        try {
+          await coll.dropIndex(opts.name);
+          await coll.createIndex(keys, opts);
+          console.log(`[db] 索引 ${opts.name} 已按新规则重建`);
+          continue;
+        } catch (retry) {
+          console.error(`[db] ⚠️ 索引 ${opts.name} 重建失败:`, retry.message);
+          continue;
+        }
+      }
       console.error(`[db] ⚠️ 索引 ${opts.name || JSON.stringify(keys)} 创建失败（${err.code || err.name}）` +
         (err.code === 11000 && hint ? `：${hint}。请先清理存量重复数据，否则并发下可能写进重复记录` : `：${err.message}`));
     }
