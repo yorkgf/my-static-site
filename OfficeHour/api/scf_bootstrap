@@ -1,0 +1,5 @@
+#!/bin/bash
+# 腾讯云 SCF Web 函数启动文件（与 FADsys / server 相同方式）
+export PORT=${PORT:-9000}
+export NODE_ENV=production
+node src/index.js

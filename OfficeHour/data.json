@@ -1,0 +1,530 @@
+{
+ "schema": 1,
+ "term": "26-27",
+ "source": "总课表.xlsx",
+ "generatedAt": "2026-09-03T13:59:35+08:00",
+ "days": [
+  "周一",
+  "周二",
+  "周三",
+  "周四"
+ ],
+ "periods": [
+  {
+   "p": 10,
+   "label": "第10节",
+   "time": "18:30–19:20"
+  },
+  {
+   "p": 11,
+   "label": "第11节",
+   "time": "19:40–20:30"
+  }
+ ],
+ "slots": [
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "G10-1",
+   "teacherName": "李楚翘",
+   "room": "文体 114"
+  },
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "G10-2",
+   "teacherName": "宋雯雯",
+   "room": "文体 115"
+  },
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "G10-3",
+   "teacherName": "简汐洳",
+   "room": "文体 116"
+  },
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "G11-1",
+   "teacherName": "张诗文",
+   "room": "文体 102"
+  },
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "G11-2",
+   "teacherName": "赵睿佳",
+   "room": "文体 103"
+  },
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "G11-3",
+   "teacherName": "郭林",
+   "room": "文体 104"
+  },
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "G12",
+   "teacherName": "高峰",
+   "room": "冬蕴楼 102"
+  },
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "Pre-1",
+   "teacherName": "晏海花",
+   "room": "文体 112"
+  },
+  {
+   "day": "周一",
+   "period": 10,
+   "cls": "Pre-2",
+   "teacherName": "刘展佑",
+   "room": "文体 113"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "G10-1",
+   "teacherName": "李楚翘",
+   "room": "文体 114"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "G10-2",
+   "teacherName": "宋雯雯",
+   "room": "文体 115"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "G10-3",
+   "teacherName": "简汐洳",
+   "room": "文体 116"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "G11-1",
+   "teacherName": "张诗文",
+   "room": "文体 102"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "G11-2",
+   "teacherName": "赵睿佳",
+   "room": "文体 103"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "G11-3",
+   "teacherName": "郭林",
+   "room": "文体 104"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "G12",
+   "teacherName": "高峰",
+   "room": "冬蕴楼 102"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "Pre-1",
+   "teacherName": "晏海花",
+   "room": "文体 112"
+  },
+  {
+   "day": "周一",
+   "period": 11,
+   "cls": "Pre-2",
+   "teacherName": "刘展佑",
+   "room": "文体 113"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "G10-1",
+   "teacherName": "宋雯雯",
+   "room": "文体 114"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "G10-2",
+   "teacherName": "邵春晖",
+   "room": "文体 115"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "G10-3",
+   "teacherName": "李梅诺",
+   "room": "文体 116"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "G11-1",
+   "teacherName": "朱专",
+   "room": "文体 102"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "G11-2",
+   "teacherName": "凌峰杰",
+   "room": "文体 103"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "G11-3",
+   "teacherName": "刘丹",
+   "room": "文体 104"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "G12",
+   "teacherName": "卢琦",
+   "room": "冬蕴楼 102"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "Pre-1",
+   "teacherName": "刘禹函",
+   "room": "文体 112"
+  },
+  {
+   "day": "周二",
+   "period": 10,
+   "cls": "Pre-2",
+   "teacherName": "陈逸飞",
+   "room": "文体 113"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "G10-1",
+   "teacherName": "宋雯雯",
+   "room": "文体 114"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "G10-2",
+   "teacherName": "邵春晖",
+   "room": "文体 115"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "G10-3",
+   "teacherName": "李梅诺",
+   "room": "文体 116"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "G11-1",
+   "teacherName": "朱专",
+   "room": "文体 102"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "G11-2",
+   "teacherName": "凌峰杰",
+   "room": "文体 103"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "G11-3",
+   "teacherName": "刘丹",
+   "room": "文体 104"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "G12",
+   "teacherName": "卢琦",
+   "room": "冬蕴楼 102"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "Pre-1",
+   "teacherName": "刘禹函",
+   "room": "文体 112"
+  },
+  {
+   "day": "周二",
+   "period": 11,
+   "cls": "Pre-2",
+   "teacherName": "陈逸飞",
+   "room": "文体 113"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "G10-1",
+   "teacherName": "石鑫玥",
+   "room": "文体 114"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "G10-2",
+   "teacherName": "李梅诺",
+   "room": "文体 115"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "G10-3",
+   "teacherName": "朱专",
+   "room": "文体 116"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "G11-1",
+   "teacherName": "刘丹",
+   "room": "文体 102"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "G11-2",
+   "teacherName": "赵丁霓",
+   "room": "文体 103"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "G11-3",
+   "teacherName": "晏海花",
+   "room": "文体 104"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "G12",
+   "teacherName": "石琪",
+   "room": "冬蕴楼 102"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "Pre-1",
+   "teacherName": "郭林",
+   "room": "文体 112"
+  },
+  {
+   "day": "周三",
+   "period": 10,
+   "cls": "Pre-2",
+   "teacherName": "刘展佑",
+   "room": "文体 113"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "G10-1",
+   "teacherName": "石鑫玥",
+   "room": "文体 114"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "G10-2",
+   "teacherName": "李梅诺",
+   "room": "文体 115"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "G10-3",
+   "teacherName": "朱专",
+   "room": "文体 116"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "G11-1",
+   "teacherName": "刘丹",
+   "room": "文体 102"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "G11-2",
+   "teacherName": "赵丁霓",
+   "room": "文体 103"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "G11-3",
+   "teacherName": "晏海花",
+   "room": "文体 104"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "G12",
+   "teacherName": "石琪",
+   "room": "冬蕴楼 102"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "Pre-1",
+   "teacherName": "郭林",
+   "room": "文体 112"
+  },
+  {
+   "day": "周三",
+   "period": 11,
+   "cls": "Pre-2",
+   "teacherName": "刘展佑",
+   "room": "文体 113"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "G10-1",
+   "teacherName": "简汐洳",
+   "room": "文体 114"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "G10-2",
+   "teacherName": "赵睿佳",
+   "room": "文体 115"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "G10-3",
+   "teacherName": "石鑫玥",
+   "room": "文体 116"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "G11-1",
+   "teacherName": "陈逸飞",
+   "room": "文体 102"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "G11-2",
+   "teacherName": "凌峰杰",
+   "room": "文体 103"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "G11-3",
+   "teacherName": "高峰",
+   "room": "文体 104"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "G12",
+   "teacherName": "卢琦",
+   "room": "冬蕴楼 102"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "Pre-1",
+   "teacherName": "邵春晖",
+   "room": "文体 112"
+  },
+  {
+   "day": "周四",
+   "period": 10,
+   "cls": "Pre-2",
+   "teacherName": "刘禹函",
+   "room": "文体 113"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "G10-1",
+   "teacherName": "简汐洳",
+   "room": "文体 114"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "G10-2",
+   "teacherName": "赵睿佳",
+   "room": "文体 115"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "G10-3",
+   "teacherName": "石鑫玥",
+   "room": "文体 116"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "G11-1",
+   "teacherName": "陈逸飞",
+   "room": "文体 102"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "G11-2",
+   "teacherName": "凌峰杰",
+   "room": "文体 103"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "G11-3",
+   "teacherName": "高峰",
+   "room": "文体 104"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "G12",
+   "teacherName": "卢琦",
+   "room": "冬蕴楼 102"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "Pre-1",
+   "teacherName": "邵春晖",
+   "room": "文体 112"
+  },
+  {
+   "day": "周四",
+   "period": 11,
+   "cls": "Pre-2",
+   "teacherName": "刘禹函",
+   "room": "文体 113"
+  }
+ ]
+}

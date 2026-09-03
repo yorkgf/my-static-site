@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>oh test</title></head>
+<body>
+<iframe id="f" src="../../officehour.html" style="width:1200px;height:900px"></iframe>
+<pre id="out"></pre>
+<script>
+const out = [];
+const log = (...a) => out.push(a.join(' '));
+const ok = (name, cond, extra='') => log((cond ? '✓ PASS ' : '✗ FAIL ') + name + (extra ? '  → ' + extra : ''));
+
+window.onerror=function(m,src,l,c){ out.push('!! UNCAUGHT: '+m+' @'+l+':'+c); document.getElementById('out').textContent=out.join('\n'); document.title='JSERROR@'+l+':'+c; };
+f.onload = async () => {
+ try{
+  const w = f.contentWindow, d = w.document;
+  const $ = s => d.querySelector(s);
+  const $$ = s => [...d.querySelectorAll(s)];
+  const txt = e => (e ? e.textContent.replace(/\s+/g,' ').trim() : '');
+  const setInput = (v) => { $('#q').value = v; $('#q').dispatchEvent(new w.Event('input',{bubbles:true})); };
+  const rows = () => $$('tr[data-key]').map(r => r.dataset.key);
+  const hits = () => $$('tr.hit').map(r => r.dataset.key);
+  const dims = () => $$('tr.dim').length;
+  const cards = () => $$('.tcard').length;
+  const cardName = i => txt($$('.tcard')[i]?.querySelector('.tname'));
+  const cardRows = i => $$('.tcard')[i] ? [...$$('.tcard')[i].querySelectorAll('.trows li')].map(li => txt(li)) : [];
+
+  log('=== 主题切换 ===');
+  const html = d.documentElement;
+  ok('默认为浅色（无 data-theme 或 =light）',
+     !html.dataset.theme || html.dataset.theme === 'light', 'theme=' + html.dataset.theme);
+  ok('背景确实是浅色', (() => { const c = w.getComputedStyle(d.body).backgroundColor.match(/\d+/g).map(Number); return c[0] > 200 && c[1] > 200; })(),
+     w.getComputedStyle(d.body).backgroundColor);
+  const tbtn = d.getElementById('themeBtn');
+  ok('按钮显示“深色”入口', /深色/.test(tbtn.textContent), tbtn.textContent);
+  const inkLight = w.getComputedStyle(html).getPropertyValue('--ink').trim();
+  tbtn.click();
+  ok('点击后切到深色', html.dataset.theme === 'dark', 'theme=' + html.dataset.theme);
+  ok('按钮文案变“浅色”', /浅色/.test(tbtn.textContent), tbtn.textContent);
+  ok('aria-pressed 同步', tbtn.getAttribute('aria-pressed') === 'true');
+  // body 上有 color 过渡，直接读渲染值会拿到插值中间态，所以比对 token
+  ok('正文颜色 token 随之改变',
+     w.getComputedStyle(html).getPropertyValue('--ink').trim() !== inkLight,
+     inkLight + ' → ' + w.getComputedStyle(html).getPropertyValue('--ink').trim());
+  let stored = null; try { stored = w.localStorage.getItem('ohTheme'); } catch (e) {}
+  ok('选择已写入 localStorage', stored === 'dark', String(stored));
+  tbtn.click();
+  ok('再点切回浅色', html.dataset.theme === 'light', 'theme=' + html.dataset.theme);
+
+  log('\n=== 初始状态 ===');
+  ok('默认按班级视图 9 行', rows().length === 9, rows().join(','));
+  ok('初始 20 张老师卡片', cards() === 20, String(cards()));
+  ok('初始无高亮/淡化', hits().length===0 && dims()===0);
+  ok('周五列为 —', txt($$('#grid tbody tr:not(.band)')[0].children[5]) === '—');
+
+  log('\n=== 时间显示 ===');
+  const badges = txt($('#badges'));
+  ok('两个节次的时间都出现在顶部', /18:30–19:20/.test(badges) && /19:40–20:30/.test(badges), badges.replace(/\s+/g,' '));
+  const bands = $$('#grid tr.band').map(b => txt(b));
+  ok('默认合并：1 个时间带', bands.length === 1, JSON.stringify(bands));
+  ok('合并带同时标出两节时间', /第10节 ＋ 第11节/.test(bands[0]) && /18:30–19:20/.test(bands[0]) && /19:40–20:30/.test(bands[0]), bands[0]);
+  const t1 = $$('#grid tr.band .btime').length;
+  ok('时间带里有 2 个时间值', t1 === 2, String(t1));
+
+  log('\n=== 逐节展开 ===');
+  const splitBtn = d.querySelector('button[data-split="1"]');
+  ok('合并可行时显示切换按钮', !!splitBtn && d.getElementById('perSeg').hidden === false);
+  splitBtn.click();
+  const bands2 = $$('#grid tr.band').map(b => txt(b));
+  ok('展开后 2 个时间带', bands2.length === 2, JSON.stringify(bands2));
+  ok('第一带 = 第10节 18:30–19:20', /第10节/.test(bands2[0]) && /18:30–19:20/.test(bands2[0]) && !/19:40/.test(bands2[0]), bands2[0]);
+  ok('第二带 = 第11节 19:40–20:30', /第11节/.test(bands2[1]) && /19:40–20:30/.test(bands2[1]), bands2[1]);
+  ok('展开后班级行出现两次 (9×2)', $$('tr[data-key]').length === 18, String($$('tr[data-key]').length));
+  const g101a = $$('tr[data-key="G10-1"]');
+  ok('两段里 G10-1 都是李楚翘', txt(g101a[0].children[1]).includes('李楚翘') && txt(g101a[1].children[1]).includes('李楚翘'));
+  d.querySelector('button[data-split="0"]').click();
+  ok('切回合并后恢复 9 行', $$('tr[data-key]').length === 9, String($$('tr[data-key]').length));
+  // 回归：合并组里两个节次内容相同，格子不能被写遗两遍
+  let dup = 0;
+  $$('#grid tbody tr[data-key]').forEach(tr => [...tr.children].slice(1).forEach(td => {
+      const who = [...td.querySelectorAll('.who')].map(e => txt(e));
+      if (who.length !== new Set(who).size || who.length > 1) dup++;
+  }));
+  ok('合并模式下无重复单元格内容', dup === 0, 'dup=' + dup);
+  let whoCounts = $$('#grid tbody tr[data-key="G10-1"] td:not(.off)').map(td => td.querySelectorAll('.who').length);
+  ok('合并模式每格恰好 1 位老师', whoCounts.every(n => n === 1), JSON.stringify(whoCounts));
+
+  log('\n=== 卡片上必须有具体时间 ===');
+  setInput('');
+  ok('每张卡片都带时间', $$('#results .tcard').length === 20 &&
+     $$('#results .tcard').every(c => c.querySelectorAll('.ttime').length === c.querySelectorAll('li').length &&
+                                    c.querySelectorAll('.ttime').length > 0),
+     'cards=' + $$('#results .tcard').length + ' times=' + $$('#results .tcard .ttime').length + ' li=' + $$('#results .tcard .trows li').length);
+  ok('每张卡片的时间格非空', $$('#results .ttime').every(e => /\d{1,2}:\d{2}/.test(txt(e))));
+  setInput('李楚翘');
+  const line0 = txt($$('.tcard .trows li')[0]);
+  ok('卡片行含两节时间', /18:30–19:20/.test(line0) && /19:40–20:30/.test(line0), line0);
+  ok('卡片行含星期+班级+教室', /周一/.test(line0) && /G10-1/.test(line0) && /文体 114/.test(line0), line0);
+  setInput('高峰');
+  const gfLines = cardRows(0);
+  ok('跨节次/跨班时逐行标时间', gfLines.every(l => /18:30–19:20/.test(l)), gfLines.join(' | '));
+
+  log('\n=== 中文姓名搜索 ===');
+  setInput('李楚翘');
+  ok('只剩 1 张卡片', cards() === 1, cardName(0));
+  ok('卡片内容正确', /^周一18:30–19:20 ＋ 19:40–20:30G10-1 @ 文体 114$/.test(cardRows(0)[0]), cardRows(0)[0]);
+  ok('按班级表高亮 G10-1', hits().join() === 'G10-1', hits().join());
+  ok('其余行淡化', dims() === 8, String(dims()));
+  ok('命中处有 mark 高亮', d.querySelectorAll('#grid mark').length > 0);
+
+  log('\n=== 全拼搜索 ===');
+  setInput('songwenwen');
+  ok('搜到 宋雯雯', cardName(0) === '宋雯雯', cardName(0));
+  ok('宋雯雯 2 天值班', cardRows(0).length === 2, cardRows(0).join(' | '));
+  ok('宋雯雯卡片每天都带时间', cardRows(0).every(l => /18:30–19:20/.test(l)), cardRows(0).join(' | '));
+
+  log('\n=== 首字母搜索 ===');
+  setInput('lcq');
+  ok('lcq → 李楚翘', cards() === 1 && cardName(0) === '李楚翘', cardName(0));
+  setInput('gl');
+  const gl = $$('.tcard').map((_,i)=>cardName(i));
+  ok('gl 匹配含 "gl" 的老师', gl.includes('郭林'), gl.join(','));
+
+  log('\n=== 只输入姓氏（模糊） ===');
+  setInput('刘');
+  const liu = $$('.tcard').map((_,i)=>cardName(i)).sort();
+  ok('3 位刘老师', liu.length === 3, liu.join(','));
+  setInput('liu');
+  const liu2 = $$('.tcard').map((_,i)=>cardName(i)).sort();
+  ok('拼音 liu → 同样 3 位', liu2.join()===liu.join(), liu2.join(','));
+
+  log('\n=== 班级搜索 ===');
+  setInput('G11-2');
+  const g = $$('.tcard').map((_,i)=>cardName(i)).sort();
+  ok('G11-2 命中 3 位老师', g.join(',')==='凌峰杰,赵丁霓,赵睿佳', g.join(','));
+  ok('班级搜索时按班级表高亮相应行', hits().includes('G11-2'), hits().join());
+
+  log('\n=== 教室搜索 ===');
+  setInput('冬蕴楼');
+  const r = $$('.tcard').map((_,i)=>cardName(i)).sort();
+  ok('冬蕴楼 → 卢琦/石琪/高峰', r.join(',')==='卢琦,石琪,高峰', r.join(','));
+
+  log('\n=== 无结果 ===');
+  setInput('zzzz不存在的老师');
+  ok('0 张卡片', cards() === 0);
+  ok('显示空状态提示', $('#noResult').hidden === false);
+
+  log('\n=== 清空 ===');
+  $('#clearBtn').click();
+  ok('恢复 20 张卡片', cards() === 20, String(cards()));
+  ok('恢复无高亮', hits().length === 0 && dims() === 0);
+
+  log('\n=== 切换 按老师看 ===');
+  d.querySelector('button[data-view="teacher"]').click();
+  ok('20 行', rows().length === 20, String(rows().length));
+  const firstTeacherRow = $('#grid tbody tr[data-key]');
+  log('  首行:', txt(firstTeacherRow));
+  ok('首行是 陈逸飞(按拼音)', txt(firstTeacherRow).includes('陈逸飞'), txt(firstTeacherRow));
+
+  log('\n=== 按老师视图数据校验 (陈逸飞) ===');
+  setInput('陈逸飞');
+  const cyf = $$('tr[data-key="陈逸飞"]')[0];
+  const cyfCells = [...cyf.children].map(c => txt(c).replace(/\s+/g,' '));
+  log('  行内容:', JSON.stringify(cyfCells));
+  ok('陈逸飞 周二 Pre-2', cyfCells[2].includes('Pre-2') && cyfCells[2].includes('113'), cyfCells[2]);
+  ok('陈逸飞 周四 G11-1', cyfCells[4].includes('G11-1'), cyfCells[4]);
+  ok('陈逸飞 周一/周三/周五为 —', cyfCells[1]==='—' && cyfCells[3]==='—' && cyfCells[5]==='—');
+  $('#clearBtn').click();
+
+  log('\n=== 班级下拉筛选 ===');
+  const sel = $('#classSel');
+  ok('下拉含 9 个班级', sel.options.length === 10, String(sel.options.length-1));
+  sel.value = 'G12';
+  sel.dispatchEvent(new w.Event('change',{bubbles:true}));
+  ok('自动切回按班级视图', rows()[0] === 'G10-1', rows()[0]);
+  ok('G12 行被高亮', hits().includes('G12'), hits().join());
+  const g12 = [...$$('#grid tbody tr[data-key="G12"]')[0].children].map(c=>txt(c));
+  log('  G12 行:', JSON.stringify(g12));
+  ok('G12 周一 高峰@冬蕴楼', g12[1].includes('高峰') && g12[1].includes('冬蕴楼'), g12[1]);
+  ok('G12 周二/周四 卢琦', g12[2].includes('卢琦') && g12[4].includes('卢琦'), g12[2]+' | '+g12[4]);
+  ok('G12 周三 石琪', g12[3].includes('石琪'), g12[3]);
+
+  log('\n=== 点 chip 搜索 ===');
+  sel.value=''; sel.dispatchEvent(new w.Event('change',{bubbles:true}));
+  const chip = $$('.chip').find(c => txt(c).startsWith('高峰'));
+  chip.click();
+  ok('点 chip 填入搜索框', $('#q').value === '高峰', $('#q').value);
+  ok('只剩 1 张卡片', cards() === 1, cardName(0));
+  $$('.chip').find(c => txt(c).startsWith('高峰')).click();
+  ok('再点取消', $('#q').value === '', $('#q').value);
+  ok('取消后恢复 20 张卡片', cards() === 20, String(cards()));
+
+  log('\n=== 点卡片跳到该老师行 ===');
+  setInput('郭林');
+  $('.tcard').click();
+  ok('切到按老师视图', rows().length === 20);
+  ok('郭林行高亮', hits().includes('郭林'), hits().join());
+  ok('搜索框填入老师名', $('#q').value === '郭林');
+
+  log('\n=== 数据完整性：总槽位 ===');
+  $('#clearBtn').click();
+  d.querySelector('button[data-view="class"]').click();
+  let total = 0;
+  $$('#grid tbody tr:not(.band)').forEach(tr => [...tr.children].slice(1).forEach(td => { if(!td.classList.contains('off')) total++; }));
+  ok('按班级表共 36 格有课 (9班×4天)', total === 36, String(total));
+  d.querySelector('button[data-view="teacher"]').click();
+  let total2 = 0;
+  $$('#grid tbody tr:not(.band)').forEach(tr => [...tr.children].slice(1).forEach(td => { if(!td.classList.contains('off')) total2++; }));
+  ok('按老师表也是 36 格', total2 === 36, String(total2));
+  d.querySelector('button[data-view="class"]').click();
+
+  log('\n=== 数据来源：快照 / 实时 / 后端故障兜底 ===');
+  const OH = w.OH;
+  const SNAP = OH.snapshot;
+  ok('页面暴露 OH 测试接口', !!OH && typeof OH.applyData === 'function');
+  let st = OH.state();
+  ok('默认为快照模式', st.mode === 'snapshot' && st.slots === 72 && st.classes.length === 9,
+     JSON.stringify({ mode: st.mode, slots: st.slots, classes: st.classes.length }));
+  ok('状态条说明是学期初快照', /学期初快照/.test(txt(d.getElementById('dataStatus'))), txt(d.getElementById('dataStatus')));
+  ok('状态条有老师登录入口', !!d.querySelector('#dataStatus a[href="officehour-admin.html"]'));
+
+  // 模拟后端返回一份不一样数据（新增班级/老师 + 老师写的备注）
+  const LIVE = {
+    term: '26-27',
+    periods: [{ p: 10, label: '第10节', time: '18:30–19:20' }, { p: 11, label: '第11节', time: '19:40–20:30' }],
+    updatedAt: '2026-10-05T02:30:00.000Z',
+    slots: [
+      { day: '周一', period: 10, cls: 'G10-1', teacherName: '张老师', room: '文体 114', note: '临时调到 203' },
+      { day: '周一', period: 11, cls: 'G10-1', teacherName: '张老师', room: '文体 114', note: '' },
+      { day: '周一', period: 10, cls: 'G99-新班', teacherName: '李老师', room: '冬蕴楼 9', note: '' },
+      { day: '周二', period: 11, cls: 'G99-新班', teacherName: '李老师', room: '冬蕴楼 9', note: '' },
+    ],
+  };
+  const realFetch = w.fetch;
+  w.fetch = () => Promise.resolve(new w.Response(JSON.stringify(LIVE), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+  OH.setApiBase('https://mock.invalid');
+  await OH.loadLive();
+  st = OH.state();
+  ok('拉到后端数据后切为实时模式', st.mode === 'live' && st.slots === 4, JSON.stringify({ mode: st.mode, slots: st.slots }));
+  ok('班级/老师列表按实时数据重建', st.classes.includes('G99-新班') && st.teachers === 2, JSON.stringify(st.classes));
+  ok('表格出现新班级', !!$('tr[data-key="G99-新班"]'), '找不到 G99-新班 行');
+  ok('老师备注在卡片上展示', /临时调到 203/.test(d.getElementById('results').textContent));
+  ok('状态条显示实时数据与更新时间', /实时数据/.test(txt(d.getElementById('dataStatus'))) && /2026-10-05/.test(txt(d.getElementById('dataStatus'))),
+     txt(d.getElementById('dataStatus')));
+  ok('拼音缺失不影响姓名搜索', (() => { setInput('张老师'); return cards() === 1; })());
+
+  // 后端挂掉：已拿到过真数据时继续展示上次结果，但要说“可能不是最新”
+  w.fetch = () => Promise.reject(new Error('network down'));
+  OH.setApiBase('https://mock.invalid');
+  await OH.loadLive();
+  st = OH.state();
+  ok('刷新失败保留上次实时数据（不跳回快照）', st.mode === 'stale' && st.slots === 4, JSON.stringify({ mode: st.mode, slots: st.slots }));
+  ok('保留数据时诚实标注“可能不是最新”', /可能不是最新/.test(txt(d.getElementById('dataStatus'))), txt(d.getElementById('dataStatus')));
+  ok('后端故障不白屏（表格仍有内容）', $$('tr[data-key]').length > 0 && cards() >= 0);
+
+  // 完全没后端：直接用快照
+  w.fetch = realFetch;
+  OH.setApiBase('');
+  st = OH.state();
+  ok('清空 apiBase 后不再请求', st.apiBase === '');
+
+  log('\n=== 后端返回脏数据时的护栏 ===');
+  const stub = obj => {
+    w.fetch = () => Promise.resolve(new w.Response(JSON.stringify(obj), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+    OH.setApiBase('https://mock.invalid');
+    return OH.loadLive();
+  };
+  OH.applyData({ slots: SNAP.slots, teachers: SNAP.teachers, periods: SNAP.periods, mode: 'snapshot', stamp: '' });
+
+  // 学期对不上（实际踩过：OH_TERM 被终端的 TERM 污染）——绝不能拿空表盖掉学生看到的课表
+  await stub({ term: 'xterm-256color', periods: LIVE.periods, slots: [] });
+  st = OH.state();
+  ok('学期不一致时不进入实时模式', st.mode === 'snapshot' && st.slots === 72, JSON.stringify({ mode: st.mode, slots: st.slots }));
+  ok('状态条说出真正原因（学期不一致）', /不一致/.test(txt(d.getElementById('dataStatus'))), txt(d.getElementById('dataStatus')));
+  ok('护栏触发后表格仍有 9 个班', d.querySelectorAll('tr[data-key]').length === 9,
+     String(d.querySelectorAll('tr[data-key]').length));
+
+  // 同学期但空数组：同样不覆盖
+  await stub({ term: SNAP.term, periods: LIVE.periods, slots: [] });
+  ok('空排班不覆盖快照', OH.state().mode === 'snapshot' && OH.state().slots === 72, JSON.stringify(OH.state().slots));
+
+  // 行形状不对：丢坏行、留好行，不白屏
+  OH.applyData({ slots: [['周一', 10, 'G10-1', '甲', 'R1', ''], null, ['x'], 'string', ['周二', 11, 'G10-2', '乙', 'R2', '']] });
+  OH.refresh();                     // applyData 只换数据，重绘要另外调（loadLive 里就是这么做的）
+  st = OH.state();
+  ok('坏形状行被丢弃、好行保留', st.slots === 2, 'slots=' + st.slots);
+  ok('坏行不会让页面白屏', d.querySelectorAll('tr[data-key]').length === 2 && /甲/.test(d.getElementById('grid').textContent),
+     String(d.querySelectorAll('tr[data-key]').length));
+
+  // 5 字段行（内嵌快照的形状，无 note）+ period 必须仍是数字，否则 s[1] === p 会静静失配
+  OH.applyData({ slots: [['周一', 10, 'G10-1', '甲', 'R1'], ['周二', 11, 'G10-1', '乙', 'R2', '备注']] });
+  OH.refresh();
+  ok('5 字段（无 note）的行也能被接受', OH.state().slots === 2, 'slots=' + OH.state().slots);
+  ok('period 保持数字→能落进正确节次带', (() => {
+      d.querySelector('button[data-split="1"]').click();
+      const bands = [...d.querySelectorAll('#grid tr.band')];
+      const r = [...d.querySelectorAll('tr[data-key="G10-1"]')].map(x => x.textContent.replace(/\s+/g, ' ')).join('|');
+      d.querySelector('button[data-split="0"]').click();
+      return bands.length === 2 && /甲/.test(r) && /乙/.test(r);
+  })(), '节次带归属不对');
+  ok('归一化后 note 缺失补为空串不影响备注渲染', /R2/.test(d.getElementById('grid').textContent));
+
+  w.fetch = realFetch; OH.setApiBase('');
+  OH.applyData({ slots: SNAP.slots, teachers: SNAP.teachers, periods: SNAP.periods });
+  OH.refresh();
+  ok('恢复全量 72 条', OH.state().slots === 72, 'slots=' + OH.state().slots);
+
+  log('\n=== 刷新后保留主题（防按钮文案不同步）===');
+  try { w.localStorage.setItem('ohTheme', 'dark'); } catch (e) {}
+  await new Promise(res => { f.onload = res; f.src = '../../officehour.html?r=' + Date.now(); });
+  const dd = f.contentDocument, ww = f.contentWindow;
+  ok('重进页面自动为深色', dd.documentElement.dataset.theme === 'dark', dd.documentElement.dataset.theme);
+  ok('按钮文案同步为“浅色”入口', /浅色/.test(dd.getElementById('themeBtn').textContent),
+     dd.getElementById('themeBtn').textContent);
+  ok('背景为深色', (() => { const c = ww.getComputedStyle(dd.body).backgroundColor.match(/\d+/g).map(Number);
+      return c[0] < 60 && c[1] < 60; })(), ww.getComputedStyle(dd.body).backgroundColor);
+  ok('深色下表格仍完整', dd.querySelectorAll('tr[data-key]').length === 9,
+     String(dd.querySelectorAll('tr[data-key]').length));
+  try { ww.localStorage.removeItem('ohTheme'); } catch (e) {}
+
+  window.document.getElementById('out').textContent = out.join('\n');
+  document.title = 'DONE ' + (out.some(l=>l.startsWith('✗')) ? 'FAIL' : 'ALL PASS');
+ }catch(e){ out.push('!! THROW: '+e.message+' | '+(e.stack||'').split('\n').slice(0,4).join(' <- ')); document.getElementById('out').textContent=out.join('\n'); document.title='THROWN'; }
+};
+</script>
+</body></html>

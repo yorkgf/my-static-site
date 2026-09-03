@@ -12,3 +12,6 @@ server/
 .git/
 .gitignore
 CLAUDE.md
+
+# Office Hour 数据源与测试（officehour.html 已把数据内嵌，无需上传）
+OfficeHour/

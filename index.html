@@ -248,6 +248,32 @@
             transform: translateY(-2px);
         }
 
+        /* 工具入口行 */
+        .tools-row {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+            justify-content: center; align-items: center;
+        }
+        .tool-link.gold {
+            border-color: rgba(255, 179, 71, .6);
+            color: #ffcf7a;
+            background: rgba(255, 179, 71, .08);
+            box-shadow: 0 0 20px rgba(255, 179, 71, .25);
+        }
+        .tool-link.gold:hover {
+            background: rgba(255, 179, 71, .2);
+            box-shadow: 0 0 35px rgba(255, 179, 71, .55);
+        }
+
+        /* 首页快捷入口（欢迎页） */
+        .quick-links { margin-top: 2.5rem; display: flex; gap: 1.4rem; flex-wrap: wrap; justify-content: center; }
+        .quick-links a {
+            color: rgba(255, 255, 255, .62); text-decoration: none;
+            font-size: clamp(.85rem, 2.2vw, 1.05rem); letter-spacing: .04em;
+            border-bottom: 1px dotted rgba(255, 255, 255, .3); padding-bottom: .15rem;
+            transition: color .2s, border-color .2s;
+        }
+        .quick-links a:hover { color: #ffcf7a; border-color: rgba(255, 179, 71, .7); }
+
         .planet {
             width: 150px;
             height: 150px;
@@ -279,6 +305,10 @@
             <h1>Welcome to GHA</h1>
             <h3>Explore our courses</h3>
             <p style="font-style: italic; opacity: 0.8;">Begin your science adventure</p>
+            <nav class="quick-links">
+                <a href="officehour.html">🕑 教师 Office Hour</a>
+                <a href="wordcloud.html">☁️ 课堂词云</a>
+            </nav>
         </div>
 
         <!-- Slide 2: Computer Science -->
@@ -331,7 +361,10 @@
         <div class="slide" data-slide="5">
             <h2>To Continue</h2>
             <p style="font-style: italic; opacity: 0.8; font-size: clamp(1.2rem, 3.5vw, 1.8rem);">This section will be completed in the future...</p>
-            <a href="wordcloud.html" class="tool-link">☁️ 课堂词云 · Word Cloud</a>
+            <div class="tools-row">
+                <a href="officehour.html" class="tool-link gold">🕑 教师 Office Hour</a>
+                <a href="wordcloud.html" class="tool-link">☁️ 课堂词云 · Word Cloud</a>
+            </div>
             <div class="planet-container">
                 <div class="planet"></div>
             </div>

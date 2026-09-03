@@ -3,13 +3,24 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-Static educational website for GHA offering **7 AP courses**: APCSA, APCSP, APPhysicsC, APPhysics1, APBusiness, APCyber, APStat. Space-themed interactive landing page with custom slide system, course-specific syllabus pages with tabbed interfaces, an interactive knowledge graph (APPhysicsC only), and a **slide presentation system** (APBusiness).
+Static educational website for GHA offering **7 AP courses**: APCSA, APCSP, APPhysicsC, APPhysics1, APBusiness, APCyber, APStat. Space-themed interactive landing page with custom slide system, course-specific syllabus pages with tabbed interfaces, an interactive knowledge graph (APPhysicsC only), a **slide presentation system** (APBusiness), a classroom **word cloud** tool, and a student-facing **teacher Office Hour directory** (searchable, built from `OfficeHour/总课表.xlsx`).
 
 > **Note:** `AGENTS.md` is legacy and only documents 3 of the 7 courses (APCSA, APCSP, APPhysicsC). Prefer this file as the source of truth.
 
 ## Architecture
 ```
 ├── index.html              # Landing page: custom slide system (NOT Reveal.js), vanilla JS, self-contained
+├── officehour.html         # Teacher Office Hour / 晚自习值班表 (students; live data + snapshot fallback)
+├── officehour-admin.html   # Teacher self-service login + edit (not linked publicly)
+├── wordcloud.html          # Student-facing classroom word cloud
+├── wordcloud-admin.html    # Teacher-facing word cloud console
+├── OfficeHour/             # Excel source + data pipeline + cloud function + tests
+│   ├── 总课表.xlsx          # SOURCE OF TRUTH for the schedule
+│   ├── build_data.py        # xlsx → inline DATA block + data.json (also runs integrity checks)
+│   ├── data.json            # generated; input to the seeder
+│   ├── check_teacher_identity.py  # read-only audit of Teachers.Name vs the Excel
+│   ├── api/                 # Tencent SCF Web function (login reuses FADsys GHA.Teachers)
+│   └── tests/               # Chrome-headless functional / responsive / contrast / e2e / live-check
 ├── css/                    # Global shared CSS (starfield, animations)
 ├── js/                     # Global shared JS (starfield, animations, visual effects)
 ├── deploy.sh               # Prepare files for EdgeOne Pages deployment
@@ -30,6 +41,143 @@ Static educational website for GHA offering **7 AP courses**: APCSA, APCSP, APPh
 ```
 
 **Key rule**: Course pages are mostly self-contained (inline CSS/JS). Global `css/` and `js/` exist but aren't used by course pages.
+
+## Office Hour (教师值班 / Office Hour)
+
+Feature folder: `OfficeHour/` (Excel source + data pipeline + cloud function + tests).
+Pages live at the repo root like other site pages: `officehour.html` (students) and
+`officehour-admin.html` (teachers self-service).
+
+### Pieces
+
+| Path | Role |
+|---|---|
+| `OfficeHour/总课表.xlsx` | **SOURCE OF TRUTH** for the schedule |
+| `OfficeHour/build_data.py` | xlsx → inline `/* DATA-BEGIN…END */` block + `OfficeHour/data.json`; warns on double-bookings (same teacher, same period, two classes) and unparsed rows; **hard-fails if a teacher has no `PINYIN` entry**. It deliberately does **not** warn about two classes sharing a room — see the note below |
+| `OfficeHour/data.json` | Generated export consumed by the seeder |
+| `officehour.html` | Student page. No framework, no build step. |
+| `officehour-admin.html` | Teacher login + edit. Not linked publicly. |
+| `OfficeHour/api/` | Tencent **SCF Web function** (Node/Express/MongoDB, ESM) |
+| `OfficeHour/api/src/conflicts.js` | The self-service safety net: conflict checks, deletion ledger, class registry |
+| `OfficeHour/tests/` | Browser-driven test suites |
+
+### Student page behaviour
+
+- **Data**: embedded `SNAPSHOT` (学期初快照) is the **fallback**; if `OH_API_BASE` is configured the page
+  fetches `GET /api/officehours` and overlays live data via `applyData()` → `derive()`. If the backend is
+  down the page still renders the snapshot — students never see a blank page. The status line shows
+  实时数据 vs 学期初快照.
+- **Three data states, and the table always matches the label**: `snapshot` → `live` → `stale`.
+  On a failed refresh *after* a successful one, the page keeps the last real data and labels it
+  「可能不是最新」 (a flaky network must not throw away a teacher's room change). If bad data is
+  rejected **before** any successful load, it reverts to the snapshot **and repaints** — `applyData()`
+  only swaps data in, `refresh()` draws; doing one without the other is how you get a table that
+  contradicts its own status line.
+- **Guards on backend data** (`loadLive`): refuses to overlay when `slots` is empty or when the
+  server's `term` ≠ the snapshot's `term` (both mean misconfiguration, and an empty table shown to
+  students is much worse than a stale one). `applyData()` also normalises rows and drops malformed ones
+  — keep `period` a **number**, since lots of comparisons are `slot[1] === p`.
+- **Total table** with two views: 「按班级看」(rows = classes, cols = 周一–周五) and
+  「按老师看」(rows = teachers). Sticky first column, horizontally scrollable on phones.
+- **Times explicit everywhere** — badges list each period (`第10节 18:30–19:20`), the table uses
+  **period bands**, and every teacher-card line carries its own time label. A 「两节合并 / 逐节展开」
+  toggle appears only when the periods really are identical; if a teacher edits just one period's room,
+  `merged` recomputes to false and the page auto-splits into two bands.
+- **Teacher search**: Chinese name, full pinyin, or initials (`李楚翘` / `lichuqiao` / `lcq`), plus
+  class (`G10-1`) and room (`文体 114`). Table highlights hits, dims non-hits; quick-pick chips.
+- Pinyin lives only in `build_data.py`'s `PINYIN` dict. Live data from the API has no pinyin, so
+  `teacherListFrom()` re-attaches it from the snapshot; new teachers degrade to name-only search.
+- **Do not hardcode clock times/periods in page logic** — they come from the generated `SNAPSHOT.periods`.
+
+### Theme
+
+- Light (亮色) is the **DEFAULT**; `🌙 深色 / ☀️ 浅色` toggles `<html data-theme>` and persists to
+  `localStorage['ohTheme']`. A `<head>` script applies it before first paint (no flash). Printing is
+  **forced light in both themes** (verified by rasterising the print PDF: 0.969 luminance either way).
+- **Design tokens are mandatory.** Every colour comes from `:root` (light) / `[data-theme="dark"]` —
+  `--ink`, `--muted`, `--accent`, `--blue`, `--panel`, `--field`, `--chip`, `--thead`, `--sticky`,
+  `--line`, `--btn`, `--seg-on`, `--mark`, `--dtag`, `--card`, `--callout`, `--shadow*`, `--h1`.
+  **Never write a raw `rgba()`/hex inside a rule.** `@media print` re-declares tokens on
+  `:root, [data-theme="dark"]` (both selectors, so the dark block can't win the cascade).
+- `officehour-admin.html` carries a **verbatim copy** of the token block; `run.sh` fails if the two drift.
+
+### Backend: `OfficeHour/api/`
+
+Shares the **same MongoDB and the same `GHA.Teachers` table as FADsys**, so teachers log in with their
+existing FAD credentials. New collections: `Office_Hours`, `Office_Hour_Audit`,
+`Office_Hour_Deletions` (deletion ledger), `Office_Hour_Classes` (class registry).
+
+**Teachers have full self-service over their own rows** — create, delete, and change
+day/period/class/room/note. What is locked is **ownership**: `teacherEmail` always comes from the JWT,
+so nobody can attach a shift to (or steal it from) another account. Admins (`Group` in `S,A`) can
+additionally reassign ownership and bulk-import.
+
+Four guards make full self-service safe (all tested):
+1. unique index `{teacherEmail, term, day, period}` — one teacher can't hold two classes in one period
+2. `findSlotConflict()` before every write — a class already assigned to someone else returns 409
+   **naming that teacher**, because "go talk to them" beats "you conflicted with yourself"
+3. deleting a `fromExcel` row writes a tombstone into `Office_Hour_Deletions`, so `seed.mjs` and the
+   admin import **won't resurrect it**; use `fromExcel`, never `source`, to know a row's origin —
+   `source` means "last writer" and flips to `teacher` the moment someone edits the room
+4. class options come from the persistent `Office_Hour_Classes` registry (incl. classes being vacated),
+   **not** `distinct('cls')` over live rows — that silently deletes a class from the picker as soon as
+   its last row is moved, locking the teacher out
+
+**Room is never validated for collisions.** Several teachers sharing one room in the same period is
+normal — the location is often a teacher's office, and simultaneous consultations don't interfere. The
+only conflicts the system enforces are (a) a class already assigned to another teacher for that period
+and (b) one teacher holding two classes in the same period. `smoke-test.mjs` has two assertions pinned
+to this rule so it doesn't creep back in.
+
+Set `JWT_SECRET` equal to FADsys's for passwordless SSO (token payload `{email, name}` is compatible).
+Admin gate uses `ADMIN_GROUPS=S,A` (mirrors FADsys `userGroups.js` `isAdmin()`, which is wider than its
+own `adminMiddleware` that only accepts `S`).
+
+**The semester env var is `OH_TERM`, not `TERM`** — bare `TERM` is the terminal-type variable, so a
+shell-exported `TERM=xterm-256color` silently overrides `.env` (dotenv never clobbers existing env) and
+the API then queries the wrong semester and returns **0 rows**. This actually happened. When adding
+env vars here, always prefix with `OH_`.
+
+Full API table, security notes and deploy steps: `OfficeHour/api/README.md`.
+
+### Updating the schedule (end-to-end)
+
+```bash
+# 1. edit OfficeHour/总课表.xlsx, then regenerate page data + JSON
+python3 OfficeHour/build_data.py
+
+# 2. push into MongoDB — dry run first, it refuses ambiguous name→email matches
+node OfficeHour/api/scripts/seed.mjs            # 预演（不写库）
+node OfficeHour/api/scripts/seed.mjs --apply    # 真正写入（--force 覆盖老师备注，--prune 删过期）
+
+# 3. deploy
+./deploy.sh                                       # 静态站（两个页面靠 glob 自动入包）
+bash OfficeHour/api/scripts/pack-scf.sh           # 云函数 zip（会自检关键文件、并拒绝把 .env 打进去）
+```
+
+`seed.mjs` resolves teachers via `Teachers.Name` and **aborts on unmatched or duplicate names** so a
+shift can never be silently bound to the wrong account.
+
+### Tests
+
+```bash
+bash OfficeHour/tests/run.sh            # token 一致性 + 98 functional + 73 responsive + 38 contrast
+bash OfficeHour/tests/run.sh --with-e2e # 再加真实浏览器端到端
+node OfficeHour/api/scripts/smoke-test.mjs   # 全量 API 用例（数以运行输出为准）
+bash OfficeHour/tests/live-check.sh <函数URL>  # 部署后自检：学生页确实在读后端
+node OfficeHour/api/scripts/verify-prod.mjs   # 只读核验生产库结构（不写数据）
+```
+`live-check.sh` fails loudly when the API answers but returns 0 rows — that specific shape of
+"deployed but silently empty" is the `OH_TERM` bug above.
+- `tests/officehour.contrast.html` reads live token values for **both** themes, alpha-composites
+  translucent foregrounds, checks every gradient endpoint, enforces WCAG AA (≥4.5:1, ≥3:1 decorative).
+- `tests/e2e.mjs` starts the real API + a temp DB with **synthetic** teacher accounts, drives
+  `officehour-admin.html` through Chrome (login → edit room/note → create a shift → get blocked by a
+  conflict → delete it), then asserts the student page reflects each step and that the writes landed in
+  Mongo — ending with a **no-leftover check** (row count back to 72, no stray tombstones).
+  Both suites use throwaway databases and drop them.
+- Never point the test suites at real teacher accounts: they log in and write.
+
 
 ## Slide System (APBusiness)
 
@@ -98,6 +246,31 @@ All `curriculum.html` pages share a common structure:
 python3 -m http.server 8000   # serve from project root
 ```
 
+### Rebuild Office Hour data
+```bash
+python3 OfficeHour/build_data.py
+```
+
+### Push Office Hour schedule into MongoDB
+```bash
+node OfficeHour/api/scripts/seed.mjs           # dry run
+node OfficeHour/api/scripts/seed.mjs --apply   # write
+# --force 覆盖老师写的备注；--prune 清掉 Excel 已不存在的行（只动 fromExcel 的）；
+# --restore-deleted 把老师删过的格子恢复回来重新导入
+```
+
+### Test Office Hour
+```bash
+bash OfficeHour/tests/run.sh              # token parity + functional + responsive + contrast
+bash OfficeHour/tests/run.sh --with-e2e   # add real-browser end-to-end
+node OfficeHour/api/scripts/smoke-test.mjs
+```
+
+### Package the Office Hour cloud function
+```bash
+bash OfficeHour/api/scripts/pack-scf.sh
+```
+
 ### Build knowledge graph
 ```bash
 cd quartz-gh && npx quartz build -o ../APPhysicsC/knowledge-graph/
@@ -148,15 +321,29 @@ Curriculum pages are built from College Board CED (Course and Exam Description) 
 APBusiness slide source: Marp files in `/home/yorkgf/Documents/Obsidian Vault/AP Business with Personal Finance/Slides/`.
 
 ## Deploy
-Target: **EdgeOne Pages** (Tencent Cloud). Run `./deploy.sh` then upload `deploy/` folder manually. The script copies all 7 course directories plus global assets.
+Target: **EdgeOne Pages** (Tencent Cloud). Run `./deploy.sh` then upload `deploy/` folder manually.
+
+The script copies **all root `*.html`** (glob, so new pages ship automatically), global `css/`+
+`js/`, and all 7 course directories. It then runs a **link-integrity check** that reports any
+`href`/`src` in the package whose target is missing (accepts plain files, directories, and
+Quartz extension-less "clean URLs").
+
+> Historically the script listed root pages by hand, which silently dropped `wordcloud.html`
+> even though the homepage linked to it. That is why it globs now — don't switch it back to an
+> explicit list.
 
 The `deploy/` directory is **gitignored** — `./deploy.sh` wipes and regenerates it on every run. Safe to delete locally.
 
-`.deployignore` excludes: `quartz-gh/`, `APPhysicsC/knowlege graph/`, `.claude/`, `.git/`, `CLAUDE.md`.
+`.deployignore` excludes: `quartz-gh/`, `APPhysicsC/knowlege graph/`, `.claude/`, `.git/`, `CLAUDE.md`, `OfficeHour/` (its data is already embedded in `officehour.html`).
 
 ## Notes
-- No build step for main site (pure HTML/CSS/JS)
+- No build step for main site (pure HTML/CSS/JS) — `officehour.html` is the only file with a
+  regeneration step, and only when the Excel changes
 - No `package.json` at root
 - Anime.js 3.2.1 loaded from CDN on some pages
 - Mixed English/Chinese content
 - `textbook-style.css` needs to be copied to APBusiness, APCyber, APPhysics1 (known issue)
+- Known broken links reported by `deploy.sh` (pre-existing, not yet fixed):
+  `APPhysicsC/syllabus.html` references `css/knowledge-graph.css` and
+  `js/{graph-builder,knowledge-graph,markdown-parser}.js`, none of which exist; plus ~79
+  dangling internal links inside the built `APPhysicsC/knowledge-graph/` (needs a Quartz rebuild)

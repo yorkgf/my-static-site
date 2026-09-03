@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教师 Office Hour · 晚自习值班表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ═══ 设计令牌 ═══════════════════════════════════════════════════
+           所有颜色都必须走 token，新增样式禁止再写死 rgba/hex。
+           默认 = 浅色（亮色）；<html data-theme="dark"> = 深色星空。
+           ═══════════════════════════════════════════════════════════════ */
+        :root {
+            color-scheme: light;
+
+            --bg: #f4f7fc;
+            --bg-image:
+                radial-gradient(1100px 560px at 85% -10%, rgba(29, 78, 216, .09), transparent 60%),
+                radial-gradient(900px 520px at -12% 112%, rgba(180, 83, 9, .07), transparent 60%),
+                radial-gradient(rgba(23, 45, 90, .10) 1.6px, transparent 2.4px),
+                radial-gradient(rgba(23, 45, 90, .07) 1px, transparent 1.6px);
+
+            --ink: #17253c;            /* 正文 */
+            --ink-strong: #0b1526;     /* 强调文字 */
+            --muted: #55657f;          /* 次要文字，白底对比 5.6:1 */
+            --faint: #7a8aa3;          /* 空格占位符等 */
+
+            --accent: #9a5a06;         /* 老师姓名 / 节次标签，白底 5.9:1 */
+            --accent-ink: #7c4500;
+            --accent-line: rgba(180, 83, 9, .34);
+            --accent-soft: rgba(180, 83, 9, .09);
+            --accent-tint: rgba(180, 83, 9, .15);
+
+            --blue: #1d4ed8;           /* 链接 / 时间，白底 6.3:1 */
+            --blue-soft: rgba(29, 78, 216, .10);
+            --blue-line: rgba(29, 78, 216, .22);
+
+            --panel: linear-gradient(160deg, #ffffff, #f6f9fe);
+            --panel-border: rgba(23, 45, 90, .12);
+            --panel-inset: inset 0 1px 0 rgba(255, 255, 255, .9);
+            --shadow: 0 10px 30px rgba(24, 44, 86, .10);
+            --shadow-soft: 0 4px 14px rgba(24, 44, 86, .07);
+            --shadow-firm: 0 2px 8px rgba(24, 44, 86, .18);
+
+            --field: #ffffff;
+            --field-border: rgba(23, 45, 90, .18);
+            --placeholder: #77879f;
+
+            --chip: #edf2fa;
+            --chip-border: rgba(23, 45, 90, .10);
+
+            --thead: #e7eef9;
+            --sticky: #e7eef9;
+            --row-alt: rgba(23, 45, 90, .035);
+            --row-hover: rgba(29, 78, 216, .07);
+            --line: rgba(23, 45, 90, .10);
+            --line-soft: rgba(23, 45, 90, .07);
+
+            --btn: linear-gradient(135deg, #fcd34d, #f59e0b 60%, #d97706);
+            --btn-ink: #3b1d00;
+            --btn-shadow: 0 5px 16px rgba(180, 83, 9, .26);
+            --seg-on: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+            --seg-on-ink: #ffffff;
+
+            --mark: #ffe3a3;
+            --mark-ink: #17253c;
+
+            --dtag: #e0eafc;
+            --dtag-ink: #1e3a8a;
+
+            --card: linear-gradient(150deg, rgba(180, 83, 9, .07), #ffffff 60%);
+            --card-border: rgba(180, 83, 9, .26);
+            --callout: #fff6e6;
+            --callout-border: rgba(180, 83, 9, .26);
+
+            --h1: linear-gradient(120deg, #0f2f6e 5%, #1d4ed8 48%, #a3590a 95%);
+            --h1-shadow: none;
+        }
+
+        /* ── 深色星空（与站点其它页面一致的原始配色）──────────────── */
+        [data-theme="dark"] {
+            color-scheme: dark;
+
+            --bg: #050914;
+            --bg-image:
+                radial-gradient(1100px 560px at 85% -10%, rgba(77, 166, 255, .16), transparent 60%),
+                radial-gradient(900px 520px at -12% 112%, rgba(255, 179, 71, .08), transparent 60%),
+                radial-gradient(white, rgba(255, 255, 255, .14) 1.6px, transparent 2.4px),
+                radial-gradient(white, rgba(255, 255, 255, .10) 1px, transparent 1.6px);
+
+            --ink: #e8f0ff;
+            --ink-strong: #ffffff;
+            --muted: rgba(232, 240, 255, .62);
+            --faint: rgba(232, 240, 255, .42);
+
+            --accent: #ffd479;
+            --accent-ink: #ffe3a3;
+            --accent-line: rgba(255, 179, 71, .28);
+            --accent-soft: rgba(255, 179, 71, .08);
+            --accent-tint: rgba(255, 179, 71, .17);
+
+            --blue: #7cc4ff;
+            --blue-soft: rgba(77, 166, 255, .16);
+            --blue-line: rgba(124, 196, 255, .30);
+
+            --panel: linear-gradient(160deg, rgba(22, 38, 74, .68), rgba(8, 15, 34, .78));
+            --panel-border: rgba(124, 196, 255, .22);
+            --panel-inset: inset 0 1px 0 rgba(255, 255, 255, .06);
+            --shadow: 0 12px 44px rgba(0, 0, 0, .5);
+            --shadow-soft: 0 4px 18px rgba(0, 0, 0, .34);
+            --shadow-firm: 0 3px 12px rgba(77, 166, 255, .35);
+
+            --field: rgba(6, 12, 28, .72);
+            --field-border: rgba(124, 196, 255, .35);
+            --placeholder: rgba(232, 240, 255, .45);
+
+            --chip: rgba(10, 20, 44, .55);
+            --chip-border: rgba(124, 196, 255, .22);
+
+            --thead: rgba(13, 26, 54, .96);
+            --sticky: rgba(13, 26, 54, .97);
+            --row-alt: rgba(255, 255, 255, .022);
+            --row-hover: rgba(77, 166, 255, .09);
+            --line: rgba(124, 196, 255, .16);
+            --line-soft: rgba(124, 196, 255, .10);
+
+            --btn: linear-gradient(135deg, #ffd479, #ffb347 60%, #d98c1f);
+            --btn-ink: #2b1800;
+            --btn-shadow: 0 6px 20px rgba(255, 179, 71, .3);
+            --seg-on: linear-gradient(135deg, #7cc4ff, #4da6ff);
+            --seg-on-ink: #04101f;
+
+            --mark: rgba(255, 179, 71, .35);
+            --mark-ink: #ffffff;
+
+            --dtag: rgba(77, 166, 255, .16);
+            --dtag-ink: #7cc4ff;
+
+            --card: linear-gradient(150deg, rgba(255, 179, 71, .1), rgba(10, 20, 44, .6));
+            --card-border: rgba(255, 179, 71, .28);
+            --callout: rgba(255, 179, 71, .07);
+            --callout-border: rgba(255, 179, 71, .26);
+
+            --h1: linear-gradient(120deg, #ffffff 10%, #ffd479 55%, #ffb347 90%);
+            --h1-shadow: drop-shadow(0 0 22px rgba(255, 179, 71, .3));
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg);
+            background-image: var(--bg-image);
+            background-size: auto, auto, 420px 420px, 260px 260px;
+            background-position: 0 0, 0 0, 30px 40px, 180px 120px;
+            background-attachment: fixed;
+            color: var(--ink);
+            min-height: 100vh;
+            line-height: 1.6;
+            transition: background-color .25s, color .25s;
+        }
+
+        .wrap { width: 96%; max-width: 1080px; margin: 0 auto; padding: clamp(1.5rem, 5vh, 3rem) 0 2rem; }
+
+        /* ── Header ─────────────────────────────── */
+        .head { text-align: center; margin-bottom: 1.6rem; }
+        h1 {
+            font-size: clamp(1.7rem, 5vw, 2.8rem);
+            font-weight: 800; letter-spacing: .02em;
+            background: var(--h1);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            filter: var(--h1-shadow);
+        }
+        .subtitle { color: var(--muted); margin-top: .5rem; font-size: clamp(.92rem, 2.5vw, 1.08rem); }
+        .badges { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+        .badge {
+            font-size: .82rem; padding: .28rem .8rem; border-radius: 100px;
+            border: 1px solid var(--blue-line);
+            background: var(--chip); color: var(--blue);
+        }
+        .badge b { color: var(--accent); font-weight: 700; }
+
+        /* 数据来源状态 */
+        .data-status { margin-top: .7rem; font-size: .8rem; color: var(--muted); }
+        .data-status a { color: var(--blue); text-decoration: none; border-bottom: 1px dotted var(--blue-line); }
+        .data-status a:hover { color: var(--accent); border-color: var(--accent-line); }
+        .dot { display: inline-block; width: .5em; height: .5em; border-radius: 50%; margin-right: .35em; vertical-align: .05em; }
+        .dot.live { background: #16a34a; box-shadow: 0 0 0 3px rgba(22, 163, 74, .18); }
+        .dot.snap { background: var(--faint); }
+
+        /* 主题切换 */
+        .topbar { display: flex; justify-content: flex-end; margin-bottom: .6rem; }
+        .theme-btn {
+            font-family: inherit; font-size: .82rem; cursor: pointer;
+            padding: .34rem .9rem; border-radius: 100px;
+            background: var(--chip); border: 1px solid var(--panel-border); color: var(--muted);
+            transition: color .18s, border-color .18s, background .18s;
+        }
+        .theme-btn:hover { color: var(--accent); border-color: var(--accent-line); }
+
+        /* ── Panel ──────────────────────────────── */
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow), var(--panel-inset);
+            -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+            padding: clamp(1.2rem, 4vw, 2rem);
+            margin-bottom: 1.4rem;
+        }
+        .panel-title {
+            display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap;
+            font-size: clamp(1.05rem, 3vw, 1.35rem); font-weight: 700; margin-bottom: .3rem;
+            color: var(--ink-strong);
+        }
+        .panel-title .ico { font-size: 1.15em; }
+        .panel-note { color: var(--muted); font-size: .88rem; margin-bottom: 1.1rem; }
+        .panel-note b { color: var(--accent); font-weight: 600; }
+
+        /* ── 搜索 ───────────────────────────────── */
+        .search-row { display: flex; gap: .7rem; flex-wrap: wrap; }
+        #q {
+            flex: 1; min-width: 220px; font-size: 1.05rem; padding: .8rem 1.1rem;
+            font-family: inherit; border-radius: 12px;
+            background: var(--field);
+            border: 1px solid var(--field-border); color: var(--ink-strong);
+            transition: border-color .2s, box-shadow .2s;
+        }
+        #q:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); }
+        #q::placeholder { color: var(--placeholder); }
+        .btn {
+            font-family: inherit; font-size: .95rem; border-radius: 12px; cursor: pointer;
+            background: var(--btn);
+            color: var(--btn-ink); border: none; font-weight: 700; padding: .8rem 1.5rem;
+            box-shadow: var(--btn-shadow); transition: transform .12s, filter .2s;
+        }
+        .btn:hover { filter: brightness(1.06); }
+        .btn:active { transform: scale(.97); }
+
+        .chips { display: flex; gap: .42rem; flex-wrap: wrap; margin-top: 1rem; }
+        .chip {
+            font-size: .88rem; padding: .3rem .8rem; border-radius: 100px; cursor: pointer;
+            border: 1px solid var(--chip-border);
+            background: var(--chip); color: var(--ink);
+            font-family: inherit; transition: all .18s;
+        }
+        .chip:hover { border-color: var(--accent-line); color: var(--accent); transform: translateY(-1px); }
+        .chip.on { background: var(--accent-tint); border-color: var(--accent-line); color: var(--accent-ink); font-weight: 700; }
+        .chip .py { opacity: .55; font-size: .8em; margin-left: .3em; }
+
+        /* 搜索结果卡片 */
+        .results { margin-top: 1.2rem; display: grid; gap: .8rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .tcard {
+            border-radius: 16px; padding: .95rem 1.1rem;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-soft);
+        }
+        .tcard-head { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+        .tname { font-size: 1.22rem; font-weight: 800; color: var(--accent); letter-spacing: .04em; }
+        .tpy { font-size: .78rem; color: var(--muted); font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: .1em; }
+        .tcount { margin-left: auto; font-size: .78rem; color: var(--blue); }
+        .trows { list-style: none; margin-top: .6rem; }
+        .trows li {
+            display: flex; align-items: flex-start; gap: .55rem;
+            padding: .34rem 0; border-top: 1px dashed var(--line); font-size: .9rem;
+        }
+        .dtag {
+            flex: none; width: 3.1em; text-align: center; font-weight: 700; font-size: .8rem;
+            padding: .1rem 0; border-radius: 6px; margin-top: .18rem;
+            background: var(--dtag); border: 1px solid var(--blue-line); color: var(--dtag-ink);
+        }
+        .tmeta { display: flex; flex-direction: column; gap: .1rem; min-width: 0; }
+        .ttime {
+            font-size: .78rem; color: var(--blue); font-weight: 600;
+            font-variant-numeric: tabular-nums; letter-spacing: .01em;
+        }
+        .ttime i { font-style: normal; color: var(--faint); margin: 0 .25em; }
+        .tloc { font-size: .9rem; }
+        .tnote { font-size: .78rem; color: var(--accent-ink); background: var(--accent-soft); border-radius: 6px; padding: .1rem .4rem; margin-top: .1rem; }
+        .tcls { font-weight: 700; color: var(--ink-strong); }
+        .troom { color: var(--muted); font-size: .84rem; }
+        .empty { text-align: center; color: var(--muted); padding: 1.4rem 0 .4rem; }
+        .empty .big { font-size: 2.2rem; display: block; margin-bottom: .4rem; opacity: .8; }
+        mark { background: var(--mark); color: var(--mark-ink); border-radius: 3px; padding: 0 .12em; }
+
+        /* ── 视图切换 ───────────────────────────── */
+        .toolbar { display: flex; gap: .8rem 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+        .toolbar-left { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+        .seg { display: inline-flex; padding: .22rem; border-radius: 12px; background: var(--chip); border: 1px solid var(--chip-border); }
+        .seg button {
+            font-family: inherit; font-size: .9rem; padding: .42rem 1.05rem; border-radius: 9px;
+            border: none; background: transparent; color: var(--muted); cursor: pointer; transition: all .18s;
+        }
+        .seg button.on { background: var(--seg-on); color: var(--seg-on-ink); font-weight: 700; box-shadow: var(--shadow-firm); }
+        .seg button:not(.on):hover { color: var(--ink-strong); }
+        select {
+            font-family: inherit; font-size: .9rem; padding: .45rem .8rem; border-radius: 10px;
+            background: var(--field); border: 1px solid var(--field-border); color: var(--ink); cursor: pointer;
+        }
+        select:focus { outline: none; border-color: var(--accent); }
+
+        /* 节次时间带 */
+        tr.band td {
+            text-align: left; padding: .5rem .7rem;
+            background: linear-gradient(90deg, var(--blue-soft), transparent 85%);
+            border-top: 1px solid var(--blue-line);
+            border-bottom: 1px solid var(--line);
+            font-size: .88rem; letter-spacing: .03em;
+        }
+        tr.band .blabel { color: var(--accent); font-weight: 800; margin-right: .5rem; }
+        tr.band .btime { color: var(--blue); font-variant-numeric: tabular-nums; font-weight: 600; }
+        tr.band .bplus { color: var(--faint); margin: 0 .4rem; }
+        tr.band .bnote { color: var(--muted); font-size: .78rem; margin-left: .6rem; }
+
+        /* ── 表格 ───────────────────────────────── */
+        .scroller { overflow-x: auto; border-radius: 14px; border: 1px solid var(--line); }
+        .scroll-hint {
+            display: none; text-align: center; font-size: .8rem; color: var(--blue);
+            opacity: .8; margin-bottom: .5rem; letter-spacing: .06em;
+        }
+        .scroll-hint.on { display: block; }
+        @keyframes nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+        .scroll-hint.on span { display: inline-block; animation: nudge 1.9s ease-in-out infinite; }
+        table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 640px; }
+        caption { text-align: left; padding: 0 0 .7rem; color: var(--muted); font-size: .85rem; }
+        th, td { padding: .62rem .7rem; text-align: center; border-bottom: 1px solid var(--line-soft); }
+        thead th {
+            position: sticky; top: 0; z-index: 2;
+            background: var(--thead); color: var(--blue);
+            font-weight: 700; letter-spacing: .06em; font-size: .86rem;
+            border-bottom: 1px solid var(--blue-line);
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:nth-child(even) { background: var(--row-alt); }
+        tbody tr:hover { background: var(--row-hover); }
+        th.sticky, td.sticky {
+            position: sticky; left: 0; z-index: 1; text-align: left; font-weight: 700;
+            background: var(--sticky); color: var(--ink-strong); min-width: 6.2em;
+            border-right: 1px solid var(--line);
+        }
+        thead th.sticky { z-index: 3; }
+        td .who { font-weight: 700; color: var(--accent); }
+        td .rm { display: block; font-size: .78rem; color: var(--muted); margin-top: .1rem; }
+        td.off { color: var(--faint); }
+        tr.dim { opacity: .32; }
+        tr.hit { background: linear-gradient(90deg, var(--accent-tint), transparent 85%) !important; }
+        tr.hit td { box-shadow: inset 0 1px 0 var(--accent-line), inset 0 -1px 0 var(--accent-line); }
+        tr.hit th.sticky { color: var(--accent-ink); }
+
+        /* ── 提示条 ─────────────────────────────── */
+        .callout {
+            display: flex; gap: .6rem; align-items: flex-start;
+            margin-top: 1rem; padding: .75rem 1rem; border-radius: 12px; font-size: .87rem;
+            background: var(--callout); border: 1px solid var(--callout-border); color: var(--muted);
+        }
+        .callout .ico { flex: none; }
+        .callout b { color: var(--accent-ink); }
+
+        .foot { text-align: center; margin-top: 2rem; }
+        .foot a { color: var(--muted); font-size: .85rem; text-decoration: none; transition: color .2s; }
+        .foot a:hover { color: var(--blue); }
+        .foot .src { display: block; margin-top: .4rem; font-size: .78rem; color: var(--faint); }
+        [hidden] { display: none !important; }
+
+        @media (max-width: 640px) {
+            .wrap { width: 97%; }
+            .panel { padding: 1rem .9rem; }
+            table { font-size: .84rem; }
+            th, td { padding: .5rem .42rem; }
+            /* 保证触控目标足够大 */
+            .chip { padding: .58rem 1rem; font-size: .92rem; }
+            .btn { padding: .8rem 1.3rem; }
+            select { padding: .55rem .8rem; font-size: 1rem; }   /* ≥16px，避免 iOS 聚焦自动缩放 */
+            .theme-btn { padding: .5rem 1rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+        /* 打印：无论当前是什么主题都用浅色令牌 */
+        @media print {
+            :root, [data-theme="dark"] {
+                color-scheme: light;
+                --bg: #ffffff; --bg-image: none;
+                --ink: #17253c; --ink-strong: #000000; --muted: #444; --faint: #767676;
+                --placeholder: #767676;
+                --accent: #8a4f05; --accent-ink: #7c4500; --accent-line: #b88; --accent-soft: #fff;
+                --accent-tint: #fff3df;
+                --blue: #14337d; --blue-soft: #eef; --blue-line: #bbc8e0;
+                --panel: #fff; --panel-border: #ccc; --panel-inset: none; --shadow: none;
+                --shadow-soft: none; --shadow-firm: none;
+                --field: #fff; --field-border: #bbb; --placeholder: #999;
+                --chip: #f4f4f4; --chip-border: #ccc;
+                --thead: #eef; --sticky: #f6f6f6; --row-alt: #fafafa; --row-hover: #eef;
+                --line: #ccc; --line-soft: #e2e2e2;
+                --btn: #eee; --btn-ink: #000; --btn-shadow: none;
+                --seg-on: #dde; --seg-on-ink: #000;
+                --mark: #ffe3a3; --mark-ink: #000;
+                --dtag: #eef; --dtag-ink: #14337d;
+                --card: #fff; --card-border: #ccc;
+                --callout: #fffaf0; --callout-border: #e0cfae;
+                --h1: none; --h1-shadow: none;
+            }
+            body { background: #fff; }
+            h1 { color: #000; -webkit-text-fill-color: #000; }
+            .no-print, .foot, .scroll-hint { display: none !important; }
+            .panel { border: none; padding: 0; margin-bottom: 1rem; }
+            .scroller { overflow: visible; border-color: #999; }
+            table { min-width: 0; }
+            tr.dim { opacity: 1; }
+        }
+    </style>
+    <script>
+        /* 先于首帧把主题贴到 <html> 上，避免切换时闪一下 */
+        (function () {
+            try {
+                var t = localStorage.getItem('ohTheme');
+                if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+            } catch (e) { /* 读不到就用默认浅色 */ }
+        })();
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar no-print">
+        <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false">🌙 深色</button>
+    </div>
+    <div class="head">
+        <h1>🕑 教师 Office Hour</h1>
+        <p class="subtitle">晚自习值班安排 —— 查一查你想问的问题，应该在哪一天、去哪间教室找哪位老师</p>
+        <div class="badges" id="badges"></div>
+        <p class="data-status" id="dataStatus" aria-live="polite"></p>
+    </div>
+
+    <!-- ── 搜索 ─────────────────────────────────── -->
+    <div class="panel">
+        <div class="panel-title"><span class="ico">🔎</span>找老师</div>
+        <p class="panel-note">支持中文姓名、全拼或首字母，例如 <b>李楚翘</b> / <b>lichuqiao</b> / <b>lcq</b>；也可以搜班级 <b>G10-1</b> 或教室 <b>文体 114</b>。</p>
+        <div class="search-row no-print">
+            <input type="text" id="q" placeholder="输入老师姓名 / 拼音 / 班级 / 教室…" autocomplete="off" autofocus>
+            <button class="btn" id="clearBtn" type="button">清空</button>
+        </div>
+        <div class="chips no-print" id="chips"></div>
+        <div class="results" id="results"></div>
+        <div class="empty" id="noResult" hidden>
+            <span class="big">🌙</span>没有匹配的老师，换个关键字试试？
+        </div>
+    </div>
+
+    <!-- ── 总表 ─────────────────────────────────── -->
+    <div class="panel">
+        <div class="panel-title"><span class="ico">📋</span>Office Hour 总表</div>
+        <p class="panel-note" id="tableNote"></p>
+        <div class="toolbar no-print">
+            <div class="toolbar-left">
+                <div class="seg" id="seg">
+                    <button data-view="class" class="on" type="button">按班级看</button>
+                    <button data-view="teacher" type="button">按老师看</button>
+                </div>
+                <div class="seg" id="perSeg" hidden>
+                    <button data-split="0" class="on" type="button">两节合并</button>
+                    <button data-split="1" type="button">逐节展开</button>
+                </div>
+            </div>
+            <label style="font-size:.9rem;color:var(--muted)">我的班级
+                <select id="classSel"><option value="">全部</option></select>
+            </label>
+        </div>
+        <div class="scroll-hint no-print" id="scrollHint"><span>← 左右滑动查看完整课表 →</span></div>
+        <div class="scroller" id="scroller">
+            <table id="grid" aria-describedby="tableNote"></table>
+        </div>
+        <div class="callout">
+            <span class="ico">💡</span>
+            <span id="tip"></span>
+        </div>
+    </div>
+
+    <div class="foot">
+        <a href="index.html">← 返回首页</a>
+        <span class="src" id="src"></span>
+    </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   数据：改动了 Excel 之后，用 OfficeHour/build_data.py 重新生成
+   ═══════════════════════════════════════════════════════════════ */
+/* DATA-BEGIN —— 由 OfficeHour/build_data.py 自动生成，请勿手改（学期 26-27） */
+// 学期初快照：后端可用时页面会被 /api/officehours 的实时数据覆盖，这份只作兜底。
+// slots 每行：[星期, 节次, 班级, 老师, 教室]
+const SNAPSHOT = {
+    generatedAt: "2026-09-03 13:59",
+    term: "26-27",
+    slots: [
+      ["周一", 10, "G10-1", "李楚翘", "文体 114"],
+      ["周一", 10, "G10-2", "宋雯雯", "文体 115"],
+      ["周一", 10, "G10-3", "简汐洳", "文体 116"],
+      ["周一", 10, "G11-1", "张诗文", "文体 102"],
+      ["周一", 10, "G11-2", "赵睿佳", "文体 103"],
+      ["周一", 10, "G11-3", "郭林", "文体 104"],
+      ["周一", 10, "G12", "高峰", "冬蕴楼 102"],
+      ["周一", 10, "Pre-1", "晏海花", "文体 112"],
+      ["周一", 10, "Pre-2", "刘展佑", "文体 113"],
+      ["周一", 11, "G10-1", "李楚翘", "文体 114"],
+      ["周一", 11, "G10-2", "宋雯雯", "文体 115"],
+      ["周一", 11, "G10-3", "简汐洳", "文体 116"],
+      ["周一", 11, "G11-1", "张诗文", "文体 102"],
+      ["周一", 11, "G11-2", "赵睿佳", "文体 103"],
+      ["周一", 11, "G11-3", "郭林", "文体 104"],
+      ["周一", 11, "G12", "高峰", "冬蕴楼 102"],
+      ["周一", 11, "Pre-1", "晏海花", "文体 112"],
+      ["周一", 11, "Pre-2", "刘展佑", "文体 113"],
+      ["周二", 10, "G10-1", "宋雯雯", "文体 114"],
+      ["周二", 10, "G10-2", "邵春晖", "文体 115"],
+      ["周二", 10, "G10-3", "李梅诺", "文体 116"],
+      ["周二", 10, "G11-1", "朱专", "文体 102"],
+      ["周二", 10, "G11-2", "凌峰杰", "文体 103"],
+      ["周二", 10, "G11-3", "刘丹", "文体 104"],
+      ["周二", 10, "G12", "卢琦", "冬蕴楼 102"],
+      ["周二", 10, "Pre-1", "刘禹函", "文体 112"],
+      ["周二", 10, "Pre-2", "陈逸飞", "文体 113"],
+      ["周二", 11, "G10-1", "宋雯雯", "文体 114"],
+      ["周二", 11, "G10-2", "邵春晖", "文体 115"],
+      ["周二", 11, "G10-3", "李梅诺", "文体 116"],
+      ["周二", 11, "G11-1", "朱专", "文体 102"],
+      ["周二", 11, "G11-2", "凌峰杰", "文体 103"],
+      ["周二", 11, "G11-3", "刘丹", "文体 104"],
+      ["周二", 11, "G12", "卢琦", "冬蕴楼 102"],
+      ["周二", 11, "Pre-1", "刘禹函", "文体 112"],
+      ["周二", 11, "Pre-2", "陈逸飞", "文体 113"],
+      ["周三", 10, "G10-1", "石鑫玥", "文体 114"],
+      ["周三", 10, "G10-2", "李梅诺", "文体 115"],
+      ["周三", 10, "G10-3", "朱专", "文体 116"],
+      ["周三", 10, "G11-1", "刘丹", "文体 102"],
+      ["周三", 10, "G11-2", "赵丁霓", "文体 103"],
+      ["周三", 10, "G11-3", "晏海花", "文体 104"],
+      ["周三", 10, "G12", "石琪", "冬蕴楼 102"],
+      ["周三", 10, "Pre-1", "郭林", "文体 112"],
+      ["周三", 10, "Pre-2", "刘展佑", "文体 113"],
+      ["周三", 11, "G10-1", "石鑫玥", "文体 114"],
+      ["周三", 11, "G10-2", "李梅诺", "文体 115"],
+      ["周三", 11, "G10-3", "朱专", "文体 116"],
+      ["周三", 11, "G11-1", "刘丹", "文体 102"],
+      ["周三", 11, "G11-2", "赵丁霓", "文体 103"],
+      ["周三", 11, "G11-3", "晏海花", "文体 104"],
+      ["周三", 11, "G12", "石琪", "冬蕴楼 102"],
+      ["周三", 11, "Pre-1", "郭林", "文体 112"],
+      ["周三", 11, "Pre-2", "刘展佑", "文体 113"],
+      ["周四", 10, "G10-1", "简汐洳", "文体 114"],
+      ["周四", 10, "G10-2", "赵睿佳", "文体 115"],
+      ["周四", 10, "G10-3", "石鑫玥", "文体 116"],
+      ["周四", 10, "G11-1", "陈逸飞", "文体 102"],
+      ["周四", 10, "G11-2", "凌峰杰", "文体 103"],
+      ["周四", 10, "G11-3", "高峰", "文体 104"],
+      ["周四", 10, "G12", "卢琦", "冬蕴楼 102"],
+      ["周四", 10, "Pre-1", "邵春晖", "文体 112"],
+      ["周四", 10, "Pre-2", "刘禹函", "文体 113"],
+      ["周四", 11, "G10-1", "简汐洳", "文体 114"],
+      ["周四", 11, "G10-2", "赵睿佳", "文体 115"],
+      ["周四", 11, "G10-3", "石鑫玥", "文体 116"],
+      ["周四", 11, "G11-1", "陈逸飞", "文体 102"],
+      ["周四", 11, "G11-2", "凌峰杰", "文体 103"],
+      ["周四", 11, "G11-3", "高峰", "文体 104"],
+      ["周四", 11, "G12", "卢琦", "冬蕴楼 102"],
+      ["周四", 11, "Pre-1", "邵春晖", "文体 112"],
+      ["周四", 11, "Pre-2", "刘禹函", "文体 113"]
+    ],
+    // py = 全拼, ini = 首字母
+    teachers: [
+      { name: "陈逸飞", py: "chenyifei", ini: "cyf" },
+      { name: "高峰", py: "gaofeng", ini: "gf" },
+      { name: "郭林", py: "guolin", ini: "gl" },
+      { name: "简汐洳", py: "jianxiru", ini: "jxr" },
+      { name: "李楚翘", py: "lichuqiao", ini: "lcq" },
+      { name: "李梅诺", py: "limeinuo", ini: "lmn" },
+      { name: "凌峰杰", py: "lingfengjie", ini: "lfj" },
+      { name: "刘丹", py: "liudan", ini: "ld" },
+      { name: "刘禹函", py: "liuyuhan", ini: "lyh" },
+      { name: "刘展佑", py: "liuzhanyou", ini: "lzy" },
+      { name: "卢琦", py: "luqi", ini: "lq" },
+      { name: "邵春晖", py: "shaochunhui", ini: "sch" },
+      { name: "石琪", py: "shiqi", ini: "sq" },
+      { name: "石鑫玥", py: "shixinyue", ini: "sxy" },
+      { name: "宋雯雯", py: "songwenwen", ini: "sww" },
+      { name: "晏海花", py: "yanhaihua", ini: "yhh" },
+      { name: "张诗文", py: "zhangshiwen", ini: "zsw" },
+      { name: "赵丁霓", py: "zhaodingni", ini: "zdn" },
+      { name: "赵睿佳", py: "zhaoruijia", ini: "zrj" },
+      { name: "朱专", py: "zhuzhuan", ini: "zz" }
+    ],
+    // 节次与时间（取自 Excel 的节次行标签）
+    periods: [
+      { p: 10, label: "第10节", time: "18:30–19:20" },
+      { p: 11, label: "第11节", time: "19:40–20:30" }
+    ],
+};
+/* DATA-END */
+
+const META = {
+    term: SNAPSHOT.term ? SNAPSHOT.term + ' 学年' : '2026–2027 学年',
+    days: ['周一', '周二', '周三', '周四', '周五'],
+    periods: []
+};
+
+/* ═══ 数据层 ═════════════════════════════════════════════
+   内嵌的 SNAPSHOT 是学期初快照（兵底）；配好 OH_API_BASE 后，
+   页面会用 GET /api/officehours 的实时数据覆盖它，后端挂了就退回快照。
+   ═════════════════════════════════════════════════════════ */
+
+// 云函数地址，部署完填一次（末尾不要加斜杠）。也可以临时用
+// localStorage.setItem('ohApiBase', 'https://...') 覆盖，便于本地测试。
+let OH_API_BASE = '';
+try { OH_API_BASE = localStorage.getItem('ohApiBase') || OH_API_BASE; } catch (e) { /* ignore */ }
+
+const PINYIN_MAP = new Map((SNAPSHOT.teachers || []).map(t => [t.name, t]));
+// 实时数据里没有拼音，沿用快照里的；新出现的老师拼音置空，姓名搜索仍可用
+function teacherListFrom(slots) {
+    const names = [...new Set(slots.map(s => s[3]))];
+    return names
+        .map(n => PINYIN_MAP.get(n) || { name: n, py: '', ini: '' })
+        .sort((a, b) => (a.py || a.name).localeCompare(b.py || b.name));
+}
+
+let SLOTS = SNAPSHOT.slots || [];      // 每行 [星期, 节次, 班级, 老师, 教室, 备注?]
+let TEACHERS = SNAPSHOT.teachers || [];
+let PERIODS = SNAPSHOT.periods || [];
+
+let CLASSES = [], activeDays = [], offDays = [];
+let byKey = {}, merged = false, canMerge = false, teacherDay = {};
+let DATA_MODE = 'snapshot';                 // snapshot | live | stale
+let hadLive = false;                        // 本次会话是否成功拿到过后端数据
+let DATA_STAMP = SNAPSHOT.generatedAt || ''; // 展示用的时间文字
+
+/** 从当前 SLOTS/PERIODS 重算所有派生结构 */
+function derive() {
+    META.periods = PERIODS;
+    CLASSES = [...new Set(SLOTS.map(s => s[2]))];
+    activeDays = META.days.filter(d => SLOTS.some(s => s[0] === d));
+    offDays = META.days.filter(d => !SLOTS.some(s => s[0] === d));
+
+    // key: "星期|节次|班级" -> {t, r, note}
+    byKey = {};
+    SLOTS.forEach(([d, p, c, t, r, note]) => { byKey[d + '|' + p + '|' + c] = { t, r, note }; });
+
+    // 各节次安排完全一致时，合并成一个连续时段展示
+    merged = SLOTS.every(([d, p, c, t, r]) => {
+        const other = PERIODS.find(x => x.p !== p);
+        const o = other && byKey[d + '|' + other.p + '|' + c];
+        return !o || (o.t === t && o.r === r);
+    });
+    canMerge = merged && PERIODS.length > 1;
+
+    // 每位老师：day -> [{cls, room, ps:[节次…], note}]
+    teacherDay = {};
+    SLOTS.forEach(([d, p, c, t, r, note]) => {
+        const bucket = (teacherDay[t] = teacherDay[t] || {});
+        const list = (bucket[d] = bucket[d] || []);
+        const item = list.find(x => x.c === c && x.r === r);
+        if (item) { if (!item.ps.includes(p)) item.ps.push(p); if (note && !item.note) item.note = note; }
+        else list.push({ c, r, ps: [p], note: note || '' });
+    });
+}
+
+/** 换一套数据（快照 or 后端）：重算派生结构并重画 */
+function applyData({ slots, teachers, periods, mode, stamp }) {
+    // 运行时数据跟内嵌数据同格式，但可能来自手改/旧版后端：只收形状对的行，
+    // 一行坏数据不该整页白屏。
+    if (Array.isArray(slots) && slots.length) {
+        // period 必须保持数字：很多处用 s[1] === p 比较，转成字符串会静静地查空。
+        // 内嵌快照的行是 5 字段（note 可选），API 的行是 6 字段，两者都要能接。
+        const norm = s => {
+            if (!Array.isArray(s) || s.length < 5) return null;
+            const p = Number(s[1]);
+            if (!Number.isFinite(p)) return null;
+            return [String(s[0]), p, String(s[2]), String(s[3]), String(s[4]), s[5] == null ? '' : String(s[5])];
+        };
+        const clean = slots.map(norm).filter(Boolean);
+        if (clean.length) SLOTS = clean;
+    }
+    if (Array.isArray(teachers) && teachers.length) TEACHERS = teachers;
+    if (Array.isArray(periods) && periods.length) PERIODS = periods;
+    if (mode) DATA_MODE = mode;
+    if (mode === 'snapshot') hadLive = false;   // 有人重新贴回快照，就不再算“拿到过后端数据”
+    if (stamp) DATA_STAMP = stamp;
+    derive();
+}
+
+function fmtStamp(v) {
+    if (!v) return '';
+    const d = v instanceof Date ? v : new Date(v);
+    if (isNaN(d)) return String(v);
+    const p = n => String(n).padStart(2, '0');
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+
+function loadLive() {
+    if (!OH_API_BASE) { renderStatus(); return Promise.resolve(); }
+    return fetch(OH_API_BASE.replace(/\/$/, '') + '/api/officehours', { cache: 'no-store' })
+        .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+        .then(json => {
+            // 学期对不上时，后端会返回空数组（实际踩过：OH_TERM 配错导致查错学期），
+            // 所以先报“学期不一致”这个真原因，而不是只说“空数据”。
+            if (json.term && SNAPSHOT.term && String(json.term) !== String(SNAPSHOT.term))
+                throw new Error(`后端学期为 ${json.term}，与本页 ${SNAPSHOT.term} 不一致`);
+            if (!Array.isArray(json.slots) || !json.slots.length) throw new Error('后端返回了空排班');
+            const slots = json.slots.map(s => [s.day, s.period, s.cls, s.teacherName, s.room, s.note || '']);
+            applyData({
+                slots,
+                teachers: teacherListFrom(slots),
+                periods: json.periods,
+                mode: 'live',
+                stamp: json.updatedAt ? fmtStamp(json.updatedAt) : '',
+            });
+            hadLive = true;
+            renderClassOptions();
+            refresh();
+            renderStatus();
+        })
+        .catch(err => {
+            console.warn('[officehour] 未采用后端数据:', err.message);
+            // 不能只改内存不重绘：否则“标签写快照、表格还停在上一份后端结果”，
+            // 两者不一致会误导学生。出错路径也要把页面重画一遍。
+            if (hadLive) {
+                DATA_MODE = 'stale';   // 保留上次拿到的真数据，但标明可能过时
+            } else {
+                applyData({ slots: SNAPSHOT.slots, teachers: SNAPSHOT.teachers,
+                            periods: SNAPSHOT.periods, mode: 'snapshot',
+                            stamp: fmtStamp(SNAPSHOT.generatedAt) });
+                renderClassOptions();
+            }
+            refresh();
+            renderStatus(err.message);
+        });
+}
+
+const teacherSlots = t => Object.keys(teacherDay[t] || {})
+    .sort((a, b) => META.days.indexOf(a) - META.days.indexOf(b))
+    .map(d => ({ day: d, items: teacherDay[t][d] }));
+// 节次 <-> 时间
+const pOf = p => META.periods.find(x => x.p === p);
+// 把节次列表写成清楚的时间：18:30–19:20 ＋ 19:40–20:30
+const timesOf = ps => [...new Set(ps)].sort((a, b) => a - b).map(pOf).filter(Boolean)
+    .map(x => x.time).join(' <i>＋</i> ');
+
+/* ── 搜索匹配 ───────────────────────────────────────────────── */
+function matchTeacher(name, q) {
+    if (!q) return true;
+    const meta = TEACHERS.find(t => t.name === name) || { py: '', ini: '' };
+    return name.toLowerCase().includes(q)
+        || meta.py.includes(q)
+        || meta.ini.includes(q);
+}
+function teacherQuery(t, name) {
+    const meta = TEACHERS.find(x => x.name === name);
+    return !t || matchTeacher(name, t) || (meta && (meta.py === t || meta.ini === t));
+}
+function teacherMatches(name, q) {
+    // 关键字是否命中这位老师（含班级 / 教室维度）
+    if (!q) return true;
+    if (matchTeacher(name, q)) return true;
+    return SLOTS.some(([d, p, c, t, r]) =>
+        t === name && (c.toLowerCase().includes(q) || r.toLowerCase().includes(q)));
+}
+function slotMatches([d, p, c, t, r], q) {
+    if (!q) return true;
+    return r.toLowerCase().includes(q) || c.toLowerCase().includes(q);
+}
+
+const esc = s => String(s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
+function hl(text, q) {
+    const s = esc(text);
+    if (!q) return s;
+    const i = text.toLowerCase().indexOf(q);
+    if (i < 0) return s;
+    return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+}
+
+/* ── 渲染：顶部徽章 ─────────────────────────────────────────── */
+function renderBadges() {
+    document.getElementById('badges').innerHTML = [
+        '<span class="badge">📅 <b>' + activeDays.join(' · ') + '</b>' + (offDays.length ? '（' + offDays.join('、') + '无安排）' : '') + '</span>',
+        ...META.periods.map(p => '<span class="badge">🕑 ' + esc(p.label) + ' <b>' + esc(p.time) + '</b></span>'),
+        '<span class="badge">👩‍🏫 <b>' + TEACHERS.length + '</b> 位老师</span>',
+        '<span class="badge">🏫 <b>' + CLASSES.length + '</b> 个班级</span>'
+    ].join('');
+}
+
+/* ── 渲染：快捷 chips ───────────────────────────────────────── */
+function renderChips(q) {
+    document.getElementById('chips').innerHTML = TEACHERS.map(t =>
+        '<button type="button" class="chip' + (q === t.name || q === t.ini || q === t.py ? ' on' : '') +
+        '" data-name="' + esc(t.name) + '">' + hl(t.name, q) + '<span class="py">' + esc(t.ini) + '</span></button>'
+    ).join('');
+}
+
+/* ── 渲染：结果卡片 ─────────────────────────────────────────── */
+function renderResults(q) {
+    const list = TEACHERS.filter(t => teacherMatches(t.name, q) && slotMatchesFilter(t.name, q));
+    document.getElementById('noResult').hidden = list.length > 0;
+    document.getElementById('results').innerHTML = list.map(t => {
+        const slots = teacherSlots(t.name);
+        const items = slots.flatMap(s => s.items.map(i =>
+            '<li><span class="dtag">' + esc(s.day) + '</span><span class="tmeta">'
+            + '<span class="ttime">' + timesOf(i.ps) + '</span>'
+            + '<span class="tloc"><span class="tcls">' + esc(i.c) + '</span>'
+            + '<span class="troom"> @ ' + esc(i.r) + '</span></span>'
+            + (i.note ? '<span class="tnote">📌 ' + esc(i.note) + '</span>' : '') + '</span></li>')).join('');
+        return '<div class="tcard"><div class="tcard-head"><span class="tname">' + hl(t.name, q) +
+            '</span><span class="tpy">' + esc(t.py) + '</span>' +
+            '<span class="tcount">' + slots.length + ' 天</span></div><ul class="trows">' + items + '</ul></div>';
+    }).join('');
+}
+// 当关键字是班级/教室时，只保留在该关键字下真有排班的老师
+function slotMatchesFilter(name, q) {
+    if (!q) return true;
+    if (matchTeacher(name, q)) return true;
+    return SLOTS.some(s => s[3] === name && slotMatches(s, q));
+}
+
+/* ── 渲染：总表 ─────────────────────────────────────────────── */
+let view = 'class';
+let split = false;                     // true = 逐节展开
+
+// 只有两节安排完全一致时才允许合并；否则强制逐节显示
+function currentGroups() {
+    return (!canMerge || split) ? META.periods.map(x => [x.p]) : [META.periods.map(x => x.p)];
+}
+
+function cellFor(periodNums, rowKey, day) {
+    // view === 'class' → rowKey 是班级, 输出老师
+    // view === 'teacher' → rowKey 是老师, 输出班级
+    // 合并组里两个节次内容相同，去重，否则一个格子会写两遍
+    const out = [];
+    const push = x => { if (!out.some(y => y.who === x.who && y.room === x.room)) out.push(x); };
+    periodNums.forEach(p => {
+        if (view === 'class') {
+            const v = byKey[day + '|' + p + '|' + rowKey];
+            if (v) push({ who: v.t, room: v.r, p });
+        } else {
+            SLOTS.filter(s => s[0] === day && s[1] === p && s[3] === rowKey)
+                .forEach(s => push({ who: s[2], room: s[4], p }));
+        }
+    });
+    return out;
+}
+
+// 每个区块开头的时间带：把节次号和起止时间写清楚
+function bandRow(periodNums) {
+    const l = periodNums.map(pOf);
+    const times = l.map(x => '<span class="btime">' + esc(x.time) + '</span>')
+        .join('<span class="bplus"> ＋ </span>');
+    const note = l.length > 1 ? '<span class="bnote">两节由同一位老师连续坐班</span>' : '';
+    return '<tr class="band"><td colspan="' + (META.days.length + 1) + '">'
+        + '<span class="blabel">🕑 ' + esc(l.map(x => x.label).join(' ＋ ')) + '</span>'
+        + times + note + '</td></tr>';
+}
+
+function renderGrid(q) {
+    const tbl = document.getElementById('grid');
+    const rows = view === 'class' ? CLASSES : TEACHERS.map(t => t.name);
+    const corner = view === 'class' ? '班级' : '老师';
+
+    let html = '<caption>' + (view === 'class'
+        ? '先在左侧找到你所在的班级，再看横排那天是谁坐班；每个区块开头标了节次和具体时间。'
+        : '每一行是一位老师，横向看他/她哪天在哪个班、哪一节。') + '</caption>';
+    html += '<thead><tr><th class="sticky">' + corner + '</th>' +
+        META.days.map(d => '<th>' + esc(d) + '</th>').join('') + '</tr></thead><tbody>';
+
+    currentGroups().forEach(group => {
+        html += bandRow(group);
+        rows.forEach(name => {
+        const hit = q ? (view === 'class'
+            ? SLOTS.some(s => s[2] === name && (teacherMatches(s[3], q) || slotMatches(s, q)))
+            : teacherMatches(name, q)) : false;
+        const dim = q && !hit && !(view === 'class' && name === document.getElementById('classSel').value);
+        html += '<tr data-key="' + esc(name) + '"' + (hit ? ' class="hit"' : dim ? ' class="dim"' : '') + '>';
+        html += '<th class="sticky">' + hl(name, view === 'teacher' ? q : '') + '</th>';
+        META.days.forEach(d => {
+            const cells = cellFor(group, name, d);
+            if (!cells.length) { html += '<td class="off">—</td>'; return; }
+            html += '<td>' + cells.map(c =>
+                '<span class="who">' + hl(c.who, view === 'class' ? q : '') + '</span>' +
+                '<span class="rm">' + esc(c.room) + '</span>'
+            ).join('') + '</td>';
+        });
+        html += '</tr>';
+        });
+    });
+    tbl.innerHTML = html + '</tbody>';
+}
+
+/* ── 窄屏时提示表格可滑动 ───────────────────────────────────── */
+function updateScrollHint() {
+    const sc = document.getElementById('scroller');
+    document.getElementById('scrollHint').classList.toggle('on', sc.scrollWidth > sc.clientWidth + 4);
+}
+window.addEventListener('resize', updateScrollHint);
+
+/* ── 提示文案（全部从数据推导，改表不用改文案）──────────────── */
+const buildingOf = room => room.split(/\s+/)[0];
+function mainBuilding() {
+    const c = {};
+    SLOTS.forEach(s => { const b = buildingOf(s[4]); c[b] = (c[b] || 0) + 1; });
+    return Object.keys(c).sort((a, b) => c[b] - c[a])[0];
+}
+function renderNotes() {
+    const perList = META.periods.map(p => p.label + ' ' + p.time).join('、');
+    document.getElementById('tableNote').textContent =
+        (META.periods.length > 1 && merged)
+            ? perList + ' 由同一位老师连续坐班，默认并成一个区块；点「逐节展开」可以分开核对。'
+            : '节次时间：' + perList + '。';
+
+    const mb = mainBuilding();
+    const mbName = mb.endsWith('楼') ? mb : mb + '楼';
+    const away = CLASSES.filter(c => SLOTS.filter(s => s[2] === c).some(s => buildingOf(s[4]) !== mb));
+    const perDay = TEACHERS.map(t => ({ n: t.name, d: teacherSlots(t.name).length }));
+    const min = Math.min(...perDay.map(x => x.d));
+    const rare = perDay.filter(x => x.d === min).map(x => x.n);
+    const max = Math.max(...perDay.map(x => x.d));
+
+    const parts = [];
+    if (offDays.length) parts.push('<b>' + offDays.join('、') + '</b> 不安排晚自习，这几天想问老师得另外约时间。');
+    parts.push('有 <b>' + rare.length + '</b> 位老师一周只值班 <b>' + min + '</b> 天（' +
+        esc(rare.join('、')) + '），错过就要等到下周；最多的有 <b>' + max + '</b> 天。');
+    if (away.length) parts.push(esc(away.join('、')) + ' 的值班教室在 <b>' +
+        esc([...new Set(SLOTS.filter(s => away.includes(s[2]) && buildingOf(s[4]) !== mb).map(s => s[4]))].join('、')) +
+        '</b>，不在' + esc(mbName) + '，跑错楼就找不到人了。');
+    document.getElementById('tip').innerHTML = parts.join(' ');
+    document.getElementById('src').textContent = '数据来源：OfficeHour/总课表.xlsx · ' + META.term;
+}
+
+/* ── 交互 ───────────────────────────────────────────────────── */
+const qInput = document.getElementById('q');
+function refresh() {
+    const q = qInput.value.trim().toLowerCase();
+    perSeg.hidden = !canMerge;
+    renderChips(q);
+    renderResults(q);
+    renderGrid(q);
+    updateScrollHint();
+}
+qInput.addEventListener('input', refresh);
+document.getElementById('clearBtn').addEventListener('click', () => { qInput.value = ''; qInput.focus(); refresh(); });
+document.getElementById('chips').addEventListener('click', e => {
+    const chip = e.target.closest('.chip'); if (!chip) return;
+    const name = chip.dataset.name;
+    qInput.value = (qInput.value.trim().toLowerCase() === name.toLowerCase()) ? '' : name;
+    qInput.focus(); refresh();
+});
+document.getElementById('seg').addEventListener('click', e => {
+    const b = e.target.closest('button[data-view]'); if (!b) return;
+    view = b.dataset.view;
+    [...e.currentTarget.children].forEach(x => x.classList.toggle('on', x === b));
+    refresh();
+});
+// 两节安排相同时才给出「合并 / 逐节」切换
+const perSeg = document.getElementById('perSeg');
+perSeg.addEventListener('click', e => {
+    const b = e.target.closest('button[data-split]'); if (!b) return;
+    split = b.dataset.split === '1';
+    [...perSeg.children].forEach(x => x.classList.toggle('on', x === b));
+    refresh();
+});
+const classSel = document.getElementById('classSel');
+// 数据换了（比如后端新增了班级）要重建下拉选项
+function renderClassOptions() {
+    const keep = classSel.value;
+    classSel.innerHTML = '<option value="">全部</option>';
+    CLASSES.forEach(c => classSel.insertAdjacentHTML('beforeend', '<option value="' + esc(c) + '">' + esc(c) + '</option>'));
+    if (CLASSES.includes(keep)) classSel.value = keep;
+}
+classSel.addEventListener('change', () => {
+    if (classSel.value) { view = 'class'; [...document.getElementById('seg').children].forEach(x => x.classList.toggle('on', x.dataset.view === 'class')); qInput.value = ''; }
+    refresh();
+    if (classSel.value) {
+        // 逐节展开时同一班级会出现多次，要全部高亮
+        document.querySelectorAll('tr[data-key="' + CSS.escape(classSel.value) + '"]')
+            .forEach(r => r.classList.add('hit'));
+        const row = document.querySelector('tr[data-key="' + CSS.escape(classSel.value) + '"]');
+        if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
+document.getElementById('results').addEventListener('click', e => {
+    const card = e.target.closest('.tcard'); if (!card) return;
+    const name = card.querySelector('.tname').textContent.trim();
+    view = 'teacher';
+    [...document.getElementById('seg').children].forEach(x => x.classList.toggle('on', x.dataset.view === 'teacher'));
+    qInput.value = name; refresh();
+    const row = document.querySelector('tr[data-key="' + CSS.escape(name) + '"]');
+    if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+/* ── 初始化 ─────────────────────────────────────────────────── */
+/* ── 主题切换（默认浅色，记住用户选择）───────────────────── */
+/* ── 数据来源状态条 ─────────────────────────────── */
+function renderStatus(errMsg) {
+    const el = document.getElementById('dataStatus');
+    if (!el) return;
+    const admin = '　<a href="officehour-admin.html">' +
+        (DATA_MODE === 'snapshot' ? '老师登录 →' : '我是老师，修改我的 Office Hour →') + '</a>';
+    if (DATA_MODE === 'live') {
+        el.innerHTML = '<span class="dot live"></span>实时数据'
+            + (DATA_STAMP ? ' · 更新于 ' + esc(DATA_STAMP) : '') + admin;
+    } else if (DATA_MODE === 'stale') {
+        // 之前拿到过、只是刷新失败：继续展示上次结果，但要说清楚
+        el.innerHTML = '<span class="dot live"></span>实时数据（可能不是最新'
+            + (errMsg ? '：' + esc(errMsg) : '') + '）' + admin;
+    } else {
+        el.innerHTML = '<span class="dot snap"></span>学期初快照'
+            + (DATA_STAMP ? ' · ' + esc(DATA_STAMP) : '')
+            + (OH_API_BASE ? '（未采用后端数据' + (errMsg ? '：' + esc(errMsg) : '') + '）' : '（未配置后端地址）') + admin;
+    }
+}
+
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme(t, persist) {
+    document.documentElement.dataset.theme = t;
+    const dark = t === 'dark';
+    themeBtn.textContent = dark ? '☀️ 浅色' : '🌙 深色';
+    themeBtn.setAttribute('aria-pressed', String(dark));
+    themeBtn.title = dark ? '切换到浅色（亮色）配色' : '切换到深色星空配色';
+    if (persist) { try { localStorage.setItem('ohTheme', t); } catch (e) { /* ignore */ } }
+}
+themeBtn.addEventListener('click', () => {
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
+});
+// 首屏：head 里的脚本已经设过 data-theme，这里只同步按钮文案（不写回 localStorage）
+applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', false);
+
+derive();
+renderBadges();
+renderNotes();
+renderClassOptions();
+refresh();
+renderStatus();
+loadLive();
+
+// 供测试与外部刷新使用
+window.OH = {
+    applyData, loadLive, refresh, renderStatus, derive,
+    snapshot: SNAPSHOT,                       // 供测试/诊断读取内嵌快照
+    setApiBase(v) { OH_API_BASE = v; },
+    state: () => ({ mode: DATA_MODE, stamp: DATA_STAMP, slots: SLOTS.length, teachers: TEACHERS.length,
+                    classes: CLASSES.slice(), merged, canMerge, periods: PERIODS.slice(), apiBase: OH_API_BASE }),
+};
+</script>
+</body>
+</html>

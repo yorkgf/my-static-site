@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>layout audit</title></head>
+<body style="margin:0">
+<iframe id="f" style="width:1280px;height:1000px;border:0"></iframe>
+<pre id="out"></pre>
+<script>
+const out = [];
+const log = (...a) => out.push(a.join(' '));
+const ok = (n, c, x='') => log((c ? '✓ ' : '✗ ') + n + (x ? '  → ' + x : ''));
+const SIZES = [
+  {w: 1440, h: 1000, name: '桌面大屏'},
+  {w: 1280, h: 900,  name: '笔记本'},
+  {w: 834,  h: 900,  name: '平板竖屏'},
+  {w: 390,  h: 844,  name: '手机 iPhone'},
+];
+
+const PAGES = ['../../officehour.html', '../../officehour-admin.html'];
+
+async function run() {
+ for (const page of PAGES) {
+  log('\n████████  ' + page.replace('../../', '') + '  ████████');
+  for (const s of SIZES) {
+    f.style.width = s.w + 'px';
+    f.src = page + '?x=' + s.w;
+    await new Promise(r => { f.onload = r; });
+    await new Promise(r => setTimeout(r, 250));
+    const d = f.contentDocument, w = f.contentWindow;
+    const doc = d.documentElement, body = d.body;
+    log('\n══════ ' + s.name + ' ' + s.w + '×' + s.h + ' ══════');
+
+    // 1. 页面级横向溢出
+    ok('页面无横向溢出', doc.scrollWidth <= s.w + 1,
+        'scrollW=' + doc.scrollWidth + ' clientW=' + doc.clientWidth);
+
+    // 2. 任何元素超出视口右边
+    const viol = [];
+    d.querySelectorAll('.wrap *').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.width && r.right > s.w + 1.5 && !el.closest('.scroller') && el.tagName !== 'TABLE') {
+        viol.push(el.tagName + '.' + (el.className || '').toString().split(' ')[0] + ' right=' + Math.round(r.right));
+      }
+    });
+    ok('无元素越界(表格滚动容器除外)', viol.length === 0, viol.slice(0,4).join(' , '));
+
+    // 3. 表格：总表必须可见，靠 .scroller 承接横向滚动
+    const sc = d.querySelector('.scroller'), tbl = d.querySelector('.scroller table');
+    if (sc && tbl) {
+      const needsScroll = tbl.scrollWidth > sc.clientWidth + 1;
+      ok('表格容器 overflow-x:auto', /auto|scroll/.test(w.getComputedStyle(sc).overflowX),
+          getComputedStyle(sc).overflowX);
+      log('  表格 ' + tbl.scrollWidth + 'px / 容器 ' + sc.clientWidth + 'px → ' +
+          (needsScroll ? '横向滚动' : '完整显示'));
+      ok('窄屏时表格可滚动而非撑破页面', !needsScroll || doc.scrollWidth <= s.w + 1);
+
+      // 4. 首列吸附（只有学生页的总表用了 sticky 首列）
+      const stickyTh = d.querySelector('.scroller thead th.sticky');
+      if (stickyTh) ok('表头首列 position:sticky', getComputedStyle(stickyTh).position === 'sticky',
+          getComputedStyle(stickyTh).position);
+    } else {
+      log('  （本页此刻无表格，跳过表格项）');
+    }
+
+    // 5. 文字裁切检测（有省略号/溢出但 overflow:hidden 的元素）
+    const clipped = [];
+    d.querySelectorAll('.tcard, .badge, .chip, .panel-title, td .who, td .rm, .card, .btn').forEach(el => {
+      if (el.scrollWidth > el.clientWidth + 1 && getComputedStyle(el).overflow !== 'visible') {
+        clipped.push((el.className||el.tagName) + ':' + el.textContent.trim().slice(0,10));
+      }
+    });
+    ok('无文字被裁切', clipped.length === 0, clipped.slice(0,3).join(' , '));
+
+    // 6. 触控目标 ≥ 40px 高（移动端可用性）
+    if (s.w <= 500) {
+      const small = [];
+      d.querySelectorAll('.chip, .btn, select, #q').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.height && r.height < 34) small.push(el.className.split(' ')[0] + '=' + Math.round(r.height));
+      });
+      ok('移动端控件高度 ≥34px', small.length === 0, small.slice(0,4).join(' , '));
+      const inp = d.querySelector('#q');
+      if (inp) ok('搜索框字号 ≥16px(防 iOS 自动缩放)',
+         parseFloat(getComputedStyle(inp).fontSize) >= 16,
+         getComputedStyle(inp).fontSize);
+      // 表单页同样要保证输入不被 iOS 自动缩放
+      ok('所有输入控件字号 ≥16px',
+         [...d.querySelectorAll('input, select, textarea')].every(e =>
+           parseFloat(getComputedStyle(e).fontSize) >= 16),
+         [...d.querySelectorAll('input, select, textarea')].map(e => getComputedStyle(e).fontSize).join(','));
+    }
+
+    // 7. 栅格列数合理（两页都用 auto-fill grid / 卡片布局）
+    const grids = [...d.querySelectorAll('.results, .cards')];
+    ok('栅格列数合理', grids.every(g => {
+        const c = getComputedStyle(g).gridTemplateColumns.split(' ').filter(Boolean).length;
+        return c >= 1 && c <= 6;
+    }), grids.map(g => getComputedStyle(g).gridTemplateColumns.split(' ').length).join(','));
+
+    // 8. 页面主体确实渲染出来了（两页各自的标志物）
+    if (page.includes('officehour-admin')) {
+        ok('admin 页渲染出登录卡片/输入控件', d.querySelectorAll('#loginView input, #mainView input').length >= 2,
+            String(d.querySelectorAll('input').length));
+        ok('admin 页有主题切换按钮', !!d.getElementById('themeBtn'));
+    } else {
+        ok('渲染出 20 张老师卡片', d.querySelectorAll('.tcard').length === 20,
+            String(d.querySelectorAll('.tcard').length));
+        ok('渲染出 9 行班级表', d.querySelectorAll('tr[data-key]').length === 9,
+            String(d.querySelectorAll('tr[data-key]').length));
+    }
+
+    // 9. 对比度抽查（正文 vs 背景）
+    const cs = getComputedStyle(d.body);
+    log('  body 背景 ' + cs.backgroundColor + ' / 文字 ' + cs.color);
+  }
+ }
+  document.getElementById('out').textContent = out.join('\n');
+  document.title = 'AUDIT ' + (out.some(l => l.startsWith('✗')) ? 'ISSUES' : 'CLEAN');
+}
+run();
+</script>
+</body></html>

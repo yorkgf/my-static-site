@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>E2E</title></head>
+<body style="margin:0;background:#333">
+<iframe id="f" style="width:1100px;height:900px;border:0"></iframe>
+<pre id="out"></pre>
+<script>
+const P = new URLSearchParams(location.search);
+const API = P.get('api'), PW = P.get('pw'), TEACHER = P.get('teacher'), ADMIN = P.get('admin'), TNAME = P.get('tname');
+const L = [];
+const ok = (n, c, x = '') => { L.push((c ? '  ✓ ' : '  ✗ ') + n + (!c && x ? '  → ' + x : '')); };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const emit = () => { document.getElementById('out').textContent = L.join('\n'); };
+
+async function loadPage(href) {
+  return new Promise(res => { f.onload = () => res(f.contentWindow.document); f.src = href; });
+}
+async function until(fn, ms = 8000, label = '') {
+  const t0 = Date.now();
+  while (Date.now() - t0 < ms) { if (fn()) return true; await sleep(120); }
+  ok('等待超时: ' + label, false);
+  return false;
+}
+const txt = e => (e ? e.textContent.replace(/\s+/g, ' ').trim() : '');
+
+(async function run() {
+  L.push('── admin 页：配置后端 + 教师登录 ──');
+  localStorage.setItem('ohApiBase', API);          // 与 iframe 同源，页面启动时会读到
+  let d = await loadPage('../../officehour-admin.html');
+  const w = f.contentWindow;
+  w.OHA.setApi(API);
+
+  ok('已配置后端 → 不显示“未连上后端”提示', d.getElementById('noApi').hidden === true);
+  ok('未登录 → 显示登录表单', d.getElementById('loginView').hidden === false && d.getElementById('mainView').hidden === true);
+
+  // 错误密码
+  d.getElementById('email').value = TEACHER;
+  d.getElementById('password').value = 'wrong-password';
+  d.getElementById('loginBtn').click();
+  await until(() => !d.getElementById('loginErr').hidden, 6000, '错误提示出现');
+  ok('错误密码 → 显示失败原因且不进入主界面', !d.getElementById('loginErr').hidden && d.getElementById('mainView').hidden === true,
+     txt(d.getElementById('loginErr')));
+
+  // 正确登录
+  d.getElementById('password').value = PW;
+  d.getElementById('loginBtn').click();
+  await until(() => d.getElementById('mainView').hidden === false, 8000, '登录进入主界面');
+  ok('登录成功进入主界面', d.getElementById('mainView').hidden === false);
+  ok('显示本人姓名', txt(d.getElementById('meName')) === TNAME, txt(d.getElementById('meName')));
+  ok('角色标记为教师', txt(d.getElementById('meRole')) === '教师', txt(d.getElementById('meRole')));
+  ok('管理员工具对普通教师隐藏', d.getElementById('adminPanel').hidden === true);
+
+  const cards = [...d.querySelectorAll('#mineCards .card')];
+  ok('只列出本人的值班', cards.length >= 1, cards.length + ' 张卡片');
+  ok('卡片显示节次具体时间', /\d{1,2}:\d{2}/.test(txt(cards[0])), txt(cards[0]).slice(0, 70));
+
+  L.push('── 修改教室 + 备注并保存 ──');
+  const first = cards[0];
+  const clsName = txt(first.querySelector('.cls'));
+  const dayName = txt(first.querySelector('.day'));
+  first.querySelector('[data-f="room"]').value = '文体 E2E改过 999';
+  first.querySelector('[data-f="room"]').dispatchEvent(new w.Event('input', { bubbles: true }));
+  first.querySelector('[data-f="note"]').value = '浏览器端到端测试备注';
+  first.querySelector('[data-f="note"]').dispatchEvent(new w.Event('input', { bubbles: true }));
+  ok('改动后出现“未保存”标记', /未保存/.test(txt(first.querySelector('[data-act="state"]'))), txt(first.querySelector('[data-act="state"]')));
+  first.querySelector('[data-act="save"]').click();
+  await until(() => txt(first.querySelector('[data-act="state"]')) === '', 8000, '保存完成');
+  ok('保存成功后清除未保存标记', txt(first.querySelector('[data-act="state"]')) === '');
+  ok('出现成功提示', /已保存/.test(d.getElementById('toast').textContent), txt(d.getElementById('toast')));
+
+  L.push('── 学生页应立刻看到改动 ──');
+  const d2 = await loadPage('../../officehour.html');
+  const w2 = f.contentWindow;
+  await until(() => w2.OH && w2.OH.state().mode === 'live', 8000, '学生页进入实时模式');
+  const st = w2.OH.state();
+  ok('学生页为实时数据', st.mode === 'live' && st.slots === 72, JSON.stringify({ mode: st.mode, slots: st.slots }));
+  ok('状态条显示“实时数据”', /实时数据/.test(txt(d2.getElementById('dataStatus'))), txt(d2.getElementById('dataStatus')));
+  await until(() => /E2E改过/.test(d2.getElementById('grid').textContent), 6000, '改动出现在总表里');
+  ok('总表反映了改动后的教室', /E2E改过/.test(d2.getElementById('grid').textContent));
+  ok('卡片展示了老师写的备注', /浏览器端到端测试备注/.test(d2.getElementById('results').textContent));
+  // 只改了第10节 → 两节不再相同，学生页必须自动逐节展开，不能把第11节也假装改掉
+  const st2 = w2.OH.state();
+  ok('两节不再相同 → merged=false', st2.merged === false && st2.canMerge === false, JSON.stringify({ merged: st2.merged, canMerge: st2.canMerge }));
+  ok('G10-1 行同时出现改过的和第11节原来的教室', (() => {
+      const rows = [...d2.querySelectorAll('tr[data-key="G10-1"]')];
+      const all = rows.map(r => r.textContent.replace(/\s+/g, ' ')).join(' | ');
+      return /E2E改过/.test(all) && /文体 114/.test(all);
+  })(), 'G10-1 行内容不符');
+  ok('自动出现两个节次时间带', d2.querySelectorAll('#grid tr.band').length === 2,
+     d2.querySelectorAll('#grid tr.band').length + ' 个时间带');
+  ok('实时模式下仍保留拼音搜索能力', (() => {
+    d2.getElementById('q').value = TNAME;
+    d2.getElementById('q').dispatchEvent(new w2.Event('input', { bubbles: true }));
+    return d2.querySelectorAll('.tcard').length === 1;
+  })());
+
+  L.push('── 完全自助：新增 → 学生端可见 → 删除 → 消失 ──');
+  const d4 = await loadPage('../../officehour-admin.html');
+  const w4 = f.contentWindow;
+  w4.OHA.setApi(API);
+  w4.confirm = () => true;                 // headless 里 confirm 默认迥回 false，会把删除掉掉
+  await until(() => d4.getElementById('mainView').hidden === false, 8000, '教师登录态恢复');
+  await until(() => d4.querySelectorAll('#mineCards .card').length > 0, 8000, '我的值班渲染出来');
+
+  const n0 = d4.querySelectorAll('#mineCards .card').length;
+  ok('刷新后仍是普通教师（无管理面板）', d4.getElementById('adminPanel').hidden === true);
+  ok('可选班级/节次来自后端，不是前端写死的', (() => {
+      const o = w4.OHA.options();
+      return o.classes.length >= 9 && o.periods.length === 2 && !!o.periods[0].time;
+  })(), JSON.stringify(w4.OHA.options().classes));
+  ok('有“新增”表单和删除按钮（完全自助）',
+     !!d4.getElementById('adAdd') && !!d4.querySelector('#mineCards [data-act="del"]'));
+
+  const setSel = (sel, want) => {
+      const el = d4.querySelector(sel);
+      const o = [...el.options].find(x => x.value === want || x.textContent.includes(want));
+      if (!o) { ok('下拉里找不到选项 ' + want, false); return; }
+      el.value = o.value;
+      el.dispatchEvent(new w4.Event('change', { bubbles: true }));
+  };
+  setSel('#adDay', '周五'); setSel('#adPeriod', '10'); setSel('#adCls', 'G10-1');
+  d4.getElementById('adRoom').value = '文体 E2E新增 901';
+  d4.getElementById('adNote').value = '端到端新增的值班';
+  d4.getElementById('adAdd').click();
+  await until(() => d4.querySelectorAll('#mineCards .card').length === n0 + 1, 9000, '新增后卡片 +1');
+  ok('新增成功，卡片 +1', d4.querySelectorAll('#mineCards .card').length === n0 + 1,
+     d4.querySelectorAll('#mineCards .card').length + ' 张');
+  const newCard = d4.querySelector('#mineCards .card[data-day="周五"]');
+  ok('新卡片标为“我自己加的”', !!newCard && /我自己加的/.test(newCard.querySelector('.tag').textContent),
+     newCard ? txt(newCard.querySelector('.tag')) : '找不到新卡片');
+
+  // 同一格已有别人 → 必须被挡。周一第10节 9 个班全排满了，所以先命中“这班已有别人”这一支
+  const n1 = d4.querySelectorAll('#mineCards .card').length;
+  setSel('#adDay', '周一'); setSel('#adPeriod', '10'); setSel('#adCls', 'G10-2');
+  d4.getElementById('adRoom').value = '不该成功';
+  d4.getElementById('toast').innerHTML = '';        // 上一次的成功提示还在屏上，不清掉会匹错
+  d4.getElementById('adAdd').click();
+  await until(() => /已由|宋雯雯|同一时段|已经有一条/.test(d4.getElementById('toast').textContent), 8000, '409 提示');
+  ok('抢别人已排的班会被挡住', /宋雯雯|同一时段|已经有一条/.test(d4.getElementById('toast').textContent),
+     txt(d4.getElementById('toast')));
+  await sleep(600);
+  ok('被挡后卡片数没变', d4.querySelectorAll('#mineCards .card').length === n1,
+     d4.querySelectorAll('#mineCards .card').length + ' 张');
+
+  // 学生端：能看到新增，而且周五这一列自己长出来了
+  const d5 = await loadPage('../../officehour.html');
+  const w5 = f.contentWindow;
+  await until(() => w5.OH && w5.OH.state().mode === 'live', 8000, '学生页实时模式');
+  await until(() => /E2E新增/.test(d5.getElementById('grid').textContent), 6000, '新增出现在总表');
+  ok('学生端总表出现新增的值班', /E2E新增/.test(d5.getElementById('grid').textContent));
+  ok('新增了周五→表格自动多一列', [...d5.querySelectorAll('#grid thead th')].some(th => /周五/.test(th.textContent)),
+     [...d5.querySelectorAll('#grid thead th')].map(t => t.textContent.trim()).join('/'));
+  ok('学生端仍是 73 条', w5.OH.state().slots === 73, 'slots=' + w5.OH.state().slots);
+
+  // 删掉它，回到原状
+  const d6 = await loadPage('../../officehour-admin.html');
+  const w6 = f.contentWindow;
+  w6.OHA.setApi(API);
+  w6.confirm = () => true;
+  await until(() => d6.getElementById('mainView').hidden === false, 8000, '登录态恢复');
+  const target = d6.querySelector('#mineCards .card[data-day="周五"]');
+  ok('刷新后仍能找到新增的那条', !!target);
+  if (!target) throw new Error('找不到周五那条，无法继续删除流程');
+  target.querySelector('[data-act="del"]').click();
+  await until(() => !d6.querySelector('#mineCards .card[data-day="周五"]'), 9000, '卡片消失');
+  ok('删除后卡片数回到原样', d6.querySelectorAll('#mineCards .card').length === n0,
+     d6.querySelectorAll('#mineCards .card').length + ' 张 vs 原本 ' + n0);
+
+  const d7 = await loadPage('../../officehour.html');
+  const w7 = f.contentWindow;
+  await until(() => w7.OH && w7.OH.state().mode === 'live', 8000, '学生页实时模式');
+  ok('学生端回到 72 条', w7.OH.state().slots === 72, 'slots=' + w7.OH.state().slots);
+  ok('删除后学生端不再显示', !/E2E新增/.test(d7.getElementById('grid').textContent));
+  ok('而之前的教室修改还在（没被误删）', /E2E改过/.test(d7.getElementById('grid').textContent));
+
+  L.push('── 切换为管理员登录 ──');
+  const d3 = await loadPage('../../officehour-admin.html');
+  const w3 = f.contentWindow;
+  w3.OHA.setApi(API);
+  await until(() => d3.getElementById('mainView') && d3.getElementById('mainView').hidden === false, 8000, 'token 自动恢复登录');
+  ok('刷新后用 sessionStorage 里的 token 自动登录', d3.getElementById('mainView').hidden === false);
+  d3.getElementById('logoutBtn').click();
+  await until(() => d3.getElementById('loginView').hidden === false, 4000, '退出后回到登录页');
+  ok('退出登录回到登录页', d3.getElementById('loginView').hidden === false);
+  ok('退出后 token 已清除', !w3.sessionStorage.getItem('ohTeacherToken'), 'sessionStorage 仍有 token');
+
+  d3.getElementById('email').value = ADMIN;
+  d3.getElementById('password').value = PW;
+  d3.getElementById('loginBtn').click();
+  await until(() => d3.getElementById('adminPanel') && d3.getElementById('adminPanel').hidden === false, 8000, '管理面板出现');
+  ok('管理员登录成功且角色正确', txt(d3.getElementById('meRole')) === '管理员', txt(d3.getElementById('meRole')));
+  ok('管理面板可见', d3.getElementById('adminPanel').hidden === false);
+  const rows = [...d3.querySelectorAll('#allTable tbody tr')];
+  ok('管理员可看到全部 72 条', rows.length === 72, rows.length + ' 行');
+  ok('管理员表格里有归属邮箱字段', !!d3.querySelector('#allTable [data-f="teacherEmail"]'));
+
+  L.push('── 管理员筛选 + 审计 ──');
+  d3.getElementById('filterTxt').value = clsName;
+  d3.getElementById('filterTxt').dispatchEvent(new w3.Event('input', { bubbles: true }));
+  const filtered = [...d3.querySelectorAll('#allTable tbody tr')];
+  ok('筛选后行数减少', filtered.length < rows.length && filtered.length >= 1, filtered.length + ' 行');
+  ok('审计列表有内容', d3.querySelectorAll('#auditList li').length > 0,
+     txt(d3.querySelector('#auditList li')));
+  ok('审计里能看到刚才的修改', /E2E改过|teacher_update|教室/.test(d3.getElementById('auditList').textContent),
+     txt(d3.querySelector('#auditList li')));
+
+  L.push('');
+  L.push(L.some(x => x.startsWith('  ✗')) ? 'E2E FAIL' : 'ALL PASS');
+  emit();
+  document.title = L.some(x => x.startsWith('  ✗')) ? 'E2E-FAIL' : 'E2E-PASS';
+})().catch(e => { L.push('  ✗ harness 异常: ' + e.message); emit(); document.title = 'E2E-ERROR'; });
+</script>
+</body></html>

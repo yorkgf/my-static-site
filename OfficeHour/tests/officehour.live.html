@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>LIVE</title>
+<!-- 线上自检：把学生页指向一个「已部署」的 API，确认它真的在读后端而不是在读快照。
+     断言里的 72 条 / 20 位教师 / 李楚翘 对应本学期（26-27）排班，换学期要跟着改。
+     用法： OfficeHour/tests/live-check.sh [https://你的函数URL] -->
+</head><body style="margin:0">
+<iframe id="f" style="width:1280px;height:1100px"></iframe><pre id="out"></pre>
+<script>
+const L=[];const ok=(n,c,x='')=>L.push((c?'✓ ':'✗ ')+n+(x?'  → '+x:''));
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{
+ const API = new URLSearchParams(location.search).get('api') || 'http://127.0.0.1:9202';
+ localStorage.setItem('ohApiBase', API);
+ f.src='../../officehour.html?live=' + Date.now();
+ await new Promise(r=>f.onload=r);
+ const d=f.contentDocument,w=f.contentWindow;
+ for(let i=0;i<60;i++){ if(w.OH&&w.OH.state().mode==='live')break; await sleep(200); }
+ const st=w.OH.state();
+ ok('连上真实后端 → 实时模式', st.mode==='live', st.mode);
+ ok('拿到全部 72 条', st.slots===72, 'slots='+st.slots);
+ ok('20 位教师', st.teachers===20, 'teachers='+st.teachers);
+ ok('9 个班级', st.classes.length===9, st.classes.join(','));
+ ok('两节相同 → 仍自动合并', st.merged===true && st.canMerge===true, JSON.stringify({merged:st.merged}));
+ ok('节次时间来自后端', st.periods.length===2 && st.periods[0].time==='18:30–19:20', JSON.stringify(st.periods));
+ ok('状态条显示实时数据', /实时数据/.test(d.getElementById('dataStatus').textContent), d.getElementById('dataStatus').textContent.trim());
+ ok('表格 9 行', d.querySelectorAll('tr[data-key]').length===9);
+ ok('抽查 周一 G10-1 = 李楚翘', /李楚翘/.test(d.querySelector('tr[data-key="G10-1"]').children[1].textContent));
+ ok('抽查 周四 G12 = 卢琦', /卢琦/.test(d.querySelector('tr[data-key="G12"]').children[4].textContent));
+ d.getElementById('q').value='lcq'; d.getElementById('q').dispatchEvent(new w.Event('input',{bubbles:true}));
+ ok('实时模式下拼音首字母搜索可用', d.querySelectorAll('.tcard').length===1 && /李楚翘/.test(d.querySelector('.tname').textContent), (d.querySelector('.tname')||{}).textContent);
+ d.getElementById('q').value=''; d.getElementById('q').dispatchEvent(new w.Event('input',{bubbles:true}));
+ ok('实时模式下逐节展开正常', (()=>{d.querySelector('button[data-split="1"]').click();const n=d.querySelectorAll('#grid tr.band').length;d.querySelector('button[data-split="0"]').click();return n===2})());
+ document.getElementById('out').textContent=L.join('\n');
+ document.title=L.some(x=>x.startsWith('✗'))?'LIVE-FAIL':'LIVE-PASS';
+})().catch(e=>{L.push('✗ 异常 '+e.message);document.getElementById('out').textContent=L.join('\n');document.title='LIVE-ERR'});
+</script></body></html>

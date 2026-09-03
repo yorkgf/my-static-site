@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>contrast</title></head>
+<body style="margin:0">
+<iframe id="f" src="../../officehour.html" style="width:1280px;height:900px;border:0"></iframe>
+<pre id="out"></pre>
+<script>
+const L = [];
+const log = (...a) => L.push(a.join(' '));
+
+// WCAG 相对亮度 / 对比度
+const lum = ([r, g, b]) => {
+  const f = c => { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+};
+const ratio = (a, b) => { const l1 = lum(a), l2 = lum(b); return (Math.max(l1, l2) + .05) / (Math.min(l1, l2) + .05); };
+// alpha 合成
+const over = (fg, bg) => {
+  const [r, g, b, a = 1] = fg;
+  if (a >= 1) return [r, g, b];
+  return [0, 1, 2].map(i => a * fg[i] + (1 - a) * bg[i]);
+};
+
+window.onerror=(m,s2,l)=>{L.push('!! '+m+' @'+l);document.getElementById('out').textContent=L.join('\n');document.title='JSERR';};
+f.onload = () => {
+ try{
+  const d = f.contentDocument, w = f.contentWindow;
+  const root = d.documentElement;
+
+  for (const theme of ['light', 'dark']) {
+    root.dataset.theme = theme;
+    log('\n══════ ' + (theme === 'light' ? '浅色（默认）' : '深色星空') + ' ══════');
+    const cs = w.getComputedStyle(root);
+    const tok = n => cs.getPropertyValue(n).trim();
+
+    // 从任意字符串里抽出所有颜色（hex / rgb / rgba）
+    const parse = s => {
+      const out = [];
+      (s.match(/#[0-9a-fA-F]{3,8}|\brgba?\([^)]*\)/g) || []).forEach(c => {
+        if (c[0] === '#') {
+          let h = c.slice(1);
+          if (h.length === 3 || h.length === 4) h = h.split('').map(x => x + x).join('');
+          const v = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16));
+          v.push(h.length >= 8 ? parseInt(h.slice(6, 8), 16) / 255 : 1);
+          out.push(v);
+        } else {
+          const n = c.match(/[\d.]+/g).map(Number);
+          out.push([n[0], n[1], n[2], n.length > 3 ? n[3] : 1]);
+        }
+      });
+      return out;
+    };
+    // 背景可能是渐变：与每个端点都算，取最差
+    const worst = (fgTok, bgTok) => {
+      const fgs = parse(fgTok), bgs = parse(bgTok);
+      if (!fgs.length || !bgs.length) return null;
+      let min = Infinity, pair = null;
+      for (const fg of fgs) for (const bgc of bgs) {
+        // 背景色先叠到白色/黑色底上（面板本身半透明时）
+        const base = bgc[3] < 1 ? over(bgc, theme === 'dark' ? [8, 15, 34, 1] : [255, 255, 255, 1]) : [bgc[0], bgc[1], bgc[2]];
+        const r = ratio(over(fg, base), base);
+        if (r < min) { min = r; pair = [fgTok.slice(0, 24), bgTok.slice(0, 24)]; }
+      }
+      return { r: min, pair };
+    };
+
+    // fg token, bg token, 阈值, 说明
+    const PAIRS = [
+      ['--ink', '--bg', 4.5, '正文 / 页面底'],
+      ['--ink-strong', '--sticky', 4.5, '表格首列表头'],
+      ['--muted', '--panel', 4.5, '次要说明文字'],
+      ['--accent', '--panel', 4.5, '老师姓名（表格/卡片）'],
+      ['--accent', '--card', 4.5, '老师姓名（卡片标题）'],
+      ['--blue', '--panel', 4.5, '节次时间文字'],
+      ['--accent-ink', '--callout', 4.5, '提示条强调'],
+      ['--muted', '--callout', 4.5, '提示条正文'],
+      ['--btn-ink', '--btn', 4.5, '按钮文字'],
+      ['--seg-on-ink', '--seg-on', 4.5, '选中分段按钮'],
+      ['--mark-ink', '--mark', 4.5, '搜索命中高亮'],
+      ['--dtag-ink', '--dtag', 4.5, '星期标签'],
+      ['--blue', '--chip', 4.5, '顶部徽章'],
+      ['--accent', '--chip', 4.5, '徽章内数字'],
+      ['--ink', '--field', 4.5, '输入框文字'],
+      ['--ink', '--panel', 4.5, '面板正文'],
+      ['--faint', '--panel', 3.0, '“—”空位（装饰性）'],
+      ['--placeholder', '--field', 3.0, '输入框占位符'],
+      ['--ink', '--thead', 4.5, '表头星期'],
+    ];
+    let fail = 0;
+    PAIRS.forEach(([fg, bg, need, label]) => {
+      const res = worst(tok(fg), tok(bg));
+      if (!res) { log('  ? 无法解析 ' + fg + ' / ' + bg); return; }
+      const pass = res.r >= need;
+      if (!pass) fail++;
+      log((pass ? '  ✓ ' : '  ✗ ') + label.padEnd(22, ' ') + ' ' +
+          fg.replace('--', '') + ' on ' + bg.replace('--', '') +
+          ' = ' + res.r.toFixed(2) + ':1  (需 ≥' + need + ')');
+    });
+    log('  → ' + (fail ? fail + ' 项不达标' : '全部达标'));
+  }
+  delete root.dataset.theme;   // 回到默认浅色
+  document.getElementById('out').textContent = L.join('\n');
+  document.title = 'CONTRAST ' + (L.some(x => x.startsWith('  ✗')) ? 'ISSUES' : 'AA-OK');
+ }catch(e){L.push('!! THROW '+e.message);document.getElementById('out').textContent=L.join('\n');document.title='THROWN';}
+};
+</script>
+</body></html>
