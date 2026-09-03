@@ -422,50 +422,53 @@
 <body>
 <div class="wrap">
     <div class="topbar no-print">
-        <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false">🌙 深色</button>
+        <div style="display:flex;gap:.55rem">
+            <button class="theme-btn" id="langBtn" type="button">🌐 English</button>
+            <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false">🌙 深色</button>
+        </div>
     </div>
     <div class="head">
-        <h1>🕑 教师 Office Hour</h1>
-        <p class="subtitle">晚自习值班安排 —— 查一查你想问的问题，应该在哪一天、去哪间教室找哪位老师</p>
+        <h1 data-i18n="h1">🕑 教师 Office Hour</h1>
+        <p class="subtitle" data-i18n="subtitle">晚自习值班安排 —— 查一查你想问的问题，应该在哪一天、去哪间教室找哪位老师</p>
         <div class="badges" id="badges"></div>
         <p class="data-status" id="dataStatus" aria-live="polite"></p>
     </div>
 
     <!-- ── 搜索 ─────────────────────────────────── -->
     <div class="panel">
-        <div class="panel-title"><span class="ico">🔎</span>找老师</div>
-        <p class="panel-note">支持中文姓名、全拼或首字母，例如 <b>李楚翘</b> / <b>lichuqiao</b> / <b>lcq</b>；也可以搜班级 <b>G10-1</b> 或教室 <b>文体 114</b>。</p>
+        <div class="panel-title" data-i18n="findTeacher"><span class="ico">🔎</span>找老师</div>
+        <p class="panel-note" data-i18n="searchNote">支持中文姓名、全拼或首字母，例如 <b>李楚翘</b> / <b>lichuqiao</b> / <b>lcq</b>；也可以搜班级 <b>G10-1</b> 或教室 <b>文体 114</b>。</p>
         <div class="search-row no-print">
-            <input type="text" id="q" placeholder="输入老师姓名 / 拼音 / 班级 / 教室…" autocomplete="off" autofocus>
-            <button class="btn" id="clearBtn" type="button">清空</button>
+            <input type="text" id="q" data-i18n-ph="qPh" placeholder="输入老师姓名 / 拼音 / 班级 / 教室…" autocomplete="off" autofocus>
+            <button class="btn" id="clearBtn" type="button" data-i18n="clear">清空</button>
         </div>
         <div class="chips no-print" id="chips"></div>
         <div class="results" id="results"></div>
         <div class="empty" id="noResult" hidden>
-            <span class="big">🌙</span>没有匹配的老师，换个关键字试试？
+            <span class="big">🌙</span><span data-i18n="noResult">没有匹配的老师，换个关键字试试？</span>
         </div>
     </div>
 
     <!-- ── 总表 ─────────────────────────────────── -->
     <div class="panel">
-        <div class="panel-title"><span class="ico">📋</span>Office Hour 总表</div>
+        <div class="panel-title" data-i18n="fullTable"><span class="ico">📋</span>Office Hour 总表</div>
         <p class="panel-note" id="tableNote"></p>
         <div class="toolbar no-print">
             <div class="toolbar-left">
                 <div class="seg" id="seg">
-                    <button data-view="class" class="on" type="button">按班级看</button>
-                    <button data-view="teacher" type="button">按老师看</button>
+                    <button data-view="class" class="on" type="button" data-i18n="byClass">按班级看</button>
+                    <button data-view="teacher" type="button" data-i18n="byTeacher">按老师看</button>
                 </div>
                 <div class="seg" id="perSeg" hidden>
-                    <button data-split="0" class="on" type="button">两节合并</button>
-                    <button data-split="1" type="button">逐节展开</button>
+                    <button data-split="0" class="on" type="button" data-i18n="merge">两节合并</button>
+                    <button data-split="1" type="button" data-i18n="split">逐节展开</button>
                 </div>
             </div>
-            <label style="font-size:.9rem;color:var(--muted)">我的班级
+            <label style="font-size:.9rem;color:var(--muted)"><span data-i18n="myClass">我的班级</span>
                 <select id="classSel"><option value="">全部</option></select>
             </label>
         </div>
-        <div class="scroll-hint no-print" id="scrollHint"><span>← 左右滑动查看完整课表 →</span></div>
+        <div class="scroll-hint no-print" id="scrollHint"><span data-i18n="scrollHint">← 左右滑动查看完整课表 →</span></div>
         <div class="scroller" id="scroller">
             <table id="grid" aria-describedby="tableNote"></table>
         </div>
@@ -476,7 +479,7 @@
     </div>
 
     <div class="foot">
-        <a href="index.html">← 返回首页</a>
+        <a href="index.html" data-i18n="backHome">← 返回首页</a>
         <span class="src" id="src"></span>
     </div>
 </div>
@@ -602,6 +605,59 @@ const META = {
     periods: []
 };
 
+/* ═══ 语言：默认中文；点「🌐 English」切换并记住选择（?lang= ＞ localStorage ＞ 中文） ═══ */
+let LANG = 'zh';
+try {
+    const qLang = new URLSearchParams(location.search).get('lang');
+    const storedLang = localStorage.getItem('ohLang');
+    if (qLang === 'zh' || qLang === 'en') LANG = qLang;
+    else if (storedLang === 'zh' || storedLang === 'en') LANG = storedLang;
+} catch (e) { /* 隐私模式读不到就默认中文 */ }
+const I = (zhT, enT) => LANG === 'en' ? enT : zhT;
+/* 星期 / 节次显示随语言走；数据里存的始终是中文键（周一…/10） */
+const EN_DAY = { 周一: 'Mon', 周二: 'Tue', 周三: 'Wed', 周四: 'Thu', 周五: 'Fri' };
+const dayName = d => LANG === 'en' ? (EN_DAY[d] || d) : d;
+const perLabel = p => LANG === 'en' ? 'Period ' + p : '第' + p + '节';
+
+/* 静态文案的英文表；中文以 HTML 里的原文为准（首次 applyStatic 时快照） */
+const EN_STATIC = {
+    title: 'Teacher Office Hours · Evening Duty Schedule',
+    h1: '🕑 Teacher Office Hours',
+    subtitle: 'Evening self-study duty — look up which teacher you can ask on a given day, and in which classroom.',
+    findTeacher: '<span class="ico">🔎</span>Find a teacher',
+    searchNote: 'Search by Chinese name, full pinyin or initials — e.g. <b>李楚翘</b> / <b>lichuqiao</b> / <b>lcq</b> — or by class <b>G10-1</b> / room <b>文体 114</b>.',
+    qPh: 'Teacher name / pinyin / class / room…',
+    clear: 'Clear',
+    noResult: 'No matching teacher — try another keyword?',
+    fullTable: '<span class="ico">📋</span>Full schedule',
+    byClass: 'By class',
+    byTeacher: 'By teacher',
+    merge: 'Merge periods',
+    split: 'Split by period',
+    myClass: 'My class',
+    scrollHint: '← swipe horizontally for the full timetable →',
+    backHome: '← Back to home'
+};
+let ZH_CAP = null;
+function applyStatic() {
+    if (!ZH_CAP) {
+        ZH_CAP = { title: document.title, nodes: {}, phs: {} };
+        document.querySelectorAll('[data-i18n]').forEach(el => { ZH_CAP.nodes[el.dataset.i18n] = el.innerHTML; });
+        document.querySelectorAll('[data-i18n-ph]').forEach(el => { ZH_CAP.phs[el.dataset.i18nPh] = el.placeholder; });
+    }
+    const en = LANG === 'en';
+    document.documentElement.lang = en ? 'en' : 'zh-CN';
+    document.title = en ? EN_STATIC.title : ZH_CAP.title;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.innerHTML = en && EN_STATIC[el.dataset.i18n] != null ? EN_STATIC[el.dataset.i18n] : ZH_CAP.nodes[el.dataset.i18n];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        el.placeholder = en && EN_STATIC[el.dataset.i18nPh] != null ? EN_STATIC[el.dataset.i18nPh] : ZH_CAP.phs[el.dataset.i18nPh];
+    });
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) langBtn.textContent = en ? '🌐 中文' : '🌐 English';
+}
+
 /* ═══ 数据层 ═════════════════════════════════════════════
    内嵌的 SNAPSHOT 是学期初快照（兜底）；配好后端地址后，页面会拉实时数据，
    拉不到就退回快照，学生端永远不会白屏。
@@ -665,7 +721,7 @@ function derive() {
         const p = noPeriod(s) ? null : s[1];
         const time = s[6] || (p !== null && (PERIODS.find(x => x.p === p) || {}).time) || '';
         map[k] = { key: k, period: p, time,
-                   label: p === null ? '自定时间' : '第' + p + '节',
+                   label: p === null ? I('自定时间', 'Custom time') : perLabel(p),
                    start: startMin(time) ?? (p === null ? 1440 : p) };
     });
     WINDOWS = Object.values(map).sort((a, b) => (a.start - b.start) || ((a.period ?? 99) - (b.period ?? 99)));
@@ -741,16 +797,18 @@ function loadLive() {
                 // 地址填错/函数只建了壳子还跑着出厂模板时，拿回来的是 HTML。
                 // 不拦的话状态条会显示“Unexpected token '<'”这种没人看得懂的话。
                 throw new RegExp('^[\\s<]*<').test(text)
-                    ? new Error('拿回来的不是接口数据而是网页（函数可能还没上传代码，或地址指向了别的服务）')
-                    : new Error('后端返回的数据看不懂（不是 JSON）');
+                    ? new Error(I('拿回来的不是接口数据而是网页（函数可能还没上传代码，或地址指向了别的服务）',
+                        'Got a web page instead of API data (the function may not be deployed yet, or the URL points at the wrong service)'))
+                    : new Error(I('后端返回的数据看不懂（不是 JSON）', 'Backend returned data that is not JSON'));
             }
         })
         .then(json => {
             // 学期对不上时，后端会返回空数组（实际踩过：OH_TERM 配错导致查错学期），
             // 所以先报“学期不一致”这个真原因，而不是只说“空数据”。
             if (json.term && SNAPSHOT.term && String(json.term) !== String(SNAPSHOT.term))
-                throw new Error(`后端学期为 ${json.term}，与本页 ${SNAPSHOT.term} 不一致`);
-            if (!Array.isArray(json.slots) || !json.slots.length) throw new Error('后端返回了空排班');
+                throw new Error(I(`后端学期为 ${json.term}，与本页 ${SNAPSHOT.term} 不一致`,
+                    `Backend term is ${json.term}, but this page is for ${SNAPSHOT.term}`));
+            if (!Array.isArray(json.slots) || !json.slots.length) throw new Error(I('后端返回了空排班', 'Backend returned an empty schedule'));
             // 行格式：[星期, 节次|null, 班级, 老师, 教室, 备注, 时间文字]
             // 自定时间型没有节次号，必须把 time 带下去，否则前端不知道归哪个时间带
             const slots = json.slots.map(s => [s.day,
@@ -791,8 +849,8 @@ const teacherSlots = t => Object.keys(teacherDay[t] || {})
 // 时间带 -> 清楚的时间文字：节次型只写时间，自定型标出来免得以为是课表节次
 const timesOf = ws => [...new Set(ws)].map(k => WIN[k]).filter(Boolean)
     .sort((a, b) => a.start - b.start)
-    .map(w => w.period === null ? esc(w.time) + '（自定）' : esc(w.time))
-    .join(' <i>＋</i> ');
+    .map(w => w.period === null ? esc(w.time) + I('（自定）', ' (custom)') : esc(w.time))
+    .join(I(' <i>＋</i> ', ' <i>+</i> '));
 
 /* ── 搜索匹配 ───────────────────────────────────────────────── */
 function matchTeacher(name, q) {
@@ -830,11 +888,11 @@ function hl(text, q) {
 /* ── 渲染：顶部徽章 ─────────────────────────────────────────── */
 function renderBadges() {
     document.getElementById('badges').innerHTML = [
-        '<span class="badge">📅 <b>' + activeDays.join(' · ') + '</b>' + (offDays.length ? '（' + offDays.join('、') + '无安排）' : '') + '</span>',
-        ...META.periods.map(p => '<span class="badge">🕑 ' + esc(p.label) + ' <b>' + esc(p.time) + '</b></span>'),
-        ...WINDOWS.filter(w => w.period === null).map(w => '<span class="badge">🕑 <b>' + esc(w.time) + '</b> 自定答疑</span>'),
-        '<span class="badge">👩‍🏫 <b>' + TEACHERS.length + '</b> 位老师</span>',
-        '<span class="badge">🏫 <b>' + CLASSES.length + '</b> 个班级</span>'
+        '<span class="badge">📅 <b>' + activeDays.map(dayName).join(' · ') + '</b>' + (offDays.length ? I('（' + offDays.join('、') + '无安排）', ' (' + offDays.map(dayName).join(', ') + ' no duty)') : '') + '</span>',
+        ...META.periods.map(p => '<span class="badge">🕑 ' + esc(Number.isInteger(p.p) ? perLabel(p.p) : p.label) + ' <b>' + esc(p.time) + '</b></span>'),
+        ...WINDOWS.filter(w => w.period === null).map(w => '<span class="badge">🕑 <b>' + esc(w.time) + '</b> ' + I('自定答疑', 'custom Q&A') + '</span>'),
+        '<span class="badge">👩‍🏫 <b>' + TEACHERS.length + '</b> ' + I('位老师', 'teachers') + '</span>',
+        '<span class="badge">🏫 <b>' + CLASSES.length + '</b> ' + I('个班级', 'classes') + '</span>'
     ].join('');
 }
 
@@ -853,14 +911,14 @@ function renderResults(q) {
     document.getElementById('results').innerHTML = list.map(t => {
         const slots = teacherSlots(t.name);
         const items = slots.flatMap(s => s.items.map(i =>
-            '<li><span class="dtag">' + esc(s.day) + '</span><span class="tmeta">'
+            '<li><span class="dtag">' + esc(dayName(s.day)) + '</span><span class="tmeta">'
             + '<span class="ttime">' + timesOf(i.ws) + '</span>'
-            + '<span class="tloc"><span class="tcls">' + esc(i.c || '办公时间') + '</span>'
+            + '<span class="tloc"><span class="tcls">' + esc(i.c || I('办公时间', 'Office hours')) + '</span>'
             + '<span class="troom"> @ ' + esc(i.r) + '</span></span>'
             + (i.note ? '<span class="tnote">📌 ' + esc(i.note) + '</span>' : '') + '</span></li>')).join('');
         return '<div class="tcard"><div class="tcard-head"><span class="tname">' + hl(t.name, q) +
             '</span><span class="tpy">' + esc(t.py) + '</span>' +
-            '<span class="tcount">' + slots.length + ' 天</span></div><ul class="trows">' + items + '</ul></div>';
+            '<span class="tcount">' + slots.length + ' ' + I('天', 'days') + '</span></div><ul class="trows">' + items + '</ul></div>';
     }).join('');
 }
 // 当关键字是班级/教室时，只保留在该关键字下真有排班的老师
@@ -906,25 +964,28 @@ function cellFor(winKeys, rowKey, day) {
 // 每个区块开头的时间带：把节次号（或“自定时间”）和起止时间写清楚
 function bandRow(winKeys) {
     const l = winKeys.map(k => WIN[k]).filter(Boolean);
+    const sep = I(' ＋ ', ' + ');
     const times = l.map(x => '<span class="btime">' + esc(x.time) + '</span>')
-        .join('<span class="bplus"> ＋ </span>');
-    const note = l.length > 1 ? '<span class="bnote">两节由同一位老师连续坐班</span>'
-        : (l[0] && l[0].period === null ? '<span class="bnote">老师自定的答疑时间，不是课表节次</span>' : '');
+        .join('<span class="bplus">' + sep + '</span>');
+    const note = l.length > 1 ? '<span class="bnote">' + I('两节由同一位老师连续坐班', 'Both periods are covered continuously by the same teacher') + '</span>'
+        : (l[0] && l[0].period === null ? '<span class="bnote">' + I('老师自定的答疑时间，不是课表节次', 'Teacher-set Q&A time — not a timetable period') + '</span>' : '');
     return '<tr class="band"><td colspan="' + (META.days.length + 1) + '">'
-        + '<span class="blabel">🕑 ' + esc(l.map(x => x.label).join(' ＋ ')) + '</span>'
+        + '<span class="blabel">🕑 ' + esc(l.map(x => x.label).join(sep)) + '</span>'
         + times + note + '</td></tr>';
 }
 
 function renderGrid(q) {
     const tbl = document.getElementById('grid');
     const rows = view === 'class' ? CLASSES : TEACHERS.map(t => t.name);
-    const corner = view === 'class' ? '班级' : '老师';
+    const corner = view === 'class' ? I('班级', 'Class') : I('老师', 'Teacher');
 
     let html = '<caption>' + (view === 'class'
-        ? '先在左侧找到你所在的班级，再看横排那天是谁坐班；每个区块开头标了节次和具体时间。'
-        : '每一行是一位老师，横向看他/她哪天在哪个班、哪一节。') + '</caption>';
+        ? I('先在左侧找到你所在的班级，再看横排那天是谁坐班；每个区块开头标了节次和具体时间。',
+            'Find your class in the left column, then look across its row to see who is on duty each day. Each block header shows the period and exact time.')
+        : I('每一行是一位老师，横向看他/她哪天在哪个班、哪一节。',
+            'Each row is a teacher — look across to see which class(es) and period(s) they cover each day.')) + '</caption>';
     html += '<thead><tr><th class="sticky">' + corner + '</th>' +
-        META.days.map(d => '<th>' + esc(d) + '</th>').join('') + '</tr></thead><tbody>';
+        META.days.map(d => '<th>' + esc(dayName(d)) + '</th>').join('') + '</tr></thead><tbody>';
 
     currentGroups().forEach(group => {
         html += bandRow(group);
@@ -964,11 +1025,15 @@ function mainBuilding() {
     return Object.keys(c).sort((a, b) => c[b] - c[a])[0];
 }
 function renderNotes() {
-    const perList = META.periods.map(p => p.label + ' ' + p.time).join('、');
+    const en = LANG === 'en';
+    const perList = META.periods.map(p => (Number.isInteger(p.p) ? perLabel(p.p) : p.label) + ' ' + p.time)
+        .join(en ? ', ' : '、');
     document.getElementById('tableNote').textContent =
         (META.periods.length > 1 && merged)
-            ? perList + ' 由同一位老师连续坐班，默认并成一个区块；点「逐节展开」可以分开核对。'
-            : '节次时间：' + perList + '。';
+            ? (en
+                ? perList + ' are covered back-to-back by the same teacher and merged into one block by default; click “Split by period” to check them separately.'
+                : perList + ' 由同一位老师连续坐班，默认并成一个区块；点「逐节展开」可以分开核对。')
+            : (en ? 'Period times: ' : '节次时间：') + perList + (en ? '.' : '。');
 
     const mb = mainBuilding();
     const mbName = mb.endsWith('楼') ? mb : mb + '楼';
@@ -979,14 +1044,24 @@ function renderNotes() {
     const max = Math.max(...perDay.map(x => x.d));
 
     const parts = [];
-    if (offDays.length) parts.push('<b>' + offDays.join('、') + '</b> 不安排晚自习，这几天想问老师得另外约时间。');
-    parts.push('有 <b>' + rare.length + '</b> 位老师一周只值班 <b>' + min + '</b> 天（' +
+    if (offDays.length) parts.push(en
+        ? '<b>' + offDays.map(dayName).join(', ') + '</b> has no evening duty — if you need a teacher on those days, arrange another time.'
+        : '<b>' + offDays.join('、') + '</b> 不安排晚自习，这几天想问老师得另外约时间。');
+    if (en) parts.push('Only <b>' + rare.length + '</b> teacher(s) are on duty just <b>' + min + '</b> day(s) a week (' +
+        esc(rare.join(', ')) + ') — miss them and you wait until next week; the busiest cover <b>' + max + '</b> days.');
+    else parts.push('有 <b>' + rare.length + '</b> 位老师一周只值班 <b>' + min + '</b> 天（' +
         esc(rare.join('、')) + '），错过就要等到下周；最多的有 <b>' + max + '</b> 天。');
-    if (away.length) parts.push(esc(away.join('、')) + ' 的值班教室在 <b>' +
-        esc([...new Set(SLOTS.filter(s => away.includes(s[2]) && buildingOf(s[4]) !== mb).map(s => s[4]))].join('、')) +
-        '</b>，不在' + esc(mbName) + '，跑错楼就找不到人了。');
+    if (away.length) parts.push(en
+        ? 'The duty rooms for <b>' + esc(away.join(', ')) + '</b> are <b>' +
+            esc([...new Set(SLOTS.filter(s => away.includes(s[2]) && buildingOf(s[4]) !== mb).map(s => s[4]))].join(', ')) +
+            '</b>, not ' + esc(mbName) + ' — go to the wrong building and you will miss them.'
+        : esc(away.join('、')) + ' 的值班教室在 <b>' +
+            esc([...new Set(SLOTS.filter(s => away.includes(s[2]) && buildingOf(s[4]) !== mb).map(s => s[4]))].join('、')) +
+            '</b>，不在' + esc(mbName) + '，跑错楼就找不到人了。');
     document.getElementById('tip').innerHTML = parts.join(' ');
-    document.getElementById('src').textContent = '数据来源：OfficeHour/总课表.xlsx · ' + META.term;
+    document.getElementById('src').textContent = en
+        ? 'Data source: OfficeHour/总课表.xlsx · ' + (SNAPSHOT.term ? SNAPSHOT.term + ' school year' : '2026–2027 school year')
+        : '数据来源：OfficeHour/总课表.xlsx · ' + META.term;
 }
 
 /* ── 交互 ───────────────────────────────────────────────────── */
@@ -1026,7 +1101,7 @@ const classSel = document.getElementById('classSel');
 // 数据换了（比如后端新增了班级）要重建下拉选项
 function renderClassOptions() {
     const keep = classSel.value;
-    classSel.innerHTML = '<option value="">全部</option>';
+    classSel.innerHTML = '<option value="">' + I('全部', 'All') + '</option>';
     CLASSES.forEach(c => classSel.insertAdjacentHTML('beforeend', '<option value="' + esc(c) + '">' + esc(c) + '</option>'));
     if (CLASSES.includes(keep)) classSel.value = keep;
 }
@@ -1057,19 +1132,23 @@ document.getElementById('results').addEventListener('click', e => {
 function renderStatus(errMsg) {
     const el = document.getElementById('dataStatus');
     if (!el) return;
+    const en = LANG === 'en';
     const admin = '　<a href="officehour-admin.html">' +
-        (DATA_MODE === 'snapshot' ? '老师登录 →' : '我是老师，修改我的 Office Hour →') + '</a>';
+        (DATA_MODE === 'snapshot' ? I('老师登录 →', 'Teacher sign-in →')
+            : I('我是老师，修改我的 Office Hour →', 'I am a teacher — edit my office hours →')) + '</a>';
     if (DATA_MODE === 'live') {
-        el.innerHTML = '<span class="dot live"></span>实时数据'
-            + (DATA_STAMP ? ' · 更新于 ' + esc(DATA_STAMP) : '') + admin;
+        el.innerHTML = '<span class="dot live"></span>' + I('实时数据', 'Live data')
+            + (DATA_STAMP ? (en ? ' · updated ' : ' · 更新于 ') + esc(DATA_STAMP) : '') + admin;
     } else if (DATA_MODE === 'stale') {
         // 之前拿到过、只是刷新失败：继续展示上次结果，但要说清楚
-        el.innerHTML = '<span class="dot live"></span>实时数据（可能不是最新'
-            + (errMsg ? '：' + esc(errMsg) : '') + '）' + admin;
+        el.innerHTML = '<span class="dot live"></span>' + I('实时数据（可能不是最新', 'Live data (may be out of date')
+            + (errMsg ? (en ? ': ' : '：') + esc(errMsg) : '') + (en ? ')' : '）') + admin;
     } else {
-        el.innerHTML = '<span class="dot snap"></span>学期初快照'
+        el.innerHTML = '<span class="dot snap"></span>' + I('学期初快照', 'Snapshot from the start of term')
             + (DATA_STAMP ? ' · ' + esc(DATA_STAMP) : '')
-            + (OH_API_BASE ? '（未采用后端数据' + (errMsg ? '：' + esc(errMsg) : '') + '）' : '（未配置后端地址）') + admin;
+            + (OH_API_BASE
+                ? I('（未采用后端数据', ' (live data not used') + (errMsg ? (en ? ': ' : '：') + esc(errMsg) : '') + (en ? ')' : '）')
+                : I('（未配置后端地址）', ' (no backend configured)')) + admin;
     }
 }
 
@@ -1077,9 +1156,9 @@ const themeBtn = document.getElementById('themeBtn');
 function applyTheme(t, persist) {
     document.documentElement.dataset.theme = t;
     const dark = t === 'dark';
-    themeBtn.textContent = dark ? '☀️ 浅色' : '🌙 深色';
+    themeBtn.textContent = dark ? I('☀️ 浅色', '☀️ Light') : I('🌙 深色', '🌙 Dark');
     themeBtn.setAttribute('aria-pressed', String(dark));
-    themeBtn.title = dark ? '切换到浅色（亮色）配色' : '切换到深色星空配色';
+    themeBtn.title = dark ? I('切换到浅色（亮色）配色', 'Switch to the light theme') : I('切换到深色星空配色', 'Switch to the dark starry theme');
     if (persist) { try { localStorage.setItem('ohTheme', t); } catch (e) { /* ignore */ } }
 }
 themeBtn.addEventListener('click', () => {
@@ -1087,7 +1166,20 @@ themeBtn.addEventListener('click', () => {
 });
 // 首屏：head 里的脚本已经设过 data-theme，这里只同步按钮文案（不写回 localStorage）
 applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', false);
+// 语言切换：重建静态文案 + 按语言重画动态内容（星期/节次/提示条/状态条）
+document.getElementById('langBtn').addEventListener('click', () => {
+    LANG = LANG === 'en' ? 'zh' : 'en';
+    try { localStorage.setItem('ohLang', LANG); } catch (e) { /* ignore */ }
+    applyStatic();
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', false);
+    derive();          // 时间带/节次标签随语言重建
+    renderNotes();
+    renderClassOptions();
+    refresh();         // badges / chips / results / grid
+    renderStatus();
+});
 
+applyStatic();
 derive();
 renderBadges();
 renderNotes();

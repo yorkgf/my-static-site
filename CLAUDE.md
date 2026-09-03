@@ -102,6 +102,23 @@ Pages live at the repo root like other site pages: `officehour.html` (students) 
   `:root, [data-theme="dark"]` (both selectors, so the dark block can't win the cascade).
 - `officehour-admin.html` carries a **verbatim copy** of the token block; `run.sh` fails if the two drift.
 
+### Language (中文 / English)
+
+Both pages are bilingual via the top-right `🌐 English / 中文` toggle. Default is **zh**; `?lang=en`
+wins over `localStorage['ohLang']`, which is remembered for later visits. It is in-page rather than
+separate files on purpose — the semester `SNAPSHOT`, the token block and all page logic are shared,
+so a second copy would drift (the same reason the token block gets a drift check).
+
+- Static UI text carries `data-i18n="key"` (placeholders: `data-i18n-ph`). English lives in `EN_STATIC`;
+  the original Chinese is snapshotted on the first `applyStatic()` so toggling back restores it exactly.
+- Dynamic text is written `I('中文', 'English')` right next to the site. Day / period labels go through
+  `dayName()` / `perLabel()`, so the data keys stay Chinese (周一…, 10) and only the display changes.
+  Teacher names, class codes and room names (文体 114…) are proper nouns and are not translated.
+- The backend answers in Chinese; `trErr()` maps the common messages to English in EN mode only
+  (unmatched messages pass through verbatim).
+- **Tests run against the default zh** and assert exact Chinese strings — never reword the zh side of an
+  existing string, and keep any new UI text in the same shape (zh literal + `I(...)` twin).
+
 ### Backend: `OfficeHour/api/`
 
 Shares the **same MongoDB and the same `GHA.Teachers` table as FADsys**, so teachers log in with their

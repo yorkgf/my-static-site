@@ -283,39 +283,41 @@
 <body>
 <div class="wrap">
     <div class="topbar">
-        <a href="officehour.html">← 查看总表</a>
-        <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false">🌙 深色</button>
+        <a href="officehour.html" data-i18n="backView">← 查看总表</a>
+        <div style="display:flex;gap:.55rem;align-items:center">
+            <button class="theme-btn" id="langBtn" type="button">🌐 English</button>
+            <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false">🌙 深色</button>
+        </div>
     </div>
 
     <div class="head">
-        <h1>🕑 我的 Office Hour</h1>
-        <p class="subtitle">老师自助维护值班信息 —— 改教室、留备注，学生立刻能看到</p>
+        <h1 data-i18n="adminH1">🕑 我的 Office Hour</h1>
+        <p class="subtitle" data-i18n="adminSub">老师自助维护值班信息 —— 改教室、留备注，学生立刻能看到</p>
     </div>
 
     <!-- 未配置后端 -->
     <div class="panel" id="noApi" hidden>
-        <div class="panel-title">还没有连上后端</div>
-        <p class="panel-note">这个页面需要 Office Hour 云函数才能保存修改。正常情况下面这个提示不会出现（文件里已填好正式地址）；
+        <div class="panel-title" data-i18n="noApiTitle">还没有连上后端</div>
+        <p class="panel-note" data-i18n="noApiNote">这个页面需要 Office Hour 云函数才能保存修改。正常情况下面这个提示不会出现（文件里已填好正式地址）；
             要改指向或做离线调试，在浏览器控制台执行一次：</p>
         <p class="hint"><code>localStorage.setItem('ohApiBase', 'https://…')</code>；只看内嵌快照则设为空串 <code>''</code>。刷新后生效。</p>
     </div>
 
     <!-- 登录 -->
     <div class="panel" id="loginView" hidden>
-        <div class="panel-title">登录</div>
-        <p class="panel-note">用你登录 <b>FAD 系统</b>的同一套邮箱和密码（教师表共用，无需另注册）。
-            如果 FAD 与本页配了同一个 <code>JWT_SECRET</code>，你在 FAD 已登录就无需再登一次。</p>
+        <div class="panel-title" data-i18n="loginTitle">登录</div>
+        <p class="panel-note" data-i18n="loginNote">用你登录 <b>FAD 系统</b>的同一套邮箱和密码（教师表共用，无需另注册）。</p>
         <div class="field">
-            <label for="email">邮箱</label>
+            <label for="email" data-i18n="emailL">邮箱</label>
             <input type="text" id="email" autocomplete="username" placeholder="name@ghedu.com">
         </div>
         <div class="field">
-            <label for="password">密码</label>
+            <label for="password" data-i18n="passwordL">密码</label>
             <input type="password" id="password" autocomplete="current-password" placeholder="••••••••">
         </div>
-        <button class="btn" id="loginBtn" type="button">登录</button>
+        <button class="btn" id="loginBtn" type="button" data-i18n="signIn">登录</button>
         <div class="err" id="loginErr" hidden></div>
-        <p class="hint">忘记密码？走 FAD 系统的「重置密码」邮件流程，两边是同一个密码。</p>
+        <p class="hint" data-i18n="forgotHint">忘记密码？走 FAD 系统的「重置密码」邮件流程，两边是同一个密码。</p>
     </div>
 
     <!-- 主界面 -->
@@ -324,79 +326,79 @@
             <span class="who" id="meName"></span>
             <span class="role" id="meRole"></span>
             <span class="spacer"></span>
-            <button class="btn-ghost" id="logoutBtn" type="button">退出登录</button>
+            <button class="btn-ghost" id="logoutBtn" type="button" data-i18n="signOut">退出登录</button>
         </div>
 
         <div class="panel">
-            <div class="panel-title">我本周的值班</div>
-            <p class="panel-note">你可以自己<b>新增</b>、<b>删除</b>、<b>修改</b>自己的值班：改教室、写备注、换时间换班级都可以。
+            <div class="panel-title" data-i18n="myDutyTitle">我本周的值班</div>
+            <p class="panel-note" data-i18n="myDutyNote">你可以自己<b>新增</b>、<b>删除</b>、<b>修改</b>自己的值班：改教室、写备注、换时间换班级都可以。
                 改动会立即出现在学生端。两种情况会被挡住：这个班该节已排给别的老师，以及你自己同一时段占了两个班。</p>
             <div class="cards" id="mineCards"></div>
-            <div class="hint" id="mineEmpty" hidden>当前没有查到你的值班记录。可以直接在下面的“新增一条值班”里加；
+            <div class="hint" id="mineEmpty" hidden data-i18n="mineEmpty">当前没有查到你的值班记录。可以直接在下面的“新增一条值班”里加；
                 若你确实在排班表里却看不到记录，可能是姓名与教师表不一致，请联系管理员核对。</div>
             <p class="hint" id="mineLimit"></p>
 
-            <div class="panel-title" style="margin-top:1.4rem">新增一条值班</div>
-            <p class="panel-note">只会加在你自己的账号下。班级只能从现有班级里选，新开班级请找管理员。</p>
+            <div class="panel-title" style="margin-top:1.4rem" data-i18n="addTitle">新增一条值班</div>
+            <p class="panel-note" data-i18n="addNote">只会加在你自己的账号下。班级只能从现有班级里选，新开班级请找管理员。</p>
             <div class="addform when-box" data-mode="period" id="addBox">
-                <div class="field"><label for="adMode">时间方式</label>
+                <div class="field"><label for="adMode" data-i18n="timeTypeL">时间方式</label>
                     <select id="adMode">
-                        <option value="period">晚自习节次</option>
-                        <option value="custom">自定时间</option>
+                        <option value="period" data-i18n="optPeriod">晚自习节次</option>
+                        <option value="custom" data-i18n="optCustom">自定时间</option>
                     </select>
                 </div>
-                <div class="field" data-only="both"><label for="adDay">星期</label><select id="adDay" data-f="day"></select></div>
-                <div class="field" data-only="period"><label for="adPeriod">节次</label><select id="adPeriod" data-f="period"></select></div>
-                <div class="field" data-only="custom"><label for="adStart">开始</label><input type="time" id="adStart" data-f="start" value="16:30" step="300"></div>
-                <div class="field" data-only="custom"><label for="adEnd">结束</label><input type="time" id="adEnd" data-f="end" value="17:30" step="300"></div>
-                <div class="field" data-only="both"><label for="adCls">班级</label><select id="adCls" data-f="cls"></select></div>
-                <div class="field" data-only="both"><label for="adRoom">教室</label>
-                    <input type="text" id="adRoom" maxlength="40" placeholder="例如：文体 114"></div>
-                <div class="field" data-only="both"><label for="adNote">备注（可留空）</label>
-                    <input type="text" id="adNote" maxlength="200" placeholder="例如：本周改为线上答疑"></div>
-                <div class="addbtn"><button class="btn" id="adAdd" type="button">添加到我的值班</button></div>
-                <p class="hint" data-only="custom" style="grid-column:1/-1">自定时间不占课表节次；班级选“不指定”时只出现在你的老师卡片上。单次最长 <span id="adMax">4</span> 小时，<span id="adRange">06:00–23:00</span> 之内。</p>
+                <div class="field" data-only="both"><label for="adDay" data-i18n="dayL">星期</label><select id="adDay" data-f="day"></select></div>
+                <div class="field" data-only="period"><label for="adPeriod" data-i18n="periodL">节次</label><select id="adPeriod" data-f="period"></select></div>
+                <div class="field" data-only="custom"><label for="adStart" data-i18n="startL">开始</label><input type="time" id="adStart" data-f="start" value="16:30" step="300"></div>
+                <div class="field" data-only="custom"><label for="adEnd" data-i18n="endL">结束</label><input type="time" id="adEnd" data-f="end" value="17:30" step="300"></div>
+                <div class="field" data-only="both"><label for="adCls" data-i18n="clsL">班级</label><select id="adCls" data-f="cls"></select></div>
+                <div class="field" data-only="both"><label for="adRoom" data-i18n="roomL">教室</label>
+                    <input type="text" id="adRoom" maxlength="40" data-i18n-ph="roomPh" placeholder="例如：文体 114"></div>
+                <div class="field" data-only="both"><label for="adNote" data-i18n="noteL">备注（可留空）</label>
+                    <input type="text" id="adNote" maxlength="200" data-i18n-ph="notePh" placeholder="例如：本周改为线上答疑"></div>
+                <div class="addbtn"><button class="btn" id="adAdd" type="button" data-i18n="addToMine">添加到我的值班</button></div>
+                <p class="hint" data-only="custom" style="grid-column:1/-1" data-i18n="customHint">自定时间不占课表节次；班级选“不指定”时只出现在你的老师卡片上。单次最长 <span id="adMax">4</span> 小时，<span id="adRange">06:00–23:00</span> 之内。</p>
             </div>
         </div>
 
         <div class="panel" id="adminPanel" hidden>
-            <div class="panel-title">管理员工具</div>
-            <p class="panel-note">你现在是 <b>管理员</b>（组别 <span id="meGroup"></span>），可以修改任意记录、增删条目、整表导入。</p>
+            <div class="panel-title" data-i18n="adminTitle">管理员工具</div>
+            <p class="panel-note" data-i18n="adminNote">你现在是 <b>管理员</b>（组别 <span id="meGroup"></span>），可以修改任意记录、增删条目、整表导入。</p>
 
             <div class="field">
-                <label for="filterTxt">筛选（老师 / 班级 / 教室 / 星期）</label>
-                <input type="text" id="filterTxt" placeholder="输入关键字即时过滤" autocomplete="off">
+                <label for="filterTxt" data-i18n="filterL">筛选（老师 / 班级 / 教室 / 星期）</label>
+                <input type="text" id="filterTxt" data-i18n-ph="filterPh" placeholder="输入关键字即时过滤" autocomplete="off">
             </div>
             <div class="scroller"><table id="allTable"></table></div>
 
-            <div class="panel-title" style="margin-top:1.4rem">新增一条值班</div>
+            <div class="panel-title" style="margin-top:1.4rem" data-i18n="addTitle">新增一条值班</div>
             <div class="row">
-                <div class="field"><label for="nDay">星期</label>
-                    <select id="nDay"><option>周一</option><option>周二</option><option>周三</option><option>周四</option><option>周五</option></select></div>
-                <div class="field"><label for="nPeriod">节次</label><input type="number" id="nPeriod" value="10" min="1" max="30"></div>
-                <div class="field"><label for="nCls">班级</label><input type="text" id="nCls" placeholder="G10-1"></div>
+                <div class="field"><label for="nDay" data-i18n="dayL">星期</label>
+                    <select id="nDay"><option value="周一" data-i18n="dMon">周一</option><option value="周二" data-i18n="dTue">周二</option><option value="周三" data-i18n="dWed">周三</option><option value="周四" data-i18n="dThu">周四</option><option value="周五" data-i18n="dFri">周五</option></select></div>
+                <div class="field"><label for="nPeriod" data-i18n="periodL">节次</label><input type="number" id="nPeriod" value="10" min="1" max="30"></div>
+                <div class="field"><label for="nCls" data-i18n="clsL">班级</label><input type="text" id="nCls" placeholder="G10-1"></div>
             </div>
             <div class="row">
-                <div class="field"><label for="nEmail">教师邮箱（教师表中必须存在）</label><input type="text" id="nEmail" placeholder="name@ghedu.com"></div>
-                <div class="field"><label for="nRoom">教室</label><input type="text" id="nRoom" placeholder="文体 114"></div>
+                <div class="field"><label for="nEmail" data-i18n="nEmailL">教师邮箱（教师表中必须存在）</label><input type="text" id="nEmail" placeholder="name@ghedu.com"></div>
+                <div class="field"><label for="nRoom" data-i18n="roomL">教室</label><input type="text" id="nRoom" data-i18n-ph="roomPh2" placeholder="文体 114"></div>
             </div>
-            <button class="btn" id="addBtn" type="button">新增</button>
+            <button class="btn" id="addBtn" type="button" data-i18n="add">新增</button>
 
-            <div class="panel-title" style="margin-top:1.4rem">整表导入</div>
-            <p class="panel-note">粘贴 <code>OfficeHour/data.json</code> 的完整内容。按「学期+星期+节次+班级」覆盖，
+            <div class="panel-title" style="margin-top:1.4rem" data-i18n="importTitle">整表导入</div>
+            <p class="panel-note" data-i18n="importNote">粘贴 <code>OfficeHour/data.json</code> 的完整内容。按「学期+星期+节次+班级」覆盖，
                 老师自己写过的备注默认保留。</p>
             <div class="field"><textarea id="importJson" rows="5" placeholder='{"term":"26-27","slots":[…]}'></textarea></div>
             <label style="display:flex;align-items:center;gap:.4rem;margin-bottom:.8rem">
-                <input type="checkbox" id="preserveNotes" checked style="width:auto"> 保留老师已写的备注
+                <input type="checkbox" id="preserveNotes" checked style="width:auto"> <span data-i18n="preserveL">保留老师已写的备注</span>
             </label>
-            <button class="btn" id="importBtn" type="button">导入</button>
+            <button class="btn" id="importBtn" type="button" data-i18n="import">导入</button>
 
-            <div class="panel-title" style="margin-top:1.4rem">最近改动</div>
+            <div class="panel-title" style="margin-top:1.4rem" data-i18n="recentTitle">最近改动</div>
             <ul class="audit-list" id="auditList"></ul>
         </div>
     </div>
 
-    <p class="hint" style="text-align:center">本页面不挂公开链接；数据接口权限由服务端按登录身份强制校验。</p>
+    <p class="hint" style="text-align:center" data-i18n="footNote">本页面不挂公开链接；数据接口权限由服务端按登录身份强制校验。</p>
 </div>
 <div id="toast"></div>
 
@@ -426,12 +428,125 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const DAY_ORDER = { '周一': 0, '周二': 1, '周三': 2, '周四': 3, '周五': 4 };
 
+/* ═══ 语言：默认中文；点「🌐 English」切换并记住选择（?lang= ＞ localStorage ＞ 中文） ═══ */
+let LANG = 'zh';
+try {
+    const qLang = new URLSearchParams(location.search).get('lang');
+    const storedLang = localStorage.getItem('ohLang');
+    if (qLang === 'zh' || qLang === 'en') LANG = qLang;
+    else if (storedLang === 'zh' || storedLang === 'en') LANG = storedLang;
+} catch (e) { /* 隐私模式读不到就默认中文 */ }
+const I = (zhT, enT) => LANG === 'en' ? enT : zhT;
+const EN_DAY = { 周一: 'Mon', 周二: 'Tue', 周三: 'Wed', 周四: 'Thu', 周五: 'Fri' };
+const dayName = d => LANG === 'en' ? (EN_DAY[d] || d) : d;
+const perLabel = p => LANG === 'en' ? 'Period ' + p : '第' + p + '节';
+
+/* 静态文案的英文表；中文以 HTML 原文为准（首次 applyStatic 快照） */
+const EN_STATIC = {
+    title: 'Teacher Office Hours · My Duty',
+    backView: '← View full schedule',
+    adminH1: '🕑 My Office Hours',
+    adminSub: 'Teacher self-service for duty info — change a room, add a note; students see it right away.',
+    noApiTitle: 'Backend not connected',
+    noApiNote: 'This page needs the Office Hour cloud function to save changes. Normally this message never appears (the production address is baked into the file). To point elsewhere or debug offline, run this once in the browser console:',
+    loginTitle: 'Sign in',
+    loginNote: 'Use the same email and password as your <b>FAD</b> login (teachers share one account table — no separate registration).',
+    emailL: 'Email',
+    passwordL: 'Password',
+    signIn: 'Sign in',
+    forgotHint: 'Forgot your password? Use the FAD “reset password” email flow — both systems use the same password.',
+    signOut: 'Sign out',
+    myDutyTitle: 'My duty this week',
+    myDutyNote: 'You can <b>add</b>, <b>delete</b> or <b>edit</b> your own duty: change the room, add a note, move it to another time or class. Changes appear on the student page immediately. Two cases are blocked: the class/period is already assigned to another teacher, and overlapping yourself across two classes at the same time.',
+    mineEmpty: 'No duty records found for you yet. Add one below in “Add a duty”. If you really are on the schedule but see nothing, your name may not match the teacher table — contact an admin.',
+    addTitle: 'Add a duty',
+    addNote: 'It is added under your own account only. Classes must be chosen from the existing ones — ask an admin to add new classes.',
+    timeTypeL: 'Time type',
+    optPeriod: 'Study-hall period',
+    optCustom: 'Custom time',
+    dayL: 'Day',
+    periodL: 'Period',
+    startL: 'Start',
+    endL: 'End',
+    clsL: 'Class',
+    roomL: 'Room',
+    roomPh: 'e.g. 文体 114',
+    roomPh2: '文体 114',
+    noteL: 'Note (optional)',
+    notePh: 'e.g. moved online this week',
+    addToMine: 'Add to my duty',
+    customHint: 'Custom time does not occupy a timetable period; with class “Unspecified” it shows only on your teacher card. Max <span id="adMax">4</span> hours per slot, within <span id="adRange">06:00–23:00</span>.',
+    adminTitle: 'Admin tools',
+    adminNote: 'You are signed in as <b>admin</b> (group <span id="meGroup"></span>). You can edit any record, add or delete entries, and bulk-import the whole table.',
+    filterL: 'Filter (teacher / class / room / day)',
+    filterPh: 'Type to filter live',
+    nEmailL: 'Teacher email (must exist in the teacher table)',
+    add: 'Add',
+    importTitle: 'Bulk import',
+    importNote: 'Paste the full contents of <code>OfficeHour/data.json</code>. Rows are matched by term + day + period + class; notes written by teachers are preserved by default.',
+    preserveL: 'Keep notes written by teachers',
+    import: 'Import',
+    recentTitle: 'Recent changes',
+    dMon: 'Mon', dTue: 'Tue', dWed: 'Wed', dThu: 'Thu', dFri: 'Fri',
+    footNote: 'This page is not linked publicly; the API enforces permissions server-side based on your login.'
+};
+let ZH_CAP = null;
+function applyStatic() {
+    if (!ZH_CAP) {
+        ZH_CAP = { title: document.title, nodes: {}, phs: {} };
+        document.querySelectorAll('[data-i18n]').forEach(el => { ZH_CAP.nodes[el.dataset.i18n] = el.innerHTML; });
+        document.querySelectorAll('[data-i18n-ph]').forEach(el => { ZH_CAP.phs[el.dataset.i18nPh] = el.placeholder; });
+    }
+    const en = LANG === 'en';
+    document.documentElement.lang = en ? 'en' : 'zh-CN';
+    document.title = en ? EN_STATIC.title : ZH_CAP.title;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.innerHTML = en && EN_STATIC[el.dataset.i18n] != null ? EN_STATIC[el.dataset.i18n] : ZH_CAP.nodes[el.dataset.i18n];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        el.placeholder = en && EN_STATIC[el.dataset.i18nPh] != null ? EN_STATIC[el.dataset.i18nPh] : ZH_CAP.phs[el.dataset.i18nPh];
+    });
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) langBtn.textContent = en ? '🌐 中文' : '🌐 English';
+}
+
+/* 服务端返回的中文错误 → 英文（仅 en 模式；匹配不到就原样显示） */
+const EN_ERR_RULES = [
+    { re: /^「(.+)」已由 (.+) 值班，换班请先与对方确认/, en: m => `“${m[1]}” is already covered by ${m[2]} — talk to them before swapping` },
+    { re: /(.+)同一时段已经在「(.+)」值班，不能同时占两个班/, en: m => `${m[1]} is already on duty for “${m[2]}” in the same window — you cannot cover two classes at once` },
+    { re: /你已有 (\d+) 条值班，达到自助上限 (\d+) 条/, en: m => `You already have ${m[1]} duty records (self-service limit ${m[2]}) — contact an admin if you need more` },
+    { re: /该时段刚刚被人占用了/, en: 'That slot was just taken by someone else — pick another class or time' },
+    { re: /该时段已被占用/, en: 'That slot is already taken' },
+    { re: /邮箱或密码不正确/, en: 'Incorrect email or password' },
+    { re: /记录不存在/, en: 'Record not found' },
+    { re: /记录 ID 不正确/, en: 'Invalid record ID' },
+    { re: /没有任何要修改的内容/, en: 'Nothing to change' },
+    { re: /选了晚自习节次就必须指定班级/, en: 'A study-hall period must be tied to a class — for office hours without a class, use “custom time”' },
+    { re: /教师表中不存在邮箱 (.+)/, en: m => `Email ${m[1]} does not exist in the teacher table` },
+    { re: /教师表里没有该邮箱的姓名/, en: 'That email has no Name in the teacher table' },
+    { re: /教师表中不存在这些邮箱/, en: 'Some emails do not exist in the teacher table' },
+    { re: /这些邮箱在教师表里没有 Name/, en: 'Some emails have no Name in the teacher table' },
+    { re: /请输入邮箱和密码/, en: 'Please enter both email and password' },
+    { re: /密码过长/, en: 'Password too long' },
+    { re: /导入会撞车，整批未写入/, en: 'Import would collide — nothing was written' },
+    { re: /^「(.+)」这个班该节已排给/, en: m => `“${m[1]}” is already scheduled for that period` }
+];
+function trErr(msg) {
+    if (LANG !== 'en' || !msg) return msg;
+    const s = String(msg);
+    for (const r of EN_ERR_RULES) {
+        const m = s.match(r.re);
+        if (m) return typeof r.en === 'function' ? r.en(m) : r.en;
+    }
+    return s;
+}
+
 let ME = null;
 let PERIODS = [];
 
 /* ── 统一请求 ──────────────────────────────────────────────── */
 async function api(path, { method = 'GET', body } = {}) {
-    if (!API_BASE) throw new Error('未配置后端地址');
+    if (!API_BASE) throw new Error(I('未配置后端地址', 'Backend address not configured'));
     let res;
     try {
         res = await fetch(API_BASE + path, {
@@ -440,19 +555,20 @@ async function api(path, { method = 'GET', body } = {}) {
             body: body === undefined ? undefined : JSON.stringify(body),
         });
     } catch (e) {
-        throw new Error('连不上服务器，请检查网络或稍后再试');
+        throw new Error(I('连不上服务器，请检查网络或稍后再试', 'Cannot reach the server — check your network and try again'));
     }
     const text = await res.text();
     let json = {}, parsed = true;
     try { json = text ? JSON.parse(text) : {}; } catch (e) { parsed = false; }
     if (res.status === 401) { setToken(''); ME = null; showLogin(); }
-    if (!res.ok) throw new Error((parsed && json.error) || ('请求失败（' + res.status + '）'));
+    if (!res.ok) throw new Error((parsed && json.error) || (LANG === 'en' ? 'Request failed (' + res.status + ')' : '请求失败（' + res.status + '）'));
     if (!parsed) {
         // 函数只建了壳子、还跑着出厂“Hello World”模板时，会拿到 200 + HTML；
         // 不拦的话下面就会报“找不到元素”之类的 indirect 错误
         throw new RegExp('^[\\s<]*<').test(text) || /Hello World/i.test(text)
-            ? new Error('后端返回的是网页而不是接口数据：函数代码可能还没部署（出厂模板就是这样），或地址填错了')
-            : new Error('后端返回的数据看不懂（不是 JSON）');
+            ? new Error(I('后端返回的是网页而不是接口数据：函数代码可能还没部署（出厂模板就是这样），或地址填错了',
+                'Backend returned a web page instead of API data — the function code may not be deployed yet (the out-of-box template does this), or the URL is wrong'))
+            : new Error(I('后端返回的数据看不懂（不是 JSON）', 'Backend returned data that is not JSON'));
     }
     return json;
 }
@@ -476,7 +592,7 @@ function showMain() {
     $('#loginView').hidden = true;
     $('#mainView').hidden = false;
     $('#meName').textContent = ME.name || ME.email;
-    $('#meRole').textContent = ME.isAdmin ? '管理员' : '教师';
+    $('#meRole').textContent = ME.isAdmin ? I('管理员', 'Admin') : I('教师', 'Teacher');
     $('#meRole').className = 'role' + (ME.isAdmin ? ' admin' : '');
     $('#meGroup').textContent = ME.group || '—';
     $('#adminPanel').hidden = !ME.isAdmin;
@@ -485,14 +601,18 @@ function showMain() {
 /* ── 时间显示 ──────────────────────────────────────────────── */
 function timeOf(period) {
     const p = PERIODS.find(x => x.p === Number(period));
-    return p ? p.time : '第' + period + '节';
+    return p ? p.time : perLabel(period);
 }
 
 /* ── 我的值班（完全自助）───────────────────────────── */
 /** 卡片的人读时间描述（删除确认、日志都用它） */
 function whenText(s) {
-    if (s.kind === 'custom') return s.day + ' ' + (s.time || (s.start + '–' + s.end)) + '（自定时间）';
-    return s.day + '第' + s.period + '节 ' + timeOf(s.period) + (s.cls ? ' ' + s.cls : '');
+    if (s.kind === 'custom') return LANG === 'en'
+        ? dayName(s.day) + ' ' + (s.time || (s.start + '–' + s.end)) + ' (custom time)'
+        : s.day + ' ' + (s.time || (s.start + '–' + s.end)) + '（自定时间）';
+    return LANG === 'en'
+        ? dayName(s.day) + ' ' + perLabel(s.period) + ' ' + timeOf(s.period) + (s.cls ? ' ' + s.cls : '')
+        : s.day + '第' + s.period + '节 ' + timeOf(s.period) + (s.cls ? ' ' + s.cls : '');
 }
 
 let OPTIONS = { classes: [], days: Object.keys(DAY_ORDER), periods: [], maxSlots: 0 };
@@ -505,9 +625,9 @@ function fillSelect(sel, items, keep) {
 function opts(items, current) {
     return items.map(i => `<option value="${esc(i.v)}"${String(i.v) === String(current) ? ' selected' : ''}>${esc(i.t)}</option>`).join('');
 }
-const dayOpts = list => list.map(d => ({ v: d, t: d }));
-const periodOpts = list => list.map(p => ({ v: p.p, t: p.label + ' ' + p.time }));
-const clsOpts = list => [{ v: '', t: '不指定（只当办公时间）' }].concat(list.map(c => ({ v: c, t: c })));
+const dayOpts = list => list.map(d => ({ v: d, t: dayName(d) }));
+const periodOpts = list => list.map(p => ({ v: p.p, t: (Number.isInteger(p.p) ? perLabel(p.p) : p.label) + ' ' + p.time }));
+const clsOpts = list => [{ v: '', t: I('不指定（只当办公时间）', 'Unspecified (office hours only)') }].concat(list.map(c => ({ v: c, t: c })));
 
 // 可选班级/节次由后端给，前端不写死。拿不到也要能看现有数据，保存时后端仍会再校一遍
 async function loadOptions() {
@@ -537,51 +657,57 @@ async function loadMine() {
         (DAY_ORDER[a.day] ?? 9) - (DAY_ORDER[b.day] ?? 9) || a.period - b.period || String(a.cls).localeCompare(String(b.cls)));
     $('#mineEmpty').hidden = slots.length > 0;
     $('#mineLimit').textContent = OPTIONS.maxSlots
-        ? `已排 ${slots.length} 条 · 自助上限 ${OPTIONS.maxSlots} 条` : '';
-    $('#mineCards').innerHTML = slots.map(s => `
-        <div class="card" data-id="${esc(s.id)}" data-day="${esc(s.day)}" data-period="${s.kind === 'custom' ? '' : esc(s.period)}" data-cls="${esc(s.cls || '')}" data-kind="${esc(s.kind || 'period')}" data-when="${esc(whenText(s))}">
+        ? (LANG === 'en' ? `Scheduled: ${slots.length} · self-service limit ${OPTIONS.maxSlots}` : `已排 ${slots.length} 条 · 自助上限 ${OPTIONS.maxSlots} 条`) : '';
+    $('#mineCards').innerHTML = slots.map(s => {
+        const tag = s.kind === 'custom' ? I('自定时间', 'Custom time')
+            : (s.fromExcel === false ? I('我自己加的', 'Added by me') : I('统一安排', 'Scheduled'));
+        const sheet = s.kind !== 'custom' && s.fromExcel !== false ? '1' : '';
+        return `
+        <div class="card" data-id="${esc(s.id)}" data-day="${esc(s.day)}" data-period="${s.kind === 'custom' ? '' : esc(s.period)}" data-cls="${esc(s.cls || '')}" data-kind="${esc(s.kind || 'period')}" data-sheet="${sheet}" data-when="${esc(whenText(s))}">
             <div class="card-top">
-                <span class="day">${esc(s.day)}</span>
+                <span class="day">${esc(dayName(s.day))}</span>
                 <span class="cls">${esc(s.cls)}</span>
-                <span class="time">${s.kind === 'custom' ? esc(s.time || (s.start + '–' + s.end)) : '第' + esc(s.period) + '节 ' + esc(timeOf(s.period))}</span>
-                <span class="tag">${s.kind === 'custom' ? '自定时间' : (s.fromExcel === false ? '我自己加的' : '统一安排')}</span>
+                <span class="time">${s.kind === 'custom' ? esc(s.time || (s.start + '–' + s.end)) : perLabel(s.period) + ' ' + esc(timeOf(s.period))}</span>
+                <span class="tag">${esc(tag)}</span>
             </div>
             <div class="field">
-                <label>教室</label>
+                <label>${I('教室', 'Room')}</label>
                 <input type="text" data-f="room" value="${esc(s.room)}" maxlength="40">
             </div>
             <div class="field">
-                <label>备注（给学生看，可留空）</label>
-                <input type="text" data-f="note" value="${esc(s.note)}" maxlength="200" placeholder="例如：临时由王老师代班">
+                <label>${I('备注（给学生看，可留空）', 'Note (visible to students; optional)')}</label>
+                <input type="text" data-f="note" value="${esc(s.note)}" maxlength="200" placeholder="${I('例如：临时由王老师代班', 'e.g. covered by another teacher this week')}">
             </div>
             <details class="move">
-                <summary>换时间 / 换班级</summary>
+                <summary>${I('换时间 / 换班级', 'Change time / class')}</summary>
                 <div class="when-box" data-mode="${s.kind === 'custom' ? 'custom' : 'period'}">
-                    <div class="field"><label>时间方式</label>
+                    <div class="field"><label>${I('时间方式', 'Time type')}</label>
                         <select data-when="mode">
-                            <option value="period"${s.kind !== 'custom' ? ' selected' : ''}>晚自习节次</option>
-                            <option value="custom"${s.kind === 'custom' ? ' selected' : ''}>自定时间</option>
+                            <option value="period"${s.kind !== 'custom' ? ' selected' : ''}>${I('晚自习节次', 'Study-hall period')}</option>
+                            <option value="custom"${s.kind === 'custom' ? ' selected' : ''}>${I('自定时间', 'Custom time')}</option>
                         </select>
                     </div>
-                    <div class="field" data-only="both"><label>星期</label><select data-f="day">${opts(dayOpts(OPTIONS.days), s.day)}</select></div>
-                    <div class="field" data-only="period"><label>节次</label><select data-f="period">${opts(periodOpts(OPTIONS.periods), s.period)}</select></div>
-                    <div class="field" data-only="custom"><label>开始</label><input type="time" data-f="start" value="${esc(s.start || '16:30')}" step="300"></div>
-                    <div class="field" data-only="custom"><label>结束</label><input type="time" data-f="end" value="${esc(s.end || '17:30')}" step="300"></div>
-                    <div class="field" data-only="both"><label>班级</label><select data-f="cls">${opts(clsOpts(OPTIONS.classes), s.cls)}</select></div>
-                    <p class="hint" data-only="custom">自定时间不必绑课表节次；班级可留“不指定”，那就只作为你的办公时间显示在老师卡片上。</p>
+                    <div class="field" data-only="both"><label>${I('星期', 'Day')}</label><select data-f="day">${opts(dayOpts(OPTIONS.days), s.day)}</select></div>
+                    <div class="field" data-only="period"><label>${I('节次', 'Period')}</label><select data-f="period">${opts(periodOpts(OPTIONS.periods), s.period)}</select></div>
+                    <div class="field" data-only="custom"><label>${I('开始', 'Start')}</label><input type="time" data-f="start" value="${esc(s.start || '16:30')}" step="300"></div>
+                    <div class="field" data-only="custom"><label>${I('结束', 'End')}</label><input type="time" data-f="end" value="${esc(s.end || '17:30')}" step="300"></div>
+                    <div class="field" data-only="both"><label>${I('班级', 'Class')}</label><select data-f="cls">${opts(clsOpts(OPTIONS.classes), s.cls)}</select></div>
+                    <p class="hint" data-only="custom">${I('自定时间不必绑课表节次；班级可留“不指定”，那就只作为你的办公时间显示在老师卡片上。',
+                        'Custom time need not match a timetable period; leave class “Unspecified” to show it only on your teacher card as office hours.')}</p>
                 </div>
             </details>
             <div class="card-actions">
-                <button class="btn" data-act="save" type="button">保存</button>
-                <button class="btn-danger" data-act="del" type="button">删除</button>
+                <button class="btn" data-act="save" type="button">${I('保存', 'Save')}</button>
+                <button class="btn-danger" data-act="del" type="button">${I('删除', 'Delete')}</button>
                 <span class="dirty" data-act="state"></span>
             </div>
-        </div>`).join('');
+        </div>`;
+    }).join('');
 }
 
 const markDirty = e => {
     const card = e.target.closest('.card');
-    if (card) card.querySelector('[data-act="state"]').textContent = '● 未保存';
+    if (card) card.querySelector('[data-act="state"]').textContent = I('● 未保存', '● Unsaved');
 };
 $('#mineCards').addEventListener('input', markDirty);
 $('#mineCards').addEventListener('change', markDirty);   // select 用 change
@@ -612,16 +738,20 @@ $('#mineCards').addEventListener('click', async e => {
     const del = e.target.closest('[data-act="del"]');
     if (del) {
         const card = del.closest('.card');
-        const fromSheet = card.dataset.kind !== 'custom' && /统一安排/.test((card.querySelector('.tag') || {}).textContent || '');
-        if (!confirm('确定删除「' + (card.dataset.when || '这条值班') + '」？学生端会立刻不再显示。'
-            + (fromSheet ? '\n\n这条来自统一安排，删掉之后重新导入排班表也不会自动恢复，需要时找管理员。' : ''))) return;
+        const fromSheet = card.dataset.sheet === '1';
+        if (!confirm((LANG === 'en'
+                ? `Delete “${card.dataset.when || 'this duty'}”? It will disappear from the student page immediately.`
+                : '确定删除「' + (card.dataset.when || '这条值班') + '」？学生端会立刻不再显示。')
+            + (fromSheet ? (LANG === 'en'
+                ? '\n\nThis shift comes from the master schedule. Deleting it means a re-import will not bring it back automatically — ask an admin if you need it restored.'
+                : '\n\n这条来自统一安排，删掉之后重新导入排班表也不会自动恢复，需要时找管理员。') : ''))) return;
         del.disabled = true;
         try {
             await api('/api/officehours/mine/' + encodeURIComponent(card.dataset.id), { method: 'DELETE' });
-            toast('已删除', 'ok');
+            toast(I('已删除', 'Deleted'), 'ok');
             await loadMine();
         } catch (err) {
-            toast(err.message, 'bad');
+            toast(trErr(err.message), 'bad');
             del.disabled = false;
         }
         return;
@@ -637,7 +767,7 @@ $('#mineCards').addEventListener('click', async e => {
         note: card.querySelector('[data-f="note"]').value.trim(),
     });
     if (body.cls === '' && body.period !== undefined) {
-        toast('选了晚自习节次就必须指定班级', 'bad'); return;
+        toast(I('选了晚自习节次就必须指定班级', 'A study-hall period must be tied to a class'), 'bad'); return;
     }
     btn.disabled = true;
     try {
@@ -648,13 +778,13 @@ $('#mineCards').addEventListener('click', async e => {
             || (body.period !== undefined && String(body.period) !== card.dataset.period);
         if (moved) {                       // 换了时段/班级/时间方式 → 卡片顺序要重排，整列重拉
             await loadMine();
-            toast('已更新，学生端刷新即可看到', 'ok');
+            toast(I('已更新，学生端刷新即可看到', 'Updated — students will see it after refresh'), 'ok');
         } else {
             card.querySelector('[data-act="state"]').textContent = '';
-            toast('已保存，学生端刷新即可看到', 'ok');
+            toast(I('已保存，学生端刷新即可看到', 'Saved — students will see it after refresh'), 'ok');
         }
     } catch (err) {
-        toast(err.message, 'bad');          // 409 撞车原因会直接显示在这里
+        toast(trErr(err.message), 'bad');          // 409 撞车原因会直接显示在这里
     } finally {
         btn.disabled = false;
     }
@@ -667,19 +797,19 @@ $('#adAdd').addEventListener('click', async () => {
         day: $('#adDay').value, cls: $('#adCls').value.trim(),
         room: $('#adRoom').value.trim(), note: $('#adNote').value.trim(),
     };
-    if (!base.room) { toast('请先填教室', 'bad'); $('#adRoom').focus(); return; }
+    if (!base.room) { toast(I('请先填教室', 'Please enter a room first'), 'bad'); $('#adRoom').focus(); return; }
     const body = whenBody($('#addBox'), base);
     if (body.cls === '' && body.period !== undefined) {
-        toast('选了晚自习节次就必须指定班级', 'bad'); return;
+        toast(I('选了晚自习节次就必须指定班级', 'A study-hall period must be tied to a class'), 'bad'); return;
     }
     btn.disabled = true;
     try {
         await api('/api/officehours/mine', { method: 'POST', body });
         $('#adRoom').value = ''; $('#adNote').value = '';
-        toast('已添加到我的值班', 'ok');
+        toast(I('已添加到我的值班', 'Added to your duty'), 'ok');
         await loadMine();
     } catch (err) {
-        toast(err.message, 'bad');
+        toast(trErr(err.message), 'bad');
     } finally {
         btn.disabled = false;
     }
@@ -694,33 +824,37 @@ async function loadAll() {
         (DAY_ORDER[a.day] ?? 9) - (DAY_ORDER[b.day] ?? 9) || a.period - b.period || String(a.cls).localeCompare(String(b.cls)));
     renderAll();
     const audit = await api('/api/officehours/admin/audit?limit=20');
+    const loc = LANG === 'en' ? 'en-US' : 'zh-CN';
     $('#auditList').innerHTML = (audit.entries || []).map(en => {
-        const at = en.at ? new Date(en.at).toLocaleString('zh-CN') : '';
+        const at = en.at ? new Date(en.at).toLocaleString(loc) : '';
         const detail = en.action === 'import'
-            ? `导入 新增${en.after?.created ?? '?'} 更新${en.after?.updated ?? '?'}`
-            : (en.after?.room ? `教室 → ${esc(en.after.room)}` : esc(en.action));
-        return `<li><b>${esc(en.name || en.email || '系统')}</b> · ${esc(detail)} <span style="opacity:.65">${esc(at)}</span></li>`;
-    }).join('') || '<li>暂无改动记录</li>';
+            ? (LANG === 'en'
+                ? `import: ${en.after?.created ?? '?'} added, ${en.after?.updated ?? '?'} updated`
+                : `导入 新增${en.after?.created ?? '?'} 更新${en.after?.updated ?? '?'}`)
+            : (en.after?.room ? (LANG === 'en' ? `room → ${esc(en.after.room)}` : `教室 → ${esc(en.after.room)}`) : esc(en.action));
+        return `<li><b>${esc(en.name || en.email || I('系统', 'system'))}</b> · ${esc(detail)} <span style="opacity:.65">${esc(at)}</span></li>`;
+    }).join('') || '<li>' + I('暂无改动记录', 'No changes yet') + '</li>';
 }
 
 function renderAll() {
     const q = ($('#filterTxt').value || '').trim().toLowerCase();
     const rows = ALL.filter(s => !q || [s.day, s.cls, s.teacherName, s.room].join(' ').toLowerCase().includes(q));
-    $('#allTable').innerHTML = `
-        <thead><tr><th>星期</th><th>节次</th><th>班级</th><th>老师</th><th style="min-width:9em">教室</th><th style="min-width:11em">备注</th><th></th></tr></thead>
-        <tbody>` + rows.map(s => `
+    const en = LANG === 'en';
+    const th = [I('星期', 'Day'), I('节次', 'Period'), I('班级', 'Class'), I('老师', 'Teacher'), I('教室', 'Room'), I('备注', 'Note'), '']
+        .map((h, i) => i >= 4 ? `<th style="min-width:${i === 4 ? '9em' : '11em'}">${h}</th>` : `<th>${h}</th>`).join('');
+    $('#allTable').innerHTML = `<thead><tr>${th}</tr></thead>` + `<tbody>` + rows.map(s => `
         <tr data-id="${esc(s.id)}">
-            <td>${esc(s.day)}</td>
-            <td class="num">${s.kind === 'custom' ? esc(s.time || (s.start + '–' + s.end)) + '<br><span style="opacity:.7;font-size:.85em">自定时间</span>'
-                : '第' + esc(s.period) + '节<br><span style="opacity:.7;font-size:.85em">' + esc(timeOf(s.period)) + '</span>'}</td>
+            <td>${esc(dayName(s.day))}</td>
+            <td class="num">${s.kind === 'custom' ? esc(s.time || (s.start + '–' + s.end)) + '<br><span style="opacity:.7;font-size:.85em">' + I('自定时间', 'Custom time') + '</span>'
+                : perLabel(s.period) + '<br><span style="opacity:.7;font-size:.85em">' + esc(timeOf(s.period)) + '</span>'}</td>
             <td><input data-f="cls" value="${esc(s.cls)}" maxlength="20"></td>
-            <td><input data-f="teacherEmail" value="${esc(s.teacherEmail || '')}" title="改归属要填教师表里存在的邮箱"></td>
+            <td><input data-f="teacherEmail" value="${esc(s.teacherEmail || '')}" title="${I('改归属要填教师表里存在的邮箱', 'Reassigning requires an email that exists in the teacher table')}"></td>
             <td><input data-f="room" value="${esc(s.room)}" maxlength="40"></td>
             <td><input data-f="note" value="${esc(s.note)}" maxlength="200"></td>
-            <td style="white-space:nowrap"><button class="btn-ghost" data-act="save" type="button">保存</button>
-                <button class="btn-danger" data-act="del" type="button">删除</button></td>
+            <td style="white-space:nowrap"><button class="btn-ghost" data-act="save" type="button">${I('保存', 'Save')}</button>
+                <button class="btn-danger" data-act="del" type="button">${I('删除', 'Delete')}</button></td>
         </tr>`).join('') + `</tbody>`;
-    if (!rows.length) $('#allTable').innerHTML += `<tbody><tr><td colspan="7" style="color:var(--muted);padding:1rem">没有匹配的记录</td></tr></tbody>`;
+    if (!rows.length) $('#allTable').innerHTML += `<tbody><tr><td colspan="7" style="color:var(--muted);padding:1rem">${I('没有匹配的记录', 'No matching records')}</td></tr></tbody>`;
 }
 
 $('#allTable').addEventListener('click', async e => {
@@ -731,9 +865,9 @@ $('#allTable').addEventListener('click', async e => {
     btn.disabled = true;
     try {
         if (btn.dataset.act === 'del') {
-            if (!confirm('确定删除这条值班记录？')) return;
+            if (!confirm(I('确定删除这条值班记录？', 'Delete this duty record?'))) return;
             await api('/api/officehours/' + encodeURIComponent(id), { method: 'DELETE' });
-            toast('已删除', 'ok');
+            toast(I('已删除', 'Deleted'), 'ok');
         } else {
             const body = {};
             tr.querySelectorAll('[data-f]').forEach(i => {
@@ -741,12 +875,12 @@ $('#allTable').addEventListener('click', async e => {
                 const orig = ALL.find(s => s.id === id);
                 if (!orig || String(orig[i.dataset.f] ?? '') !== v) body[i.dataset.f] = v;
             });
-            if (!Object.keys(body).length) { toast('没有改动'); return; }
+            if (!Object.keys(body).length) { toast(I('没有改动', 'No changes')); return; }
             await api('/api/officehours/' + encodeURIComponent(id), { method: 'PUT', body });
-            toast('已保存', 'ok');
+            toast(I('已保存', 'Saved'), 'ok');
         }
         await loadAll();
-    } catch (err) { toast(err.message, 'bad'); }
+    } catch (err) { toast(trErr(err.message), 'bad'); }
     finally { btn.disabled = false; }
 });
 $('#filterTxt').addEventListener('input', renderAll);
@@ -757,20 +891,20 @@ $('#addBtn').addEventListener('click', async () => {
         teacherEmail: $('#nEmail').value.trim(), room: $('#nRoom').value.trim(),
         time: timeOf(Number($('#nPeriod').value)),
     };
-    if (!body.cls || !body.teacherEmail || !body.room) { toast('班级、邮箱、教室都要填', 'bad'); return; }
+    if (!body.cls || !body.teacherEmail || !body.room) { toast(I('班级、邮箱、教室都要填', 'Class, email and room are all required'), 'bad'); return; }
     try {
         await api('/api/officehours', { method: 'POST', body });
-        toast('已新增', 'ok');
+        toast(I('已新增', 'Added'), 'ok');
         $('#nCls').value = ''; $('#nRoom').value = '';
         await loadAll();
-    } catch (err) { toast(err.message, 'bad'); }
+    } catch (err) { toast(trErr(err.message), 'bad'); }
 });
 
 $('#importBtn').addEventListener('click', async () => {
     let payload;
     try { payload = JSON.parse($('#importJson').value); }
-    catch (e) { toast('JSON 解析失败：' + e.message, 'bad'); return; }
-    if (!Array.isArray(payload.slots)) { toast('粘贴的内容里必须有 slots 数组（data.json 全文）', 'bad'); return; }
+    catch (e) { toast(I('JSON 解析失败：' + e.message, 'Invalid JSON: ' + e.message), 'bad'); return; }
+    if (!Array.isArray(payload.slots)) { toast(I('粘贴的内容里必须有 slots 数组（data.json 全文）', 'The pasted content must include a slots array (full data.json)'), 'bad'); return; }
     const btn = $('#importBtn');
     btn.disabled = true;
     try {
@@ -778,9 +912,11 @@ $('#importBtn').addEventListener('click', async () => {
             method: 'POST',
             body: { slots: payload.slots, term: payload.term, preserveTeacherNotes: $('#preserveNotes').checked },
         });
-        toast(`导入完成：新增 ${r.created}、更新 ${r.updated}、保留备注 ${r.preserved}`, 'ok');
+        toast(LANG === 'en'
+            ? `Import done: ${r.created} added, ${r.updated} updated, ${r.preserved} notes kept`
+            : `导入完成：新增 ${r.created}、更新 ${r.updated}、保留备注 ${r.preserved}`, 'ok');
         await loadAll();
-    } catch (err) { toast(err.message, 'bad'); }
+    } catch (err) { toast(trErr(err.message), 'bad'); }
     finally { btn.disabled = false; }
 });
 
@@ -789,24 +925,24 @@ async function doLogin() {
     const email = $('#email').value.trim(), password = $('#password').value;
     const errBox = $('#loginErr');
     errBox.hidden = true;
-    if (!email || !password) { errBox.textContent = '请输入邮箱和密码'; errBox.hidden = false; return; }
+    if (!email || !password) { errBox.textContent = I('请输入邮箱和密码', 'Please enter both email and password'); errBox.hidden = false; return; }
     const btn = $('#loginBtn');
     btn.disabled = true;
     try {
         const r = await api('/api/auth/login', { method: 'POST', body: { email, password } });
         setToken(r.token);
         ME = r.user;
-        if (r.requiresPasswordChange) toast('你的密码是旧版明文，建议尽快到 FAD 系统改掉', 'bad');
+        if (r.requiresPasswordChange) toast(I('你的密码是旧版明文，建议尽快到 FAD 系统改掉', 'Your password is still old plaintext — please change it in FAD soon'), 'bad');
         await enter();
     } catch (err) {
-        errBox.textContent = err.message;
+        errBox.textContent = trErr(err.message);
         errBox.hidden = false;
     } finally { btn.disabled = false; }
 }
 $('#loginBtn').addEventListener('click', doLogin);
 $('#password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
-$('#logoutBtn').addEventListener('click', () => { setToken(''); ME = null; showLogin(); toast('已退出登录'); });
+$('#logoutBtn').addEventListener('click', () => { setToken(''); ME = null; showLogin(); toast(I('已退出登录', 'Signed out')); });
 
 async function enter() {
     showMain();
@@ -819,12 +955,26 @@ const themeBtn = $('#themeBtn');
 function applyTheme(t, persist) {
     document.documentElement.dataset.theme = t;
     const dark = t === 'dark';
-    themeBtn.textContent = dark ? '☀️ 浅色' : '🌙 深色';
+    themeBtn.textContent = dark ? I('☀️ 浅色', '☀️ Light') : I('🌙 深色', '🌙 Dark');
     themeBtn.setAttribute('aria-pressed', String(dark));
     if (persist) { try { localStorage.setItem('ohTheme', t); } catch (e) { } }
 }
 themeBtn.addEventListener('click', () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true));
 applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', false);
+// 语言切换：静态文案重贴，主界面/卡片/表格按语言重画
+document.getElementById('langBtn').addEventListener('click', async () => {
+    LANG = LANG === 'en' ? 'zh' : 'en';
+    try { localStorage.setItem('ohLang', LANG); } catch (e) { }
+    applyStatic();
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', false);
+    if (ME) {
+        showMain();                 // 重填姓名 / 角色 / 组别
+        try { await loadMine(); } catch (e) { /* 网络不稳时保留现有内容 */ }
+        if (ME.isAdmin) { try { await loadAll(); } catch (e) { /* 同上 */ } }
+    }
+});
+
+applyStatic();
 
 (async function boot() {
     if (!API_BASE) { $('#noApi').hidden = false; return; }
