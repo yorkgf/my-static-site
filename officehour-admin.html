@@ -419,9 +419,18 @@ async function api(path, { method = 'GET', body } = {}) {
     } catch (e) {
         throw new Error('连不上服务器，请检查网络或稍后再试');
     }
-    const json = await res.json().catch(() => ({}));
+    const text = await res.text();
+    let json = {}, parsed = true;
+    try { json = text ? JSON.parse(text) : {}; } catch (e) { parsed = false; }
     if (res.status === 401) { setToken(''); ME = null; showLogin(); }
-    if (!res.ok) throw new Error(json.error || ('请求失败（' + res.status + '）'));
+    if (!res.ok) throw new Error((parsed && json.error) || ('请求失败（' + res.status + '）'));
+    if (!parsed) {
+        // 函数只建了壳子、还跑着出厂“Hello World”模板时，会拿到 200 + HTML；
+        // 不拦的话下面就会报“找不到元素”之类的 indirect 错误
+        throw new RegExp('^[\\s<]*<').test(text) || /Hello World/i.test(text)
+            ? new Error('后端返回的是网页而不是接口数据：函数代码可能还没部署（出厂模板就是这样），或地址填错了')
+            : new Error('后端返回的数据看不懂（不是 JSON）');
+    }
     return json;
 }
 

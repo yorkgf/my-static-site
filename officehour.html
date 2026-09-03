@@ -696,7 +696,18 @@ function fmtStamp(v) {
 function loadLive() {
     if (!OH_API_BASE) { renderStatus(); return Promise.resolve(); }
     return fetch(OH_API_BASE.replace(/\/$/, '') + '/api/officehours', { cache: 'no-store' })
-        .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+        .then(async res => {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const text = await res.text();
+            try { return JSON.parse(text); }
+            catch (e) {
+                // 地址填错/函数只建了壳子还跑着出厂模板时，拿回来的是 HTML。
+                // 不拦的话状态条会显示“Unexpected token '<'”这种没人看得懂的话。
+                throw new RegExp('^[\\s<]*<').test(text)
+                    ? new Error('拿回来的不是接口数据而是网页（函数可能还没上传代码，或地址指向了别的服务）')
+                    : new Error('后端返回的数据看不懂（不是 JSON）');
+            }
+        })
         .then(json => {
             // 学期对不上时，后端会返回空数组（实际踩过：OH_TERM 配错导致查错学期），
             // 所以先报“学期不一致”这个真原因，而不是只说“空数据”。

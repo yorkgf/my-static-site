@@ -273,6 +273,18 @@ f.onload = async () => {
   ok('护栏触发后表格仍有 9 个班', d.querySelectorAll('tr[data-key]').length === 9,
      String(d.querySelectorAll('tr[data-key]').length));
 
+  // 函数只建了壳子、代码还没上传时，会拿到出厂模板的 200 + HTML
+  await (async () => {
+    w.fetch = () => Promise.resolve(new w.Response('<html><body>Hello World!</body></html>',
+      { status: 200, headers: { 'Content-Type': 'text/html' } }));
+    OH.setApiBase('https://mock.invalid');
+    await OH.loadLive();
+    st = OH.state();
+    ok('后端返回网页时不进入实时模式', st.mode === 'snapshot' && st.slots === 72, JSON.stringify({ m: st.mode, s: st.slots }));
+    ok('报错文案说人话（指出代码未部署/地址错）',
+       /网页|没上传|没部署|地址/.test(txt(d.getElementById('dataStatus'))), txt(d.getElementById('dataStatus')));
+  })();
+
   // 同学期但空数组：同样不覆盖
   await stub({ term: SNAP.term, periods: LIVE.periods, slots: [] });
   ok('空排班不覆盖快照', OH.state().mode === 'snapshot' && OH.state().slots === 72, JSON.stringify(OH.state().slots));

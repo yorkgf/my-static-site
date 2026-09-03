@@ -4,6 +4,8 @@
 <body style="margin:0;background:#333">
 <iframe id="f" style="width:1100px;height:900px;border:0"></iframe>
 <pre id="out"></pre>
+<!-- 哨兵：如果下面那段脚本自己语法错了根本没跑起来，e2e 就能看到“卡在这里”而不是“没有输出” -->
+<script>document.getElementById('out').textContent = '(harness 启动了，但主脚本没跑完 → 主脚本有语法错误)';</script>
 <script>
 const P = new URLSearchParams(location.search);
 const API = P.get('api'), PW = P.get('pw'), TEACHER = P.get('teacher'), ADMIN = P.get('admin'), TNAME = P.get('tname');
@@ -40,6 +42,17 @@ const txt = e => (e ? e.textContent.replace(/\s+/g, ' ').trim() : '');
   await until(() => !d.getElementById('loginErr').hidden, 6000, '错误提示出现');
   ok('错误密码 → 显示失败原因且不进入主界面', !d.getElementById('loginErr').hidden && d.getElementById('mainView').hidden === true,
      txt(d.getElementById('loginErr')));
+
+  // 函数只建了壳子、代码还没上传（出厂模板会回 200 + HTML）时，登录要把真正原因说出来
+  const realFetch = w.fetch;
+  w.fetch = () => Promise.resolve(new w.Response('<html><body>Hello World!</body></html>',
+      { status: 200, headers: { 'Content-Type': 'text/html' } }));
+  d.getElementById('password').value = PW;
+  d.getElementById('loginBtn').click();
+  await until(() => /网页|没部署|地址|看不懂/.test(d.getElementById('loginErr').textContent), 8000, '友好诊断信息');
+  ok('后端未部署代码时，登录页给出可操作的诊断', /网页|没部署|地址|看不懂/.test(d.getElementById('loginErr').textContent),
+     txt(d.getElementById('loginErr')));
+  w.fetch = realFetch;
 
   // 正确登录
   d.getElementById('password').value = PW;
