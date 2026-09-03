@@ -146,6 +146,11 @@ Set `JWT_SECRET` equal to FADsys's for passwordless SSO (token payload `{email, 
 Admin gate uses `ADMIN_GROUPS=S,A` (mirrors FADsys `userGroups.js` `isAdmin()`, which is wider than its
 own `adminMiddleware` that only accepts `S`).
 
+**已知账号现状——用户已确认，不要自作主张改**：教师「高峰」在 `GHA.Teachers` 里的 `email` 就是
+`test@test.com`（`Group=S`），而且库里只有这一个同名账号。他是**超级管理员**，该账号就在他自己手里，
+所以不存在“值班绑到测试账号、本人改不了”的问题。`seed.mjs` 按姓名反查 email 时会把他归到这个地址（已跑通）。
+以后若出现第二个“高峰”，导入会因重名而中止 —— 那才是需要人工补 email 的情况。
+
 **The semester env var is `OH_TERM`, not `TERM`** — bare `TERM` is the terminal-type variable, so a
 shell-exported `TERM=xterm-256color` silently overrides `.env` (dotenv never clobbers existing env) and
 the API then queries the wrong semester and returns **0 rows**. This actually happened. When adding
