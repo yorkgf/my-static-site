@@ -282,9 +282,8 @@ cd "APBusiness" && python3 convert_slides.py
 ```
 
 ### Deploy
-```bash
-./deploy.sh   # copies to ./deploy/; upload that folder to EdgeOne Pages
-```
+Primary path is **git push** (see “Deploy” section below). `./deploy.sh` is optional — it builds a
+self-contained `./deploy/` copy for manual upload or local preview.
 
 ## Course Color Themes
 | Course | Primary Color | Font |
@@ -321,9 +320,20 @@ Curriculum pages are built from College Board CED (Course and Exam Description) 
 APBusiness slide source: Marp files in `/home/yorkgf/Documents/Obsidian Vault/AP Business with Personal Finance/Slides/`.
 
 ## Deploy
-Target: **EdgeOne Pages** (Tencent Cloud). Run `./deploy.sh` then upload `deploy/` folder manually.
+Target: **EdgeOne Pages (Tencent Cloud), synced from this GitHub repo.** The live site is built
+straight from the repo, so **`git push origin master` is what deploys** — no upload step.
 
-The script copies **all root `*.html`** (glob, so new pages ship automatically), global `css/`+
+Consequences worth remembering:
+- New pages must live **in the repo** at the path you want publicly served. Root-level `*.html` is the
+  convention here, and pages get linked from the “To Continue” slide in `index.html`.
+- Because EdgeOne serves the repo (not `deploy/`), everything committed becomes publicly fetchable.
+  No credentials are in the repo (`OfficeHour/api/.env`, `*.zip`, `node_modules` are gitignored) — the
+  API needs `MONGO_URI`/`JWT_SECRET` from SCF **environment variables**, never from a committed file.
+  The GHA MongoDB has **no authentication**, so a leaked connection string means full write access.
+- `./deploy.sh` still exists but is now **optional**: it assembles a self-contained `./deploy/` copy for
+  manual upload or offline preview. `deploy/` is gitignored, so pushing it is not a thing.
+
+The script copies **all root `*.html`** (glob, so new pages ship automatically), global `css`+
 `js/`, and all 7 course directories. It then runs a **link-integrity check** that reports any
 `href`/`src` in the package whose target is missing (accepts plain files, directories, and
 Quartz extension-less "clean URLs").
