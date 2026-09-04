@@ -88,6 +88,12 @@ Pages live at the repo root like other site pages: `officehour.html` (students) 
   class (`G10-1`) and room (`文体 114`). Table highlights hits, dims non-hits; quick-pick chips.
 - Pinyin lives only in `build_data.py`'s `PINYIN` dict. Live data from the API has no pinyin, so
   `teacherListFrom()` re-attaches it from the snapshot; new teachers degrade to name-only search.
+- **Teacher email shows on each card** (陈逸飞 ✉ if_chen@ghedu.com), not pinyin. Source of truth:
+  `build_data.py`'s `TEACHER_EMAIL` (mirrors `GHA.Teachers`, hard-fails like `PINYIN`) is embedded into
+  `SNAPSHOT.teachers.email` for the roster; the backend's live `GET /api/officehours` returns a top-level
+  `emails` map **limited to teachers who have duty that term** (staff who self-add shifts like 丁佳 also
+  get their email). Per-slot `teacherEmail` is still never exposed — emails only travel as that one map, so
+  accounts not in the duty roster never leak (see smoke test "公开接口只回值班老师邮箱表").
 - **Do not hardcode clock times/periods in page logic** — they come from the generated `SNAPSHOT.periods`.
 
 ### Theme

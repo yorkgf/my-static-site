@@ -753,7 +753,7 @@ function derive() {
 }
 
 /** 换一套数据（快照 or 后端）：重算派生结构并重画 */
-function applyData({ slots, teachers, periods, mode, stamp }) {
+function applyData({ slots, teachers, periods, mode, stamp, emails }) {
     // 运行时数据跟内嵌数据同格式，但可能来自手改/旧版后端：只收形状对的行，
     // 一行坏数据不该整页白屏。
     if (Array.isArray(slots) && slots.length) {
@@ -772,6 +772,12 @@ function applyData({ slots, teachers, periods, mode, stamp }) {
         if (clean.length) SLOTS = clean;
     }
     if (Array.isArray(teachers) && teachers.length) TEACHERS = teachers;
+    // 实时返回的“姓名→邮箱”只覆盖当学期真的在值班的老师；用它补上快照里没有的（如自助排班）
+    if (emails && typeof emails === 'object') {
+        TEACHERS = TEACHERS.map(t => emails[t.name] ? Object.assign({}, t, { email: emails[t.name] }) : t);
+        const seen = new Set(TEACHERS.map(t => t.name));
+        Object.keys(emails).forEach(n => { if (!seen.has(n)) TEACHERS.push({ name: n, py: '', ini: '', email: emails[n] }); });
+    }
     if (Array.isArray(periods) && periods.length) PERIODS = periods;
     if (mode) DATA_MODE = mode;
     if (mode === 'snapshot') hadLive = false;   // 有人重新贴回快照，就不再算“拿到过后端数据”
@@ -818,6 +824,7 @@ function loadLive() {
             applyData({
                 slots,
                 teachers: teacherListFrom(slots),
+                emails: json.emails,
                 periods: json.periods,
                 mode: 'live',
                 stamp: json.updatedAt ? fmtStamp(json.updatedAt) : '',

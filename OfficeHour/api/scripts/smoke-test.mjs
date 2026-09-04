@@ -133,12 +133,17 @@ try {
     assert.equal(json.count, 3);
     assert.equal(json.periods[0].time, '18:30–19:20', '应回传节次时间');
   });
-  await check('★ 公开接口绝不泄露教师邮箱/密码', async () => {
+  await check('公开接口只回值班老师邮箱表，绝不回 private 字段', async () => {
     const { json } = await call('GET', '/api/officehours');
     const blob = JSON.stringify(json);
     assert.ok(!/teacherEmail/.test(blob), '响应里出现了 teacherEmail');
-    assert.ok(!/@ghedu\.com/.test(blob), '响应里出现了邮箱');
     assert.ok(!/Password/.test(blob), '响应里出现了 Password');
+    // B 版：值班总表要展示老师邮箱（用户已确认对学生公开），只暴露“当学期真的在值班的”
+    assert.deepEqual(json.emails, {
+      '张老师': 'teacher@ghedu.com', '王校': 'admin@ghedu.com', '汪校': 'vice@ghedu.com',
+    });
+    // 不在值班表里的老师，邮箱不得从这个接口漏出去
+    assert.ok(!/plain@ghedu/.test(blob) && !/clean@ghedu/.test(blob), '漏出了非值班老师的邮箱');
   });
   await check('不存在的接口返回 404 JSON', async () => {
     const { status, json } = await call('GET', '/api/nope');

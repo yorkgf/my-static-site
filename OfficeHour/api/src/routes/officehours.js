@@ -54,11 +54,18 @@ officeHoursRouter.get('/', attachOptionalUser, async (req, res, next) => {
     const withEmail = !!req.user?.isAdmin;
     const docs = await collections.officeHours.find({ term }).sort({ day: 1, period: 1, cls: 1 }).toArray();
     const slots = docs.sort(sortKey).map((d) => toPublic(d, { withEmail }));
+    // 值班表命中的应用邮箱，供总表在老师名片上展示联系方式（仅覆盖当学期确实有值班的老师，
+    // 免得把整张 Teachers 表的账号全暴露出来）。以入库时的 teacherEmail 为准。
+    const emails = {};
+    docs.forEach((d) => {
+      if (d.teacherName && d.teacherEmail && !emails[d.teacherName]) emails[d.teacherName] = d.teacherEmail;
+    });
     res.json({
       term,
       count: slots.length,
       periods: periodsFrom(docs),
       updatedAt: docs.reduce((m, d) => (d.updatedAt && (!m || d.updatedAt > m) ? d.updatedAt : m), null),
+      emails,
       slots,
     });
   } catch (err) {
