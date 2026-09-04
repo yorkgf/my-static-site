@@ -1046,28 +1046,31 @@ function renderNotes() {
 
     const mb = mainBuilding();
     const mbName = mb.endsWith('楼') ? mb : mb + '楼';
-    const away = CLASSES.filter(c => SLOTS.filter(s => s[2] === c).some(s => buildingOf(s[4]) !== mb));
-    const perDay = TEACHERS.map(t => ({ n: t.name, d: teacherSlots(t.name).length }));
-    const min = Math.min(...perDay.map(x => x.d));
-    const rare = perDay.filter(x => x.d === min).map(x => x.n);
-    const max = Math.max(...perDay.map(x => x.d));
+    // 「整栋楼都不在这里」的班级：它至少有 1 个教室落在非主楼里(跑错楼的风险)
+    const away = CLASSES.filter(c =>
+        SLOTS.filter(s => s[2] === c).some(s => buildingOf(s[4]) !== mb));
+    // 该班实际在哪栋楼（除主楼外可能出现的大楼，去重）
+    const awayName = c => [...new Set(SLOTS
+        .filter(s => s[2] === c && buildingOf(s[4]) !== mb)
+        .map(s => buildingOf(s[4])))];
 
-    const parts = [];
-    if (offDays.length) parts.push(en
-        ? '<b>' + offDays.map(dayName).join(', ') + '</b> has no evening duty — if you need a teacher on those days, arrange another time.'
-        : '<b>' + offDays.join('、') + '</b> 不安排晚自习，这几天想问老师得另外约时间。');
-    if (en) parts.push('Only <b>' + rare.length + '</b> teacher(s) are on duty just <b>' + min + '</b> day(s) a week (' +
-        esc(rare.join(', ')) + ') — miss them and you wait until next week; the busiest cover <b>' + max + '</b> days.');
-    else parts.push('有 <b>' + rare.length + '</b> 位老师一周只值班 <b>' + min + '</b> 天（' +
-        esc(rare.join('、')) + '），错过就要等到下周；最多的有 <b>' + max + '</b> 天。');
-    if (away.length) parts.push(en
-        ? 'The duty rooms for <b>' + esc(away.join(', ')) + '</b> are <b>' +
-            esc([...new Set(SLOTS.filter(s => away.includes(s[2]) && buildingOf(s[4]) !== mb).map(s => s[4]))].join(', ')) +
-            '</b>, not ' + esc(mbName) + ' — go to the wrong building and you will miss them.'
-        : esc(away.join('、')) + ' 的值班教室在 <b>' +
-            esc([...new Set(SLOTS.filter(s => away.includes(s[2]) && buildingOf(s[4]) !== mb).map(s => s[4]))].join('、')) +
-            '</b>，不在' + esc(mbName) + '，跑错楼就找不到人了。');
-    document.getElementById('tip').innerHTML = parts.join(' ');
+    // 页脚提示文案：晚自习安排 / 关于 Office Hour / 特别提醒（跑错楼），均由数据推导
+    const blk = [];
+    if (offDays.length) blk.push((en ? '<b>［晚自习安排］</b>' : '<b>【晚自习安排】</b>') +
+        (en ? 'No evening study on <b>' + offDays.map(dayName).join(', ') + '</b>.'
+            : '<b>' + offDays.join('、') + '</b>晚间不安排晚自习。'));
+    blk.push((en ? '<b>［关于 Office Hour］</b>' : '<b>【关于 Office Hour】</b>') +
+        (en
+            ? 'Office Hour is when a student can find a teacher to ask questions. During regular class time, a teacher with no class or meeting passes the periods preparing in the office; you may drop by during self-study stretches, or email the teacher to arrange a specific time.'
+            : 'Office Hour 即为学生可以找到老师的答疑时间。在白天的正常教学时段内，老师没有课程安排或会议安排，会在办公室备课。同学们可利用自习课时间随时前往咨询，或通过邮件与老师预约具体时间。'));
+    if (away.length) blk.push((en ? '<b>［特别提醒］</b>' : '<b>【特别提醒】</b>') +
+        (en
+            ? 'The duty rooms for <b>' + esc(away.join(', ')) + '</b> sit in another building, not ' + esc(mbName) + ' (' +
+                away.map(c => c + ' → ' + awayName(c).join('/')).join('、') + ') — double-check the building before you go.'
+            : esc(away.join('、')) + ' 值班教室位于<b>' +
+                [...new Set(away.flatMap(awayName))].join('、') + '</b>，不在' + esc(mbName) +
+                '，请同学们务必确认地点，以免跑错。'));
+    document.getElementById('tip').innerHTML = blk.join('<br>');
     document.getElementById('src').textContent = en
         ? 'Data source: OfficeHour/总课表.xlsx · ' + (SNAPSHOT.term ? SNAPSHOT.term + ' school year' : '2026–2027 school year')
         : '数据来源：OfficeHour/总课表.xlsx · ' + META.term;
