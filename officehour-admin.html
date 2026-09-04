@@ -370,20 +370,34 @@
                 <input type="text" id="filterTxt" data-i18n-ph="filterPh" placeholder="输入关键字即时过滤" autocomplete="off">
             </div>
             <div class="scroller"><table id="allTable"></table></div>
-
             <div class="panel-title" style="margin-top:1.4rem" data-i18n="addTitle">新增一条值班</div>
             <div class="row">
+                <div class="field"><label for="nMode" data-i18n="timeTypeL">时间方式</label>
+                    <select id="nMode">
+                        <option value="period" data-i18n="optPeriod">晚自习节次</option>
+                        <option value="custom" data-i18n="optCustom">自定时间</option>
+                    </select></div>
                 <div class="field"><label for="nDay" data-i18n="dayL">星期</label>
                     <select id="nDay"><option value="周一" data-i18n="dMon">周一</option><option value="周二" data-i18n="dTue">周二</option><option value="周三" data-i18n="dWed">周三</option><option value="周四" data-i18n="dThu">周四</option><option value="周五" data-i18n="dFri">周五</option></select></div>
-                <div class="field"><label for="nPeriod" data-i18n="periodL">节次</label><input type="number" id="nPeriod" value="10" min="1" max="30"></div>
-                <div class="field"><label for="nCls" data-i18n="clsL">班级</label><input type="text" id="nCls" placeholder="G10-1"></div>
+            </div>
+            <div class="row" id="nPeriodRow">
+                <div class="field"><label for="nPeriod" data-i18n="periodL">节次</label>
+                    <input type="number" id="nPeriod" value="10" min="1" max="30"></div>
+                <div class="field"><label for="nCls" data-i18n="clsL">班级</label>
+                    <input type="text" id="nCls" placeholder="G10-1"></div>
+            </div>
+            <div class="row" id="nCustomRow" hidden>
+                <div class="field"><label for="nStart" data-i18n="startL">开始</label>
+                    <input type="time" id="nStart" value="16:30" step="300"></div>
+                <div class="field"><label for="nEnd" data-i18n="endL">结束</label>
+                    <input type="time" id="nEnd" value="17:30" step="300"></div>
             </div>
             <div class="row">
                 <div class="field"><label for="nEmail" data-i18n="nEmailL">教师邮箱（教师表中必须存在）</label><input type="text" id="nEmail" placeholder="name@ghedu.com"></div>
                 <div class="field"><label for="nRoom" data-i18n="roomL">教室</label><input type="text" id="nRoom" data-i18n-ph="roomPh2" placeholder="文体 114"></div>
             </div>
+            <p class="hint" id="nCustomHint" hidden>为老师登记一条“办公答疑”：时间自定、不必指定班级（只显示在该老师卡片上）。多条同室同时段答疑互不影响。</p>
             <button class="btn" id="addBtn" type="button" data-i18n="add">新增</button>
-
             <div class="panel-title" style="margin-top:1.4rem" data-i18n="importTitle">整表导入</div>
             <p class="panel-note" data-i18n="importNote">粘贴 <code>OfficeHour/data.json</code> 的完整内容。按「学期+星期+节次+班级」覆盖，
                 老师自己写过的备注默认保留。</p>
@@ -815,6 +829,16 @@ $('#adAdd').addEventListener('click', async () => {
     }
 });
 
+
+/* 管理员“新增”也支持：晚自习节次(需班级) / 自定时间·不指定班级(办公答疑) */
+function adminAddMode(m){
+  const custom = m === 'custom';
+  $('#nPeriodRow').hidden = custom;
+  $('#nCustomRow').hidden = !custom;
+  const hint = $('#nCustomHint'); if (hint) hint.hidden = !custom;
+}
+if ($('#nMode')) $('#nMode').addEventListener('change', function(e){ adminAddMode(e.target.value); });
+
 /* ── 管理员：全部记录 ──────────────────────────────────────── */
 let ALL = [];
 async function loadAll() {
@@ -886,16 +910,24 @@ $('#allTable').addEventListener('click', async e => {
 $('#filterTxt').addEventListener('input', renderAll);
 
 $('#addBtn').addEventListener('click', async () => {
-    const body = {
-        day: $('#nDay').value, period: Number($('#nPeriod').value), cls: $('#nCls').value.trim(),
-        teacherEmail: $('#nEmail').value.trim(), room: $('#nRoom').value.trim(),
-        time: timeOf(Number($('#nPeriod').value)),
-    };
-    if (!body.cls || !body.teacherEmail || !body.room) { toast(I('班级、邮箱、教室都要填', 'Class, email and room are all required'), 'bad'); return; }
+    const mode = $('#nMode').value;
+    const email = $('#nEmail').value.trim();
+    const room = $('#nRoom').value.trim();
+    const base = { day: $('#nDay').value, teacherEmail: email, room };
+    if (mode === 'custom') {
+        base.start = $('#nStart').value; base.end = $('#nEnd').value; base.cls = '';
+        if (!base.start || !base.end) { toast(I('自定时间要填开始与结束', 'Fill both start and end times'), 'bad'); return; }
+    } else {
+        base.period = Number($('#nPeriod').value);
+        base.time = timeOf(Number($('#nPeriod').value));
+        base.cls = $('#nCls').value.trim();
+        if (!base.cls) { toast(I('选了晚自习节次就必须指定班级', 'A study-hall period must list a class'), 'bad'); $('#nCls').focus(); return; }
+    }
+    if (!email || !room) { toast(I('教师邮箱、教室都要填', 'Teacher email and room are required'), 'bad'); return; }
     try {
-        await api('/api/officehours', { method: 'POST', body });
+        await api('/api/officehours', { method: 'POST', body: base });
         toast(I('已新增', 'Added'), 'ok');
-        $('#nCls').value = ''; $('#nRoom').value = '';
+        $('#nCls').value = ''; $('#nRoom').value = ''; $('#nEmail').value = '';
         await loadAll();
     } catch (err) { toast(trErr(err.message), 'bad'); }
 });
