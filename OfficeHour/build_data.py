@@ -47,6 +47,20 @@ PINYIN = {
 }
 
 
+# 姓名 -> 邮箱，供值班总表在老师名片上展示联系方式。以 GHA.Teachers 表为准（公开页会原样展示），
+# 新增老师必须补上，否则构建报错（与 PINYIN 同理）。
+TEACHER_EMAIL = {
+    "李楚翘": "augustli@ghedu.com", "宋雯雯": "wrenley@ghedu.com", "简汐洳": "xirujian@ghedu.com",
+    "张诗文": "zhangshiwen@ghedu.com", "赵睿佳": "heidi@ghedu.com", "郭林": "guolin@ghedu.com",
+    "高峰": "york@ghedu.com", "晏海花": "eva.yan@ghedu.com", "刘展佑": "zhanyouliu@ghedu.com",
+    "邵春晖": "nathanshao@ghedu.com", "李梅诺": "fayeli@ghedu.com", "朱专": "elizabeth@ghedu.com",
+    "凌峰杰": "jeffling@ghedu.com", "刘丹": "liudan@ghedu.com", "卢琦": "lucylu@ghedu.com",
+    "刘禹函": "lisaliu@ghedu.com", "陈逸飞": "if_chen@ghedu.com", "石鑫玥": "xinyueshi@ghedu.com",
+    "赵丁霓": "dingnizhao@ghedu.com", "石琪": "lily2333@ghedu.com",
+}
+
+
+
 TIMES = {}   # 节次号 -> "18:30–19:20"
 
 
@@ -123,6 +137,9 @@ def build_js(records, terms):
     missing = [n for n in names if n not in PINYIN]
     if missing:
         sys.exit("❌ 请在 build_data.py 的 PINYIN 里补上这些老师：" + "、".join(missing))
+    missing_email = [n for n in names if n not in TEACHER_EMAIL]
+    if missing_email:
+        sys.exit("❌ 请在 build_data.py 的 TEACHER_EMAIL 里补上这些老师：" + "、".join(missing_email))
 
     rows = sorted(records, key=lambda r: (DAYS.index(r["day"]), r["p"], classes.index(r["cls"])))
     term = " / ".join(sorted(terms)) if terms else ""
@@ -142,9 +159,9 @@ def build_js(records, terms):
         ",\n".join("      [" + ", ".join(q(x) for x in (r["day"], r["p"], r["cls"], r["teacher"], r["room"])) + "]"
                    for r in rows),
         "    ],",
-        "    // py = 全拼, ini = 首字母",
+        "    // py = 全拼, ini = 首字母, email = 展示用联系方式",
         "    teachers: [",
-        ",\n".join("      { name: %s, py: %s, ini: %s }" % (q(n), q(PINYIN[n][0]), q(PINYIN[n][1])) for n in names),
+        ",\n".join("      { name: %s, py: %s, ini: %s, email: %s }" % (q(n), q(PINYIN[n][0]), q(PINYIN[n][1]), q(TEACHER_EMAIL[n])) for n in names),
         "    ],",
         "    // 节次与时间（取自 Excel 的节次行标签）",
         "    periods: [",

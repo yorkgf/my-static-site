@@ -245,7 +245,6 @@
         }
         .chip:hover { border-color: var(--accent-line); color: var(--accent); transform: translateY(-1px); }
         .chip.on { background: var(--accent-tint); border-color: var(--accent-line); color: var(--accent-ink); font-weight: 700; }
-        .chip .py { opacity: .55; font-size: .8em; margin-left: .3em; }
 
         /* 搜索结果卡片 */
         .results { margin-top: 1.2rem; display: grid; gap: .8rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
@@ -257,7 +256,9 @@
         }
         .tcard-head { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
         .tname { font-size: 1.22rem; font-weight: 800; color: var(--accent); letter-spacing: .04em; }
-        .tpy { font-size: .78rem; color: var(--muted); font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: .1em; }
+        .tmail { font-size: .82rem; color: var(--muted); font-family: 'Courier New', monospace; letter-spacing: .02em; }
+        .tmail a { color: var(--blue); text-decoration: none; }
+        .tmail a:hover { text-decoration: underline; }
         .tcount { margin-left: auto; font-size: .78rem; color: var(--blue); }
         .trows { list-style: none; margin-top: .6rem; }
         .trows li {
@@ -492,7 +493,7 @@
 // 学期初快照：后端可用时页面会被 /api/officehours 的实时数据覆盖，这份只作兜底。
 // slots 每行：[星期, 节次, 班级, 老师, 教室]
 const SNAPSHOT = {
-    generatedAt: "2026-09-03 13:59",
+    generatedAt: "2026-09-04 10:31",
     term: "26-27",
     slots: [
       ["周一", 10, "G10-1", "李楚翘", "文体 114"],
@@ -568,28 +569,28 @@ const SNAPSHOT = {
       ["周四", 11, "Pre-1", "邵春晖", "文体 112"],
       ["周四", 11, "Pre-2", "刘禹函", "文体 113"]
     ],
-    // py = 全拼, ini = 首字母
+    // py = 全拼, ini = 首字母, email = 展示用联系方式
     teachers: [
-      { name: "陈逸飞", py: "chenyifei", ini: "cyf" },
-      { name: "高峰", py: "gaofeng", ini: "gf" },
-      { name: "郭林", py: "guolin", ini: "gl" },
-      { name: "简汐洳", py: "jianxiru", ini: "jxr" },
-      { name: "李楚翘", py: "lichuqiao", ini: "lcq" },
-      { name: "李梅诺", py: "limeinuo", ini: "lmn" },
-      { name: "凌峰杰", py: "lingfengjie", ini: "lfj" },
-      { name: "刘丹", py: "liudan", ini: "ld" },
-      { name: "刘禹函", py: "liuyuhan", ini: "lyh" },
-      { name: "刘展佑", py: "liuzhanyou", ini: "lzy" },
-      { name: "卢琦", py: "luqi", ini: "lq" },
-      { name: "邵春晖", py: "shaochunhui", ini: "sch" },
-      { name: "石琪", py: "shiqi", ini: "sq" },
-      { name: "石鑫玥", py: "shixinyue", ini: "sxy" },
-      { name: "宋雯雯", py: "songwenwen", ini: "sww" },
-      { name: "晏海花", py: "yanhaihua", ini: "yhh" },
-      { name: "张诗文", py: "zhangshiwen", ini: "zsw" },
-      { name: "赵丁霓", py: "zhaodingni", ini: "zdn" },
-      { name: "赵睿佳", py: "zhaoruijia", ini: "zrj" },
-      { name: "朱专", py: "zhuzhuan", ini: "zz" }
+      { name: "陈逸飞", py: "chenyifei", ini: "cyf", email: "if_chen@ghedu.com" },
+      { name: "高峰", py: "gaofeng", ini: "gf", email: "york@ghedu.com" },
+      { name: "郭林", py: "guolin", ini: "gl", email: "guolin@ghedu.com" },
+      { name: "简汐洳", py: "jianxiru", ini: "jxr", email: "xirujian@ghedu.com" },
+      { name: "李楚翘", py: "lichuqiao", ini: "lcq", email: "augustli@ghedu.com" },
+      { name: "李梅诺", py: "limeinuo", ini: "lmn", email: "fayeli@ghedu.com" },
+      { name: "凌峰杰", py: "lingfengjie", ini: "lfj", email: "jeffling@ghedu.com" },
+      { name: "刘丹", py: "liudan", ini: "ld", email: "liudan@ghedu.com" },
+      { name: "刘禹函", py: "liuyuhan", ini: "lyh", email: "lisaliu@ghedu.com" },
+      { name: "刘展佑", py: "liuzhanyou", ini: "lzy", email: "zhanyouliu@ghedu.com" },
+      { name: "卢琦", py: "luqi", ini: "lq", email: "lucylu@ghedu.com" },
+      { name: "邵春晖", py: "shaochunhui", ini: "sch", email: "nathanshao@ghedu.com" },
+      { name: "石琪", py: "shiqi", ini: "sq", email: "lily2333@ghedu.com" },
+      { name: "石鑫玥", py: "shixinyue", ini: "sxy", email: "xinyueshi@ghedu.com" },
+      { name: "宋雯雯", py: "songwenwen", ini: "sww", email: "wrenley@ghedu.com" },
+      { name: "晏海花", py: "yanhaihua", ini: "yhh", email: "eva.yan@ghedu.com" },
+      { name: "张诗文", py: "zhangshiwen", ini: "zsw", email: "zhangshiwen@ghedu.com" },
+      { name: "赵丁霓", py: "zhaodingni", ini: "zdn", email: "dingnizhao@ghedu.com" },
+      { name: "赵睿佳", py: "zhaoruijia", ini: "zrj", email: "heidi@ghedu.com" },
+      { name: "朱专", py: "zhuzhuan", ini: "zz", email: "elizabeth@ghedu.com" }
     ],
     // 节次与时间（取自 Excel 的节次行标签）
     periods: [
@@ -680,7 +681,7 @@ const PINYIN_MAP = new Map((SNAPSHOT.teachers || []).map(t => [t.name, t]));
 function teacherListFrom(slots) {
     const names = [...new Set(slots.map(s => s[3]))];
     return names
-        .map(n => PINYIN_MAP.get(n) || { name: n, py: '', ini: '' })
+        .map(n => PINYIN_MAP.get(n) || { name: n, py: '', ini: '', email: '' })
         .sort((a, b) => (a.py || a.name).localeCompare(b.py || b.name));
 }
 
@@ -855,10 +856,11 @@ const timesOf = ws => [...new Set(ws)].map(k => WIN[k]).filter(Boolean)
 /* ── 搜索匹配 ───────────────────────────────────────────────── */
 function matchTeacher(name, q) {
     if (!q) return true;
-    const meta = TEACHERS.find(t => t.name === name) || { py: '', ini: '' };
+    const meta = TEACHERS.find(t => t.name === name) || { py: '', ini: '', email: '' };
     return name.toLowerCase().includes(q)
         || meta.py.includes(q)
-        || meta.ini.includes(q);
+        || meta.ini.includes(q)
+        || (meta.email || '').toLowerCase().includes(q);
 }
 function teacherQuery(t, name) {
     const meta = TEACHERS.find(x => x.name === name);
@@ -900,7 +902,7 @@ function renderBadges() {
 function renderChips(q) {
     document.getElementById('chips').innerHTML = TEACHERS.map(t =>
         '<button type="button" class="chip' + (q === t.name || q === t.ini || q === t.py ? ' on' : '') +
-        '" data-name="' + esc(t.name) + '">' + hl(t.name, q) + '<span class="py">' + esc(t.ini) + '</span></button>'
+        '" data-name="' + esc(t.name) + '">' + hl(t.name, q) + '</button>'
     ).join('');
 }
 
@@ -917,7 +919,7 @@ function renderResults(q) {
             + '<span class="troom"> @ ' + esc(i.r) + '</span></span>'
             + (i.note ? '<span class="tnote">📌 ' + esc(i.note) + '</span>' : '') + '</span></li>')).join('');
         return '<div class="tcard"><div class="tcard-head"><span class="tname">' + hl(t.name, q) +
-            '</span><span class="tpy">' + esc(t.py) + '</span>' +
+            '</span>' + (t.email ? '<span class="tmail"><a href="mailto:' + esc(t.email) + '">✉ ' + esc(t.email) + '</a></span>' : '') +
             '<span class="tcount">' + slots.length + ' ' + I('天', 'days') + '</span></div><ul class="trows">' + items + '</ul></div>';
     }).join('');
 }
