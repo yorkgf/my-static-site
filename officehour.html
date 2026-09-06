@@ -349,10 +349,13 @@
         tr.hit th.sticky { color: var(--accent-ink); }
 
         /* ── 提示条 ─────────────────────────────── */
+        /* ── 页面顶部提醒条 ───────────────────────── */
         .callout {
-            display: flex; gap: .6rem; align-items: flex-start;
-            margin-top: 1rem; padding: .75rem 1rem; border-radius: 12px; font-size: .87rem;
+            display: flex; gap: .7rem; align-items: flex-start;
+            margin: 0 0 1.4rem; padding: .95rem 1.2rem; border-radius: 14px; font-size: clamp(1rem, 2.6vw, 1.12rem);
+            line-height: 1.75;
             background: var(--callout); border: 1px solid var(--callout-border); color: var(--muted);
+            box-shadow: var(--shadow-soft);
         }
         .callout .ico { flex: none; }
         .callout b { color: var(--accent-ink); }
@@ -435,6 +438,12 @@
         <p class="data-status" id="dataStatus" aria-live="polite"></p>
     </div>
 
+    <!-- ── 页面顶部提醒（晚自习安排 / 关于 Office Hour / 特别提醒）────────── -->
+    <div class="callout">
+        <span class="ico">💡</span>
+        <span id="tip"></span>
+    </div>
+
     <!-- ── 搜索 ─────────────────────────────────── -->
     <div class="panel">
         <div class="panel-title" data-i18n="findTeacher"><span class="ico">🔎</span>找老师</div>
@@ -472,10 +481,6 @@
         <div class="scroll-hint no-print" id="scrollHint"><span data-i18n="scrollHint">← 左右滑动查看完整课表 →</span></div>
         <div class="scroller" id="scroller">
             <table id="grid" aria-describedby="tableNote"></table>
-        </div>
-        <div class="callout">
-            <span class="ico">💡</span>
-            <span id="tip"></span>
         </div>
     </div>
 
