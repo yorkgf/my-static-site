@@ -90,10 +90,19 @@ Pages live at the repo root like other site pages: `officehour.html` (students) 
   `teacherListFrom()` re-attaches it from the snapshot; new teachers degrade to name-only search.
 - **Teacher email shows on each card** (陈逸飞 ✉ if_chen@ghedu.com), not pinyin. Source of truth:
   `build_data.py`'s `TEACHER_EMAIL` (mirrors `GHA.Teachers`, hard-fails like `PINYIN`) is embedded into
-  `SNAPSHOT.teachers.email` for the roster; the backend's live `GET /api/officehours` returns a top-level
-  `emails` map **limited to teachers who have duty that term** (staff who self-add shifts like 丁佳 also
-  get their email). Per-slot `teacherEmail` is still never exposed — emails only travel as that one map, so
-  accounts not in the duty roster never leak (see smoke test "公开接口只回值班老师邮箱表").
+  `SNAPSHOT.teachers.email` as the **offline fallback**; the backend's live `GET /api/officehours` returns a
+  top-level `emails` map **limited to teachers who have duty that term** (staff who self-add shifts like
+  丁佳 also get their email). Per-slot `teacherEmail` is still never exposed — emails only travel as that one
+  map, so accounts not in the duty roster never leak (see smoke test "公开接口只回值班老师邮箱表").
+- **姓名和邮箱以 `GHA.Teachers` 为实时权威**，不是导入时冷存在值班行里的那一份：
+  `GET /api/officehours` 拿行上的 `teacherEmail` 回查教师表，用库里的当前 `Name` 覆盖显示名、并以此名作
+  为 `emails` 的 key。所以教师表改了姓名/邮箱，学生页刷新就生效，**不需要重跑 `build_data.py` + `seed.mjs`**
+  （2026-09-07 生产已验证：行内旧名 `Menzler Scott Lawrence` → 教师表 `Scott`，未重新导入就已生效）。
+  回查失败或账号查不到时退回行内旧值，绝不因为一次反查故障把整页打回快照。
+  **绝不可新增一个返回全量教师名册的公开端点** —— 曾有 `GET /api/officehours/teachers` 整表返回 46 人邮箱，
+  把 19 个与值班无关的账号也公开了，已撤销并有测试钉着（“全量教师名册不得从任何公开路径拿到”）。
+  同理，前端 `applyData()` 只为本批 `slots` 里出现过的名字建教师条目：`TEACHERS` 驱动「N 位老师」徒章、
+  快捷 chips 和「按老师看」的行，多收一个没值班的人就会多出一个空白行（测试：“没排值班的老师不得进入名单”）。
 - **Do not hardcode clock times/periods in page logic** — they come from the generated `SNAPSHOT.periods`.
 
 ### Theme
@@ -174,6 +183,13 @@ own `adminMiddleware` that only accepts `S`).
 所以不存在“值班绑到测试账号、本人改不了”的问题。`seed.mjs` 按姓名反查 email 时会把他归到这个地址（已跑通）。
 以后若出现第二个“高峰”，导入会因重名而中止 —— 那才是需要人工补 email 的情况。
 
+> **2026-09-07 只读复核：上面这段已经和库不一致，待用户定夺，未自行修改。**
+> `GHA.Teachers` 里的高峰现在是 `york@ghedu.com`（`Group=S`），**`test@test.com` 这个账号已经不存在了**；
+> 但 `Office_Hours` 里「周四 第11节 G11-3」那条还挂着 `teacherEmail: test@test.com`。`/mine` 按 email 过滤、
+> `PATCH /mine/:id` 也比对 email，所以那条行对他**既看不见也改不动**（只有管理员能走 `PUT /api/officehours/:id`）。
+> 学生页显示不受影响（他的另一条行供了正确邮箱，`emails[高峰] = york@ghedu.com`）。
+> 修法是只 PATCH 那一条的归属，**不要整表重跑 `seed --apply`**：见下条。
+
 **The semester env var is `OH_TERM`, not `TERM`** — bare `TERM` is the terminal-type variable, so a
 shell-exported `TERM=xterm-256color` silently overrides `.env` (dotenv never clobbers existing env) and
 the API then queries the wrong semester and returns **0 rows**. This actually happened. When adding
@@ -198,6 +214,15 @@ bash OfficeHour/api/scripts/pack-scf.sh           # 云函数 zip（会自检关
 
 `seed.mjs` resolves teachers via `Teachers.Name` and **aborts on unmatched or duplicate names** so a
 shift can never be silently bound to the wrong account.
+
+**跑 `--apply` 前先看预演输出的「更新 N」：那 N 条是 Excel 与库的差异，而差异很可能就是老师/管理员
+在线改过的格子** —— seed 一律以 Excel 为准写回去，等于静默推翻线上的安排（姓名、班级、归属邮箱、
+教室都会跟着变回去；`note` 默认保留，要 `--force` 才覆盖）。所以：线上改对了而 Excel 旧了，
+**先改 Excel 再 seed**；只想修单条的归属，走管理员 `PUT /api/officehours/:id` 而不是整表重跑。
+
+> 2026-09-07 实例：预演报「更新 3」，其中 2 条是「周一第10/11节 G12」——库里是 丁佳 @ 冬蕴楼 105，
+> Excel 里还是 高峰 @ 冬蕴楼 102。这就是一个会被 `--apply` 静默推翻的在线改动，**未写入，待确认**。
+> 第 3 条是上面那个 `test@test.com` 孤儿行（seed 正好会把它改成 `york@ghedu.com`）。
 
 ### Tests
 
