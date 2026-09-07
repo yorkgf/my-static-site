@@ -3,10 +3,15 @@
  * 把 OfficeHour/data.json 导入 MongoDB（GHA.Office_Hours）。
  *
  *   node scripts/seed.mjs                 # 预演（默认，不写库）
- *   node scripts/seed.mjs --apply         # 真正写入
+ *   node scripts/seed.mjs --apply         # 真正写入（只**补新行**，不碰已存在的）
  *   node scripts/seed.mjs --apply --force # 连老师写过的备注一起覆盖
  *   node scripts/seed.mjs --apply --prune # 同时删除 Excel 里已不存在的记录
  *   node scripts/seed.mjs --apply --restore-deleted  # 把老师删过的格子恢复回来重新导入
+ *
+ * ⚠️ **Excel 已退役为“开学初始数据”，线上库才是排班的权威**（老师自己在 officehour-admin 上维护）。
+ * 所以 --apply 默认**不会回写任何已存在的行**：那会把老师整学期改的归属/教室/换班静默推翻。
+ * 线上与 Excel 不一致时只会报告“N 行未改动”。确实要用 Excel 重排本学期才加 --overwrite-existing；
+ * --prune 也需它。修单条请走管理员 PUT /api/officehours/:id，不要整表重跑。
  *
  * 老师自助删掉的 Excel 行会在 Office_Hour_Deletions 里留碑，
  * 默认不复活 —— 否则“我明明删了，跑一次导入又出现了”。
@@ -28,6 +33,8 @@ const APPLY = has('--apply');
 const FORCE = has('--force');
 const PRUNE = has('--prune');
 const RESTORE_DELETED = has('--restore-deleted');
+// 默认只补新行。要拿 Excel 去覆盖线上已有记录，必须显式说出这个旗号。
+const OVERWRITE = has('--overwrite-existing');
 const ALLOW_MISSING = has('--allow-missing');
 
 function loadEnv() {
@@ -64,7 +71,9 @@ const timeByPeriod = Object.fromEntries(data.periods.map((p) => [p.p, p.time]));
 console.log(`源文件  : ${path.relative(process.cwd(), DATA)}`);
 console.log(`生成于  : ${data.generatedAt}   学期: ${TERM}   记录数: ${data.slots.length}`);
 console.log(`目标    : ${DB}.${COLL}`);
-console.log(`模式    : ${APPLY ? '写入' : '预演（加 --apply 才真正写库）'}${FORCE ? ' + 覆盖老师备注' : ''}${PRUNE ? ' + 清理过期' : ''}${RESTORE_DELETED ? ' + 恢复被删格子' : ''}\n`);
+console.log(`模式    : ${APPLY ? '写入' : '预演（加 --apply 才真正写库）'}`
+  + `${OVERWRITE ? ' + 覆盖线上已有行' : '（只补新行，不碰已存在的）'}`
+  + `${FORCE ? ' + 覆盖老师备注' : ''}${PRUNE ? ' + 清理过期' : ''}${RESTORE_DELETED ? ' + 恢复被删格子' : ''}\n`);
 
 const client = new MongoClient(URI, { serverSelectionTimeoutMS: 8000 });
 await client.connect();
@@ -112,7 +121,7 @@ console.log('');
 
 /* ── 2. 逐条 upsert ────────────────────────────────────────── */
 const now = new Date();
-let created = 0, updated = 0, unchanged = 0, preserved = 0, skipped = 0, keptDeleted = 0;
+let created = 0, updated = 0, unchanged = 0, preserved = 0, skipped = 0, keptDeleted = 0, diverged = 0;
 const keys = [];
 
 // 老师自助删掉的格子会留一块碑：默认不复活，否则“我明明删了，跑一次导入又出现了”
@@ -163,6 +172,11 @@ for (const s of data.slots) {
       existing.anchored === true &&
       (existing.time || '') === set.time;
     // 老师自己写过的 note 默认保留
+    if (!same && !OVERWRITE) {
+      // 线上是权威：Excel 与它不一致不代表 Excel 对。默认只报告、不回写。
+      diverged += 1;
+      continue;
+    }
     if (existing.source === 'teacher' && existing.note && !FORCE) {
       set.note = existing.note;
       preserved += 1;
@@ -196,9 +210,12 @@ if (keys.length) {
     console.log(`ℹ️  ${offSchedule - orphans} 条是老师/管理员自己加的（不在 Excel 里），--prune 不会动它们`);
   }
   if (orphans) {
-    if (PRUNE && APPLY) {
+    if (PRUNE && APPLY && OVERWRITE) {
       await coll.deleteMany(seededOrphanQ);
       console.log(`🧹 已删除 ${orphans} 条 Excel 中已不存在的排班`);
+    } else if (PRUNE && !OVERWRITE) {
+      console.log(`⚠️  拒绝执行 --prune：它删的是“不在 Excel 里”的 Excel 来源行，而线上才是权威。`);
+      console.log(`   这些多半是老师自己改过/换过的格子。确实要以 Excel 为准才加 --overwrite-existing。`);
     } else {
       console.log(`ℹ️  有 ${orphans} 条 Excel 来源的记录不在本次表格中（加 --prune 删除）`);
     }
@@ -236,13 +253,18 @@ if (APPLY) {
   })));
   await db.collection(AUDIT).insertOne({
     at: now, action: 'seed', email: 'seed-script', name: '排班表导入',
-    after: { term: TERM, created, updated, unchanged, preserved, skipped, keptDeleted, source: data.source },
+    after: { term: TERM, created, updated, unchanged, preserved, skipped, keptDeleted, diverged, overwrite: OVERWRITE, source: data.source },
   });
 }
 
 console.log(`\n${APPLY ? '✅ 导入完成' : '🔍 预演结果（未写库）'}`);
 console.log(`   新增 ${created} · 更新 ${updated} · 无变化 ${unchanged} · 保留老师备注 ${preserved} · 跳过 ${skipped}`
-  + (keptDeleted ? ` · 尊重老师删除不导入 ${keptDeleted}` : ''));
+  + (keptDeleted ? ` · 尊重老师删除不导入 ${keptDeleted}` : '')
+  + (diverged ? ` · **与线上不一致而未改动 ${diverged}**` : ''));
+if (diverged) {
+  console.log(`\n   ⚠️ 有 ${diverged} 行线上内容与 Excel 不同，本次**一行都没推翻**（Excel 已不是权威）。`);
+  console.log('   确实要用 Excel 重排本学期才加 --overwrite-existing；单条修正走管理员 PUT /api/officehours/:id。');
+}
 if (!APPLY) console.log('\n   确认无误后执行：node scripts/seed.mjs --apply');
 
 await client.close();

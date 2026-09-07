@@ -11,7 +11,7 @@ echo "目标后端：$API"
 curl -sf "$API/api/health" >/dev/null || { echo "❌ $API/api/health 不通，先确认函数已部署、环境变量已配"; exit 1; }
 COUNT=$(curl -sf "$API/api/officehours" | python3 -c "import json,sys;print(json.load(sys.stdin).get('count',0))" 2>/dev/null)
 echo "API 返回 $COUNT 条排班"
-[ "${COUNT:-0}" -gt 0 ] || { echo "❌ API 通了但返回 0 条 —— 多半是 OH_TERM 配错学期，或还没导入数据"; echo "   导入： node OfficeHour/api/scripts/seed.mjs --apply"; exit 1; }
+[ "${COUNT:-0}" -gt 0 ] || { echo "❌ API 通了但返回 0 条 —— 多半是 OH_TERM 配错学期，或开学表还没入过库"; echo "   开学 bootstrap： node OfficeHour/api/scripts/seed.mjs --apply"; echo "   （Excel 已退役为初始数据：学期中途别拿它重导，会推翻老师在线改的格子）"; exit 1; }
 
 python3 -m http.server $PORT --bind 127.0.0.1 >/dev/null 2>&1 &
 SRV=$!

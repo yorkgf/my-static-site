@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-Static educational website for GHA offering **7 AP courses**: APCSA, APCSP, APPhysicsC, APPhysics1, APBusiness, APCyber, APStat. Space-themed interactive landing page with custom slide system, course-specific syllabus pages with tabbed interfaces, an interactive knowledge graph (APPhysicsC only), a **slide presentation system** (APBusiness), a classroom **word cloud** tool, and a student-facing **teacher Office Hour directory** (searchable, built from `OfficeHour/总课表.xlsx`).
+Static educational website for GHA offering **7 AP courses**: APCSA, APCSP, APPhysicsC, APPhysics1, APBusiness, APCyber, APStat. Space-themed interactive landing page with custom slide system, course-specific syllabus pages with tabbed interfaces, an interactive knowledge graph (APPhysicsC only), a **slide presentation system** (APBusiness), a classroom **word cloud** tool, and a student-facing **teacher Office Hour directory** (searchable, live from `GHA.Office_Hours`; the `OfficeHour/总课表.xlsx` behind it is only the start-of-term bootstrap).
 
 > **Note:** `AGENTS.md` is legacy and only documents 3 of the 7 courses (APCSA, APCSP, APPhysicsC). Prefer this file as the source of truth.
 
@@ -15,7 +15,7 @@ Static educational website for GHA offering **7 AP courses**: APCSA, APCSP, APPh
 ├── wordcloud.html          # Student-facing classroom word cloud
 ├── wordcloud-admin.html    # Teacher-facing word cloud console
 ├── OfficeHour/             # Excel source + data pipeline + cloud function + tests
-│   ├── 总课表.xlsx          # SOURCE OF TRUTH for the schedule
+│   ├── 总课表.xlsx          # 仅开学初始数据（已不再是权威，见下）
 │   ├── build_data.py        # xlsx → inline DATA block + data.json (also runs integrity checks)
 │   ├── data.json            # generated; input to the seeder
 │   ├── check_teacher_identity.py  # read-only audit of Teachers.Name vs the Excel
@@ -52,7 +52,8 @@ Pages live at the repo root like other site pages: `officehour.html` (students) 
 
 | Path | Role |
 |---|---|
-| `OfficeHour/总课表.xlsx` | **SOURCE OF TRUTH** for the schedule |
+| `OfficeHour/总课表.xlsx` | **学期初的初始数据，不是权威**。权威是 MongoDB 里的 `GHA.Office_Hours`（用户 2026-09-07 确认：老师在线上自己维护，Excel 以后不再用） |
+| `GHA.Office_Hours` (MongoDB) | **SOURCE OF TRUTH** for the schedule —— 线上改完立刻对学生页生效，无需任何导入/部署 |
 | `OfficeHour/build_data.py` | xlsx → inline `/* DATA-BEGIN…END */` block + `OfficeHour/data.json`; warns on double-bookings (same teacher, same period, two classes) and unparsed rows; **hard-fails if a teacher has no `PINYIN` entry**. It deliberately does **not** warn about two classes sharing a room — see the note below |
 | `OfficeHour/data.json` | Generated export consumed by the seeder |
 | `officehour.html` | Student page. No framework, no build step. |
@@ -205,17 +206,23 @@ env vars here, always prefix with `OH_`.
 
 Full API table, security notes and deploy steps: `OfficeHour/api/README.md`.
 
-### Updating the schedule (end-to-end)
+### Updating the schedule
+
+**常规改排班不碰 Excel、不跑 seed、不部署 —— 直接在 `officehour-admin.html` 上改。**
+老师在 `GHA.Office_Hours` 里改自己的行（换天/换节/换班/换教室/备注/自定时间），
+姓名与邮箱再由接口实时回查 `GHA.Teachers`，所以学生页刷新就到位。
+
+下面三个只在**新学期开学建表**、或**改了页面代码/Excel**时才需要：
 
 ```bash
-# 1. edit OfficeHour/总课表.xlsx, then regenerate page data + JSON
+# 1. （仅开学 bootstrap）从 Excel 生成页面数据与导入 JSON
 python3 OfficeHour/build_data.py
 
-# 2. push into MongoDB — dry run first, it refuses ambiguous name→email matches
+# 2. （仅开学 bootstrap）把初始表写进 MongoDB —— 见下方警告
 node OfficeHour/api/scripts/seed.mjs            # 预演（不写库）
-node OfficeHour/api/scripts/seed.mjs --apply    # 真正写入（--force 覆盖老师备注，--prune 删过期）
+node OfficeHour/api/scripts/seed.mjs --apply    # 只补新行；要动已有行得加 --overwrite-existing
 
-# 3. deploy
+# 3. 部署（只有页面/接口代码变了才需要）
 ./deploy.sh                                       # 静态站（两个页面靠 glob 自动入包）
 bash OfficeHour/api/scripts/pack-scf.sh           # 云函数 zip（会自检关键文件、并拒绝把 .env 打进去）
 ```
@@ -223,16 +230,31 @@ bash OfficeHour/api/scripts/pack-scf.sh           # 云函数 zip（会自检关
 `seed.mjs` resolves teachers via `Teachers.Name` and **aborts on unmatched or duplicate names** so a
 shift can never be silently bound to the wrong account.
 
-**跑 `--apply` 前先看预演输出的「更新 N」：那 N 条是 Excel 与库的差异，而差异很可能就是老师/管理员
-在线改过的格子** —— seed 一律以 Excel 为准写回去，等于静默推翻线上的安排（姓名、班级、归属邮箱、
-教室都会跟着变回去；`note` 默认保留，要 `--force` 才覆盖）。所以：线上改对了而 Excel 旧了，
-**先改 Excel 再 seed**；只想修单条的归属，走管理员 `PUT /api/officehours/:id` 而不是整表重跑。
+**`seed.mjs --apply` 是开学 bootstrap 工具，不是“同步”工具，代码已按此锁住。**
+它对已存在的行会 `$set` 回 `teacherEmail`、`teacherName`、`room`、`time`、`source:'excel'`，
+**只有 `note` 保留** —— 老师整学期在线改的归属/教室/换班会被 Excel 一次性推翻，而且 `source`
+改回 `'excel'` 后下一轮的 note 保留判断也跟着失效。所以现在：
 
-> 2026-09-07 实例：预演报「更新 3」，其中 2 条是「周一第10/11节 G12」——库里是 丁佳 @ 冬蕴楼 105，
-> Excel 里还是 高峰 @ 冬蕴楼 102。这就是一个会被 `--apply` 静默推翻的在线改动。
-> （第 3 条是高峰那条 `test@test.com` 孤儿行，已改为单行修复，**未跑整表 seed**。）
-> **周一 G12 到底是谁的、教室是 102 还是 105，仍待确认**：线上改对了就先改 Excel 再导，
-> Excel 才是准的就明确跑一次 `--apply`。别留着不管——差异会一直躺在预演输出里，迟早被误推翻。
+- 默认**不回写任何已存在的行**，只报「与线上不一致而未改动 N」；Excel 旧值不等于它对
+- 确实要用 Excel 重排本学期 → 加 `--overwrite-existing`；`--prune` 没有这个旗号会直接拒绝执行
+- 修单条走管理员 `PUT /api/officehours/:id`，或按 `_id` + 旧值双条件精修（带唯一索引预检、写审计）
+
+> 2026-09-07 实例：旧版预演报「更新 3」——2 条是「周一第10/11节 G12」（库里 丁佳 @ 冬蕴楼 105，
+> Excel 里还是 高峰 @ 冬蕴楼 102），第 3 条是高峰那条 `test@test.com` 孤儿行。
+> 用户已确认**线上是对的**：G12 一行没动，孤儿行单行修正。加守卫后预演变成「更新 0 · 未改动 2」。
+> 这个差异会一直留在预演输出里 —— 它是“别拿 Excel 覆盖”的提醒，不是待办事项。
+
+### Excel 退役后留下的两个坑（尚未处理）
+
+页面不只在兜底时用 Excel，它还从 Excel 那一条链路里拿两样东西：
+
+1. **拼音搜索**：`build_data.py` 的 `PINYIN` 字典是全站唯一的拼音来源，也是 `SNAPSHOT.teachers.py/ini`。
+   老师在线自助加班（如丁佳、Scott）进不了 Excel，就**永远只能按姓名搜、不能按首字母搜**。
+2. **学期初快照兑底**：`SNAPSHOT` 是后端挂掉时学生页看到的东西。Excel 不再更新，它就越带越旧，
+   到学期中后期兑底意义有限（至少标签写明了是快照，不会误认为实时）。
+
+两者真正的解法是同一件事：把 pinyin 移到 `GHA.Teachers`（或新表）上、由接口一并返回，
+再把 `SNAPSHOT` 改成定期从后端导出的静态副本。未开工，需先定字段归属。
 
 ### Tests
 
@@ -330,7 +352,8 @@ python3 OfficeHour/build_data.py
 ### Push Office Hour schedule into MongoDB
 ```bash
 node OfficeHour/api/scripts/seed.mjs           # dry run
-node OfficeHour/api/scripts/seed.mjs --apply   # write
+node OfficeHour/api/scripts/seed.mjs --apply   # write（只补新行，不碰已有记录）
+# --overwrite-existing 才允许用 Excel 覆盖线上已有行；--prune 没有它不会删
 # --force 覆盖老师写的备注；--prune 清掉 Excel 已不存在的行（只动 fromExcel 的）；
 # --restore-deleted 把老师删过的格子恢复回来重新导入
 ```
@@ -423,8 +446,8 @@ The `deploy/` directory is **gitignored** — `./deploy.sh` wipes and regenerate
 `.deployignore` excludes: `quartz-gh/`, `APPhysicsC/knowlege graph/`, `.claude/`, `.git/`, `CLAUDE.md`, `OfficeHour/` (its data is already embedded in `officehour.html`).
 
 ## Notes
-- No build step for main site (pure HTML/CSS/JS) — `officehour.html` is the only file with a
-  regeneration step, and only when the Excel changes
+- No build step for main site (pure HTML/CSS/JS) —— `officehour.html` 是唯一有重生步骤的文件，
+  但排班本身不再需要它：数据在库里，**只有 Excel 换了（开学 bootstrap）才需要跑 `build_data.py`**
 - No `package.json` at root
 - Anime.js 3.2.1 loaded from CDN on some pages
 - Mixed English/Chinese content
