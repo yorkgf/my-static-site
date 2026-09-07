@@ -33,6 +33,25 @@ async function findTeacherByEmail(email) {
   return collections.teachers.findOne({ email }, { projection: { email: 1, Name: 1 } });
 }
 
+/**
+ * 按值班行上出现的 email 回查教师表，拿当前的规范姓名。
+ * 只查这批用得到的账号，绝不把整张教师表拉出来给公开接口用。
+ * 回查失败不抛：返回空表，调用方退回值班行里存的姓名，宁可旧一点也不要白屏。
+ */
+async function liveTeacherNames(docs) {
+  const emails = [...new Set(docs.map((d) => d.teacherEmail).filter(Boolean))];
+  if (!emails.length) return new Map();
+  try {
+    const rows = await collections.teachers
+      .find({ email: { $in: emails } }, { projection: { email: 1, Name: 1 } })
+      .toArray();
+    return new Map(rows.filter((r) => r.Name).map((r) => [r.email, r.Name]));
+  } catch (err) {
+    console.error('[officehours] 回查教师表姓名失败，退回值班行里的姓名:', err.message);
+    return new Map();
+  }
+}
+
 /** 从记录里聚出「第N节 + 时间」，让前端不用自己硬编码时间 */
 function periodsFrom(docs) {
   const map = new Map();
@@ -53,12 +72,27 @@ officeHoursRouter.get('/', attachOptionalUser, async (req, res, next) => {
     const term = termOf(req);
     const withEmail = !!req.user?.isAdmin;
     const docs = await collections.officeHours.find({ term }).sort({ day: 1, period: 1, cls: 1 }).toArray();
-    const slots = docs.sort(sortKey).map((d) => toPublic(d, { withEmail }));
-    // 值班表命中的应用邮箱，供总表在老师名片上展示联系方式（仅覆盖当学期确实有值班的老师，
-    // 免得把整张 Teachers 表的账号全暴露出来）。以入库时的 teacherEmail 为准。
+
+    // 姓名/邮箱**实时**取自 GHA.Teachers，而不是值班行里入库时冗余下来的那一份。
+    // 教师表改了邮箱或改正了姓名，学生页刷新就跟上，不用再跑一次 build_data + 重新导入。
+    // 查不到的（账号被停用等）退回行里的值，不能让一次反查把整个值班表打回快照。
+    const nameByEmail = await liveTeacherNames(docs);
+    const liveNameOf = (d) => nameByEmail.get(d.teacherEmail) || d.teacherName || '';
+
+    const slots = docs.sort(sortKey).map((d) => {
+      const pub = toPublic(d, { withEmail });
+      // 归属邮箱只按 email 覆盖，姓名要按**改后**的名字覆盖：两者都跟库不一致时才算真同步了
+      const live = liveNameOf(d);
+      if (live) pub.teacherName = live;
+      return pub;
+    });
+
+    // 老师名片上的联系方式：**只覆盖当学期真的有值班的老师**（没排时间的不显示，
+    // 整张 Teachers 表的账号也绝不能从这里漏出去——这条有冒烟测试钉着）。
     const emails = {};
     docs.forEach((d) => {
-      if (d.teacherName && d.teacherEmail && !emails[d.teacherName]) emails[d.teacherName] = d.teacherEmail;
+      const name = liveNameOf(d);
+      if (name && d.teacherEmail && !emails[name]) emails[name] = d.teacherEmail;
     });
     res.json({
       term,

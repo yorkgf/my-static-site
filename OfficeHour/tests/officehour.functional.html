@@ -371,6 +371,29 @@ f.onload = async () => {
   ok('回到纯课表数据', OH.state().slots === 72 && d.querySelectorAll('#grid tr.band').length === 1,
      OH.state().slots + ' 条 / ' + d.querySelectorAll('#grid tr.band').length + ' 个时间带');
 
+  log('\n=== 没排值班的老师不得进入名单 ===');
+  // 后端只应当回“当学期真值班”的邮箱。但万一以后有人加了个回全量名册的端点，
+  // 或者邮箱表里混进了没排班的人，学生页也不能因此多出空行 / 无效 chip / 虚高的计数。
+  const two = [['周一', 10, 'G10-1', '李楚翘', '文体 114', ''],
+               ['周二', 11, 'G10-2', '宋雯雯', '文体 115', '']];
+  OH.applyData({ slots: two, teachers: SNAP.teachers, periods: SNAP.periods, mode: 'live', stamp: '',
+      emails: { '李楚翘': 'newli@ghedu.com', '凭空客': 'ghost@ghedu.com' } });
+  OH.refresh();
+  st = OH.state();
+  ok('没值班的人不凭邮箱自动入选', st.teachers === SNAP.teachers.length,
+     'teachers=' + st.teachers + ' 应为 ' + SNAP.teachers.length);
+  ok('名单里不会出现未值班的人', !/凭空客/.test(d.getElementById('chips').textContent), txt(d.getElementById('chips')));
+  ok('徒章计数不被虚增', /20\s*位老师/.test(txt(d.getElementById('badges'))),
+     txt(d.getElementById('badges')));
+  // 已有老师的邮箱照旧要被数据库值覆盖（这才是“实时同步”要的效果）
+  ok('已值班老师的邮箱跟着库改', /newli@ghedu\.com/.test(d.getElementById('results').textContent),
+     txt(d.getElementById('results')).slice(0, 120));
+  ok('未值班者的邮箱不得渲染到页面上', !/ghost@ghedu\.com/.test(d.getElementById('results').textContent));
+
+  OH.applyData({ slots: SNAP.slots, teachers: SNAP.teachers, periods: SNAP.periods, mode: 'snapshot', stamp: '' });
+  OH.refresh();
+  ok('回到快照 20 位老师', OH.state().teachers === 20, 'teachers=' + OH.state().teachers);
+
   log('\n=== 刷新后保留主题（防按钮文案不同步）===');
   try { w.localStorage.setItem('ohTheme', 'dark'); } catch (e) {}
   await new Promise(res => { f.onload = res; f.src = '../../officehour.html?r=' + Date.now() + '&api='; });

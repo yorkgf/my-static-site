@@ -168,6 +168,49 @@ try {
     const asAdmin = await call('GET', '/api/officehours', { token: t });
     assert.ok(asAdmin.json.slots[0].teacherEmail, '管理员应能看到归属邮箱');
   });
+  await check('★ 姓名实时跟教师表：库里改了名，值班行里的旧名不残留', async () => {
+    // 把教师表里的 汪校 改成新名字（模拟“开学后改正姓名/花名册更新”）
+    await collections.teachers.updateOne(
+      { email: 'vice@ghedu.com' }, { $set: { Name: '汪校长' } }
+    );
+    try {
+      const { json } = await call('GET', '/api/officehours');
+      const row = json.slots.find((s) => s.teacherEmail === undefined && s.room === '冬蕴楼 201');
+      assert.ok(row, '没找到那条值班');
+      assert.equal(row.teacherName, '汪校长', '应显示教师表里的当前姓名，而不是入库时冷下的旧名');
+      assert.ok(Object.keys(json.emails).includes('汪校长'), 'emails 表的 key 也要跟着换成新名');
+      assert.ok(!('汪校' in json.emails), '旧名不应还挂在邮箱表里');
+    } finally {
+      await collections.teachers.updateOne(
+        { email: 'vice@ghedu.com' }, { $set: { Name: '汪校' } }
+      );
+    }
+  });
+  await check('★ 没排值班的老师不出现在邮箱表里（全量名册不得公开）', async () => {
+    const { status, json } = await call('GET', '/api/officehours');
+    assert.equal(status, 200);
+    const blob = JSON.stringify(json);
+    // 保洁/李老师在 Teachers 表里，但本学期没值班 → 邮箱不能出现在任何字段
+    assert.ok(!blob.includes('clean@ghedu.com'), '漏出了未值班账号的邮箱');
+    assert.ok(!blob.includes('plain@ghedu.com'), '漏出了未值班账号的邮箱');
+    // 中文按码位序排（不是拼音序），两边同样 sort() 再比，免得拿排序规则当 bug 查
+    const sortZh = (a) => [...a].sort();
+    assert.deepEqual(sortZh(Object.keys(json.emails)), sortZh(['张老师', '王校', '汪校']),
+      'emails 只能包含当学期真的有值班的老师');
+    const slotNames = new Set(json.slots.map((s) => s.teacherName));
+    for (const n of Object.keys(json.emails)) assert.ok(slotNames.has(n), `${n} 有邮箱但没值班`);
+  });
+  await check('★ 全量教师名册不得从任何公开路径拿到（曾经漏过一次）', async () => {
+    // 游客：被路由级 requireAuth 挡在 401；就算拿管理员 token 走到最后也只能 404。
+    // 关键是这里绝不会再返一份整张 Teachers 表的邮箱列表。
+    const anon = await call('GET', '/api/officehours/teachers');
+    assert.ok(anon.status === 401 || anon.status === 403 || anon.status === 404,
+      `未登录不应当拿到名册，实际 ${anon.status}`);
+    assert.equal(JSON.stringify(anon.json).includes('clean@ghedu.com'), false, '未登录就漏出了全量邮箱');
+    const t = (await login('admin@ghedu.com', PW)).json.token;
+    const asAdmin = await call('GET', '/api/officehours/teachers', { token: t });
+    assert.ok(!Array.isArray(asAdmin.json.teachers), '管理员路径也不应有全量名册端点');
+  });
 
   console.log('\n── 登录（复用 GHA.Teachers）──');
   let token;

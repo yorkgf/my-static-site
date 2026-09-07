@@ -777,11 +777,17 @@ function applyData({ slots, teachers, periods, mode, stamp, emails }) {
         if (clean.length) SLOTS = clean;
     }
     if (Array.isArray(teachers) && teachers.length) TEACHERS = teachers;
-    // 实时返回的“姓名→邮箱”只覆盖当学期真的在值班的老师；用它补上快照里没有的（如自助排班）
+    // 「按老师看」名单、徒章计数、快捷 chips 都由 TEACHERS 驱动，所以它必须严格等于
+    // “真的排了时间的老师”。没排班的人一律不能加进来：否则会多出空白行和无效 chip。
+    // 所以 emails 只用来**覆盙已有老师的邮箱**（后端已保证它是教师表里的实时值），
+    // 新增条目只承认本批 slots 里出现过的名字（后端同名邮箱只给当学期有值班的老师）。
     if (emails && typeof emails === 'object') {
         TEACHERS = TEACHERS.map(t => emails[t.name] ? Object.assign({}, t, { email: emails[t.name] }) : t);
-        const seen = new Set(TEACHERS.map(t => t.name));
-        Object.keys(emails).forEach(n => { if (!seen.has(n)) TEACHERS.push({ name: n, py: '', ini: '', email: emails[n] }); });
+        const inRoster = new Set(TEACHERS.map(t => t.name));
+        const onDuty = new Set(SLOTS.map(s => s[3]));
+        Object.keys(emails).forEach(n => {
+            if (!inRoster.has(n) && onDuty.has(n)) TEACHERS.push({ name: n, py: '', ini: '', email: emails[n] });
+        });
     }
     if (Array.isArray(periods) && periods.length) PERIODS = periods;
     if (mode) DATA_MODE = mode;
