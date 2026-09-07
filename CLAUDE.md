@@ -54,7 +54,7 @@ Pages live at the repo root like other site pages: `officehour.html` (students) 
 |---|---|
 | `OfficeHour/总课表.xlsx` | **学期初的初始数据，不是权威**。权威是 MongoDB 里的 `GHA.Office_Hours`（用户 2026-09-07 确认：老师在线上自己维护，Excel 以后不再用） |
 | `GHA.Office_Hours` (MongoDB) | **SOURCE OF TRUTH** for the schedule —— 线上改完立刻对学生页生效，无需任何导入/部署 |
-| `OfficeHour/build_data.py` | xlsx → inline `/* DATA-BEGIN…END */` block + `OfficeHour/data.json`; warns on double-bookings (same teacher, same period, two classes) and unparsed rows; **hard-fails if a teacher has no `PINYIN` entry**. It deliberately does **not** warn about two classes sharing a room — see the note below |
+| `OfficeHour/build_data.py` | xlsx → inline `/* DATA-BEGIN…END */` block + `OfficeHour/data.json`; warns on double-bookings (same teacher, same period, two classes) and unparsed rows; hard-fails only if a teacher has no `TEACHER_EMAIL` entry (拼音表已删除). It deliberately does **not** warn about two classes sharing a room — see the note below |
 | `OfficeHour/data.json` | Generated export consumed by the seeder |
 | `officehour.html` | Student page. No framework, no build step. |
 | `officehour-admin.html` | Teacher login + edit. Not linked publicly. |
@@ -85,12 +85,16 @@ Pages live at the repo root like other site pages: `officehour.html` (students) 
   **period bands**, and every teacher-card line carries its own time label. A 「两节合并 / 逐节展开」
   toggle appears only when the periods really are identical; if a teacher edits just one period's room,
   `merged` recomputes to false and the page auto-splits into two bands.
-- **Teacher search**: Chinese name, full pinyin, or initials (`李楚翘` / `lichuqiao` / `lcq`), plus
-  class (`G10-1`) and room (`文体 114`). Table highlights hits, dims non-hits; quick-pick chips.
-- Pinyin lives only in `build_data.py`'s `PINYIN` dict. Live data from the API has no pinyin, so
-  `teacherListFrom()` re-attaches it from the snapshot; new teachers degrade to name-only search.
-- **Teacher email shows on each card** (陈逸飞 ✉ if_chen@ghedu.com), not pinyin. Source of truth:
-  `build_data.py`'s `TEACHER_EMAIL` (mirrors `GHA.Teachers`, hard-fails like `PINYIN`) is embedded into
+- **Teacher search**: Chinese name (`李楚翘`) or **email** (`augustli`), plus class (`G10-1`) and room
+  (`文体 114`). Table highlights hits, dims non-hits; quick-pick chips.
+- **拼音 / 首字母搜索已于 2026-09-07 移除**（用户确认不需要）。它原本靠 `build_data.py` 里一张 `PINYIN`
+  字典驱动，而这张表只能改代码维护 —— 老师自助新加的人永远进不去，也就永远搜不到拼音。
+  邮箱本来就是英文名（`augustli@ghedu.com`、`jeffling@ghedu.com`），拿它搜比输首字母更准。
+  随它一起消失的还有 `SNAPSHOT.teachers[].py/ini` 和「新老师没拼音就 hard-fail」这条检查：
+  **Excel 链路上最后一个需要人肉补的字典没了**。名单排序改用 `localeCompare(name, 'zh')`
+  （浏览器 ICU 对 zh 默认按拼音序），所以快照与实时两条路径排出来一致。
+- **Teacher email shows on each card** (陈逸飞 ✉ if_chen@ghedu.com). Source of truth:
+  `build_data.py`'s `TEACHER_EMAIL` (mirrors `GHA.Teachers`) is embedded into
   `SNAPSHOT.teachers.email` as the **offline fallback**; the backend's live `GET /api/officehours` returns a
   top-level `emails` map **limited to teachers who have duty that term** (staff who self-add shifts like
   丁佳 also get their email). Per-slot `teacherEmail` is still never exposed — emails only travel as that one
@@ -244,22 +248,25 @@ shift can never be silently bound to the wrong account.
 > 用户已确认**线上是对的**：G12 一行没动，孤儿行单行修正。加守卫后预演变成「更新 0 · 未改动 2」。
 > 这个差异会一直留在预演输出里 —— 它是“别拿 Excel 覆盖”的提醒，不是待办事项。
 
-### Excel 退役后留下的两个坑（尚未处理）
+### Excel 退役后剩下的坑
 
 页面不只在兜底时用 Excel，它还从 Excel 那一条链路里拿两样东西：
 
-1. **拼音搜索**：`build_data.py` 的 `PINYIN` 字典是全站唯一的拼音来源，也是 `SNAPSHOT.teachers.py/ini`。
+1. ~~**拼音搜索**~~ —— **已于 2026-09-07 直接删掉**（用户确认不需要）：`PINYIN` 字典、
+   `SNAPSHOT.teachers[].py/ini`、`matchTeacher` 的拼音分支、以及「新老师没拼音就 hard-fail」全部移除。
+   搜人改用 中文姓名 / **邮箱**（`augustli`、`jeffling`）/ 班级 / 教室；名单排序改用
+   `localeCompare(name, 'zh')`（ICU 对 zh 默认按拼音排），快照与实时两条路径统一。
    老师在线自助加班（如丁佳、Scott）进不了 Excel，就**永远只能按姓名搜、不能按首字母搜**。
 2. **学期初快照兑底**：`SNAPSHOT` 是后端挂掉时学生页看到的东西。Excel 不再更新，它就越带越旧，
    到学期中后期兑底意义有限（至少标签写明了是快照，不会误认为实时）。
 
-两者真正的解法是同一件事：把 pinyin 移到 `GHA.Teachers`（或新表）上、由接口一并返回，
-再把 `SNAPSHOT` 改成定期从后端导出的静态副本。未开工，需先定字段归属。
+两者真正的解法是同一件事：把 `SNAPSHOT` 改成定期从后端导出的静态副本（而不是从 Excel 生成）。
+拼音那条已经不需要了——它已被删除。
 
 ### Tests
 
 ```bash
-bash OfficeHour/tests/run.sh            # token 一致性 + 98 functional + 73 responsive + 38 contrast
+bash OfficeHour/tests/run.sh            # token 一致性 + 124 functional + 73 responsive + 38 contrast
 bash OfficeHour/tests/run.sh --with-e2e # 再加真实浏览器端到端
 node OfficeHour/api/scripts/smoke-test.mjs   # 全量 API 用例（数以运行输出为准）
 bash OfficeHour/tests/live-check.sh <函数URL>  # 部署后自检：学生页确实在读后端

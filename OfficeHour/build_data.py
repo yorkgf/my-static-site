@@ -35,20 +35,9 @@ LINE_RE = re.compile(
     r"(?:\s*\((?P<term>[^)]*)\))?\s*/\s*(?P<teacher>[^@]+?)\s*@\s*(?P<room>.+?)\s*$"
 )
 
-# 姓名 -> (全拼, 声母缩写)，供学生用拼音搜索。新增老师必须补上，否则构建报错。
-PINYIN = {
-    "李楚翘": ("lichuqiao", "lcq"), "宋雯雯": ("songwenwen", "sww"), "简汐洳": ("jianxiru", "jxr"),
-    "张诗文": ("zhangshiwen", "zsw"), "赵睿佳": ("zhaoruijia", "zrj"), "郭林": ("guolin", "gl"),
-    "高峰": ("gaofeng", "gf"), "晏海花": ("yanhaihua", "yhh"), "刘展佑": ("liuzhanyou", "lzy"),
-    "邵春晖": ("shaochunhui", "sch"), "李梅诺": ("limeinuo", "lmn"), "朱专": ("zhuzhuan", "zz"),
-    "凌峰杰": ("lingfengjie", "lfj"), "刘丹": ("liudan", "ld"), "卢琦": ("luqi", "lq"),
-    "刘禹函": ("liuyuhan", "lyh"), "陈逸飞": ("chenyifei", "cyf"), "石鑫玥": ("shixinyue", "sxy"),
-    "赵丁霓": ("zhaodingni", "zdn"), "石琪": ("shiqi", "sq"),
-}
-
-
-# 姓名 -> 邮箱，供值班总表在老师名片上展示联系方式。以 GHA.Teachers 表为准（公开页会原样展示），
-# 新增老师必须补上，否则构建报错（与 PINYIN 同理）。
+# 姓名 -> 邮箱，仅供「学期初快照」兑底时展示联系方式；后端可用时以 GHA.Teachers 的实时邮箱为准。
+# （以前还有一张 PINYIN 表撑拼音搜索，并因此要求“新老师必须同步改这个文件”；
+#  拼音搜索已于 2026-09-07 移除，理由见 CLAUDE.md：排班权威已转到 MongoDB。）
 TEACHER_EMAIL = {
     "李楚翘": "augustli@ghedu.com", "宋雯雯": "wrenley@ghedu.com", "简汐洳": "xirujian@ghedu.com",
     "张诗文": "zhangshiwen@ghedu.com", "赵睿佳": "heidi@ghedu.com", "郭林": "guolin@ghedu.com",
@@ -123,9 +112,6 @@ def integrity_check(records):
             warn.append(f"{day} 第{p}节 {t} 同时被排进 {'、'.join(classes)}")
     # 故意不检查“同一时段多个班共用一个教室”——这不算冲突：值班地点常常是老师
     # 办公室，多位老师同时段在一个间里答疑互不影响。真正要报的只有上面那条。
-    missing = {r["teacher"] for r in records} - set(PINYIN)
-    if missing:
-        warn.append("缺拼音条目：" + "、".join(sorted(missing)))
     return warn
 
 
@@ -133,10 +119,8 @@ def build_js(records, terms):
     q = lambda s: json.dumps(s, ensure_ascii=False)
     periods = sorted({r["p"] for r in records})
     classes = sorted({r["cls"] for r in records})
-    names = sorted({r["teacher"] for r in records}, key=lambda n: PINYIN.get(n, ("~~", ""))[0])
-    missing = [n for n in names if n not in PINYIN]
-    if missing:
-        sys.exit("❌ 请在 build_data.py 的 PINYIN 里补上这些老师：" + "、".join(missing))
+    # 名单顺序由页面自己按中文 collation（zh）排，这里只需确定性输出便于 diff
+    names = sorted({r["teacher"] for r in records})
     missing_email = [n for n in names if n not in TEACHER_EMAIL]
     if missing_email:
         sys.exit("❌ 请在 build_data.py 的 TEACHER_EMAIL 里补上这些老师：" + "、".join(missing_email))
@@ -159,9 +143,9 @@ def build_js(records, terms):
         ",\n".join("      [" + ", ".join(q(x) for x in (r["day"], r["p"], r["cls"], r["teacher"], r["room"])) + "]"
                    for r in rows),
         "    ],",
-        "    // py = 全拼, ini = 首字母, email = 展示用联系方式",
+        "    // 名片上的联系方式；拼音搜索已移除，所以不再有 py / ini 字段",
         "    teachers: [",
-        ",\n".join("      { name: %s, py: %s, ini: %s, email: %s }" % (q(n), q(PINYIN[n][0]), q(PINYIN[n][1]), q(TEACHER_EMAIL[n])) for n in names),
+        ",\n".join("      { name: %s, email: %s }" % (q(n), q(TEACHER_EMAIL[n])) for n in names),
         "    ],",
         "    // 节次与时间（取自 Excel 的节次行标签）",
         "    periods: [",

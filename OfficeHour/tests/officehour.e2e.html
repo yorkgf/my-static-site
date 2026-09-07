@@ -101,7 +101,7 @@ const txt = e => (e ? e.textContent.replace(/\s+/g, ' ').trim() : '');
   })(), 'G10-1 行内容不符');
   ok('自动出现两个节次时间带', d2.querySelectorAll('#grid tr.band').length === 2,
      d2.querySelectorAll('#grid tr.band').length + ' 个时间带');
-  ok('实时模式下仍保留拼音搜索能力', (() => {
+  ok('实时模式下按中文姓名能搜到老师', (() => {
     d2.getElementById('q').value = TNAME;
     d2.getElementById('q').dispatchEvent(new w2.Event('input', { bubbles: true }));
     return d2.querySelectorAll('.tcard').length === 1;

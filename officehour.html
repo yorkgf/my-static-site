@@ -447,9 +447,9 @@
     <!-- ── 搜索 ─────────────────────────────────── -->
     <div class="panel">
         <div class="panel-title" data-i18n="findTeacher"><span class="ico">🔎</span>找老师</div>
-        <p class="panel-note" data-i18n="searchNote">支持中文姓名、全拼或首字母，例如 <b>李楚翘</b> / <b>lichuqiao</b> / <b>lcq</b>；也可以搜班级 <b>G10-1</b> 或教室 <b>文体 114</b>。</p>
+        <p class="panel-note" data-i18n="searchNote">支持中文姓名或邮箱，例如 <b>李楚翘</b> / <b>augustli@ghedu.com</b>；也可以搜班级 <b>G10-1</b> 或教室 <b>文体 114</b>。</p>
         <div class="search-row no-print">
-            <input type="text" id="q" data-i18n-ph="qPh" placeholder="输入老师姓名 / 拼音 / 班级 / 教室…" autocomplete="off" autofocus>
+            <input type="text" id="q" data-i18n-ph="qPh" placeholder="输入老师姓名 / 邮箱 / 班级 / 教室…" autocomplete="off" autofocus>
             <button class="btn" id="clearBtn" type="button" data-i18n="clear">清空</button>
         </div>
         <div class="chips no-print" id="chips"></div>
@@ -498,7 +498,7 @@
 // 学期初快照：后端可用时页面会被 /api/officehours 的实时数据覆盖，这份只作兜底。
 // slots 每行：[星期, 节次, 班级, 老师, 教室]
 const SNAPSHOT = {
-    generatedAt: "2026-09-04 10:31",
+    generatedAt: "2026-09-07 18:00",
     term: "26-27",
     slots: [
       ["周一", 10, "G10-1", "李楚翘", "文体 114"],
@@ -574,28 +574,28 @@ const SNAPSHOT = {
       ["周四", 11, "Pre-1", "邵春晖", "文体 112"],
       ["周四", 11, "Pre-2", "刘禹函", "文体 113"]
     ],
-    // py = 全拼, ini = 首字母, email = 展示用联系方式
+    // 名片上的联系方式；拼音搜索已移除，所以不再有 py / ini 字段
     teachers: [
-      { name: "陈逸飞", py: "chenyifei", ini: "cyf", email: "if_chen@ghedu.com" },
-      { name: "高峰", py: "gaofeng", ini: "gf", email: "york@ghedu.com" },
-      { name: "郭林", py: "guolin", ini: "gl", email: "guolin@ghedu.com" },
-      { name: "简汐洳", py: "jianxiru", ini: "jxr", email: "xirujian@ghedu.com" },
-      { name: "李楚翘", py: "lichuqiao", ini: "lcq", email: "augustli@ghedu.com" },
-      { name: "李梅诺", py: "limeinuo", ini: "lmn", email: "fayeli@ghedu.com" },
-      { name: "凌峰杰", py: "lingfengjie", ini: "lfj", email: "jeffling@ghedu.com" },
-      { name: "刘丹", py: "liudan", ini: "ld", email: "liudan@ghedu.com" },
-      { name: "刘禹函", py: "liuyuhan", ini: "lyh", email: "lisaliu@ghedu.com" },
-      { name: "刘展佑", py: "liuzhanyou", ini: "lzy", email: "zhanyouliu@ghedu.com" },
-      { name: "卢琦", py: "luqi", ini: "lq", email: "lucylu@ghedu.com" },
-      { name: "邵春晖", py: "shaochunhui", ini: "sch", email: "nathanshao@ghedu.com" },
-      { name: "石琪", py: "shiqi", ini: "sq", email: "lily2333@ghedu.com" },
-      { name: "石鑫玥", py: "shixinyue", ini: "sxy", email: "xinyueshi@ghedu.com" },
-      { name: "宋雯雯", py: "songwenwen", ini: "sww", email: "wrenley@ghedu.com" },
-      { name: "晏海花", py: "yanhaihua", ini: "yhh", email: "eva.yan@ghedu.com" },
-      { name: "张诗文", py: "zhangshiwen", ini: "zsw", email: "zhangshiwen@ghedu.com" },
-      { name: "赵丁霓", py: "zhaodingni", ini: "zdn", email: "dingnizhao@ghedu.com" },
-      { name: "赵睿佳", py: "zhaoruijia", ini: "zrj", email: "heidi@ghedu.com" },
-      { name: "朱专", py: "zhuzhuan", ini: "zz", email: "elizabeth@ghedu.com" }
+      { name: "凌峰杰", email: "jeffling@ghedu.com" },
+      { name: "刘丹", email: "liudan@ghedu.com" },
+      { name: "刘展佑", email: "zhanyouliu@ghedu.com" },
+      { name: "刘禹函", email: "lisaliu@ghedu.com" },
+      { name: "卢琦", email: "lucylu@ghedu.com" },
+      { name: "宋雯雯", email: "wrenley@ghedu.com" },
+      { name: "张诗文", email: "zhangshiwen@ghedu.com" },
+      { name: "晏海花", email: "eva.yan@ghedu.com" },
+      { name: "朱专", email: "elizabeth@ghedu.com" },
+      { name: "李梅诺", email: "fayeli@ghedu.com" },
+      { name: "李楚翘", email: "augustli@ghedu.com" },
+      { name: "石琪", email: "lily2333@ghedu.com" },
+      { name: "石鑫玥", email: "xinyueshi@ghedu.com" },
+      { name: "简汐洳", email: "xirujian@ghedu.com" },
+      { name: "赵丁霓", email: "dingnizhao@ghedu.com" },
+      { name: "赵睿佳", email: "heidi@ghedu.com" },
+      { name: "邵春晖", email: "nathanshao@ghedu.com" },
+      { name: "郭林", email: "guolin@ghedu.com" },
+      { name: "陈逸飞", email: "if_chen@ghedu.com" },
+      { name: "高峰", email: "york@ghedu.com" }
     ],
     // 节次与时间（取自 Excel 的节次行标签）
     periods: [
@@ -631,8 +631,8 @@ const EN_STATIC = {
     h1: '🕑 Teacher Office Hours',
     subtitle: 'Evening self-study duty — look up which teacher you can ask on a given day, and in which classroom.',
     findTeacher: '<span class="ico">🔎</span>Find a teacher',
-    searchNote: 'Search by Chinese name, full pinyin or initials — e.g. <b>李楚翘</b> / <b>lichuqiao</b> / <b>lcq</b> — or by class <b>G10-1</b> / room <b>文体 114</b>.',
-    qPh: 'Teacher name / pinyin / class / room…',
+    searchNote: 'Search by Chinese name or email — e.g. <b>李楚翘</b> / <b>augustli@ghedu.com</b> — or by class <b>G10-1</b> / room <b>文体 114</b>.',
+    qPh: 'Teacher name / email / class / room…',
     clear: 'Clear',
     noResult: 'No matching teacher — try another keyword?',
     fullTable: '<span class="ico">📋</span>Full schedule',
@@ -681,17 +681,18 @@ try {
 } catch (e) { /* 隐私模式下 localStorage 不可用，用内置默认 */ }
 OH_API_BASE = OH_API_BASE.replace(/\/$/, '');
 
-const PINYIN_MAP = new Map((SNAPSHOT.teachers || []).map(t => [t.name, t]));
-// 实时数据里没有拼音，沿用快照里的；新出现的老师拼音置空，姓名搜索仍可用
+// 拼音搜索已于 2026-09-07 移除：它的拼音表只能靠改代码维护（新自助加班的老师永远搜不到），
+// 而邮箱本来就是英文名，搜 augustli / jeffling 比输首字母更准。可搜：中文姓名 / 邮箱 / 班级 / 教室。
+// 名单排序改走中文 collation（浏览器 ICU 对 zh 默认按拼音排），不再需要一张拼音表。
+const byName = (a, b) => String(a.name).localeCompare(String(b.name), 'zh');
+
+/** 实时数据里只有行上的姓名，邮箱由 applyData 从后端回查结果覆盖 */
 function teacherListFrom(slots) {
-    const names = [...new Set(slots.map(s => s[3]))];
-    return names
-        .map(n => PINYIN_MAP.get(n) || { name: n, py: '', ini: '', email: '' })
-        .sort((a, b) => (a.py || a.name).localeCompare(b.py || b.name));
+    return [...new Set(slots.map(s => s[3]))].map(n => ({ name: n, email: '' })).sort(byName);
 }
 
 let SLOTS = SNAPSHOT.slots || [];      // 每行 [星期, 节次|null, 班级, 老师, 教室, 备注?, 时间?]
-let TEACHERS = SNAPSHOT.teachers || [];
+let TEACHERS = (SNAPSHOT.teachers || []).slice().sort(byName);
 let PERIODS = SNAPSHOT.periods || [];
 
 let CLASSES = [], activeDays = [], offDays = [];
@@ -786,13 +787,14 @@ function applyData({ slots, teachers, periods, mode, stamp, emails }) {
         const inRoster = new Set(TEACHERS.map(t => t.name));
         const onDuty = new Set(SLOTS.map(s => s[3]));
         Object.keys(emails).forEach(n => {
-            if (!inRoster.has(n) && onDuty.has(n)) TEACHERS.push({ name: n, py: '', ini: '', email: emails[n] });
+            if (!inRoster.has(n) && onDuty.has(n)) TEACHERS.push({ name: n, email: emails[n] });
         });
     }
     if (Array.isArray(periods) && periods.length) PERIODS = periods;
     if (mode) DATA_MODE = mode;
     if (mode === 'snapshot') hadLive = false;   // 有人重新贴回快照，就不再算“拿到过后端数据”
     if (stamp) DATA_STAMP = stamp;
+    TEACHERS = TEACHERS.slice().sort(byName);   // 名单顺序与数据源无关（快照/实时排出来一样）
     derive();
 }
 
@@ -874,15 +876,9 @@ const timesOf = ws => [...new Set(ws)].map(k => WIN[k]).filter(Boolean)
 /* ── 搜索匹配 ───────────────────────────────────────────────── */
 function matchTeacher(name, q) {
     if (!q) return true;
-    const meta = TEACHERS.find(t => t.name === name) || { py: '', ini: '', email: '' };
+    const meta = TEACHERS.find(t => t.name === name) || { email: '' };
     return name.toLowerCase().includes(q)
-        || meta.py.includes(q)
-        || meta.ini.includes(q)
         || (meta.email || '').toLowerCase().includes(q);
-}
-function teacherQuery(t, name) {
-    const meta = TEACHERS.find(x => x.name === name);
-    return !t || matchTeacher(name, t) || (meta && (meta.py === t || meta.ini === t));
 }
 function teacherMatches(name, q) {
     // 关键字是否命中这位老师（含班级 / 教室维度）
@@ -919,7 +915,7 @@ function renderBadges() {
 /* ── 渲染：快捷 chips ───────────────────────────────────────── */
 function renderChips(q) {
     document.getElementById('chips').innerHTML = TEACHERS.map(t =>
-        '<button type="button" class="chip' + (q === t.name || q === t.ini || q === t.py ? ' on' : '') +
+        '<button type="button" class="chip' + (q === t.name ? ' on' : '') +
         '" data-name="' + esc(t.name) + '">' + hl(t.name, q) + '</button>'
     ).join('');
 }

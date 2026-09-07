@@ -107,17 +107,19 @@ f.onload = async () => {
   ok('命中处有 mark 高亮', d.querySelectorAll('#grid mark').length > 0);
 
   log('\n=== 全拼搜索 ===');
-  setInput('songwenwen');
-  ok('搜到 宋雯雯', cardName(0) === '宋雯雯', cardName(0));
+  setInput('wrenley');
+  ok('搜邮箱前缀命中 宋雯雯', cardName(0) === '宋雯雯', cardName(0));
   ok('宋雯雯 2 天值班', cardRows(0).length === 2, cardRows(0).join(' | '));
   ok('宋雯雯卡片每天都带时间', cardRows(0).every(l => /18:30–19:20/.test(l)), cardRows(0).join(' | '));
 
-  log('\n=== 首字母搜索 ===');
+  log('\n=== 邮箱搜索（取代了原来的拼音/首字母搜索）===');
+  setInput('augustli');
+  ok('augustli → 李楚翘', cards() === 1 && cardName(0) === '李楚翘', cardName(0));
+  setInput('heidi');
+  const em = $$('.tcard').map((_,i)=>cardName(i));
+  ok('heidi 匹配含 "heidi" 邮箱的老师', em.includes('赵睿佳'), em.join(','));
   setInput('lcq');
-  ok('lcq → 李楚翘', cards() === 1 && cardName(0) === '李楚翘', cardName(0));
-  setInput('gl');
-  const gl = $$('.tcard').map((_,i)=>cardName(i));
-  ok('gl 匹配含 "gl" 的老师', gl.includes('郭林'), gl.join(','));
+  ok('首字母搜索已移除（不再命中）', cards() === 0, String(cards()));
 
   log('\n=== 只输入姓氏（模糊） ===');
   setInput('刘');
@@ -125,7 +127,7 @@ f.onload = async () => {
   ok('3 位刘老师', liu.length === 3, liu.join(','));
   setInput('liu');
   const liu2 = $$('.tcard').map((_,i)=>cardName(i)).sort();
-  ok('拼音 liu → 同样 3 位', liu2.join()===liu.join(), liu2.join(','));
+  ok('邮箱含 liu → 同样 3 位', liu2.join()===liu.join(), liu2.join(','));
 
   log('\n=== 班级搜索 ===');
   setInput('G11-2');
@@ -153,7 +155,7 @@ f.onload = async () => {
   ok('20 行', rows().length === 20, String(rows().length));
   const firstTeacherRow = $('#grid tbody tr[data-key]');
   log('  首行:', txt(firstTeacherRow));
-  ok('首行是 陈逸飞(按拼音)', txt(firstTeacherRow).includes('陈逸飞'), txt(firstTeacherRow));
+  ok('按中文 collation 排序（姓氏 chen 在前）', /陈逸飞/.test(txt(firstTeacherRow)), txt(firstTeacherRow));
 
   log('\n=== 按老师视图数据校验 (陈逸飞) ===');
   setInput('陈逸飞');
@@ -244,7 +246,7 @@ f.onload = async () => {
   ok('老师备注在卡片上展示', /临时调到 203/.test(d.getElementById('results').textContent));
   ok('状态条显示实时数据与更新时间', /实时数据/.test(txt(d.getElementById('dataStatus'))) && /2026-10-05/.test(txt(d.getElementById('dataStatus'))),
      txt(d.getElementById('dataStatus')));
-  ok('拼音缺失不影响姓名搜索', (() => { setInput('张老师'); return cards() === 1; })());
+  ok('后端新出现的老师也能按姓名搜到', (() => { setInput('张老师'); return cards() === 1; })());
 
   // 后端挂掉：已拿到过真数据时继续展示上次结果，但要说“可能不是最新”
   w.fetch = () => Promise.reject(new Error('network down'));

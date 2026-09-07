@@ -62,8 +62,11 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
  const ghosts = pageNames.filter(n=>n && !duty.has(n));
  ok('未排值班的老师不出现在快捷名单里', ghosts.length===0, ghosts.join('、')||'无');
 
+ // 拼音搜索已移除；改为验证“后端实时邮箱可以拿来搜人”
+ d.getElementById('q').value='augustli'; d.getElementById('q').dispatchEvent(new w.Event('input',{bubbles:true}));
+ ok('实时邮箱可搜到人', d.querySelectorAll('.tcard').length===1 && /李楚翘/.test((d.querySelector('.tname')||{}).textContent||''), (d.querySelector('.tname')||{}).textContent);
  d.getElementById('q').value='lcq'; d.getElementById('q').dispatchEvent(new w.Event('input',{bubbles:true}));
- ok('实时模式下拼音首字母搜索可用', d.querySelectorAll('.tcard').length===1 && /李楚翘/.test((d.querySelector('.tname')||{}).textContent||''), (d.querySelector('.tname')||{}).textContent);
+ ok('首字母搜索已下线（应为 0 结果）', d.querySelectorAll('.tcard').length===0, String(d.querySelectorAll('.tcard').length));
  d.getElementById('q').value=''; d.getElementById('q').dispatchEvent(new w.Event('input',{bubbles:true}));
 
  // 逐节展开：合并着的只有 1 个节次带，展开后变成 periods.length 个，自定时间带不参与合并、数目不变
