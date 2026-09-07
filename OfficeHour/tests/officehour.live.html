@@ -1,6 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>LIVE</title>
 <!-- 线上自检：把学生页指向一个「已部署」的 API，确认它真的在读后端而不是在读快照。
-     断言里的 72 条 / 20 位教师 / 李楚翘 对应本学期（26-27）排班，换学期要跟着改。
+     期望值一律**从接口现取**，不写死条数/人名：老师自助加班、改排班都会让数字变，
+     写死的断言会长期亮红，自检就废了（以前踩过：72 条 / 20 位教师 / 李楚翘）。
      用法： OfficeHour/tests/live-check.sh [https://你的函数URL] -->
 </head><body style="margin:0">
 <iframe id="f" style="width:1280px;height:1100px"></iframe><pre id="out"></pre>
@@ -10,25 +11,73 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 (async()=>{
  const API = new URLSearchParams(location.search).get('api') || 'http://127.0.0.1:9202';
  localStorage.setItem('ohApiBase', API);
+
+ // 先拿一份后端原始数据当"标准答案"，页面状态必须跟它一致
+ const live = await (await fetch(API.replace(/\/$/,'')+'/api/officehours',{cache:'no-store'})).json();
+ const duty = new Set(live.slots.map(s=>s.teacherName));                       // 真的排了时间的人
+ const anchored = live.slots.filter(s=>s.period!==null);                        // 节次型（进班级总表）
+ const classes = [...new Set(anchored.map(s=>s.cls).filter(Boolean))];
+ const periods = live.periods.map(p=>p.p);
+ const nameAt = (day,cls,p)=>{ const r=anchored.find(s=>s.day===day&&s.cls===cls&&s.period===p); return r&&r.teacherName; };
+
  f.src='../../officehour.html?live=' + Date.now();
  await new Promise(r=>f.onload=r);
  const d=f.contentDocument,w=f.contentWindow;
  for(let i=0;i<60;i++){ if(w.OH&&w.OH.state().mode==='live')break; await sleep(200); }
  const st=w.OH.state();
  ok('连上真实后端 → 实时模式', st.mode==='live', st.mode);
- ok('拿到全部 72 条', st.slots===72, 'slots='+st.slots);
- ok('20 位教师', st.teachers===20, 'teachers='+st.teachers);
- ok('9 个班级', st.classes.length===9, st.classes.join(','));
+ ok('页面条数 = 后端条数', st.slots===live.slots.length, st.slots+' vs '+live.slots.length);
+ ok('教师名单 = 后端值班名单', st.teachers===duty.size, 'teachers='+st.teachers+' 值班='+duty.size);
+ ok('班级数 = 后端节次型班级数', st.classes.length===classes.length, st.classes.join(','));
  ok('两节相同 → 仍自动合并', st.merged===true && st.canMerge===true, JSON.stringify({merged:st.merged}));
- ok('节次时间来自后端', st.periods.length===2 && st.periods[0].time==='18:30–19:20', JSON.stringify(st.periods));
+ ok('节次时间来自后端', st.periods.length===periods.length && st.periods[0].time===live.periods[0].time, JSON.stringify(st.periods));
  ok('状态条显示实时数据', /实时数据/.test(d.getElementById('dataStatus').textContent), d.getElementById('dataStatus').textContent.trim());
- ok('表格 9 行', d.querySelectorAll('tr[data-key]').length===9);
- ok('抽查 周一 G10-1 = 李楚翘', /李楚翘/.test(d.querySelector('tr[data-key="G10-1"]').children[1].textContent));
- ok('抽查 周四 G12 = 卢琦', /卢琦/.test(d.querySelector('tr[data-key="G12"]').children[4].textContent));
+ // 班级总表按「时间带」分组：每个带一行表头 + 每班一行，所以行数 = 班级数 × 带数
+ const rowsOf = () => [...d.querySelectorAll('#grid tbody tr')];
+ const groupsOf = () => { const g=[]; let cur=null;
+   for (const tr of rowsOf()) { if (tr.classList.contains('band')) { cur={head:tr.textContent,rows:[]}; g.push(cur); }
+     else if (cur && tr.dataset.key) cur.rows.push(tr); }
+   return g; };
+ const groups = groupsOf();
+ ok('表格按时间带分组、每带一行一班', groups.length>0 && d.querySelectorAll('tr[data-key]').length===classes.length*groups.length,
+    groups.length+' 个时间带 × '+classes.length+' 班 = '+d.querySelectorAll('tr[data-key]').length+' 行');
+
+ // 抽查：只看「学校节次」那一组（自定时间带不带班级，整组是空的，拿它比会误报）
+ const pg = groups.find(g => !/自定|Custom/.test(g.head));   // 不含「自定」的那个就是学校节次带
+ ok('找得到节次型那一组', !!pg, pg?pg.head.replace(/\s+/g,' ').slice(0,40):'无');
+ let spot=0, spotBad=[];
+ if (pg) for (const cls of classes) {
+   const row = pg.rows.find(r=>r.dataset.key===cls); if(!row) continue;
+   // 列序：0=班级（粘滞列），1..5 = 周一…周五
+   for (const p of periods) {
+     const nm = nameAt('周一', cls, p); if(!nm) continue;
+     spot++; if(!(row.children[1]||{}).textContent || !row.children[1].textContent.includes(nm))
+       spotBad.push(cls+' 第'+p+'节 周一列应为 '+nm+'，实为 '+JSON.stringify((row.children[1]||{}).textContent));
+   }
+ }
+ ok('抽查 周一各班都与后端一致', spot>0 && spotBad.length===0, '查了'+spot+'格：'+(spotBad.slice(0,3).join(' / ')||'全对'));
+
+ // 关键规则：没排时间的人绝不能出现在页面上
+ const pageNames = [...d.querySelectorAll('#chips button.chip')].map(e=>e.dataset.name).filter(Boolean);
+ const ghosts = pageNames.filter(n=>n && !duty.has(n));
+ ok('未排值班的老师不出现在快捷名单里', ghosts.length===0, ghosts.join('、')||'无');
+
  d.getElementById('q').value='lcq'; d.getElementById('q').dispatchEvent(new w.Event('input',{bubbles:true}));
- ok('实时模式下拼音首字母搜索可用', d.querySelectorAll('.tcard').length===1 && /李楚翘/.test(d.querySelector('.tname').textContent), (d.querySelector('.tname')||{}).textContent);
+ ok('实时模式下拼音首字母搜索可用', d.querySelectorAll('.tcard').length===1 && /李楚翘/.test((d.querySelector('.tname')||{}).textContent||''), (d.querySelector('.tname')||{}).textContent);
  d.getElementById('q').value=''; d.getElementById('q').dispatchEvent(new w.Event('input',{bubbles:true}));
- ok('实时模式下逐节展开正常', (()=>{d.querySelector('button[data-split="1"]').click();const n=d.querySelectorAll('#grid tr.band').length;d.querySelector('button[data-split="0"]').click();return n===2})());
+
+ // 逐节展开：合并着的只有 1 个节次带，展开后变成 periods.length 个，自定时间带不参与合并、数目不变
+ // （计数要在 IIFE 里当场拿：恢复展开状态之后再取 DOM 只能拿回合并时的数字，日志会骗人）
+ let bandLog='';
+ ok('实时模式下逐节展开正常', (()=>{
+   const b=d.querySelector('button[data-split="1"]'); if(!b) return false;
+   const before=groupsOf().length;
+   b.click(); const mid=groupsOf().length;
+   d.querySelector('button[data-split="0"]').click(); const after=groupsOf().length;
+   bandLog = '合并 '+before+' 带 → 展开 '+mid+' 带 → 还原 '+after+' 带';
+   return mid === before - 1 + periods.length && after === before;
+ })(), bandLog);
+
  document.getElementById('out').textContent=L.join('\n');
  document.title=L.some(x=>x.startsWith('✗'))?'LIVE-FAIL':'LIVE-PASS';
 })().catch(e=>{L.push('✗ 异常 '+e.message);document.getElementById('out').textContent=L.join('\n');document.title='LIVE-ERR'});
