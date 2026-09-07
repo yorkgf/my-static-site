@@ -178,10 +178,18 @@ Set `JWT_SECRET` equal to FADsys's for passwordless SSO (token payload `{email, 
 Admin gate uses `ADMIN_GROUPS=S,A` (mirrors FADsys `userGroups.js` `isAdmin()`, which is wider than its
 own `adminMiddleware` that only accepts `S`).
 
-**已知账号现状——用户已确认，不要自作主张改**：教师「高峰」在 `GHA.Teachers` 里的 `email` 就是
-`test@test.com`（`Group=S`），而且库里只有这一个同名账号。他是**超级管理员**，该账号就在他自己手里，
-所以不存在“值班绑到测试账号、本人改不了”的问题。`seed.mjs` 按姓名反查 email 时会把他归到这个地址（已跑通）。
-以后若出现第二个“高峰”，导入会因重名而中止 —— 那才是需要人工补 email 的情况。
+**高峰的邮箱（2026-09-07 已更正，用户指示）**：`GHA.Teachers` 里「高峰」的 `email` 是
+`york@ghedu.com`（`Group=S`，超级管理员），库里只有一个同名账号。
+曾经它挂的是 `test@test.com`，现在**该账号已不存在**，新导入/新写入都按姓名反查到 `york@ghedu.com`。
+以后若出现第二个“高峰”，`seed.mjs` 会因重名而中止 —— 那才是需要人工补 email 的情况。
+
+> 改教师表邮箱**只改了一半**：`Office_Hours` 每行自己存着 `teacherEmail`（归属），它是写入库时冷下来的副本，
+> 不会跟着教师表变。归属挂在已消失地址上的行，本人 `/mine` 看不到、`PATCH /mine/:id` 得 404
+> （两处都比对 JWT 里的 email），**只有管理员能走 `PUT /api/officehours/:id` 改回来**。
+> 2026-09-07 已按用户指示把「周四 第11节 G11-3」那行从 `test@test.com` 改为 `york@ghedu.com`（单行
+> `updateOne`，并写了 `admin_update` 审计；改前预检了唯一索引 `{teacherEmail,term,day,period}(anchored)`
+> 防撞车）。现在库里 `test@test.com` 的值班行为 0。
+> 学生页邮箱本身没受影响（`emails[高峰]` 一直是 `york@ghedu.com`）。
 
 > **2026-09-07 只读复核：上面这段已经和库不一致，待用户定夺，未自行修改。**
 > `GHA.Teachers` 里的高峰现在是 `york@ghedu.com`（`Group=S`），**`test@test.com` 这个账号已经不存在了**；
@@ -221,8 +229,10 @@ shift can never be silently bound to the wrong account.
 **先改 Excel 再 seed**；只想修单条的归属，走管理员 `PUT /api/officehours/:id` 而不是整表重跑。
 
 > 2026-09-07 实例：预演报「更新 3」，其中 2 条是「周一第10/11节 G12」——库里是 丁佳 @ 冬蕴楼 105，
-> Excel 里还是 高峰 @ 冬蕴楼 102。这就是一个会被 `--apply` 静默推翻的在线改动，**未写入，待确认**。
-> 第 3 条是上面那个 `test@test.com` 孤儿行（seed 正好会把它改成 `york@ghedu.com`）。
+> Excel 里还是 高峰 @ 冬蕴楼 102。这就是一个会被 `--apply` 静默推翻的在线改动。
+> （第 3 条是高峰那条 `test@test.com` 孤儿行，已改为单行修复，**未跑整表 seed**。）
+> **周一 G12 到底是谁的、教室是 102 还是 105，仍待确认**：线上改对了就先改 Excel 再导，
+> Excel 才是准的就明确跑一次 `--apply`。别留着不管——差异会一直躺在预演输出里，迟早被误推翻。
 
 ### Tests
 
