@@ -103,8 +103,14 @@ class Slide:
     def __init__(self, md):
         self.md = md
         self.raw_lines = md.splitlines()
+        # _class directives live inside HTML comments — read them before stripping.
         self.is_invert = bool(re.search(r'_class:\s*invert', md))
         self.is_lead = bool(re.search(r'_class:\s*lead', md))
+        # Strip HTML comments (single- and multi-line) so notes never leak into
+        # slide content. Multi-line comments were previously only skipped on
+        # their opening line, dumping the body into the output as paragraphs.
+        self.md = re.sub(r'<!--.*?-->', '', md, flags=re.DOTALL)
+        self.raw_lines = self.md.splitlines()
         self.is_hero = self.is_invert or self.is_lead
         self.title = self._first_heading()
         self.is_answer = bool(re.search(r'([-—–]\s*[Aa]nswer|Q\d+\s+[Aa]nswer)', self.title or ''))
