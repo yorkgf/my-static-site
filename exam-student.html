@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考试安排查询 — GHA</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f7fa; --card: #fff; --ink: #1a1a2e; --muted: #6b7280;
+  --accent: #2563eb; --accent-light: #dbeafe; --border: #e5e7eb;
+  --field: #f9fafb; --hover: #f0f4ff; --shadow: 0 1px 3px rgba(0,0,0,.08);
+  --radius: 10px; --tag-bg: #eff6ff; --tag-ink: #1e40af;
+  --success: #059669; --warn: #d97706;
+}
+[data-theme="dark"] {
+  --bg: #0f172a; --card: #1e293b; --ink: #e2e8f0; --muted: #94a3b8;
+  --accent: #3b82f6; --accent-light: #1e3a5f; --border: #334155;
+  --field: #1e293b; --hover: #2d3a4f; --shadow: 0 1px 3px rgba(0,0,0,.3);
+  --tag-bg: #1e3a5f; --tag-ink: #93c5fd;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg); color: var(--ink); line-height: 1.6;
+  min-height: 100vh; transition: background .3s, color .3s;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+header { text-align: center; margin-bottom: 1.6rem; }
+header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: .3rem; }
+header p { color: var(--muted); font-size: .9rem; }
+.nav {
+  display: flex; justify-content: center; gap: .4rem; flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.nav a {
+  padding: .4rem .9rem; border-radius: 999px; text-decoration: none;
+  color: var(--muted); font-size: .85rem; font-weight: 600;
+  border: 1px solid transparent; transition: all .15s;
+}
+.nav a:hover { color: var(--accent); background: var(--hover); }
+.nav a.cur {
+  color: var(--accent); background: var(--accent-light);
+  border-color: var(--accent);
+}
+.theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 50%; width: 40px; height: 40px; cursor: pointer;
+  font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); transition: background .2s;
+}
+.theme-toggle:hover { background: var(--hover); }
+
+/* 搜索区 */
+.search-box {
+  background: var(--card); border-radius: var(--radius); padding: 1.5rem;
+  box-shadow: var(--shadow); margin-bottom: 1.5rem;
+}
+.search-row { display: flex; gap: .75rem; }
+.search-input {
+  flex: 1; padding: .7rem 1rem; border: 1px solid var(--border);
+  border-radius: 8px; font-size: 1rem; background: var(--field); color: var(--ink);
+  outline: none; transition: border .2s;
+}
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--muted); }
+.search-btn {
+  padding: .7rem 1.5rem; background: var(--accent); color: #fff;
+  border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;
+  font-weight: 600; transition: opacity .2s; white-space: nowrap;
+}
+.search-btn:hover { opacity: .9; }
+.search-btn:disabled { opacity: .5; cursor: not-allowed; }
+.hint { margin-top: .75rem; color: var(--muted); font-size: .8rem; }
+
+/* 结果 */
+.result-card {
+  background: var(--card); border-radius: var(--radius); padding: 1.5rem;
+  box-shadow: var(--shadow); margin-bottom: 1rem;
+}
+.student-info {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-bottom: 1rem;
+  padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+}
+.student-info .name { font-size: 1.2rem; font-weight: 700; }
+.student-info .detail { color: var(--muted); font-size: .9rem; }
+
+/* 考试表格 */
+.exam-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.exam-table th {
+  text-align: left; padding: .6rem .5rem; color: var(--muted);
+  font-weight: 600; font-size: .8rem; text-transform: uppercase;
+  border-bottom: 2px solid var(--border);
+}
+.exam-table td {
+  padding: .7rem .5rem; border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.exam-table tr:last-child td { border-bottom: none; }
+.exam-table tr:hover td { background: var(--hover); }
+.tag {
+  display: inline-block; padding: .15rem .5rem; border-radius: 4px;
+  font-size: .75rem; font-weight: 600; background: var(--tag-bg); color: var(--tag-ink);
+}
+.time-cell { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.room-cell { font-weight: 600; color: var(--accent); }
+
+/* 空状态 / 错误 */
+.empty-state {
+  text-align: center; padding: 3rem 1rem; color: var(--muted);
+}
+.empty-state .icon { font-size: 2.5rem; margin-bottom: .5rem; }
+.empty-state p { font-size: .95rem; }
+.error-msg {
+  background: #fef2f2; color: #991b1b; border: 1px solid #fecaca;
+  border-radius: 8px; padding: .75rem 1rem; font-size: .9rem; margin-bottom: 1rem;
+}
+[data-theme="dark"] .error-msg { background: #3b1111; color: #fca5a5; border-color: #7f1d1d; }
+
+/* 候选人列表 */
+.candidates { list-style: none; }
+.candidates li {
+  padding: .6rem .8rem; border-radius: 6px; cursor: pointer;
+  transition: background .15s; display: flex; justify-content: space-between;
+  align-items: center; border: 1px solid var(--border); margin-bottom: .4rem;
+}
+.candidates li:hover { background: var(--hover); border-color: var(--accent); }
+.candidates .cname { font-weight: 600; }
+.candidates .cdetail { color: var(--muted); font-size: .85rem; }
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  header h1 { font-size: 1.3rem; }
+  .search-row { flex-direction: column; }
+  .search-btn { width: 100%; }
+  .exam-table { font-size: .8rem; }
+  .exam-table th, .exam-table td { padding: .5rem .3rem; }
+  .student-info { flex-direction: column; gap: .3rem; }
+}
+
+/* 打印 */
+@media print {
+  .theme-toggle, .search-box, .nav { display: none; }
+  body { background: #fff; color: #000; }
+  .result-card { box-shadow: none; border: 1px solid #ddd; }
+}
+</style>
+<script>
+(function(){try{if(localStorage.getItem('examTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}})();
+</script>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="切换深色/浅色">🌙</button>
+
+<div class="container">
+  <header>
+    <h1>📝 期中考试安排查询</h1>
+    <p>2026 年 10 月 8 日 – 10 日　｜　输入姓名查询你的考试科目、考场和时间</p>
+  </header>
+
+  <nav class="nav">
+    <a href="exam-student.html" class="cur">👤 我的考试安排</a>
+    <a href="exam-teacher.html">📋 我的监考安排</a>
+    <a href="exam-room.html">🏫 考场考生名单</a>
+  </nav>
+
+  <div class="search-box">
+    <div class="search-row">
+      <input type="text" class="search-input" id="searchInput"
+             placeholder="输入中文姓名或英文名（如 曹宇辰 或 Berno）"
+             autocomplete="off" autofocus>
+      <button class="search-btn" id="searchBtn" onclick="doSearch()">查询</button>
+    </div>
+    <div class="hint">支持中文名（曹宇辰）或英文名（Berno Cao）搜索，不区分大小写</div>
+  </div>
+
+  <div id="resultArea"></div>
+</div>
+
+<script>
+// ── 配置 ──
+/* 后端地址优先级：?api=… ＞ localStorage['examApiBase'] ＞ 内置默认。
+   要 ?api= 这一档，是为了不改代码、不发版就能验证一个刚部署的后端。
+   区分“没这个键”与“值为空”：测离线时要能把默认值真绕开。
+   localStorage 在隐私模式会抛异常，整段包 try/catch —— 否则这行一报错整个脚本就死，页面成死页。 */
+const API_DEFAULT = 'https://1300190563-j54idzrb8c.ap-shanghai.tencentscf.com';
+let API_BASE = API_DEFAULT;
+try {
+  const q = new URLSearchParams(location.search).get('api');
+  const stored = localStorage.getItem('examApiBase');
+  if (q !== null) API_BASE = q.trim();
+  else if (stored !== null) API_BASE = stored.trim();
+} catch (e) { /* 隐私模式：用内置默认 */ }
+API_BASE = API_BASE.replace(/\/+$/, '');   // 尾斜杠会变成 //api/…，部署时很容易多打一个
+
+// ── 主题 ──
+function toggleTheme() {
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? '' : 'dark');
+  try { localStorage.setItem('examTheme', dark ? '' : 'dark'); } catch(e) {}
+  document.querySelector('.theme-toggle').textContent = dark ? '🌙' : '☀️';
+}
+(function(){if(document.documentElement.getAttribute('data-theme')==='dark')document.querySelector('.theme-toggle').textContent='☀️'})();
+
+// ── 搜索 ──
+const input = document.getElementById('searchInput');
+const btn = document.getElementById('searchBtn');
+const area = document.getElementById('resultArea');
+
+input.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+async function doSearch() {
+  const name = input.value.trim();
+  if (!name) { input.focus(); return; }
+  btn.disabled = true; btn.textContent = '查询中…';
+  area.innerHTML = '';
+  try {
+    const res = await fetch(`${API_BASE}/api/exams/student?name=${encodeURIComponent(name)}`);
+    if (!res.ok) throw new Error(`服务器返回 ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    renderResult(data);
+  } catch (err) {
+    area.innerHTML = `<div class="error-msg">⚠️ 查询失败：${esc(err.message)}</div>`;
+  } finally {
+    btn.disabled = false; btn.textContent = '查询';
+  }
+}
+
+function renderResult(data) {
+  if (data.count === 0 && data.students) {
+    // 多人同名，显示候选人
+    area.innerHTML = `
+      <div class="result-card">
+        <p style="margin-bottom:.8rem;color:var(--muted)">找到 ${data.students.length} 位同名同学，请点击选择：</p>
+        <ul class="candidates">
+          ${data.students.map(s => `
+            <li onclick="pickStudent('${esc(s.studentId)}')">
+              <span class="cname">${esc(s.name)} ${esc(s.enName)}</span>
+              <span class="cdetail">${esc(s.adminClass)} · ${s.examCount} 场考试</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>`;
+    return;
+  }
+  if (data.count === 0) {
+    area.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">🔍</div>
+        <p>未找到「${esc(data.query || '')}」的考试信息</p>
+        <p style="margin-top:.5rem;font-size:.85rem">请检查姓名是否正确，或尝试用英文名搜索</p>
+      </div>`;
+    return;
+  }
+  // 显示考试安排
+  const s = data.student || {};
+  area.innerHTML = `
+    <div class="result-card">
+      <div class="student-info">
+        <span class="name">${esc(s.name || '')} ${esc(s.enName || '')}</span>
+        <span class="detail">${esc(s.adminClass || '')}</span>
+        <span class="detail">共 ${data.count} 场考试</span>
+      </div>
+      <table class="exam-table">
+        <thead><tr>
+          <th>日期</th><th>时段</th><th>时间</th><th>科目</th><th>试卷</th><th>教室</th><th>监考</th>
+        </tr></thead>
+        <tbody>
+          ${data.exams.map(e => `<tr>
+            <td>${esc(e.date)}<br><span style="color:var(--muted);font-size:.8rem">${esc(e.weekday)}</span></td>
+            <td><span class="tag">${esc(e.slot)}</span></td>
+            <td class="time-cell">${esc(e.time)}</td>
+            <td><strong>${esc(e.subject)}</strong></td>
+            <td>${esc(e.paper)}</td>
+            <td class="room-cell">${esc(e.room)}</td>
+            <td style="color:var(--muted);font-size:.85rem">${esc(e.proctor)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+async function pickStudent(studentId) {
+  btn.disabled = true;
+  try {
+    const res = await fetch(`${API_BASE}/api/exams/student/by-id?studentId=${encodeURIComponent(studentId)}`);
+    if (!res.ok) throw new Error(`服务器返回 ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    renderResult(data);
+  } catch (err) {
+    area.innerHTML = `<div class="error-msg">⚠️ 查询失败：${esc(err.message)}</div>`;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

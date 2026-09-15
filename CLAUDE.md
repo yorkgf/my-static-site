@@ -12,6 +12,12 @@ Static educational website for GHA offering **7 AP courses**: APCSA, APCSP, APPh
 ├── index.html              # Landing page: custom slide system (NOT Reveal.js), vanilla JS, self-contained
 ├── officehour.html         # Teacher Office Hour / 晚自习值班表 (students; live data + snapshot fallback)
 ├── officehour-admin.html   # Teacher self-service login + edit (not linked publicly)
+├── exam-student.html       # 考试查询：学生输入姓名 → 科目/考场/时间
+├── exam-teacher.html       # 考试查询：教师输入姓名 → 监考安排
+├── exam-room.html          # 考试查询：按考场 → 该场全体学生名单（可打印）
+├── tests/
+│   ├── index.slides.harness.html  # 首页 slide 导航 + 多视口断言（30 条）
+│   └── run-index.sh               # 跑上面那个
 ├── wordcloud.html          # Student-facing classroom word cloud
 ├── wordcloud-admin.html    # Teacher-facing word cloud console
 ├── OfficeHour/             # Excel source + data pipeline + cloud function + tests
@@ -284,6 +290,34 @@ node OfficeHour/api/scripts/verify-prod.mjs   # 只读核验生产库结构（�
 - Never point the test suites at real teacher accounts: they log in and write.
 
 
+## Exam Query (期中考试查询)
+
+三个只读页面，入口在首页第 6 页「考试信息查询」（在 To Continue 之前）：
+`exam-student.html`（学生）/ `exam-teacher.html`（监考）/ `exam-room.html`（考场名单）。
+三页顶部互链。
+
+**后端与数据不在本仓库**：API、seed、测试都在 `~/projects/classarrangement/ExamQuery/`
+（数据由排考流水线算出，写入 `GHA.Exam_Students` / `GHA.Exam_Rooms`）。
+架构与 OfficeHour 同源：腾讯云 SCF Web 函数 + 同一个 MongoDB。
+已接上的函数：`https://1300190563-j54idzrb8c.ap-shanghai.tencentscf.com`，
+写在三页的 `API_DEFAULT`（`?api=…` 可临时覆盖，不用发版就能验证另一个后端）。
+
+与 OfficeHour 不同：**无登录、无写接口、无内嵌快照兑底**。排考结果只在库里，
+所以后端挂掉页面就是空表（会显错提示），而不是退回一份旧名单。
+
+### 首页 slide 系统的两个不变量
+
+`index.html` 的导航是手写数组，`totalSlides` 从 DOM 数，但**圆点是硬编码的**：
+
+1. **页数 == 圆点数，且 `data-slide` 从 0 连续**。`showSlide(n)` 里 `dots[n]` 是按**位置**取的，
+   两边一旦错开，点第 5 个圆点就会亮第 6 个、或干脆 `undefined` 报错。
+   中间插一页，后面每一页的 `data-slide` 都要重编。
+2. **`.slide` 是定高 `100vh` + flex 居中，内容超高会被静默裁掉** —— 不滚动、不报错、
+   桌面上看不出问题。新增页堆得高就要同时考虑矮屏（`max-height`，不是 `max-width`）；
+   手机横屏 740×360 这种尺寸很容易踩。
+
+两条都由 `bash tests/run-index.sh` 钉着（真实 Chrome，8 个视口，30 条）。
+
 ## Slide System (APBusiness)
 
 APBusiness has an interactive HTML slide presentation system. Each deck is a self-contained HTML file in `APBusiness/slides/`.
@@ -349,6 +383,19 @@ All `curriculum.html` pages share a common structure:
 ### Local dev
 ```bash
 python3 -m http.server 8000   # serve from project root
+```
+
+### 首页 slide 回归测试（导航对位 + 多视口不裁切）
+```bash
+bash tests/run-index.sh
+```
+
+### 考试查询页（后端与数据在另一个仓库）
+```bash
+# API / seed / 测试全部在 ~/projects/classarrangement/ExamQuery/
+bash ~/projects/classarrangement/ExamQuery/tests/run.sh          # 30 条页面用例（本地后端）
+bash ~/projects/classarrangement/ExamQuery/tests/live-check.sh \ 
+     https://1300190563-j54idzrb8c.ap-shanghai.tencentscf.com     # 部署后自检
 ```
 
 ### Rebuild Office Hour data

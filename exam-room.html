@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考场考生名单查询 — GHA</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f7fa; --card: #fff; --ink: #1a1a2e; --muted: #6b7280;
+  --accent: #0d9488; --accent-light: #ccfbf1; --border: #e5e7eb;
+  --field: #f9fafb; --hover: #f0fdfa; --shadow: 0 1px 3px rgba(0,0,0,.08);
+  --radius: 10px; --tag-bg: #ccfbf1; --tag-ink: #115e59;
+  --warn-bg: #fffbeb; --warn-ink: #92400e; --warn-bd: #fde68a;
+  --alert-bg: #fef2f2; --alert-ink: #991b1b; --alert-bd: #fecaca;
+  --on: #0d9488; --on-ink: #fff;
+}
+[data-theme="dark"] {
+  --bg: #0f172a; --card: #1e293b; --ink: #e2e8f0; --muted: #94a3b8;
+  --accent: #2dd4bf; --accent-light: #134e4a; --border: #334155;
+  --field: #0f172a; --hover: #1f3a3d; --shadow: 0 1px 3px rgba(0,0,0,.3);
+  --tag-bg: #134e4a; --tag-ink: #5eead4;
+  --warn-bg: #3b2f11; --warn-ink: #fcd34d; --warn-bd: #78500f;
+  --alert-bg: #3b1111; --alert-ink: #fca5a5; --alert-bd: #7f1d1d;
+  --on: #2dd4bf; --on-ink: #0f172a;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg); color: var(--ink); line-height: 1.6;
+  min-height: 100vh; transition: background .3s, color .3s;
+}
+.container { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
+header { text-align: center; margin-bottom: 1.6rem; }
+header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: .3rem; }
+header p { color: var(--muted); font-size: .9rem; }
+.nav {
+  display: flex; justify-content: center; gap: .4rem; flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.nav a {
+  padding: .4rem .9rem; border-radius: 999px; text-decoration: none;
+  color: var(--muted); font-size: .85rem; font-weight: 600;
+  border: 1px solid transparent; transition: all .15s;
+}
+.nav a:hover { color: var(--accent); background: var(--hover); }
+.nav a.cur {
+  color: var(--accent); background: var(--accent-light);
+  border-color: var(--accent);
+}
+.theme-toggle {
+  position: fixed; top: 1rem; right: 1rem; z-index: 5;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 50%; width: 40px; height: 40px; cursor: pointer;
+  font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow);
+}
+.theme-toggle:hover { background: var(--hover); }
+
+.panel {
+  background: var(--card); border-radius: var(--radius); padding: 1.2rem 1.5rem;
+  box-shadow: var(--shadow); margin-bottom: 1.2rem;
+}
+.filter-row { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
+.search-input {
+  flex: 1; min-width: 200px; padding: .65rem .9rem; border: 1px solid var(--border);
+  border-radius: 8px; font-size: .95rem; background: var(--field); color: var(--ink);
+  outline: none;
+}
+.search-input:focus { border-color: var(--accent); }
+
+/* 教室 / 日期 选择 chip */
+.chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .9rem; }
+.chip {
+  padding: .4rem .8rem; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--field); color: var(--ink); cursor: pointer; font-size: .85rem;
+  font-weight: 600; transition: all .15s; display: flex; align-items: center; gap: .35rem;
+}
+.chip:hover { border-color: var(--accent); background: var(--hover); }
+.chip.on { background: var(--on); color: var(--on-ink); border-color: var(--on); }
+.chip .badge {
+  background: rgba(0,0,0,.14); border-radius: 999px; padding: 0 .4rem;
+  font-size: .7rem; font-weight: 700;
+}
+.chip.on .badge { background: rgba(255,255,255,.25); }
+.chip.warn::after { content: '⚠'; font-size: .72rem; }
+.label { font-size: .78rem; color: var(--muted); font-weight: 700;
+  text-transform: uppercase; margin-top: 1rem; }
+
+/* 单场卡片 */
+.session {
+  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+  margin-bottom: 1.1rem; overflow: hidden; border: 1px solid var(--border);
+}
+.session-head { padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); }
+.session-title { display: flex; flex-wrap: wrap; gap: .5rem .9rem; align-items: baseline; }
+.session-title .when { font-size: 1.1rem; font-weight: 700; }
+.session-title .subject { font-size: 1.05rem; font-weight: 700; color: var(--accent); }
+.session-meta { display: flex; flex-wrap: wrap; gap: .3rem 1.4rem; margin-top: .5rem;
+  font-size: .85rem; color: var(--muted); }
+.session-meta b { color: var(--ink); font-weight: 600; }
+.tag {
+  display: inline-block; padding: .12rem .5rem; border-radius: 4px;
+  font-size: .74rem; font-weight: 700; background: var(--tag-bg); color: var(--tag-ink);
+}
+.flag {
+  display: inline-block; padding: .12rem .5rem; border-radius: 4px;
+  font-size: .74rem; font-weight: 700;
+}
+.flag.merge { background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-bd); }
+.flag.alert { background: var(--alert-bg); color: var(--alert-ink); border: 1px solid var(--alert-bd); }
+.note {
+  margin-top: .6rem; padding: .5rem .7rem; border-radius: 6px; font-size: .82rem;
+  background: var(--field); color: var(--muted); border-left: 3px solid var(--accent);
+}
+
+/* 分组名单 */
+.paper-group { padding: .9rem 1.4rem; border-top: 1px dashed var(--border); }
+.paper-group:first-of-type { border-top: none; }
+.paper-title {
+  display: flex; flex-wrap: wrap; gap: .5rem .8rem; align-items: baseline;
+  margin-bottom: .55rem; font-size: .9rem;
+}
+.paper-title .pname { font-weight: 700; }
+.paper-title .pcnt { color: var(--muted); font-size: .82rem; }
+.paper-title .pend { font-size: .8rem; color: var(--warn-ink); font-weight: 600; }
+
+.roster {
+  display: grid; gap: .1rem .6rem;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+}
+.student {
+  display: flex; align-items: baseline; gap: .45rem; padding: .3rem .4rem;
+  border-radius: 5px; font-size: .85rem;
+}
+.student:hover { background: var(--hover); }
+.student .seq {
+  color: var(--muted); font-size: .7rem; min-width: 1.9em; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.student .nm { font-weight: 600; white-space: nowrap; }
+.student .en { color: var(--muted); font-size: .78rem; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; }
+.student .adm { color: var(--muted); font-size: .72rem; margin-left: auto; white-space: nowrap; }
+
+.empty, .loading { text-align: center; padding: 2.5rem 1rem; color: var(--muted); }
+.empty .icon { font-size: 2.4rem; margin-bottom: .4rem; }
+.error-msg {
+  background: var(--alert-bg); color: var(--alert-ink); border: 1px solid var(--alert-bd);
+  border-radius: 8px; padding: .75rem 1rem; font-size: .9rem; margin-bottom: 1rem;
+}
+.toolbar { display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
+.btn {
+  padding: .5rem 1rem; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--card); color: var(--ink); cursor: pointer; font-size: .87rem;
+  font-weight: 600;
+}
+.btn:hover { background: var(--hover); border-color: var(--accent); }
+.summary { font-size: .88rem; color: var(--muted); }
+.summary b { color: var(--ink); }
+
+@media (max-width: 640px) {
+  .container { padding: 1rem .8rem; }
+  header h1 { font-size: 1.3rem; }
+  .roster { grid-template-columns: 1fr; }
+  .panel, .session-head, .paper-group { padding-left: .9rem; padding-right: .9rem; }
+}
+@media print {
+  .theme-toggle, .panel, .toolbar, .nav { display: none !important; }
+  body { background: #fff; color: #000; }
+  .container { max-width: none; padding: 0; }
+  .session { box-shadow: none; border: 1px solid #999; break-inside: avoid;
+    page-break-after: always; }
+  .student .adm { color: #555; }
+}
+</style>
+<script>
+(function(){try{if(localStorage.getItem('examTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}})();
+</script>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="切换深色/浅色">🌙</button>
+
+<div class="container">
+  <header>
+    <h1>🏫 考场考生名单查询</h1>
+    <p>2026 年 10 月 8 日 – 10 日　｜　选择考场，查看每场考试在该教室就考的全体学生</p>
+  </header>
+
+  <nav class="nav">
+    <a href="exam-student.html">👤 我的考试安排</a>
+    <a href="exam-teacher.html">📋 我的监考安排</a>
+    <a href="exam-room.html" class="cur">🏫 考场考生名单</a>
+  </nav>
+
+  <div class="panel">
+    <div class="filter-row">
+      <input type="text" class="search-input" id="roomFilter"
+             placeholder="筛选教室（如 Wenti101 / Dongyun）" autocomplete="off">
+      <button class="btn" onclick="window.print()">🖨️ 打印当前考场</button>
+    </div>
+    <div class="label">选择考场</div>
+    <div class="chips" id="roomChips"><span class="loading">加载中…</span></div>
+    <div class="label">按日期筛选</div>
+    <div class="chips" id="dayChips"></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="summary" id="summary"></div>
+  </div>
+  <div id="resultArea"></div>
+</div>
+
+<script>
+/* 后端地址优先级：?api=… ＞ localStorage['examApiBase'] ＞ 内置默认。
+   要 ?api= 这一档，是为了不改代码、不发版就能验证一个刚部署的后端。
+   区分“没这个键”与“值为空”：测离线时要能把默认值真绕开。
+   localStorage 在隐私模式会抛异常，整段包 try/catch —— 否则这行一报错整个脚本就死，页面成死页。 */
+const API_DEFAULT = 'https://1300190563-j54idzrb8c.ap-shanghai.tencentscf.com';
+let API_BASE = API_DEFAULT;
+try {
+  const q = new URLSearchParams(location.search).get('api');
+  const stored = localStorage.getItem('examApiBase');
+  if (q !== null) API_BASE = q.trim();
+  else if (stored !== null) API_BASE = stored.trim();
+} catch (e) { /* 隐私模式：用内置默认 */ }
+API_BASE = API_BASE.replace(/\/+$/, '');   // 尾斜杠会变成 //api/…，部署时很容易多打一个
+
+const state = { rooms: [], room: '', day: '' };
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? '' : 'dark');
+  try { localStorage.setItem('examTheme', dark ? '' : 'dark'); } catch(e) {}
+  document.querySelector('.theme-toggle').textContent = dark ? '🌙' : '☀️';
+}
+(function(){if(document.documentElement.getAttribute('data-theme')==='dark')document.querySelector('.theme-toggle').textContent='☀️'})();
+
+const area = document.getElementById('resultArea');
+const chips = document.getElementById('roomChips');
+const dayChips = document.getElementById('dayChips');
+const summary = document.getElementById('summary');
+
+document.getElementById('roomFilter').addEventListener('input', renderRoomChips);
+
+async function boot() {
+  try {
+    const res = await fetch(`${API_BASE}/api/exams/room/list`);
+    if (!res.ok) throw new Error(`服务器返回 ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    state.rooms = data.rooms || [];
+    if (!state.rooms.length) {
+      chips.innerHTML = '<span class="loading">暂无考场数据</span>';
+      return;
+    }
+    renderRoomChips();
+    renderDayChips();
+    // 支持 ?room=Wenti101 直接定位（门口表二维码 / 书签用）
+    const want = new URLSearchParams(location.search).get('room');
+    const hit = state.rooms.find(r => r.room.toLowerCase() === (want || '').toLowerCase());
+    pickRoom((hit || state.rooms[0]).room);
+  } catch (err) {
+    chips.innerHTML = '';
+    area.innerHTML = `<div class="error-msg">⚠️ 加载考场清单失败：${esc(err.message)}</div>`;
+  }
+}
+
+function renderRoomChips() {
+  const q = (document.getElementById('roomFilter').value || '').trim().toLowerCase();
+  const list = state.rooms.filter(r => !q || r.room.toLowerCase().includes(q));
+  chips.innerHTML = list.map(r => `
+    <button class="chip ${r.room === state.room ? 'on' : ''} ${r.maxCount > 25 ? 'warn' : ''}"
+            onclick="pickRoom('${esc(r.room)}')" title="${r.sessionCount} 场 · 最多 ${r.maxCount} 人">
+      ${esc(r.room)}<span class="badge">${r.sessionCount}</span>
+    </button>`).join('') || '<span class="loading">无匹配教室</span>';
+}
+
+function renderDayChips() {
+  const days = [...new Set(state.rooms.flatMap(r => r.sessions.map(s => s.date)))];
+  days.sort((a, b) => dateKey(a) - dateKey(b));
+  dayChips.innerHTML = `<button class="chip ${!state.day ? 'on' : ''}" onclick="pickDay('')">全部日期</button>`
+    + days.map(d => `<button class="chip ${state.day === d ? 'on' : ''}"
+        onclick="pickDay('${esc(d)}')">${esc(d)}</button>`).join('');
+}
+
+const SLOT_ORDER = { '上午': 0, '下午①': 1, '下午②': 2 };
+function dateKey(d) {
+  const m = /^(\d+)月(\d+)日$/.exec(d || '');
+  return m ? Number(m[1]) * 100 + Number(m[2]) : 9999;
+}
+
+function pickDay(d) { state.day = d; renderDayChips(); loadRoom(state.room); }
+function pickRoom(room) {
+  state.room = room;
+  renderRoomChips();
+  loadRoom(room);
+}
+
+async function loadRoom(room) {
+  if (!room) return;
+  area.innerHTML = '<div class="loading">加载名单中…</div>';
+  summary.innerHTML = '';
+  try {
+    const res = await fetch(`${API_BASE}/api/exams/room?room=${encodeURIComponent(room)}`);
+    if (!res.ok) throw new Error(`服务器返回 ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    renderRoom(data);
+  } catch (err) {
+    area.innerHTML = `<div class="error-msg">⚠️ 查询失败：${esc(err.message)}</div>`;
+  }
+}
+
+function renderRoom(data) {
+  let sessions = (data.sessions || []).slice();
+  if (state.day) sessions = sessions.filter(s => s.date === state.day);
+
+  const meta = state.rooms.find(r => r.room === data.room) || {};
+  const shownSeats = sessions.reduce((n, s) => n + s.rosterCount, 0);
+  summary.innerHTML = `考场 <b>${esc(data.room)}</b>　本学期 ${meta.sessionCount || sessions.length} 场`
+    + `　·　当前显示 <b>${sessions.length}</b> 场、共 <b>${shownSeats}</b> 人次`
+    + (meta.multiPaper ? `　·　其中 <b>${meta.multiPaper}</b> 场同堂不同卷` : '')
+    + ((meta.maxCount || 0) > 25 ? `　·　<b>${esc(data.room)}</b> 有整班考场超 25 人（见备注）` : '');
+
+  if (!sessions.length) {
+    area.innerHTML = `<div class="empty"><div class="icon">🗓️</div>
+      <p>${esc(data.room)} 在该日期没有安排考试</p></div>`;
+    return;
+  }
+  area.innerHTML = sessions.map(renderSession).join('');
+}
+
+function renderSession(s) {
+  const flag = [];
+  if (s.merged) flag.push('<span class="flag merge">⚠ 同堂不同卷 · 需发两份卷</span>');
+  if (s.countMismatch) flag.push(`<span class="flag alert">⚠ 表上 ${s.studentCount} 人 / 名单 ${s.rosterCount} 人，请联系排考老师</span>`);
+  if (s.studentCount > 25) flag.push('<span class="flag merge">超通用上限 25 人</span>');
+
+  return `
+  <section class="session">
+    <div class="session-head">
+      <div class="session-title">
+        <span class="when">${esc(s.date)} ${esc(s.weekday)}</span>
+        <span class="tag">${esc(s.slot)}</span>
+        <span class="subject">${esc(s.subject)}</span>
+        ${flag.join(' ')}
+      </div>
+      <div class="session-meta">
+        <span>时间 <b>${esc(s.time)}</b></span>
+        <span>班级 <b>${esc(s.classLabel)}</b></span>
+        <span>试卷 <b>${esc(s.paper)}</b></span>
+        <span>时长 <b>${esc(s.duration)}</b></span>
+        <span>人数 <b>${s.rosterCount}</b></span>
+        <span>监考 <b>${esc(s.proctor)}</b></span>
+        ${s.teacher ? `<span>主讲 <b>${esc(s.teacher)}</b></span>` : ''}
+      </div>
+      ${s.note ? `<div class="note">💡 ${esc(s.note)}</div>` : ''}
+    </div>
+    ${s.papers.map(p => `
+      <div class="paper-group">
+        <div class="paper-title">
+          <span class="pname">${esc(p.paper)}</span>
+          <span class="pcnt">${p.count} 人</span>
+          ${p.endTime ? `<span class="pend">⏱ ${esc(p.endTime)} 交卷</span>` : ''}
+        </div>
+        <div class="roster">
+          ${p.students.map(x => `
+            <div class="student">
+              <span class="seq">${x.seq}</span>
+              <span class="nm">${esc(x.name)}</span>
+              <span class="en">${esc(x.enName)}</span>
+              <span class="adm">${esc(x.adminClass)}</span>
+            </div>`).join('')}
+        </div>
+      </div>`).join('')}
+  </section>`;
+}
+
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+boot();
+</script>
+</body>
+</html>

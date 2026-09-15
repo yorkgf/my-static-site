@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>监考安排查询 — GHA</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f7fa; --card: #fff; --ink: #1a1a2e; --muted: #6b7280;
+  --accent: #7c3aed; --accent-light: #ede9fe; --border: #e5e7eb;
+  --field: #f9fafb; --hover: #f5f3ff; --shadow: 0 1px 3px rgba(0,0,0,.08);
+  --radius: 10px; --tag-bg: #f5f3ff; --tag-ink: #5b21b6;
+  --day-bg: #faf5ff; --day-border: #e9d5ff;
+}
+[data-theme="dark"] {
+  --bg: #0f172a; --card: #1e293b; --ink: #e2e8f0; --muted: #94a3b8;
+  --accent: #a78bfa; --accent-light: #2e1065; --border: #334155;
+  --field: #1e293b; --hover: #2d2b4a; --shadow: 0 1px 3px rgba(0,0,0,.3);
+  --tag-bg: #2e1065; --tag-ink: #c4b5fd;
+  --day-bg: #1a1333; --day-border: #4c1d95;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg); color: var(--ink); line-height: 1.6;
+  min-height: 100vh; transition: background .3s, color .3s;
+}
+.container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+header { text-align: center; margin-bottom: 1.6rem; }
+header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: .3rem; }
+header p { color: var(--muted); font-size: .9rem; }
+.nav {
+  display: flex; justify-content: center; gap: .4rem; flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.nav a {
+  padding: .4rem .9rem; border-radius: 999px; text-decoration: none;
+  color: var(--muted); font-size: .85rem; font-weight: 600;
+  border: 1px solid transparent; transition: all .15s;
+}
+.nav a:hover { color: var(--accent); background: var(--hover); }
+.nav a.cur {
+  color: var(--accent); background: var(--accent-light);
+  border-color: var(--accent);
+}
+.theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 50%; width: 40px; height: 40px; cursor: pointer;
+  font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); transition: background .2s;
+}
+.theme-toggle:hover { background: var(--hover); }
+
+.search-box {
+  background: var(--card); border-radius: var(--radius); padding: 1.5rem;
+  box-shadow: var(--shadow); margin-bottom: 1.5rem;
+}
+.search-row { display: flex; gap: .75rem; }
+.search-input {
+  flex: 1; padding: .7rem 1rem; border: 1px solid var(--border);
+  border-radius: 8px; font-size: 1rem; background: var(--field); color: var(--ink);
+  outline: none; transition: border .2s;
+}
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--muted); }
+.search-btn {
+  padding: .7rem 1.5rem; background: var(--accent); color: #fff;
+  border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;
+  font-weight: 600; transition: opacity .2s; white-space: nowrap;
+}
+.search-btn:hover { opacity: .9; }
+.search-btn:disabled { opacity: .5; cursor: not-allowed; }
+.hint { margin-top: .75rem; color: var(--muted); font-size: .8rem; }
+
+.result-card {
+  background: var(--card); border-radius: var(--radius); padding: 1.5rem;
+  box-shadow: var(--shadow); margin-bottom: 1rem;
+}
+.teacher-header {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; align-items: baseline;
+  margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+}
+.teacher-header .name { font-size: 1.2rem; font-weight: 700; }
+.teacher-header .count { color: var(--muted); font-size: .9rem; }
+
+.day-section {
+  background: var(--day-bg); border: 1px solid var(--day-border);
+  border-radius: 8px; padding: 1rem; margin-bottom: 1rem;
+}
+.day-title {
+  font-size: 1rem; font-weight: 700; margin-bottom: .75rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.day-title .date { color: var(--accent); }
+
+.assign-card {
+  background: var(--card); border-radius: 6px; padding: .8rem 1rem;
+  margin-bottom: .5rem; border: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: .3rem 1.5rem; align-items: center;
+}
+.assign-card:last-child { margin-bottom: 0; }
+.assign-card .time { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.assign-card .slot-tag {
+  display: inline-block; padding: .1rem .45rem; border-radius: 4px;
+  font-size: .72rem; font-weight: 600; background: var(--tag-bg); color: var(--tag-ink);
+}
+.assign-card .room { font-weight: 700; color: var(--accent); }
+.assign-card .subj { font-weight: 600; }
+.assign-card .meta { color: var(--muted); font-size: .85rem; }
+.assign-card .note {
+  width: 100%; margin-top: .3rem; font-size: .8rem; color: var(--muted);
+  font-style: italic;
+}
+
+.empty-state { text-align: center; padding: 3rem 1rem; color: var(--muted); }
+.empty-state .icon { font-size: 2.5rem; margin-bottom: .5rem; }
+.error-msg {
+  background: #fef2f2; color: #991b1b; border: 1px solid #fecaca;
+  border-radius: 8px; padding: .75rem 1rem; font-size: .9rem; margin-bottom: 1rem;
+}
+[data-theme="dark"] .error-msg { background: #3b1111; color: #fca5a5; border-color: #7f1d1d; }
+
+/* 统计摘要 */
+.summary-bar {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-bottom: 1rem;
+}
+.summary-item {
+  background: var(--accent-light); border-radius: 6px; padding: .4rem .8rem;
+  font-size: .85rem; font-weight: 600; color: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .container { padding: 1rem; }
+  header h1 { font-size: 1.3rem; }
+  .search-row { flex-direction: column; }
+  .search-btn { width: 100%; }
+  .assign-card { font-size: .85rem; gap: .2rem 1rem; }
+}
+@media print {
+  .theme-toggle, .search-box, .nav { display: none; }
+  body { background: #fff; color: #000; }
+  .result-card { box-shadow: none; border: 1px solid #ddd; }
+  .day-section { break-inside: avoid; }
+}
+</style>
+<script>
+(function(){try{if(localStorage.getItem('examTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}})();
+</script>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="切换深色/浅色">🌙</button>
+
+<div class="container">
+  <header>
+    <h1>📋 监考安排查询</h1>
+    <p>2026 年 10 月 8 日 – 10 日　｜　输入姓名查看你的监考安排</p>
+  </header>
+
+  <nav class="nav">
+    <a href="exam-student.html">👤 我的考试安排</a>
+    <a href="exam-teacher.html" class="cur">📋 我的监考安排</a>
+    <a href="exam-room.html">🏫 考场考生名单</a>
+  </nav>
+
+  <div class="search-box">
+    <div class="search-row">
+      <input type="text" class="search-input" id="searchInput"
+             placeholder="输入教师姓名（如 张诗文 或 Shiwen）"
+             autocomplete="off" autofocus>
+      <button class="search-btn" id="searchBtn" onclick="doSearch()">查询</button>
+    </div>
+    <div class="hint">支持中文名或英文名搜索，如「张诗文」「Shiwen」「Shiwen Zhang」</div>
+  </div>
+
+  <div id="resultArea"></div>
+</div>
+
+<script>
+/* 后端地址优先级：?api=… ＞ localStorage['examApiBase'] ＞ 内置默认。
+   要 ?api= 这一档，是为了不改代码、不发版就能验证一个刚部署的后端。
+   区分“没这个键”与“值为空”：测离线时要能把默认值真绕开。
+   localStorage 在隐私模式会抛异常，整段包 try/catch —— 否则这行一报错整个脚本就死，页面成死页。 */
+const API_DEFAULT = 'https://1300190563-j54idzrb8c.ap-shanghai.tencentscf.com';
+let API_BASE = API_DEFAULT;
+try {
+  const q = new URLSearchParams(location.search).get('api');
+  const stored = localStorage.getItem('examApiBase');
+  if (q !== null) API_BASE = q.trim();
+  else if (stored !== null) API_BASE = stored.trim();
+} catch (e) { /* 隐私模式：用内置默认 */ }
+API_BASE = API_BASE.replace(/\/+$/, '');   // 尾斜杠会变成 //api/…，部署时很容易多打一个
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? '' : 'dark');
+  try { localStorage.setItem('examTheme', dark ? '' : 'dark'); } catch(e) {}
+  document.querySelector('.theme-toggle').textContent = dark ? '🌙' : '☀️';
+}
+(function(){if(document.documentElement.getAttribute('data-theme')==='dark')document.querySelector('.theme-toggle').textContent='☀️'})();
+
+const input = document.getElementById('searchInput');
+const btn = document.getElementById('searchBtn');
+const area = document.getElementById('resultArea');
+
+input.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+async function doSearch() {
+  const name = input.value.trim();
+  if (!name) { input.focus(); return; }
+  btn.disabled = true; btn.textContent = '查询中…';
+  area.innerHTML = '';
+  try {
+    const res = await fetch(`${API_BASE}/api/exams/teacher?name=${encodeURIComponent(name)}`);
+    if (!res.ok) throw new Error(`服务器返回 ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    renderResult(data);
+  } catch (err) {
+    area.innerHTML = `<div class="error-msg">⚠️ 查询失败：${esc(err.message)}</div>`;
+  } finally {
+    btn.disabled = false; btn.textContent = '查询';
+  }
+}
+
+function renderResult(data) {
+  if (data.count === 0) {
+    area.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">🔍</div>
+        <p>未找到「${esc(data.query || '')}」的监考安排</p>
+        <p style="margin-top:.5rem;font-size:.85rem">请检查姓名是否正确，或尝试用英文名搜索</p>
+      </div>`;
+    return;
+  }
+
+  const assignments = data.assignments || [];
+  // 按日期分组
+  const byDate = new Map();
+  for (const a of assignments) {
+    if (!byDate.has(a.date)) byDate.set(a.date, []);
+    byDate.get(a.date).push(a);
+  }
+
+  // 统计
+  const totalRooms = assignments.length;
+  const totalStudents = assignments.reduce((s, a) => s + (a.studentCount || 0), 0);
+  const days = byDate.size;
+
+  let html = `
+    <div class="result-card">
+      <div class="teacher-header">
+        <span class="name">📢 ${esc(data.proctor)}</span>
+        <span class="count">共 ${totalRooms} 场监考</span>
+      </div>
+      <div class="summary-bar">
+        <div class="summary-item">📅 ${days} 天</div>
+        <div class="summary-item">🏫 ${totalRooms} 间考场</div>
+        <div class="summary-item">👥 约 ${totalStudents} 人次</div>
+      </div>`;
+
+  for (const [date, items] of byDate) {
+    html += `
+      <div class="day-section">
+        <div class="day-title">
+          <span class="date">${esc(date)}</span>
+          <span>${esc(items[0].weekday)}</span>
+          <span style="color:var(--muted);font-size:.85rem">${items.length} 场</span>
+        </div>`;
+    for (const a of items) {
+      html += `
+        <div class="assign-card">
+          <span class="slot-tag">${esc(a.slot)}</span>
+          <span class="time">${esc(a.time)}</span>
+          <span class="room">${esc(a.room)}</span>
+          <span class="subj">${esc(a.subject)}</span>
+          <span style="color:var(--muted);font-size:.85rem">${esc(a.paper)}</span>
+          <span class="meta">${esc(a.className)} · ${a.studentCount}人 · ${esc(a.duration)}</span>
+          ${a.teacher ? `<span class="meta">主讲: ${esc(a.teacher)}</span>` : ''}
+          ${a.note ? `<div class="note">💡 ${esc(a.note)}</div>` : ''}
+        </div>`;
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+  area.innerHTML = html;
+}
+
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

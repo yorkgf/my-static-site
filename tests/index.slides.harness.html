@@ -1,0 +1,103 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>index exam slide harness</title></head>
+<body>
+<pre id="harness">(running…)</pre>
+<script>
+const out = []; let passed = 0, failed = 0;
+const ok = (n, c, x = '') => { c ? (passed++, out.push('  ✓ ' + n)) : (failed++, out.push('  ✗ ' + n + (x ? '  → ' + x : ''))); };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const txt = e => (e?.textContent || '').replace(/\s+/g, ' ').trim();
+async function until(fn, ms = 6000) {
+  const t0 = Date.now();
+  while (Date.now() - t0 < ms) { let v = null; try { v = fn(); } catch (e) {} if (v) return v; await sleep(60); }
+  return null;
+}
+function open(w, h) {
+  return new Promise(res => {
+    const f = document.createElement('iframe');
+    f.style.cssText = `width:${w}px;height:${h}px;border:0;position:fixed;left:-9999px;top:0`;
+    f.src = '../index.html'; f.onload = () => res(f); document.body.appendChild(f);
+  });
+}
+
+(async () => {
+  /* ── 结构 ── */
+  {
+    const f = await open(1280, 800);
+    const d = f.contentDocument, w = f.contentWindow;
+    ok('共 7 页 slide', d.querySelectorAll('.slide').length === 7, String(d.querySelectorAll('.slide').length));
+    ok('共 7 个导航圆点', d.querySelectorAll('.nav-dot').length === 7, String(d.querySelectorAll('.nav-dot').length));
+    const idx = [...d.querySelectorAll('.slide')].map(s => s.dataset.slide);
+    ok('data-slide 连续且与 DOM 顺序一致', idx.join(',') === '0,1,2,3,4,5,6', idx.join(','));
+
+    const exam = d.querySelector('.slide[data-slide="5"]');
+    const cont = d.querySelector('.slide[data-slide="6"]');
+    ok('考试页在 To Continue 之前',
+      /考试信息查询/.test(txt(exam)) && /To Continue/.test(txt(cont)));
+
+    /* 导航到第 6 页 */
+    d.querySelectorAll('.nav-dot')[5].click();
+    await until(() => exam.classList.contains('active'));
+    ok('点第 6 个圆点能切到考试页', exam.classList.contains('active') && !cont.classList.contains('active'));
+    ok('当前圆点高亮位置正确',
+      d.querySelectorAll('.nav-dot')[5].classList.contains('active'),
+      [...d.querySelectorAll('.nav-dot')].findIndex(x => x.classList.contains('active')) + ' 号点亮');
+
+    const cards = exam.querySelectorAll('.exam-card');
+    ok('三个入口卡片齐全', cards.length === 3, String(cards.length));
+    const hrefs = [...cards].map(c => c.getAttribute('href'));
+    ok('三个入口分别指向学生/教师/考场页',
+      hrefs.join(',') === 'exam-student.html,exam-teacher.html,exam-room.html', hrefs.join(','));
+    ok('每张卡都写清给谁用',
+      [...cards].every(c => /For Students|For Teachers|For Rooms/.test(txt(c))),
+      [...cards].map(txt).join(' | ').slice(0, 90));
+    ok('三张卡各自的主色不同（不是同一颜色贴三遍）',
+      new Set([...cards].map(c => c.style.getPropertyValue('--c').trim())).size === 3);
+    ok('To Continue 里不再重复挂考试入口',
+      !/exam-/.test(cont.querySelector('.tools-row') ? cont.querySelector('.tools-row').innerHTML : ''),
+      '仍有残留链接');
+
+    /* 键盘翻页 + 回绕 */
+    const press = k => d.dispatchEvent(new w.KeyboardEvent('keydown', { key: k, bubbles: true }));
+    press('ArrowRight');
+    await until(() => cont.classList.contains('active'));
+    ok('右方向键：考试页 → To Continue', cont.classList.contains('active'));
+    press('ArrowRight');
+    await until(() => d.querySelector('.slide[data-slide="0"]').classList.contains('active'));
+    ok('到末页后继续右翻回绕到首页',
+      d.querySelector('.slide[data-slide="0"]').classList.contains('active'));
+    press('ArrowLeft');
+    await until(() => cont.classList.contains('active'));
+    ok('左方向键从首页回绕到末页（To Continue）', cont.classList.contains('active'));
+    f.remove();
+  }
+
+  /* ── 各视口不溢出：.slide 是 100vh 定高，超出会被静默裁掉 ── */
+  for (const [wpx, hpx, name] of [[390, 844, 'iPhone 12 竖屏'], [375, 667, 'iPhone SE/8'],
+                                  [360, 740, '小安卓'], [320, 568, '超小屏'],
+                                  [740, 360, '手机横屏'], [768, 1024, '平板'],
+                                  [1280, 800, '桌面'], [1280, 700, '矮笔记本']]) {
+    const f = await open(wpx, hpx);
+    const d = f.contentDocument;
+    d.querySelectorAll('.nav-dot')[5].click();
+    const exam = d.querySelector('.slide[data-slide="5"]');
+    await until(() => exam.classList.contains('active'));
+    await sleep(250);
+    const need = exam.scrollHeight, have = f.contentWindow.innerHeight;
+    const last = [...exam.querySelectorAll('*')].map(e => e.getBoundingClientRect().bottom);
+    const lowest = Math.max(...last.filter(n => Number.isFinite(n)));
+    ok(`${name} ${wpx}×${hpx}：内容不被 100vh 裁掉（需 ${need}px / 有 ${have}px）`,
+      need <= have + 1 && lowest <= have + 1,
+      `溢出 ${need - have}px，最低元素 bottom=${Math.round(lowest)}`);
+    const cards = [...exam.querySelectorAll('.exam-card')];
+    ok(`${name}：三张入口都在视口内且可点`,
+      cards.length === 3 && cards.every(c => {
+        const r = c.getBoundingClientRect();
+        return r.height >= 56 && r.width >= 88 && r.top >= -1 && r.bottom <= have + 1;
+      }),
+      cards.map(c => `${Math.round(c.getBoundingClientRect().width)}×${Math.round(c.getBoundingClientRect().height)}`).join(' '));
+    f.remove();
+  }
+  document.getElementById('harness').textContent =
+    '\n' + out.join('\n') + `\n\n${failed ? 'FAILED ' + failed : 'ALL PASS'} (${passed} passed)\n`;
+})();
+</script></body></html>

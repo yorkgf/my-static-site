@@ -274,6 +274,85 @@
         }
         .quick-links a:hover { color: #ffcf7a; border-color: rgba(255, 179, 71, .7); }
 
+        /* ══════ 考试信息查询页：三个入口，颜色跟各自子页的主色一致 ══════ */
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.4rem;
+            width: min(100%, 940px);
+            margin-top: .5rem;
+        }
+        .exam-card {
+            --c: 124, 196, 255;                     /* 每张卡只改这个三元组 */
+            display: flex; flex-direction: column; align-items: center; gap: .3rem;
+            padding: 1.7rem 1.1rem 1.4rem;
+            border: 1px solid rgba(var(--c), .45);
+            border-radius: 16px;
+            background: rgba(var(--c), .07);
+            box-shadow: 0 0 24px rgba(var(--c), .18);
+            color: #fff; text-decoration: none;
+            transition: transform .25s, box-shadow .25s, background .25s, border-color .25s;
+        }
+        .exam-card:hover {
+            transform: translateY(-4px);
+            background: rgba(var(--c), .16);
+            border-color: rgba(var(--c), .8);
+            box-shadow: 0 0 42px rgba(var(--c), .45);
+        }
+        .exam-card:focus-visible {
+            outline: 2px solid rgba(var(--c), .9);
+            outline-offset: 3px;
+        }
+        .exam-card .ico { font-size: clamp(2rem, 5vw, 2.6rem); line-height: 1; }
+        .exam-card .zh {
+            font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+            font-weight: 700; margin-top: .5rem;
+        }
+        .exam-card .en {
+            font-size: clamp(.68rem, 1.8vw, .8rem);
+            letter-spacing: .14em; text-transform: uppercase;
+            color: rgb(var(--c));
+        }
+        .exam-card .who {
+            margin-top: .6rem; text-align: center;
+            font-size: clamp(.76rem, 1.9vw, .88rem);
+            line-height: 1.55; color: rgba(255, 255, 255, .6);
+            font-weight: normal;
+        }
+        .exam-sub {
+            font-size: clamp(.95rem, 2.4vw, 1.15rem);
+            opacity: .8; margin-top: -1.2rem; margin-bottom: 1.6rem;
+        }
+        .exam-note {
+            margin-top: 1.9rem;
+            font-size: clamp(.76rem, 2vw, .9rem);
+            color: rgba(255, 255, 255, .45);
+        }
+
+        /* .slide 是定高 100vh + 居中，内容一旦超高会被**静默裁掉**（不滚动、不报错）。
+           这一页有标题 + 副标题 + 三张卡 + 脚注，在 375×667 上实测溢出 29px，
+           手机横屏溢出 111px —— 所以按高度逐级压缩，而不是按宽度（矮才是问题）。 */
+        @media (max-height: 720px) {
+            .exam-sub { margin-top: -.6rem; margin-bottom: .9rem; }
+            .exam-grid { gap: .75rem; }
+            .exam-card { padding: 1rem .8rem .9rem; gap: .2rem; }
+            .exam-card .ico { font-size: 1.7rem; }
+            .exam-card .zh { font-size: 1.05rem; margin-top: .25rem; }
+            .exam-card .who { margin-top: .35rem; font-size: .72rem; line-height: 1.4; }
+            .exam-note { margin-top: .9rem; }
+        }
+        @media (max-height: 600px) {
+            .slide[data-slide="5"] h2 { font-size: clamp(1.5rem, 5vw, 2rem); margin-bottom: .6rem; }
+            .exam-sub, .exam-card .who, .exam-note { display: none; }
+            .exam-card { padding: .8rem .7rem; }
+            .exam-grid { gap: .6rem; }
+        }
+        /* 横屏手机：又矮又宽，单列堆叠浪费横向空间，改三列一行 */
+        @media (max-height: 480px) and (min-width: 560px) {
+            .exam-grid { grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+            .exam-card .zh { font-size: .95rem; }
+        }
+
         .planet {
             width: 150px;
             height: 150px;
@@ -307,6 +386,7 @@
             <p style="font-style: italic; opacity: 0.8;">Begin your science adventure</p>
             <nav class="quick-links">
                 <a href="officehour.html">🕑 教师 Office Hour</a>
+                <a href="exam-student.html">📝 期中考试安排</a>
                 <a href="wordcloud.html">☁️ 课堂词云</a>
             </nav>
         </div>
@@ -357,8 +437,35 @@
             </ul>
         </div>
 
-        <!-- Slide 6: Future -->
+        <!-- Slide 6: 考试信息查询 -->
         <div class="slide" data-slide="5">
+            <h2>考试信息查询</h2>
+            <p class="exam-sub">2026 年 10 月 8 日 – 10 日　期中考试</p>
+            <div class="exam-grid">
+                <a href="exam-student.html" class="exam-card" style="--c: 124, 196, 255;">
+                    <span class="ico">📝</span>
+                    <span class="zh">我的考试安排</span>
+                    <span class="en">For Students</span>
+                    <span class="who">输入姓名，查自己的考试科目、考场与时间</span>
+                </a>
+                <a href="exam-teacher.html" class="exam-card" style="--c: 196, 181, 253;">
+                    <span class="ico">📋</span>
+                    <span class="zh">我的监考安排</span>
+                    <span class="en">For Teachers</span>
+                    <span class="who">查你哪天、哪间教室监考，含场次与人数</span>
+                </a>
+                <a href="exam-room.html" class="exam-card" style="--c: 94, 234, 212;">
+                    <span class="ico">🏫</span>
+                    <span class="zh">考场考生名单</span>
+                    <span class="en">For Rooms</span>
+                    <span class="who">按教室看每场就考的全体学生，可打印</span>
+                </a>
+            </div>
+            <p class="exam-note">数据每次重新排考后更新　·　姓名支持中文与英文</p>
+        </div>
+
+        <!-- Slide 7: Future -->
+        <div class="slide" data-slide="6">
             <h2>To Continue</h2>
             <p style="font-style: italic; opacity: 0.8; font-size: clamp(1.2rem, 3.5vw, 1.8rem);">This section will be completed in the future...</p>
             <div class="tools-row">
@@ -382,6 +489,7 @@
         <button class="nav-dot" onclick="goToSlide(3)"></button>
         <button class="nav-dot" onclick="goToSlide(4)"></button>
         <button class="nav-dot" onclick="goToSlide(5)"></button>
+        <button class="nav-dot" onclick="goToSlide(6)"></button>
     </div>
 
     <script>
