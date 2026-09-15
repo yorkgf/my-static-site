@@ -212,10 +212,15 @@ header p { color: var(--muted); font-size: .9rem; }
 </div>
 
 <script>
-/* 后端地址优先级：?api=… ＞ localStorage['examApiBase'] ＞ 内置默认。
-   要 ?api= 这一档，是为了不改代码、不发版就能验证一个刚部署的后端。
-   区分“没这个键”与“值为空”：测离线时要能把默认值真绕开。
-   localStorage 在隐私模式会抛异常，整段包 try/catch —— 否则这行一报错整个脚本就死，页面成死页。 */
+/* ──8<── 共用块 BEGIN（三页逐字相同；tests/run.sh 会查漂移）──
+ * 后端地址优先级：?api=… ＞ localStorage['examApiBase'] ＞ 内置默认。
+ * 要 ?api= 这一档，是为了不改代码、不发版就能验证一个刚部署的后端。
+ * 区分“没这个键”与“值为空”：测离线时要能把默认值真绕开。
+ * localStorage 在隐私模式会抛异常，整段包 try/catch —— 否则这行一报错整个脚本就死，页面成死页。
+ *
+ * 日期排序同理：云函数改版要重新上传 zip，页面 push 就生效，
+ * 所以显示层自己再排一次，不依赖后端顺序。中文日期串按字典序排会得到
+ * 「10月10日 < 10月8日」（'1' < '8'），必须换算成数字再排。 */
 const API_DEFAULT = 'https://1300190563-j54idzrb8c.ap-shanghai.tencentscf.com';
 let API_BASE = API_DEFAULT;
 try {
@@ -226,6 +231,18 @@ try {
 } catch (e) { /* 隐私模式：用内置默认 */ }
 API_BASE = API_BASE.replace(/\/+$/, '');   // 尾斜杠会变成 //api/…，部署时很容易多打一个
 
+const SLOT_RANK = { '上午': 0, '下午①': 1, '下午②': 2 };
+function dayRank(x) {
+  if (typeof x.dateSort === 'number') return x.dateSort;      // 后端算好的数字键优先
+  const m = /^(\d+)月(\d+)日$/.exec(String(x.date || '').trim());
+  return m ? Number(m[1]) * 100 + Number(m[2]) : 9999;         // 解析不了就沉到末尾
+}
+function slotRank(x) {
+  return typeof x.slotSort === 'number' ? x.slotSort : (SLOT_RANK[x.slot] ?? 99);
+}
+const byWhen = (a, b) => dayRank(a) - dayRank(b) || slotRank(a) - slotRank(b)
+  || String(a.time || '').localeCompare(String(b.time || ''));
+/* ──8<── 共用块 END ── */
 const state = { rooms: [], room: '', day: '' };
 
 function toggleTheme() {
@@ -314,7 +331,7 @@ async function loadRoom(room) {
 }
 
 function renderRoom(data) {
-  let sessions = (data.sessions || []).slice();
+  let sessions = (data.sessions || []).slice().sort(byWhen);
   if (state.day) sessions = sessions.filter(s => s.date === state.day);
 
   const meta = state.rooms.find(r => r.room === data.room) || {};
